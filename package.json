@@ -31,6 +31,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.0",
     "@vuepress/plugin-docsearch": "^2.0.0-beta.27",
+    "@vuepress/plugin-palette": "^2.0.0-alpha.26",
     "@vuepress/plugin-register-components": "^2.0.0-beta.27",
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.9.1",
