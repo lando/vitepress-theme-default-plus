@@ -1,0 +1,14 @@
+name: lando-vuepress-docs-theme
+services:
+  node:
+    type: node:14
+    build:
+      - yarn install
+    scanner: false
+    ssl: false
+    sslExpose: false
+tooling:
+  node:
+    service: node
+  yarn:
+    service: node
