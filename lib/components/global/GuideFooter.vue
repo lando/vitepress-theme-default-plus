@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../styles/main.scss';
+@import '../../styles/main.scss';
 
 .originally-appeared {
   margin-top: 2rem;

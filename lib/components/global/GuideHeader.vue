@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../styles/main.scss';
+@import '../../styles/main.scss';
 
 .written-by {
   font-size: 0.85em;

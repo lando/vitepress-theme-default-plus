@@ -31,7 +31,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../styles/main.scss';
+@import '../../styles/main.scss';
 
 .newsletter {
 	text-align: center;

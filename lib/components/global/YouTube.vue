@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../styles/main.scss';
+@import '../../styles/main.scss';
 
 .video-responsive {
 	margin-top: 1em;

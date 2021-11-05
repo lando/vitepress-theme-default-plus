@@ -11,6 +11,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../styles/index.scss';
-@import '@vuepress/plugin-palette/palette';
+@import '../styles/main.scss';
 </style>

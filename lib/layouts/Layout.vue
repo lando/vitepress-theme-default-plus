@@ -25,7 +25,5 @@ const {showSponsors = true} = themeData.value;
 </script>
 
 <style lang="scss">
-@import '../styles/index.scss';
-@import '../styles/palette.scss';
-@import '@vuepress/plugin-palette/palette';
+@import '../styles/main.scss';
 </style>
