@@ -17,9 +17,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../theme/styles/index.scss';
-@import '../theme/styles/palette.scss';
-@import '@vuepress/plugin-palette/palette';
+@import '../styles/main.scss';
 
 .video-responsive {
 	margin-top: 1em;
