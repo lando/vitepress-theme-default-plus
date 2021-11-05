@@ -1,6 +1,6 @@
-# VuePress 2 Theme for Lando Docs
+# VuePress 2 Theme for Lando Doc Based Sites
 
-Contains the theme and docs for the [VuePress 2](https://v2.vuepress.vuejs.org/) [Lando Docs](https://docs.lando.dev/) Sites.
+Contains the theme and docs for the [VuePress 2](https://v2.vuepress.vuejs.org/) [Lando Docs](https://docs.lando.dev/) Based Sites.
 
 ## Usage
 
