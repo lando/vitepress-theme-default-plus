@@ -31,14 +31,14 @@ We try to log all changes big and small in both [THE CHANGELOG](https://github.c
 * Prefers [Yarn](https://classic.yarnpkg.com/lang/en/docs/install)
 
 ```bash
-git clone https://github.com/lando/website.git && cd website
+git clone https://github.com/lando/vuepress-docs-theme.git && cd vuepress-docs-theme
 yarn install
 ```
 
 If you dont' want to install Node 14 or Yarn for whatever reason you can install [Lando](https://docs.lando.dev/basics/installation.html) and use that:
 
 ```bash
-git clone https://github.com/lando/vuepress-docs-theme.git && cd website
+git clone https://github.com/lando/vuepress-docs-theme.git && cd vuepress-docs-theme
 # Install deps and get node
 lando start
 
