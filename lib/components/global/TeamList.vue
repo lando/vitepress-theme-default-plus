@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import TeamMember from '../theme/components/TeamMember.vue';
+import TeamMember from '../TeamMember.vue';
 
 export default {
   name: 'TeamList',

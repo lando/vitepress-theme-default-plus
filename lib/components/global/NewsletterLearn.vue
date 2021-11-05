@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Subscribe from '../theme/components/Subscribe.vue';
+import Subscribe from '../Subscribe.vue';
 
 export default {
   name: 'NewsletterLearn',
