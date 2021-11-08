@@ -1,12 +1,12 @@
 {
-  "name": "@lando/vuepress-docs-theme",
+  "name": "@lando/vuepress-theme-lando-docs",
   "description": "A VuePress 2 Theme for Lando Doc Based Sites",
   "version": "0.1.2",
   "author": "John Ouellet @labboy0276",
   "license": "GPL-3.0",
-  "repository": "github:lando/vuepress-docs-theme",
-  "bugs": "https://github.com/lando/vuepress-docs-theme/issues/new/choose/",
-  "homepage": "https://github.com/lando/vuepress-docs-theme",
+  "repository": "github:lando/vuepress-theme-lando-docs",
+  "bugs": "https://github.com/lando/vuepress-theme-lando-docs/issues/new/choose/",
+  "homepage": "https://github.com/lando/vuepress-theme-lando-docs",
   "keywords": [
     "lando",
     "vuepress"

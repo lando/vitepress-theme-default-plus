@@ -7,7 +7,7 @@ Add the theme name to your [theme key](https://v2.vuepress.vuejs.org/guide/theme
 ```
 module.exports = {
   ...
-  theme: '@lando/vuepress-docs-theme',
+  theme: '@lando/vuepress-theme-lando-docs',
   ...
 };
 ```
@@ -18,7 +18,7 @@ The theme comes with 2 optional components that can be set via the [themeConfig]
 
 ### showCarbonAds Option
 
-The `showCarbonAds` will display the [Carbon Ads component](https://github.com/lando/vuepress-docs-theme/blob/main/lib/components/CarbonAds.vue).  This component will display in the `#sidebar-top` [slot](https://v2.vuepress.vuejs.org/advanced/cookbook/extending-a-theme.html#extend-default-theme) from the default theme.  Set to `false` to hide this component.
+The `showCarbonAds` will display the [Carbon Ads component](https://github.com/lando/vuepress-theme-lando-docs/blob/main/lib/components/CarbonAds.vue).  This component will display in the `#sidebar-top` [slot](https://v2.vuepress.vuejs.org/advanced/cookbook/extending-a-theme.html#extend-default-theme) from the default theme.  Set to `false` to hide this component.
 
 ### showSponsors / sponsors Options
 
@@ -36,7 +36,7 @@ const fs = require('fs');
 
 module.exports = {
   ...
-  theme: '@lando/vuepress-docs-theme'
+  theme: '@lando/vuepress-theme-lando-docs'
   themeConfig: {
     sponsors: yaml.load(fs.readFileSync(path.resolve(__dirname, 'public') + '/api/sponsors.yml', 'utf8')),
     showSponsors: ['platformsh'],

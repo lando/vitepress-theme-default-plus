@@ -9,14 +9,14 @@ Add the theme name to your [theme key](https://v2.vuepress.vuejs.org/guide/theme
 ```
 module.exports = {
   ...
-  theme: '@lando/vuepress-docs-theme',
+  theme: '@lando/vuepress-theme-lando-docs',
   ...
 };
 ```
 
 ## Docs
 
-For more detailed information on options and other configs, please [visit the docs](https://vuepress-docs-theme.lando.dev/) for this repo.
+For more detailed information on options and other configs, please [visit the docs](https://vuepress-theme-lando-docs.lando.dev/) for this repo.
 
 ## Issues, Questions and Support
 
@@ -26,7 +26,7 @@ If you'd like to report a bug or submit a feature request then please [use the i
 
 ## Changelog
 
-We try to log all changes big and small in both [THE CHANGELOG](https://github.com/lando/vuepress-docs-theme/blob/main/CHANGELOG.md) and the [release notes](https://github.com/lando/vuepress-docs-theme/releases).
+We try to log all changes big and small in both [THE CHANGELOG](https://github.com/lando/vuepress-theme-lando-docs/blob/main/CHANGELOG.md) and the [release notes](https://github.com/lando/vuepress-theme-lando-docs/releases).
 
 
 ## Development
@@ -35,14 +35,14 @@ We try to log all changes big and small in both [THE CHANGELOG](https://github.c
 * Prefers [Yarn](https://classic.yarnpkg.com/lang/en/docs/install)
 
 ```bash
-git clone https://github.com/lando/vuepress-docs-theme.git && cd vuepress-docs-theme
+git clone https://github.com/lando/vuepress-theme-lando-docs.git && cd vuepress-theme-lando-docs
 yarn install
 ```
 
 If you dont' want to install Node 14 or Yarn for whatever reason you can install [Lando](https://docs.lando.dev/basics/installation.html) and use that:
 
 ```bash
-git clone https://github.com/lando/vuepress-docs-theme.git && cd vuepress-docs-theme
+git clone https://github.com/lando/vuepress-theme-lando-docs.git && cd vuepress-theme-lando-docs
 # Install deps and get node
 lando start
 
@@ -69,8 +69,8 @@ yarn release
 
 ## Contributors
 
-<a href="https://github.com/lando/vuepress-docs-theme/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=lando/vuepress-docs-theme" />
+<a href="https://github.com/lando/vuepress-theme-lando-docs/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=lando/vuepress-theme-lando-docs" />
 </a>
 
 Made with [contributors-img](https://contrib.rocks).

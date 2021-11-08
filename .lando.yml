@@ -1,4 +1,4 @@
-name: lando-vuepress-docs-theme
+name: vuepress-theme-lando-docs
 services:
   node:
     type: node:14
