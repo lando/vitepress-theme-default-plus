@@ -34,3 +34,9 @@ jobs:
         run: yarn lint
       - name: Run unit tests
         run: yarn test
+        
+      # Deploy
+      - name: Deploy stable releases
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_DEPLOY_TOKEN}}
