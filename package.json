@@ -27,14 +27,15 @@
     "test": "yarn lint"
   },
   "dependencies": {
+    "@vuepress/plugin-docsearch": "^2.0.0-alpha.1",
+    "@vuepress/plugin-register-components": "^2.0.0-beta.27",
     "js-yaml": "^3.4.6",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "remove": "^0.1.5"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.0",
-    "@vuepress/plugin-docsearch": "^2.0.0-beta.27",
     "@vuepress/plugin-palette": "^2.0.0-alpha.26",
-    "@vuepress/plugin-register-components": "^2.0.0-beta.27",
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.9.1",
     "eslint-plugin-vue": "^8.0.3",

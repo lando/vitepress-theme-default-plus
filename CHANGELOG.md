@@ -1,3 +1,8 @@
+v0.2.1 [November 8, 2021](https://github.com/lando/website/releases/tag/v0.2.1)
+------------------------
+
+* Move some VuePress plugins into prod dependencies
+
 v0.2.0 [November 8, 2021](https://github.com/lando/website/releases/tag/v0.2.0)
 ------------------------
 
