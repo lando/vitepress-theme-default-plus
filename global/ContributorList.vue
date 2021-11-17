@@ -38,6 +38,6 @@ const props = defineProps({
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 </style>
