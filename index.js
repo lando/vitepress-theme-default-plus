@@ -11,7 +11,7 @@ const url = require('url');
 // Octokit stuff
 const {Octokit} = require('@octokit/core');
 const MyOctokit = Octokit.plugin(paginateRest);
-const octokit = new MyOctokit({auth: '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'});
+const octokit = new MyOctokit();
 
 // Our things
 const pages = require('./lib/pages');
