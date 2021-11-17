@@ -22,6 +22,7 @@ module.exports = {
     showSearch: true,
     showSponsors: true,
     sponsors: yaml.load(fs.readFileSync(path.resolve(__dirname, '..', '..', 'sponsors.yml'), 'utf8')),
+    sidebarTitle: 'Lando Docz Theme',
     sidebar: [
       {text: 'Overview', link: '/index.md'},
       '/installation.md',
