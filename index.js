@@ -3,6 +3,7 @@ const _ = require('lodash');
 const {createPage} = require('@vuepress/core');
 const customLinks = require('./plugins/plugin-custom-links.js');
 const debug = require('debug')('@lando/docs-theme');
+const {isLinkHttp} = require('@vuepress/shared');
 const {logger, path} = require('@vuepress/utils');
 const {paginateRest} = require('@octokit/plugin-paginate-rest');
 const url = require('url');
@@ -24,9 +25,15 @@ module.exports = (options, app) => {
   options.sourceRepo = options.repo;
   delete options.repo;
 
-  // Get a list of pages for the top level of sidebar and normalize them for easy compare
-  const topLevelPages = getTopLevelPages(options.sidebar);
-  debug('found normalized top level pages %o', topLevelPages);
+  // If we have a source repo then lets try to get more data on it, specifically if its github or otherwise
+  if (options.sourceRepo) {
+    if (!isLinkHttp(options.sourceRep) || /github\.com/.test(options.sourceRep)) {
+      options.isGithubRepo = true;
+      options.githubOwner = url.parse(options.sourceRepo).pathname.split('/')[0];
+      options.githubRepo = url.parse(options.sourceRepo).pathname.split('/')[1];
+      options.sourceRepoType = 'github';
+    }
+  }
 
   // If baseURL is set then lets mutate landoNavbar
   if (options.baseUrl) {
@@ -38,6 +45,10 @@ module.exports = (options, app) => {
     options.navbar = options.landoNavbar.concat(options.navbar);
     debug('prepended lando navbar to user specified navbar with %o', options.landoNavbar);
   }
+
+  // Get a list of pages for the top level of sidebar and normalize them for easy compare
+  const topLevelPages = getTopLevelPages(options.sidebar);
+  debug('found normalized top level pages %o', topLevelPages);
 
   // Plugins that we need no matter what
   const plugins = [
@@ -74,6 +85,9 @@ module.exports = (options, app) => {
     layouts: path.resolve(__dirname, 'layouts'),
     plugins,
 
+    // Add some page data
+    // @TODO: if latest version is true then get github otherwise use
+
     // Add in some pages
     async onInitialized(app) {
       // Add contributors to sidebar if we arent replacing a manually added one
@@ -92,9 +106,8 @@ module.exports = (options, app) => {
         } else {
           try {
             // Get contrib data from github
-            const owner = url.parse(options.sourceRepo).pathname.split('/')[0];
-            const repo = url.parse(options.sourceRepo).pathname.split('/')[1];
-            const data = await octokit.paginate('GET /repos/{owner}/{repo}/contributors', {owner, repo, per_page: 100});
+            const octokitOpts = {owner: options.githubOwner, repo: options.githubRepo, per_page: 100};
+            const data = await octokit.paginate('GET /repos/{owner}/{repo}/contributors', octokitOpts);
             options.contributorsData = data;
             // Add the page
             const contributorsPage = await createPage(app, pages.contributors(options));
