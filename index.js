@@ -11,7 +11,7 @@ const url = require('url');
 // Octokit stuff
 const {Octokit} = require('@octokit/core');
 const MyOctokit = Octokit.plugin(paginateRest);
-const octokit = new MyOctokit();
+const octokit = new MyOctokit({auth: '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'});
 
 // Our things
 const pages = require('./lib/pages');
@@ -24,14 +24,17 @@ module.exports = (options, app) => {
   // in the nav if we do
   options.sourceRepo = options.repo;
   delete options.repo;
+  debug('removed repo and set sourceRepo to %s', options.sourceRepo);
 
   // If we have a source repo then lets try to get more data on it, specifically if its github or otherwise
   if (options.sourceRepo) {
     if (!isLinkHttp(options.sourceRep) || /github\.com/.test(options.sourceRep)) {
+      debug('determined this is a GitHub repo');
       options.isGithubRepo = true;
       options.githubOwner = url.parse(options.sourceRepo).pathname.split('/')[0];
       options.githubRepo = url.parse(options.sourceRepo).pathname.split('/')[1];
       options.sourceRepoType = 'github';
+      debug('github repo slug is %s/%s', options.githubOwner, options.githubRepo);
     }
   }
 
@@ -86,7 +89,26 @@ module.exports = (options, app) => {
     plugins,
 
     // Add some page data
-    // @TODO: if latest version is true then get github otherwise use
+    async extendsPageData(page) {
+      // Collect data
+      const data = {};
+
+      // Get a good default version and link if possible
+      if (options.showVersion && options.isGithubRepo) {
+        const octokitOpts = {owner: options.githubOwner, repo: options.githubRepo, per_page: 100};
+        const tags = await octokit.paginate('GET /repos/{owner}/{repo}/tags', octokitOpts);
+        data.version = _.first(tags).name;
+        data.versionLink = `https://github.com/lando/vuepress-theme-lando-docs/tree/${data.version}`;
+      }
+
+      // Override version
+      if (options.showVersion && options.version) data.version = options.version;
+      // Override versionLink
+      if (options.showVersion && options.versionLink) data.versionLink = options.versionLink;
+
+      // Return all collected data
+      return data;
+    },
 
     // Add in some pages
     async onInitialized(app) {
@@ -107,8 +129,7 @@ module.exports = (options, app) => {
           try {
             // Get contrib data from github
             const octokitOpts = {owner: options.githubOwner, repo: options.githubRepo, per_page: 100};
-            const data = await octokit.paginate('GET /repos/{owner}/{repo}/contributors', octokitOpts);
-            options.contributorsData = data;
+            options.contributorsData = await octokit.paginate('GET /repos/{owner}/{repo}/contributors', octokitOpts);
             // Add the page
             const contributorsPage = await createPage(app, pages.contributors(options));
             app.pages.push(contributorsPage);
