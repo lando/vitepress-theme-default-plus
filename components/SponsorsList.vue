@@ -78,33 +78,9 @@ export default {
     padding-bottom: 2em;
   }
 }
-@media (max-width: 1300px) {
+@media (max-width: 1500px) {
   #special_sponsors {
-    padding-top: var(--navbar-height);
-    padding-left: var(--sidebar-width);
-    position: initial;
-    right: initial;
-    top: initial;
-    width: initial;
-    .sponsor-wrapper {
-      display: flex;
-      justify-content: center;
-      .special-sponsor-block {
-        margin-top: auto;
-        margin-bottom: auto;
-        padding-right: 1em;
-        &:last-of-type {
-          padding-right: 0;
-        }
-        img {
-          height: auto;
-          padding: 0;
-        }
-      }
-    }
-    .special-sponsor-footer {
-      padding-top: 2em;
-    }
+    display: none;
   }
 }
 </style>
