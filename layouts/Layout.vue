@@ -12,12 +12,33 @@
       <template #sidebar-top>
         <CarbonAds v-if="showCarbonAds" />
         <div
-          v-if="sidebarTitle"
+          v-if="sidebarTitle || showVersion"
           class="sidebar-header"
         >
-          <span class="sidebar-title">{{ sidebarTitle }}</span>
-          <span class="sidebar-version">
-            <Badge type="tip">3.12</Badge>
+          <span
+            v-if="sidebarTitle"
+            class="sidebar-title"
+          >
+            {{ sidebarTitle }}
+          </span>
+          <span
+            v-if="showVersion"
+            class="sidebar-version"
+          >
+            <a
+              v-if="page.versionLink"
+              :href="page.versionLink"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Badge type="tip">{{ page.version }}</Badge>
+            </a>
+            <Badge
+              v-else
+              type="tip"
+            >
+              {{ page.version }}
+            </Badge>
           </span>
         </div>
       </template>
@@ -62,7 +83,7 @@ const frontmatter = usePageFrontmatter();
 const themeData = useThemeData();
 const page = usePageData();
 // Get the config from themedata
-const {showCarbonAds, showSponsors, sidebarTitle} = themeData.value;
+const {showCarbonAds, showSponsors, sidebarTitle, showVersion} = themeData.value;
 // Handle scrollBehavior with transition
 const scrollPromise = useScrollPromise();
 const onBeforeEnter = scrollPromise.resolve;
