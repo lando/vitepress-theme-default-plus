@@ -45,8 +45,8 @@
 <style lang="scss" scoped>
 @import '../styles/main.scss';
 .contributor-block {
-  width: 150px;
-  padding: 15px 0;
+  width: 100px;
+  padding: 15px 15px;
   text-align: center;
   h2 {
     font-size: .80rem;
@@ -62,7 +62,7 @@
   .contributor-block-pic {
     padding: 10px 0;
     img {
-      width: 110px;
+      width: 90px;
       border-radius: 50% !important;
     }
   }
