@@ -1,34 +1,72 @@
 <template>
-  <div :class="{ subscribe: true, 'subscribe-dark': theme === 'dark' }" :style="customStyles">
+  <div
+    :class="{ subscribe: true, 'subscribe-dark': theme === 'dark' }"
+    :style="customStyles"
+  >
     <h3>{{ title }}</h3>
     <div id="mc_embed_signup">
-      <form action="https://dev.us12.list-manage.com/subscribe/post?u=59874b4d6910fa65e724a4648&amp;id=613837077f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate subscribe-form" target="_blank" novalidate>
+      <form
+        id="mc-embedded-subscribe-form"
+        action="https://dev.us12.list-manage.com/subscribe/post?u=59874b4d6910fa65e724a4648&amp;id=613837077f"
+        method="post"
+        name="mc-embedded-subscribe-form"
+        class="validate subscribe-form"
+        target="_blank"
+        novalidate
+      >
         <input
           id="mce-EMAIL"
-          type="email"
           v-model="email"
+          type="email"
           placeholder="Email address"
           name="EMAIL"
-          class="subscribe-input" />
+          class="subscribe-input"
+        >
 
-        <ul style="display: none;" v-if="interests.length > 0">
-          <li v-for="(interest, index) in interests" :key="index">
+        <ul
+          v-if="interests.length > 0"
+          style="display: none;"
+        >
+          <li
+            v-for="(interest, index) in interests"
+            :key="index"
+          >
             <input
+              :id="`mce-group[${interest.group}]-${interest.group}-${index}`"
               type="checkbox"
               :checked="interest.checked"
               :value="interest.id"
               :name="`group[${interest.group}][${interest.id}]`"
-              :id="`mce-group[${interest.group}]-${interest.group}-${index}`">
+            >
             <label :for="`mce-group[${interest.group}]-${interest.group}-${index}`">{{ interest.label }}</label>
           </li>
         </ul>
 
-        <div id="mce-responses" class="clear">
-          <div class="response" id="mce-error-response" style="display:none"></div>
-          <div class="response" id="mce-success-response" style="display:none"></div>
+        <div
+          id="mce-responses"
+          class="clear"
+        >
+          <div
+            id="mce-error-response"
+            class="response"
+            style="display:none"
+          />
+          <div
+            id="mce-success-response"
+            class="response"
+            style="display:none"
+          />
         </div>
-        <div style="position: absolute; left: -5000px;" aria-hidden="true">
-          <input type="text" name="b_59874b4d6910fa65e724a4648_613837077f" tabindex="-1" value="">
+        <div
+          style="position: absolute; left: -5000px;"
+          aria-hidden="true"
+        >
+          <input
+            type="text"
+            name="b_59874b4d6910fa65e724a4648_613837077f"
+            tabindex="-1"
+            value=""
+          >
         </div>
 
         <input
@@ -37,7 +75,8 @@
           :disabled="!email"
           type="submit"
           :value="buttonLabel"
-          name="subscribe" />
+          name="subscribe"
+        >
       </form>
     </div>
   </div>
@@ -46,6 +85,7 @@
 <script>
 
 export default {
+  name: 'NewsletterSubscribe',
   props: {
     buttonLabel: {
       type: String,

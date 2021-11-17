@@ -1,12 +1,16 @@
 <template>
   <div class="newsletter post-subscribe">
     <div class="newsletter__wrap">
-      <div class="newsletter__title">Want new guide content?</div>
-      <div class="newsletter__content">Sign up and we'll send you the latest and greatest!</div>
+      <div class="newsletter__title">
+        Want more helpful onboarding content?
+      </div>
+      <div class="newsletter__content">
+        Sign up and we'll send you a new and helpful guide every week!
+      </div>
       <Subscribe
-        successMessage="More awesome guide material will be heading your way!"
-        :customStyles="stylez"
-        :interests="interests"
+        success-message="Soon you will be the master!"
+        :custom-styles="stylez"
+        :groups="groups"
         title=""
       />
     </div>
@@ -14,30 +18,24 @@
 </template>
 
 <script>
-import Subscribe from '../Subscribe.vue';
+import Subscribe from '../components/Subscribe.vue';
 
 export default {
-  name: 'Newsletter',
+  name: 'NewsletterLearn',
   components: {Subscribe}, // eslint-disable-line
   data() {
     return {
       stylez: {
         width: '100%',
       },
-      interests: [{
-        id: 1,
-        group: 37781,
-        checked: true,
-        hidden: true,
-        label: 'Updates',
-      }],
+      groups: ['NEWSLETTER', 'NEWUSER'],
     };
   },
 };
 </script>
 
 <style lang="scss">
-@import '../../styles/main.scss';
+@import '../styles/main.scss';
 
 .newsletter {
   text-align: center;
@@ -103,6 +101,11 @@ export default {
       height: auto;
     }
   }
+  .subscribe-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+  }
   .subscribe-input {
     background-color: #fff;
     font-size: inherit;
@@ -115,13 +118,18 @@ export default {
     outline: none;
     height: auto;
     margin: 1em 0;
-  }
-  .newsletter__wrap {
-    background-color: #f8f8f8;
+    &:focus {
+      outline: none;
+      border: 0;
+      border-color: transparent;
+    }
   }
   @media (max-width: $MQMobile) {
-    .post-subscribe .subscribe-form {
+    .subscribe-form {
       display: block;
+    }
+    .newsletter__wrap {
+      background-color: #f8f8f8;
     }
   }
 }

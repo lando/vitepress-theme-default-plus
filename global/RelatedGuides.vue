@@ -1,8 +1,14 @@
 <template>
-  <div v-if="tag && content.length > 0" class="related-guides">
+  <div
+    v-if="tag && content.length > 0"
+    class="related-guides"
+  >
     <h2>Related Guides and Tutorials</h2>
     <ul>
-      <li v-for="page in content" :key="page.key">
+      <li
+        v-for="page in content"
+        :key="page.key"
+      >
         <a :href="page.path">{{ page.title }}</a>
       </li>
     </ul>
@@ -10,8 +16,8 @@
 </template>
 
 <script>
-import { resolveSidebarItems } from '@vuepress/theme-default/lib/client/composables/useSidebarItems.js';
-import { useThemeData } from '@vuepress/plugin-theme-data/lib/client';
+import {resolveSidebarItems} from '@vuepress/theme-default/lib/client/composables/useSidebarItems.js';
+import {useThemeData} from '@vuepress/plugin-theme-data/lib/client';
 
 export default {
   name: 'RelatedGuides',
@@ -37,15 +43,15 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../styles/main.scss';
+@import '../styles/main.scss';
 
 .related-guides {
-	margin-top: 2rem;
-	padding-top: 1rem;
-	a {
-		display: block;
-		padding-bottom: 0.3em;
-	}
+  margin-top: 2rem;
+  padding-top: 1rem;
+  a {
+    display: block;
+    padding-bottom: 0.3em;
+  }
 }
 
 </style>

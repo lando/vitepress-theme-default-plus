@@ -1,16 +1,30 @@
 <template>
   <div class="written-by">
     Written by:
-    <a :href="link" target="_blank">{{ name }}</a>
-    <a :href="link" target="_blank"><img :src="pic" :alt="name" /></a>
-    <div v-if="test" class="tested-by">
-      Guide Tested: <a :href="test" target="_blank">Yes</a>
+    <a
+      :href="link"
+      target="_blank"
+    >{{ name }}</a>
+    <a
+      :href="link"
+      target="_blank"
+    ><img
+      :src="pic"
+      :alt="name"
+    ></a>
+    <div
+      v-if="test"
+      class="tested-by"
+    >
+      Guide Tested: <a
+        :href="test"
+        target="_blank"
+      >Yes</a>
     </div>
     <div v-else>
       Guide Tested: <span class="not-tested">No</span>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -38,7 +52,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../styles/main.scss';
+@import '../styles/main.scss';
 
 .written-by {
   font-size: 0.85em;

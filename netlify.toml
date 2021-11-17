@@ -1,5 +1,5 @@
 [build]
   base = "./"
   publish = "_site"
-  command = "yarn docs:build"
+  command = "yarn build"
   # This sort of lets us build only on tagged commits to prod

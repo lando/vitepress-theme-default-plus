@@ -9,33 +9,49 @@
   "homepage": "https://github.com/lando/vuepress-theme-lando-docs",
   "keywords": [
     "lando",
-    "vuepress"
+    "vuepress",
+    "vuepress2",
+    "vuepress2-theme",
+    "vuepress2-plugin"
   ],
   "engines": {
     "node": ">=14.0.0"
   },
-  "main": "lib/index.js",
-  "files": [
-    "lib"
-  ],
+  "main": "index.js",
   "scripts": {
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs --dest _site",
-    "docs:lint": "eslint -c docs/.eslintrc.json --quiet docs/.vuepress",
-    "lint": "eslint --quiet .",
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs --dest _site",
+    "lint": "eslint . --ext .js,.vue",
     "release": "bump --prompt --tag --all --push",
     "test": "yarn lint"
   },
   "dependencies": {
+    "@octokit/core": "^3.5.1",
+    "@octokit/plugin-paginate-rest": "^2.17.0",
+    "@vuepress/client": "2.0.0-beta.27",
+    "@vuepress/core": "2.0.0-beta.27",
+    "@vuepress/plugin-active-header-links": "2.0.0-beta.27",
+    "@vuepress/plugin-back-to-top": "2.0.0-beta.27",
+    "@vuepress/plugin-container": "2.0.0-beta.27",
     "@vuepress/plugin-docsearch": "^2.0.0-beta.27",
+    "@vuepress/plugin-git": "2.0.0-beta.27",
+    "@vuepress/plugin-medium-zoom": "2.0.0-beta.27",
+    "@vuepress/plugin-nprogress": "2.0.0-beta.27",
+    "@vuepress/plugin-palette": "2.0.0-beta.27",
+    "@vuepress/plugin-prismjs": "2.0.0-beta.27",
     "@vuepress/plugin-register-components": "^2.0.0-beta.27",
-    "js-yaml": "^3.4.6",
+    "@vuepress/plugin-theme-data": "^2.0.0-beta.27",
+    "@vuepress/shared": "2.0.0-beta.27",
+    "@vuepress/theme-default": "^2.0.0-beta.27",
+    "@vuepress/utils": "2.0.0-beta.27",
+    "gravatar-url": "^4.0.1",
     "lodash": "^4.17.21",
-    "remove": "^0.1.5"
+    "timeago.js": "^4.0.2",
+    "vue": "^3.2.20"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.0",
-    "@vuepress/plugin-palette": "^2.0.0-alpha.26",
+    "debug": "^4.3.2",
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.9.1",
     "eslint-plugin-vue": "^8.0.3",

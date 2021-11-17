@@ -1,13 +1,7 @@
 <script>
-import { h } from 'vue';
+import {h} from 'vue';
 
 export default {
-  render() {
-    return h('div', {class: 'carbon-ads'});
-  },
-  mounted() {
-    this.load();
-  },
   watch: {
     '$route'(to, from) {
       if (
@@ -22,6 +16,9 @@ export default {
       }
     },
   },
+  mounted() {
+    this.load();
+  },
   methods: {
     load() {
       const s = document.createElement('script');
@@ -30,41 +27,44 @@ export default {
       this.$el.appendChild(s);
     },
   },
+  render() {
+    return h('div', {class: 'carbon-ads'});
+  },
 };
 </script>
 
 <style lang="scss">
 @import '../styles/main.scss';
 .sidebar {
-	.carbon-ads {
-		a {
-			display: block;
-		}
-	}
+  .carbon-ads {
+    a {
+      display: block;
+    }
+  }
 }
 .carbon-ads {
-	min-height: 102px;
-	padding: 1.5rem 1.5rem 0;
-	margin-bottom: -0.5rem;
-	font-size: 0.75rem;
-	a {
-		color: #444;
-		font-weight: normal;
-		display: inline;
-	}
-	.carbon-img {
-		float: left;
-		margin-right: 1rem;
-		border: 1px solid var(--c-border);
-		img {
-			display: block;
-		}
-	}
-	.carbon-poweredby {
-		color: #999;
-		display: block;
-		margin-top: 0.5em;
-	}
+  min-height: 102px;
+  padding: 1.5rem 1.5rem 0;
+  margin-bottom: -0.5rem;
+  font-size: 0.75rem;
+  a {
+    color: #444;
+    font-weight: normal;
+    display: inline;
+  }
+  .carbon-img {
+    float: left;
+    margin-right: 1rem;
+    border: 1px solid var(--c-border);
+    img {
+      display: block;
+    }
+  }
+  .carbon-poweredby {
+    color: #999;
+    display: block;
+    margin-top: 0.5em;
+  }
 }
 .dark {
   a.carbon-text {
@@ -75,6 +75,6 @@ export default {
   .carbon-ads .carbon-img img {
     width: 100px;
     height: 77px;
-	}
+  }
 }
 </style>

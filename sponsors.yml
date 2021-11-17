@@ -1,0 +1,16 @@
+- name: Platform.sh
+  id: platformsh
+  url: https://platform.sh
+  logo: https://lando.dev/images/platform_sh_logo.png
+- name: amazee.io
+  id: amazeeio
+  url: https://www.amazee.io/
+  logo: https://lando.dev/images/amazee_io_logo.png
+- name: Pantheon
+  id: pantheon
+  url: https://pantheon.io/
+  logo: https://lando.dev/images/pantheon_logo.png
+- name: Blackmesh by Contegix
+  id: blackmesh
+  url: https://www.blackmesh.com/
+  logo: https://lando.dev/images/blackmesh_logo.png
