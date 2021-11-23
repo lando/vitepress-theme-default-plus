@@ -6,10 +6,10 @@
     <AsyncContributor
       v-for="(contributor, index) in props.contributors"
       :key="index"
-      :name="contributor.login"
-      :img="contributor.avatar_url"
-      :link="contributor.html_url"
-      :score="contributor.contributions"
+      :name="contributor.name"
+      :img="contributor.img"
+      :link="contributor.link"
+      :score="contributor.score"
     />
   </div>
 </template>
