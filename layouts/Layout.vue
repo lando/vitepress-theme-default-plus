@@ -14,8 +14,9 @@
         <SidebarHeader
           v-if="sidebarTitle"
           :title="sidebarTitle"
-          :version="page.version"
-          :link="page.versionLink"
+          :version="version"
+          :link="versionLink"
+          :icon="sidebarTitleIcon"
         />
       </template>
 
@@ -60,7 +61,9 @@ const frontmatter = usePageFrontmatter();
 const themeData = useThemeData();
 const page = usePageData();
 // Get the config from themedata
-const {showCarbonAds, showSponsors, sidebarTitle} = themeData.value;
+const {showCarbonAds, showSponsors, sidebarTitle, sidebarTitleIcon} = themeData.value;
+const {version, versionLink} = page.value;
+
 // Handle scrollBehavior with transition
 const scrollPromise = useScrollPromise();
 const onBeforeEnter = scrollPromise.resolve;

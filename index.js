@@ -90,6 +90,21 @@ module.exports = (options, app) => {
       // Collect data
       const data = {};
 
+      // Assess whether we can/should fetch the latest version
+      const fetchLatestVersion = options.showVersion && options.version === null;
+      // Try to autopopulate latest versions data if needed
+      if (options.autoPopulate && fetchLatestVersion) {
+        debug('trying to grab latest version data from %s', options.sourceRepo);
+        try {
+          const memoedlatestVersion = _.memoize(async () => await autopopulate.latestVersion(options, options));
+          const latestVersion = await memoedlatestVersion();
+          options.version = latestVersion.name;
+          options.versionLink = options.versionLink || latestVersion.url;
+        } catch (err) {
+          logger.error('could not automatically grab latest version with error', err);
+        };
+      }
+
       // Add latest version and link to page data
       if (options.showVersion) {
         data.version = options.version;
@@ -109,7 +124,6 @@ module.exports = (options, app) => {
       // Determine which data we should actually try to populate
       const fetchContributors = contributors.show && _.isEmpty(contributors.data);
       const fetchVersions = versions.show && _.isEmpty(versions.data);
-      const fetchLatestVersion = options.showVersion && options.version === null;
 
       // Try to autopopulate data contributors data if needed
       if (options.autoPopulate && fetchContributors) {
@@ -128,18 +142,6 @@ module.exports = (options, app) => {
           versions.data = await autopopulate.versions(options, options);
         } catch (err) {
           logger.error('could not automatically grab versions with error', err);
-        };
-      }
-
-      // Try to autopopulate latest versions data if needed
-      if (options.autoPopulate && fetchLatestVersion) {
-        debug('trying to grab latest version data from %s', options.sourceRepo);
-        try {
-          const latestVersion = await autopopulate.latestVersion(options, options);
-          options.version = latestVersion.name;
-          options.versionLink = options.versionLink || latestVersion.url;
-        } catch (err) {
-          logger.error('could not automatically grab latest version with error', err);
         };
       }
 
