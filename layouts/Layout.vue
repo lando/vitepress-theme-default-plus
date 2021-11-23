@@ -60,7 +60,7 @@ const frontmatter = usePageFrontmatter();
 const themeData = useThemeData();
 const page = usePageData();
 // Get the config from themedata
-const {showCarbonAds, showSponsors, sidebarTitle, showVersion} = themeData.value;
+const {showCarbonAds, showSponsors, sidebarTitle} = themeData.value;
 // Handle scrollBehavior with transition
 const scrollPromise = useScrollPromise();
 const onBeforeEnter = scrollPromise.resolve;
