@@ -12,7 +12,7 @@
       <template #sidebar-top>
         <CarbonAds v-if="showCarbonAds" />
         <SidebarHeader
-          v-if="sidebarTitle || showVersion"
+          v-if="sidebarTitle"
           :title="sidebarTitle"
           :version="page.version"
           :link="page.versionLink"

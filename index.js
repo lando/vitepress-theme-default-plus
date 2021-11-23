@@ -5,21 +5,17 @@ const customLinks = require('./plugins/plugin-custom-links.js');
 const debug = require('debug')('@lando/docs-theme');
 const {isLinkHttp} = require('@vuepress/shared');
 const {logger, path} = require('@vuepress/utils');
-const {paginateRest} = require('@octokit/plugin-paginate-rest');
 const url = require('url');
 
-// Octokit stuff
-const {Octokit} = require('@octokit/core');
-const MyOctokit = Octokit.plugin(paginateRest);
-const octokit = new MyOctokit();
-
 // Our things
+const autopopulate = require('./lib/autopopulate');
 const pages = require('./lib/pages');
-const {canGenerateContribPage, getTopLevelPages, makeFauxInternal} = require('./lib/utils');
+const {getTopLevelPages, makeFauxInternal} = require('./lib/utils');
 
 module.exports = (options, app) => {
   // Rebase options on defaults
   options = {...require('./lib/defaults'), ...options};
+
   // We want to preserve the value of options.repo but we do not want to set it because it will show up
   // in the nav if we do
   options.sourceRepo = options.repo;
@@ -43,8 +39,9 @@ module.exports = (options, app) => {
     options.landoNavbar = makeFauxInternal(options.landoNavbar, options.baseUrl);
     debug('rebased navbar so links to %s appear as internal links', options.baseUrl);
   }
-  // If we want to show the lando sidebar then lets add it to the begining of the navbar
-  if (options.showLandoNavbar) {
+
+  // If we want to show the lando navbar then lets add it to the begining of the navbar
+  if (!_.isNil(options.landoNavbar)) {
     options.navbar = options.landoNavbar.concat(options.navbar);
     debug('prepended lando navbar to user specified navbar with %o', options.landoNavbar);
   }
@@ -93,18 +90,11 @@ module.exports = (options, app) => {
       // Collect data
       const data = {};
 
-      // Get a good default version and link if possible
-      if (options.showVersion && options.isGithubRepo) {
-        const octokitOpts = {owner: options.githubOwner, repo: options.githubRepo, per_page: 100};
-        const tags = await octokit.paginate('GET /repos/{owner}/{repo}/tags', octokitOpts);
-        data.version = _.first(tags).name;
-        data.versionLink = `https://github.com/lando/vuepress-theme-lando-docs/tree/${data.version}`;
+      // Add latest version and link to page data
+      if (options.showVersion) {
+        data.version = options.version;
+        data.versionLink = options.versionLink;
       }
-
-      // Override version
-      if (options.showVersion && options.version) data.version = options.version;
-      // Override versionLink
-      if (options.showVersion && options.versionLink) data.versionLink = options.versionLink;
 
       // Return all collected data
       return data;
@@ -112,33 +102,68 @@ module.exports = (options, app) => {
 
     // Add in some pages
     async onInitialized(app) {
-      // Add contributors to sidebar if we arent replacing a manually added one
-      if (options.contributorsSidebar && !_.includes(topLevelPages, 'contributors')) {
-        app.options.themeConfig.sidebar.push({text: options.contributorsText, link: options.contributorsSidebar});
-        debug('programatically added %s to sidebar linking to %s', options.contributorsText, options.contributorsSidebar);
+      // Try to autopopulate data as needed
+      // Determine whether we have the things we need to actually autopopulate
+      options.autoPopulate = options.autoPopulate && options.isGithubRepo;
+      const {contributors, versions} = options.pages;
+      // Determine which data we should actually try to populate
+      const fetchContributors = contributors.show && _.isEmpty(contributors.data);
+      const fetchVersions = versions.show && _.isEmpty(versions.data);
+      const fetchLatestVersion = options.showVersion && options.version === null;
+
+      // Try to autopopulate data contributors data if needed
+      if (options.autoPopulate && fetchContributors) {
+        debug('trying to grab contributors data from %s', options.sourceRepo);
+        try {
+          contributors.data = await autopopulate.contributors(options);
+        } catch (err) {
+          logger.error('could not automatically grab contributors with error', err);
+        };
       }
 
-      // Add contributors page if we arent replacing a manually added one
-      if (options.contributorsPage && app.pages.every(page => page.path !== options.contributorsPage)) {
-        // Throw a warning if we cannot generate the page
-        if (!canGenerateContribPage(options)) {
-          logger.warn('contrib page not generated. ensure that "repo" is a github repo and "contributorsPage" is internal.');
+      // Try to autopopulate data versions data if needed
+      if (options.autoPopulate && fetchVersions) {
+        debug('trying to grab versions data from %s', options.sourceRepo);
+        try {
+          versions.data = await autopopulate.versions(options, options);
+        } catch (err) {
+          logger.error('could not automatically grab versions with error', err);
+        };
+      }
 
-        // Otherwise make that shit
-        } else {
-          try {
-            // Get contrib data from github
-            const octokitOpts = {owner: options.githubOwner, repo: options.githubRepo, per_page: 100};
-            options.contributorsData = await octokit.paginate('GET /repos/{owner}/{repo}/contributors', octokitOpts);
-            // Add the page
-            const contributorsPage = await createPage(app, pages.contributors(options));
-            app.pages.push(contributorsPage);
-            debug('programatically added contributors page to %s', options.contributorsPage);
+      // Try to autopopulate latest versions data if needed
+      if (options.autoPopulate && fetchLatestVersion) {
+        debug('trying to grab latest version data from %s', options.sourceRepo);
+        try {
+          const latestVersion = await autopopulate.latestVersion(options, options);
+          options.version = latestVersion.name;
+          options.versionLink = options.versionLink || latestVersion.url;
+        } catch (err) {
+          logger.error('could not automatically grab latest version with error', err);
+        };
+      }
 
-          // Log error
-          } catch (err) {
-            logger.error('could not automatically generate contributors page with error', err);
-          };
+      // Add contributors page if its hasnt already been manually set
+      if (contributors.show && !_.includes(topLevelPages, 'contributors')) {
+        app.options.themeConfig.sidebar.push({text: contributors.title, link: contributors.link});
+        debug('programatically added %s to sidebar linking to %s', contributors.title, contributors.link);
+        // Also add the page if its an internal link and we dont have a page already
+        if (!isLinkHttp(contributors.link) && app.pages.every(page => page.path !== contributors.link)) {
+          const contributorsPage = await createPage(app, pages.contributors(contributors));
+          app.pages.push(contributorsPage);
+          debug('programatically added contributors page to %s', contributors.link);
+        }
+      }
+
+      // Add versions page if its hasnt already been manually set
+      if (versions.show && !_.includes(topLevelPages, 'versions')) {
+        app.options.themeConfig.sidebar.push({text: versions.title, link: versions.link});
+        debug('programatically added %s to sidebar linking to %s', versions.title, versions.link);
+        // Also add the page if its an internal link and we dont have a page already
+        if (!isLinkHttp(versions.link) && app.pages.every(page => page.path !== versions.link)) {
+          const versionsPage = await createPage(app, pages.contributors(versions));
+          app.pages.push(versionsPage);
+          debug('programatically added versions page to %s', versions.link);
         }
       }
     },
