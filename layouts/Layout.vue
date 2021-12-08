@@ -10,7 +10,11 @@
 
     <ParentLayout>
       <template #sidebar-top>
-        <CarbonAds v-if="showCarbonAds" />
+        <CarbonAds
+          v-if="carbonAds.show"
+          :placement="carbonAds.placement"
+          :serve="carbonAds.serve"
+        />
         <SidebarHeader
           v-if="sidebarTitle"
           :title="sidebarTitle"
@@ -61,7 +65,7 @@ const frontmatter = usePageFrontmatter();
 const themeData = useThemeData();
 const page = usePageData();
 // Get the config from themedata
-const {showCarbonAds, showSponsors, sidebarTitle, sidebarTitleIcon} = themeData.value;
+const {carbonAds, showSponsors, sidebarTitle, sidebarTitleIcon} = themeData.value;
 const {version, versionLink} = page.value;
 
 // Handle scrollBehavior with transition

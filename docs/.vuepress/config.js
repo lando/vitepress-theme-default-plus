@@ -16,7 +16,7 @@ module.exports = {
     docsDir: 'docs',
     docsBranch: 'main',
     navbar: [
-      {text: 'Example External', link: 'https://docs.lando.dev/basics/'},
+      {text: 'Source Code', link: 'https://github.com/lando/vuepress-theme-lando-docs/'},
     ],
     repo: 'lando/vuepress-docs-theme',
     showSearch: true,

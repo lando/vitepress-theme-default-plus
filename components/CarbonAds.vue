@@ -2,6 +2,16 @@
 import {h} from 'vue';
 
 export default {
+  props: {
+    serve: {
+      type: String,
+      required: true,
+    },
+    placement: {
+      type: String,
+      required: true,
+    },
+  },
   watch: {
     '$route'(to, from) {
       if (
@@ -23,7 +33,7 @@ export default {
     load() {
       const s = document.createElement('script');
       s.id = '_carbonads_js';
-      s.src = `//cdn.carbonads.com/carbon.js?serve=CE7DCKJU&placement=landodev`;
+      s.src = `//cdn.carbonads.com/carbon.js?serve=${this.serve}&placement=${this.placement}`;
       this.$el.appendChild(s);
     },
   },
