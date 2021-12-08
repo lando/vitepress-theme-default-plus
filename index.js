@@ -162,7 +162,15 @@ module.exports = (options, app) => {
         app.options.themeConfig.sidebar.push({text: versions.title, link: versions.link});
         debug('programatically added %s to sidebar linking to %s', versions.title, versions.link);
         // Add information about the "dev" release if we can
-
+        if (versions.showEdge && options.isGithubRepo) {
+          const {githubOwner, githubRepo, docsBranch, docsDir} = options;
+          versions.edgeVersion = {
+            href: `https://github.com/${githubOwner}/${githubRepo}/tree/${docsBranch}/${docsDir}`,
+            name: docsBranch,
+            target: '_blank',
+            rel: 'noopener noreferrer',
+          };
+        };
         // Also add the page if its an internal link and we dont have a page already
         if (!isLinkHttp(versions.link) && app.pages.every(page => page.path !== versions.link)) {
           const versionsPage = await createPage(app, pages.versions(versions));

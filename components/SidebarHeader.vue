@@ -53,7 +53,6 @@
       default: null,
     },
   });
-  console.log(props);
 </script>
 
 <style lang="scss" scoped>
