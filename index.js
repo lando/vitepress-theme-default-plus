@@ -71,6 +71,11 @@ module.exports = (options, app) => {
         themeData: options,
       },
     ],
+    ['@vuepress/plugin-google-analytics',
+      {
+        id: 'G-ZSK3T9FTQ9',
+      },
+    ],
   ];
 
   // Add in search if applicable
