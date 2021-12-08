@@ -23,6 +23,7 @@ module.exports = {
     showSponsors: true,
     sponsors: yaml.load(fs.readFileSync(path.resolve(__dirname, '..', '..', 'sponsors.yml'), 'utf8')),
     sidebarTitle: 'Lando Docz Theme',
+    sidebarTitleIcon: '/images/vuepress-icon.png',
     sidebar: [
       {text: 'Overview', link: '/index.md'},
       '/installation.md',

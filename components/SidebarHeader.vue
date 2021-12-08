@@ -1,6 +1,12 @@
 <template>
   <div class="sidebar-header">
     <span
+      v-if="props.icon"
+      class="sidebar-icon"
+    >
+      <img :src="props.icon">
+    </span>
+    <span
       v-if="props.title"
       class="sidebar-title"
     >
@@ -42,7 +48,12 @@
       type: String,
       default: null,
     },
+    icon: {
+      type: String,
+      default: null,
+    },
   });
+  console.log(props);
 </script>
 
 <style lang="scss" scoped>
@@ -60,12 +71,21 @@
   .sidebar-version {
     margin-top: 3px;
   }
+  .sidebar-icon {
+    img {
+      width: 24px;
+    }
+  }
   @media (max-width: 719px) {
     font-weight: 700;
+    font-size: 1.1em;
     border-bottom: 0;
     padding-bottom: 0;
     .sidebar-version {
       margin-top: 2px;
+    }
+    .sidebar-icon {
+      display: none;
     }
   }
 }
