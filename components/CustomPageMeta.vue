@@ -146,6 +146,13 @@ const show = computed(() => contributors.value || editNavLink.value || lastUpdat
 
 <style lang="scss" scoped>
 @import '../styles/main.scss';
+.page-meta {
+ .meta-item {
+   a {
+     cursor: pointer;
+   }
+ }
+}
 .page-meta-inner {
   border-top: 1px solid var(--c-border);
   font-size: small;

@@ -1,3 +1,5 @@
 # {{ $frontmatter.title }}
 
-Meet the amazing people who make this project possible.
+Check out previous versions of these docs by linking directly to the repository below.
+
+<VersionsList :versions="$frontmatter.versionsData" />

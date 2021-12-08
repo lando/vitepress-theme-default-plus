@@ -161,9 +161,11 @@ module.exports = (options, app) => {
       if (versions.show && !_.includes(topLevelPages, 'versions')) {
         app.options.themeConfig.sidebar.push({text: versions.title, link: versions.link});
         debug('programatically added %s to sidebar linking to %s', versions.title, versions.link);
+        // Add information about the "dev" release if we can
+
         // Also add the page if its an internal link and we dont have a page already
         if (!isLinkHttp(versions.link) && app.pages.every(page => page.path !== versions.link)) {
-          const versionsPage = await createPage(app, pages.contributors(versions));
+          const versionsPage = await createPage(app, pages.versions(versions));
           app.pages.push(versionsPage);
           debug('programatically added versions page to %s', versions.link);
         }
