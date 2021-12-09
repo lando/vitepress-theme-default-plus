@@ -13,11 +13,12 @@ Note that autogeneration of contributors and versioning information currently on
 
 ## Docs
 
-* [Overview]()
-* [Getting Started, Installation and Usage]()
-* [Configuration]()
-* [Guides]()
-* [Examples]()
+* [Overview](https://vuepress-theme-default-plus.lando.dev/)
+* [Getting Started, Installation and Usage](https://vuepress-theme-default-plus.lando.dev/getting-started.html)
+* [Configuration](https://vuepress-theme-default-plus.lando.dev/config.html)
+* [Guides](https://vuepress-theme-default-plus.lando.dev/guides.html)
+* [Examples](https://github.com/lando/vuepress-theme-default-plus)
+* [Development](https://vuepress-theme-default-plus.lando.dev/development.html)
 
 ## Issues, Questions and Support
 
