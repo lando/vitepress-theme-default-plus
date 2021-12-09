@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.0",
+    "@vuepress/plugin-google-analytics": "^2.0.0-beta.27",
     "debug": "^4.3.2",
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.9.1",
