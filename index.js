@@ -2,7 +2,7 @@
 const _ = require('lodash');
 const {createPage} = require('@vuepress/core');
 const customLinks = require('./plugins/plugin-custom-links.js');
-const debug = require('debug')('@lando/docs-theme');
+const debug = require('debug')('@lando/default-plus');
 const {isLinkHttp} = require('@vuepress/shared');
 const {logger, path} = require('@vuepress/utils');
 const url = require('url');
@@ -34,16 +34,16 @@ module.exports = (options, app) => {
     }
   }
 
-  // If baseURL is set then lets mutate landoNavbar
+  // If baseURL is set then lets mutate sharedNavbar
   if (options.baseUrl) {
-    options.landoNavbar = makeFauxInternal(options.landoNavbar, options.baseUrl);
+    options.sharedNavbar = makeFauxInternal(options.sharedNavbar, options.baseUrl);
     debug('rebased navbar so links to %s appear as internal links', options.baseUrl);
   }
 
-  // If we want to show the lando navbar then lets add it to the begining of the navbar
-  if (!_.isNil(options.landoNavbar)) {
-    options.navbar = options.landoNavbar.concat(options.navbar);
-    debug('prepended lando navbar to user specified navbar with %o', options.landoNavbar);
+  // If we want to show the shared navbar then lets add it to the begining of the navbar
+  if (!_.isNil(options.sharedNavbar)) {
+    options.navbar = options.sharedNavbar.concat(options.navbar);
+    debug('prepended shared navbar to user specified navbar with %o', options.sharedNavbar);
   }
 
   // Get a list of pages for the top level of sidebar and normalize them for easy compare
@@ -85,7 +85,7 @@ module.exports = (options, app) => {
   }
 
   return {
-    name: '@lando/vuepress-theme-lando-docs',
+    name: '@lando/vuepress-theme-default-plus',
     extends: '@vuepress/theme-default',
     layouts: path.resolve(__dirname, 'layouts'),
     plugins,

@@ -4,43 +4,33 @@ const yaml = require('js-yaml');
 
 module.exports = {
   lang: 'en-US',
-  title: 'Lando',
-  description: 'A VuePress 2 Theme for Lando Doc Based Sites',
+  title: 'VuePress 2 Default Theme +',
+  description: 'The VuePress2 default Theme with some extra power!',
   head: [
-    ['link', {rel: 'icon', href: '/favicon.ico'}],
+    ['link', {rel: 'icon', href: '/images/favicon.png'}],
     ['link', {rel: 'stylesheet', href: '//fonts.googleapis.com/css?family=Poppins:700|Source+Sans+Pro&display=swap'}],
   ],
   theme: path.resolve(__dirname, '../..'),
   themeConfig: {
-    baseUrl: 'https://docs.lando.dev',
     docsDir: 'docs',
     docsBranch: 'main',
     navbar: [
-      {text: 'Source Code', link: 'https://github.com/lando/vuepress-theme-lando-docs/'},
+      {text: 'GitHub', link: 'https://github.com/lando/vuepress-theme-default-plus/'},
     ],
-    repo: 'lando/vuepress-docs-theme',
+    repo: 'lando/vuepress-theme-default-plus',
     showSearch: true,
     showSponsors: true,
     sponsors: yaml.load(fs.readFileSync(path.resolve(__dirname, '..', '..', 'sponsors.yml'), 'utf8')),
-    sidebarTitle: 'Lando Docz Theme',
-    sidebarTitleIcon: '/images/vuepress-icon.png',
+    sidebarTitle: 'Current Version',
     sidebar: [
       {text: 'Overview', link: '/index.md'},
-      '/installation.md',
-      '/getting-started.md',
-      {
-        text: 'Foo',
-        children: [
-          // SidebarItem
-          {
-            text: 'github',
-            link: 'https://github.com',
-            children: [],
-          },
-          // string - page file path
-          '/foo/bar.md',
-        ],
-      },
+      {text: 'Getting Started', link: '/getting-started.md'},
+      {text: 'Configuration', link: '/config.md'},
+      {text: 'Guides', link: '/guides.md'},
+      {text: 'Development', link: '/development.md'},
+      {text: 'Support', link: '/support.md'},
+      {text: 'Examples', link: 'https://github.com/lando/vuepress-theme-default-plus'},
+      {text: 'Release Notes', link: 'https://github.com/lando/vuepress-theme-default-plus/releases'},
     ],
   },
 };

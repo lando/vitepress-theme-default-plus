@@ -130,17 +130,17 @@ export default {
   padding: 2em 0;
   text-align: center;
   h3 {
-    color: $landoPink;
+    color: $pink;
   }
   &.subscribe-dark {
-    background-color: darken($landoBlue, 12%);
+    background-color: darken(#000, 12%);
     h3 {
-      color: lighten($landoBlue, 90%);
+      color: lighten(#000, 90%);
     }
   }
   .button {
     text-transform: uppercase;
-    background-color: $landoPink;
+    background-color: $pink;
     margin: 1em 0;
     font-size: 1.2em;
     font-weight: 500;
@@ -163,7 +163,7 @@ export default {
     padding-top: 2em;
     padding-bottom: 2em;
     p {
-      color: lighten($landoBlue, 90%);
+      color: lighten(#000, 90%);
       font-size: 1.2em;
     }
     .subscribe-alliance-wrapper,
@@ -176,13 +176,13 @@ export default {
       }
       label {
         cursor: pointer;
-        color: lighten($landoBlue, 90%);
+        color: lighten(#000, 90%);
         font-size: 2em;
         font-weight: 800;
       }
       small {
         font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
-        color: lighten($landoBlue, 90%);
+        color: lighten(#000, 90%);
         text-align: center;
         font-size: 1.4em;
         letter-spacing: 0;
@@ -205,10 +205,10 @@ export default {
     border-radius: 50px;
     border: 1px solid #ccc;
     font-size: 16px;
-    background-color: lighten($landoBlue, 96%);
+    background-color: lighten(#000, 96%);
     &:focus {
       outline: none;
-      border-color: lighten($landoPink, 18%);
+      border-color: lighten($pink, 18%);
     }
     &.disabled {
       opacity: .5;
@@ -223,7 +223,7 @@ export default {
     font-weight: 800;
     font-size: 0.75rem;
     .subscribe-success {
-      color: $landoPink
+      color: $pink
     }
   }
 }

@@ -78,7 +78,7 @@ export default {
   }
   .custom-block {
     &.tip {
-      border-color: $landoGreen;
+      border-color: $pink;
     }
   }
 }

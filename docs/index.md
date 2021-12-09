@@ -1,4 +1,4 @@
-# VuePress 2 Theme for Lando Docs
+# Overview
 
 ## How To Use
 

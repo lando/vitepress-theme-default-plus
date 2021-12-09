@@ -1,12 +1,12 @@
 {
-  "name": "@lando/vuepress-theme-lando-docs",
-  "description": "A VuePress 2 Theme for Lando Doc Based Sites",
+  "name": "@lando/vuepress-theme-default-plus",
+  "description": "A VuePress 2 Theme that extends the default theme with some more power.",
   "version": "0.2.3",
   "author": "John Ouellet @labboy0276",
   "license": "GPL-3.0",
-  "repository": "github:lando/vuepress-theme-lando-docs",
-  "bugs": "https://github.com/lando/vuepress-theme-lando-docs/issues/new/choose/",
-  "homepage": "https://github.com/lando/vuepress-theme-lando-docs",
+  "repository": "github:lando/vuepress-theme-default-plus",
+  "bugs": "https://github.com/lando/vuepress-theme-default-plus/issues/new/choose/",
+  "homepage": "https://github.com/lando/vuepress-theme-default-plus",
   "keywords": [
     "lando",
     "vuepress",
