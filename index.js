@@ -71,12 +71,12 @@ module.exports = (options, app) => {
         themeData: options,
       },
     ],
-    ['@vuepress/plugin-google-analytics',
-      {
-        id: 'G-ZSK3T9FTQ9',
-      },
-    ],
   ];
+
+  if (options.gaTracking) {
+    plugins.push(['@vuepress/plugin-google-analytics', options.gaSettings]);
+    debug('added google analytics plugin');
+  }
 
   // Add in search if applicable
   if (options.showSearch) {
@@ -88,6 +88,10 @@ module.exports = (options, app) => {
     name: '@lando/vuepress-theme-default-plus',
     extends: '@vuepress/theme-default',
     layouts: path.resolve(__dirname, 'layouts'),
+    clientAppEnhanceFiles: path.resolve(__dirname, './clientAppEnhance.js'),
+    define: {
+      __THEME_OPTIONS__: options,
+    },
     plugins,
 
     // Add some page data
