@@ -78,20 +78,28 @@ module.exports = (options, app) => {
     debug('added google analytics plugin');
   }
 
-  // Add in search if applicable
+  // Add in seach and/or docsearch if applicable
   if (options.showSearch) {
-    plugins.push(['@vuepress/docsearch', options.searchSettings]);
-    debug('added search plugin');
+    if (options.searchSettings.apiKey && options.searchSettings.indexName) {
+      plugins.push(['@vuepress/docsearch', options.searchSettings]);
+      debug('added docsearch plugin');
+    } else {
+      plugins.push(['@vuepress/search']);
+      debug('added search plugin');
+    }
   }
 
   return {
     name: '@lando/vuepress-theme-default-plus',
     extends: '@vuepress/theme-default',
-    layouts: path.resolve(__dirname, 'layouts'),
-    clientAppEnhanceFiles: path.resolve(__dirname, './clientAppEnhance.js'),
     define: {
+      __DOCSEARCH_OPTIONS__: options,
       __THEME_OPTIONS__: options,
     },
+    layouts: path.resolve(__dirname, 'layouts'),
+    clientAppEnhanceFiles: [
+      path.resolve(__dirname, './client/docsearch.js'),
+    ],
     plugins,
 
     // Add some page data

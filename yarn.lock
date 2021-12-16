@@ -787,6 +787,19 @@
     "@vuepress/utils" "2.0.0-beta.27"
     chokidar "^3.5.2"
 
+"@vuepress/plugin-search@^2.0.0-beta.27":
+  version "2.0.0-beta.27"
+  resolved "https://registry.yarnpkg.com/@vuepress/plugin-search/-/plugin-search-2.0.0-beta.27.tgz#39ea9282709e4b275d801b8397b281190c818e0b"
+  integrity sha512-22r2nVD55CnraQZOnzEsIueg6iXWIsutcw54UVbQFmgQxmAEEa8ZQ4YQ/W91IQepis1qdinynWvJGPLI6IHSOg==
+  dependencies:
+    "@vuepress/client" "2.0.0-beta.27"
+    "@vuepress/core" "2.0.0-beta.27"
+    "@vuepress/shared" "2.0.0-beta.27"
+    "@vuepress/utils" "2.0.0-beta.27"
+    chokidar "^3.5.2"
+    vue "^3.2.20"
+    vue-router "^4.0.12"
+
 "@vuepress/plugin-theme-data@2.0.0-beta.27", "@vuepress/plugin-theme-data@^2.0.0-beta.27":
   version "2.0.0-beta.27"
   resolved "https://registry.yarnpkg.com/@vuepress/plugin-theme-data/-/plugin-theme-data-2.0.0-beta.27.tgz#34064747fd77c27669c2c7713c956b56742fffed"

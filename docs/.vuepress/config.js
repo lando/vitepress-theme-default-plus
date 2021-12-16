@@ -19,6 +19,7 @@ module.exports = {
     ],
     repo: 'lando/vuepress-theme-default-plus',
     showSearch: true,
+    searchSettings: {},
     showSponsors: true,
     sponsors: yaml.load(fs.readFileSync(path.resolve(__dirname, '..', '..', 'sponsors.yml'), 'utf8')),
     sidebarTitle: 'Current Version',
