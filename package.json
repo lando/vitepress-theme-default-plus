@@ -20,7 +20,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vuepress dev docs",
-    "build": "vuepress build docs --dest _site",
+    "build": "vuepress build docs",
     "lint": "eslint . --ext .js,.vue",
     "release": "bump --prompt --tag --all --push",
     "test": "yarn lint"
@@ -46,10 +46,14 @@
     "@vuepress/shared": "^2.0.0-beta.32",
     "@vuepress/theme-default": "^2.0.0-beta.32",
     "@vuepress/utils": "^2.0.0-beta.32",
-    "gravatar-url": "^4.0.1",
+    "@vueuse/core": "^7.5.3",
+    "gravatar-url": "^3",
     "lodash": "^4.17.21",
+    "sass": "^1.47.0",
+    "sass-loader": "^12.4.0",
     "timeago.js": "^4.0.2",
-    "vue": "^3.2.20"
+    "vue": "^3.2.20",
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.0",
