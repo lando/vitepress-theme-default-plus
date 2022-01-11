@@ -12,7 +12,7 @@
         target="_blank"
         rel="noopener noreferrer"
       >
-        <h2>{{ props.name }}<OutboundLink /></h2>
+        <h2>{{ props.name }}<ExternalLinkIcon /></h2>
       </a>
       <div class="contributor-block-score">
         {{ props.score }}

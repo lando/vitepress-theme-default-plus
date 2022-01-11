@@ -75,8 +75,8 @@ typings/
 # https://nextjs.org/blog/next-9-1#public-directory-support
 # public
 
-# vuepress build output
+# vuepress build output and temp dirs
 _site
 
-docs/.vuepress/.temp/
-docs/.vuepress/.cache/
+.temp
+.cache

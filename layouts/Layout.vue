@@ -62,13 +62,12 @@ import Sponsors from '../components/SponsorsList.vue';
 
 // Get theme data
 const frontmatter = usePageFrontmatter();
-const themeData = useThemeData();
 const page = usePageData();
+const themeData = useThemeData();
 // Get the config from themedata
-const {carbonAds, showSponsors, sidebarTitle, sidebarTitleIcon} = themeData.value;
-const {version, versionLink} = page.value;
+const {carbonAds, showSponsors, sidebarTitle, sidebarTitleIcon, version, versionLink} = themeData.value;
 
-// Handle scrollBehavior with transition
+// Helpers to manage transitions
 const scrollPromise = useScrollPromise();
 const onBeforeEnter = scrollPromise.resolve;
 const onBeforeLeave = scrollPromise.pending;

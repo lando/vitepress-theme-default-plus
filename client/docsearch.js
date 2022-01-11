@@ -1,6 +1,6 @@
 import {defineClientAppEnhance} from '@vuepress/client';
 import {h} from 'vue';
-import DocsearchPlus from './../components/DocsearchPlus';
+import DocsearchPlus from './../components/DocsearchPlus.vue';
 
 const options = {...__THEME_OPTIONS__, ...__DOCSEARCH_OPTIONS__};
 

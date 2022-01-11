@@ -17,7 +17,7 @@
           v-if="editNavLink"
           class="meta-item edit-link"
         >
-          <NavLink
+          <AutoLink
             class="meta-item"
             :item="editNavLink"
           />
@@ -63,7 +63,7 @@ import * as timeago from 'timeago.js';
 import {usePageData, usePageFrontmatter} from '@vuepress/client';
 import {useThemeLocaleData} from '@vuepress/theme-default/lib/client/composables';
 import {resolveEditLink} from '@vuepress/theme-default/lib/client/utils';
-import NavLink from '@vuepress/theme-default/lib/client/components/NavLink.vue';
+import AutoLink from '@vuepress/theme-default/lib/client/components/AutoLink.vue';
 
 const useEditNavLink = () => {
   const themeLocale = useThemeLocaleData();

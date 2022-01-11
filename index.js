@@ -92,6 +92,11 @@ module.exports = (options, app) => {
   return {
     name: '@lando/vuepress-theme-default-plus',
     extends: '@vuepress/theme-default',
+    // @TODO: in beta.33+ or better we can remove CustomPage.vue and the page template in Layout.vue
+    // and just rely on the below
+    alias: {
+      '@theme/PageMeta.vue': path.resolve(__dirname, 'components', 'CustomPageMeta.vue'),
+    },
     define: {
       __DOCSEARCH_OPTIONS__: options,
       __THEME_OPTIONS__: options,
@@ -103,10 +108,7 @@ module.exports = (options, app) => {
     plugins,
 
     // Add some page data
-    async extendsPageData(page) {
-      // Collect data
-      const data = {};
-
+    async extendsPage(page) {
       // Assess whether we can/should fetch the latest version
       const fetchLatestVersion = options.showVersion && options.version === null;
       // Try to autopopulate latest versions data if needed
@@ -124,12 +126,11 @@ module.exports = (options, app) => {
 
       // Add latest version and link to page data
       if (options.showVersion) {
-        data.version = options.version;
-        data.versionLink = options.versionLink;
+        page.data.version = options.version;
+        page.data.versionLink = options.versionLink;
+        const {version, versionLink, title, key} = page.data;
+        debug('added version %s (%s) to page data "%s" (%s)', version, versionLink, title, key);
       }
-
-      // Return all collected data
-      return data;
     },
 
     // Add in some pages

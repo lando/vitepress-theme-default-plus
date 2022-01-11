@@ -111,7 +111,7 @@ const customLinksPlugin = (md, options = {}) => {
     // add external icon before ending tag of external link
     if (hasOpenExternalLink) {
       hasOpenExternalLink = false;
-      return '<OutboundLink/>' + self.renderToken(tokens, idx, options);
+      return '<ExternalLinkIcon/>' + self.renderToken(tokens, idx, options);
     }
     // convert ending tag of internal link
     if (hasOpenInternalLink) {
