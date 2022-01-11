@@ -1,54 +1,33 @@
 # Configuration
 
+This theme _extends_ the [Vuepress2 Default Theme](https://v2.vuepress.vuejs.org/reference/default-theme/config.html#basic-config) but sets [slightly different defaults]((https://github.com/lando/vuepress-theme-default-plus/blob/main/lib/defaults.js)). _Theoretically_ all the options supported in the default theme should also be available in this one.
 
-The theme comes with 2 optional components that can be set via the [themeConfig](https://v2.vuepress.vuejs.org/reference/config.html#theme-config) key in your config.js.  They can be set with `showCarbonAds` and / or `showSponsors`.  Both default to `true`.
+Here are the additional configuration options that we've added.
 
-### showCarbonAds Option
+## Generic Config
 
-The `showCarbonAds` will display the [Carbon Ads component](https://github.com/lando/vuepress-theme-lando-docs/blob/main/lib/components/CarbonAds.vue).  This component will display in the `#sidebar-top` [slot](https://v2.vuepress.vuejs.org/advanced/cookbook/extending-a-theme.html#extend-default-theme) from the default theme.  Set to `false` to hide this component.
+#### autoPopulate
 
-### showSponsors / sponsors Options
+* Type: `Boolean`
 
-The `showSponsors` will display a list of sponsors from a YAML file in your theme.  The value can be either `boolean` or a `string[]`.  If set to `true`, it will display all sponsors from your YAML file.
+* Default: `false`
 
-If set to a `string[]`, it will match the `id` key in your yaml file and only display that sponsor.  The YAML file needs be set to the option `sponsor` for this to work properly.
+* Details:
 
-**YAML File Example**
+This will attempt to grab information about your project using `repo`. Currently only GitHub repos are supported.
 
-Your config.js will need to look like this:
+* Requirements:
 
-```js
-const yaml = require('js-yaml');
-const fs = require('fs');
+This requires you also set `repo`.
 
-module.exports = {
-  ...
-  theme: '@lando/vuepress-theme-lando-docs'
-  themeConfig: {
-    sponsors: yaml.load(fs.readFileSync(path.resolve(__dirname, 'public') + '/api/sponsors.yml', 'utf8')),
-    showSponsors: ['platformsh'],
-  },
-};
- ...
-```
+#### baseUrl
 
-The sponsors.yml file in your theme's public directory needs to look like this:
+* Type: `String`
 
-```yaml
-- name: Platform.sh
-  id: platformsh
-  url: https://platform.sh
-  logo: https://lando.dev/images/platform_sh_logo.png
-- name: amazee.io
-  id: amazeeio
-  url: https://www.amazee.io/
-  logo: https://lando.dev/images/amazee_io_logo.png
-- name: Pantheon
-  id: pantheon
-  url: https://pantheon.io/
-  logo: https://lando.dev/images/pantheon_logo.png
-- name: Blackmesh by Contegix
-  id: blackmesh
-  url: https://www.blackmesh.com/
-  logo: https://lando.dev/images/blackmesh_logo.png
-```
+* Default: `null`
+
+* Example: `baseUrl: 'https://docs.lando.dev'`
+
+* Details:
+
+This allows URLs to the specified external domain to be experentially treated like internal links. This is useful if you have multiple docs sites that are all tied together into a single domain a la Netlify. If you don't understand what that is or you only have a single docs site then its best to just ignore this one.

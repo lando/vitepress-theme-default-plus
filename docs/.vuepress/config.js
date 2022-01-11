@@ -27,6 +27,7 @@ module.exports = {
       '/index.md',
       '/getting-started.md',
       '/config.md',
+      '/components.md',
       '/guides.md',
       '/development.md',
       '/support.md',
