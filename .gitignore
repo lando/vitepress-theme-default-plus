@@ -80,8 +80,3 @@ _site
 docs/.vuepress/.temp
 docs/.vuepress/.cache
 docs/.vuepress/dist
-
-# legacy vuepress build output and temp dirs
-.vuepress/.temp
-.vuepress/.cache
-.vuepress/dist
