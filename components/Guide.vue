@@ -3,7 +3,10 @@
     <slot name="top" />
 
     <div class="theme-default-content">
-      <Content/>
+      <h1>Making a guide</h1>
+      <GuideHeader />
+      <Content />
+      <GuideFooter />
     </div>
 
     <CustomPageMeta />
@@ -18,6 +21,8 @@
 // Get parent page nav
 import PageNav from '@vuepress/theme-default/lib/client/components/PageNav.vue';
 // Use our custom page meta component
+import GuideHeader from './GuideHeader.vue';
+import GuideFooter from './GuideFooter.vue';
 import CustomPageMeta from './CustomPageMeta.vue';
 </script>
 
