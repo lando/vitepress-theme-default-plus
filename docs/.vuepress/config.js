@@ -12,15 +12,13 @@ module.exports = {
   ],
   theme: path.resolve(__dirname, '../..'),
   themeConfig: {
+    // @vuepress/theme-default
     docsDir: 'docs',
     docsBranch: 'main',
     navbar: [
       {text: 'GitHub', link: 'https://github.com/lando/vuepress-theme-default-plus/'},
     ],
     repo: 'lando/vuepress-theme-default-plus',
-    showSponsors: true,
-    sponsors: yaml.load(fs.readFileSync(path.resolve(__dirname, '..', '..', 'sponsors.yml'), 'utf8')),
-    sidebarTitle: 'Current Version',
     sidebar: [
       '/index.md',
       '/getting-started.md',
@@ -41,6 +39,15 @@ module.exports = {
       {text: 'Examples', link: 'https://github.com/lando/vuepress-theme-default-plus'},
       {text: 'Release Notes', link: 'https://github.com/lando/vuepress-theme-default-plus/releases'},
     ],
-    sidebarDepth: 0,
+
+    // @lando/vuepress-theme-default-plus config
+    sidebarHeader: {
+      enabled: true,
+      title: 'Current Version',
+    },
+    sponsors: {
+      enabled: true,
+      data: yaml.load(fs.readFileSync(path.resolve(__dirname, '..', '..', 'sponsors.yml'), 'utf8')),
+    },
   },
 };

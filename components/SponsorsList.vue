@@ -41,20 +41,15 @@ export default {
     // Get theme data
     const themeData = useThemeData();
     // Get relevant config from themedata
-    const {showSponsors, sponsors} = themeData.value;
+    const {sponsors} = themeData.value;
 
     // Compute sponsor list
-    const sponsorList = computed(() => {
-      // return entire list if true
-      if (showSponsors === true) return sponsors;
-      // otherwise try to filter
-      return sponsors.filter(sponsor => showSponsors.includes(sponsor.id));
-    });
+    const sponsorList = computed(() => sponsors.data);
 
     // Compute whether we end up with any sponsors or not
-    const hasSponsors = computed(() => sponsorList.value.length > 0);
+    const hasSponsors = computed(() => sponsors.data.length > 0);
 
-    return {hasSponsors, showSponsors, sponsorList};
+    return {hasSponsors, sponsorList};
   },
 };
 </script>

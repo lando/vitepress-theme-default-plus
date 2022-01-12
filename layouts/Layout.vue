@@ -3,7 +3,7 @@
     <slot name="right-bar">
       <div class="right-bar">
         <slot name="right-bar-top" />
-        <Sponsors v-if="showSponsors" />
+        <Sponsors v-if="sponsors.enabled" />
         <slot name="right-bar-bottom" />
       </div>
     </slot>
@@ -16,36 +16,33 @@
           :serve="carbonAds.serve"
         />
         <SidebarHeader
-          v-if="sidebarTitle"
-          :title="sidebarTitle"
-          :version="version"
-          :link="versionLink"
-          :icon="sidebarTitleIcon"
+          v-if="sidebarHeader.enabled"
+          :title="sidebarHeader.title"
+          :version="sidebarHeader.version"
+          :link="sidebarHeader.versionLink"
+          :icon="sidebarHeader.icon"
         />
       </template>
 
       <template #page>
-        <Home v-if="frontmatter.home" />
         <Transition
-          v-else-if="frontmatter.guide"
           name="fade-slide-y"
           mode="out-in"
           @before-enter="onBeforeEnter"
           @before-leave="onBeforeLeave"
         >
-          <Guide :key="page.path">
+          <Home v-if="frontmatter.home" />
+          <Guide
+            v-else-if="frontmatter.guide"
+            :key="page.path"
+          >
             <template #top />
             <template #bottom />
           </Guide>
-        </Transition>
-        <Transition
-          v-else
-          name="fade-slide-y"
-          mode="out-in"
-          @before-enter="onBeforeEnter"
-          @before-leave="onBeforeLeave"
-        >
-          <CustomPage :key="page.path">
+          <CustomPage
+            v-else
+            :key="page.path"
+          >
             <template #top />
             <template #bottom />
           </CustomPage>
@@ -78,7 +75,7 @@ const frontmatter = usePageFrontmatter();
 const page = usePageData();
 const themeData = useThemeData();
 // Get the config from themedata
-const {carbonAds, showSponsors, sidebarTitle, sidebarTitleIcon, version, versionLink} = themeData.value;
+const {carbonAds, sidebarHeader, sponsors} = themeData.value;
 
 // Helpers to manage transitions
 const scrollPromise = useScrollPromise();

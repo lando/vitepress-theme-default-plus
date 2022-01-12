@@ -110,26 +110,31 @@ module.exports = (options, app) => {
     // Add some page data
     async extendsPage(page) {
       // Assess whether we can/should fetch the latest version
-      const fetchLatestVersion = options.showVersion && options.version === null;
+      const fetchLatestVersion = options.autoPopulate && options.isGithubRepo;
+
       // Try to autopopulate latest versions data if needed
-      if (options.autoPopulate && fetchLatestVersion) {
+      if (fetchLatestVersion && !options.sidebarHeader.version) {
         debug('trying to grab latest version data from %s', options.sourceRepo);
         try {
           const memoedlatestVersion = _.memoize(async () => await autopopulate.latestVersion(options, options));
           const latestVersion = await memoedlatestVersion();
-          options.version = latestVersion.name;
-          options.versionLink = options.versionLink || latestVersion.url;
+          options.sidebarHeader.version = latestVersion.name;
+          options.sidebarHeader.versionLink = options.versionLink || latestVersion.url;
         } catch (err) {
           logger.error('could not automatically grab latest version with error', err);
         };
       }
 
       // Add latest version and link to page data
-      if (options.showVersion) {
-        page.data.version = options.version;
-        page.data.versionLink = options.versionLink;
-        const {version, versionLink, title, key} = page.data;
-        debug('added version %s (%s) to page data "%s" (%s)', version, versionLink, title, key);
+      if (options.sidebarHeader.version) {
+        page.data.version = options.sidebarHeader.version;
+        const {version, title, key} = page.data;
+        debug('added version %s to page data "%s" (%s)', version, title, key);
+      }
+      if (options.sidebarHeader.versionLink) {
+        page.data.versionLink = options.sidebarHeader.versionLink;
+        const {versionLink, title, key} = page.data;
+        debug('added version link %s to page data "%s" (%s)', versionLink, title, key);
       }
     },
 
