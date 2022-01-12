@@ -53,7 +53,7 @@ export default {
   }
 }
 .carbon-ads {
-  min-height: 102px;
+  min-height: 130px;
   padding: 1.5rem 1.5rem 0;
   margin-bottom: -0.5rem;
   font-size: 0.75rem;

@@ -14,17 +14,16 @@
   </div>
 </template>
 
-<script>
-
-export default {
-  name: 'YouTube',
-  props: {
-    url: {
-      type: String,
-      default: undefined,
-    },
+<script setup>
+import {computed} from 'vue';
+const props = defineProps({
+  id: {
+    type: String,
+    required: true,
   },
-};
+});
+
+const url = computed(() => `https://www.youtube.com/embed/${props.id}`);
 </script>
 
 <style lang="scss">

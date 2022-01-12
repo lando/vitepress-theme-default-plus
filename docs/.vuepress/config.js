@@ -28,11 +28,21 @@ module.exports = {
       '/getting-started.md',
       '/config.md',
       '/components.md',
-      '/guides.md',
+      {
+        text: 'Guides',
+        collapsible: true,
+        children: [
+          {
+            text: 'Making a guide',
+            link: '/making-a-guide.md',
+          },
+        ],
+      },
       '/development.md',
       '/support.md',
       {text: 'Examples', link: 'https://github.com/lando/vuepress-theme-default-plus'},
       {text: 'Release Notes', link: 'https://github.com/lando/vuepress-theme-default-plus/releases'},
     ],
+    sidebarDepth: 0,
   },
 };

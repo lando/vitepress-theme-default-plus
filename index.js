@@ -135,9 +135,15 @@ module.exports = (options, app) => {
 
     // Add in some pages
     async onInitialized(app) {
+      // Throw warning message if autopopulate is on but repo is not github
+      if (options.autoPopulate && !options.isGithubRepo) {
+        logger.warn('Autopopulate is on but does not work with non-github repos!');
+      }
+
       // Try to autopopulate data as needed
       // Determine whether we have the things we need to actually autopopulate
       options.autoPopulate = options.autoPopulate && options.isGithubRepo;
+
       const {contributors, versions} = options.pages;
       // Determine which data we should actually try to populate
       const fetchContributors = contributors.show && _.isEmpty(contributors.data);

@@ -27,6 +27,18 @@
       <template #page>
         <Home v-if="frontmatter.home" />
         <Transition
+          v-else-if="frontmatter.guide"
+          name="fade-slide-y"
+          mode="out-in"
+          @before-enter="onBeforeEnter"
+          @before-leave="onBeforeLeave"
+        >
+          <Guide :key="page.path">
+            <template #top />
+            <template #bottom />
+          </Guide>
+        </Transition>
+        <Transition
           v-else
           name="fade-slide-y"
           mode="out-in"
@@ -53,6 +65,7 @@ import {useScrollPromise} from '@vuepress/theme-default/lib/client/composables';
 // Parent components
 import ParentLayout from '@vuepress/theme-default/lib/client/layouts/Layout.vue';
 import Home from '@vuepress/theme-default/lib/client/components/Home.vue';
+import Guide from '../components/Guide.vue';
 
 // Theme components
 import CarbonAds from '../components/CarbonAds.vue';

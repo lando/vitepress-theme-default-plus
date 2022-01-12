@@ -59,7 +59,6 @@
 @import '../styles/main.scss';
 .sidebar-header {
   display: flex;
-  margin-top: 1.5rem;
   padding: 1.5rem 1.5rem 1.5rem;
   font-weight: 800;
   font-size: 1.2em;

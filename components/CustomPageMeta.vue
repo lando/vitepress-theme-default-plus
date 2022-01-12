@@ -108,7 +108,7 @@ const useLastUpdated = () => {
       ? frontmatter.value.lastUpdated : themeLocale.value.lastUpdated || false;
 
     if (!showLastUpdated) return false;
-    if (!page.value.git.updatedTime) return null;
+    if (!page.value.git || !page.value.git.updatedTime) return null;
     const updatedDate = new Date(page.value.git.updatedTime);
     return timeago.format(updatedDate.toLocaleString());
   });
@@ -122,8 +122,8 @@ const useContributors = () => {
     const showContributors = frontmatter.value.hasOwnProperty('contributors')
       ? frontmatter.value.contributors : themeLocale.value.contributors || false;
 
-    if (!showContributors) return false;
-    const contributors = page.value.git.contributors || null;
+    if (!showContributors || !page.value.git) return false;
+    const contributors = page.value.git.contributors || [];
     // add in gravatar things
     contributors.forEach(contributor => {
       contributor.gravatar = gravatarUrl(contributor.email, {size: 60});
