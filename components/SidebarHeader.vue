@@ -59,10 +59,9 @@
 @import '../styles/main.scss';
 .sidebar-header {
   display: flex;
-  padding: 1.5rem 1.5rem 1.5rem;
+  padding: 2rem 1.5rem 1.5rem;
   font-weight: 800;
   font-size: 1.2em;
-  border-top: 1px solid var(--c-border);
   border-bottom: 1px solid var(--c-border);
   flex-direction: row;
   justify-content: space-between;

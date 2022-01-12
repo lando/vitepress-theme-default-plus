@@ -6,7 +6,7 @@ const options = {...__THEME_OPTIONS__, ...__DOCSEARCH_OPTIONS__};
 
 export default defineClientAppEnhance(({app, router, siteData}) => {
   // Add in the new docsearch component if it makes sense
-  if (options.searchSettings.apiKey && options.searchSettings.indexName) {
+  if (options.search.apiKey && options.search.indexName) {
     app.component('DocsearchPlus', () => h(DocsearchPlus, {options}));
   }
 
@@ -14,7 +14,7 @@ export default defineClientAppEnhance(({app, router, siteData}) => {
   delete app._context.components.NavbarSearch;
   app.component('NavbarSearch', () => {
     const SearchComponent = app.component('DocsearchPlus') || app.component('SearchBox');
-    if (SearchComponent && options.showSearch) return h(SearchComponent);
+    if (SearchComponent && options.search.enabled) return h(SearchComponent);
     return null;
   });
 });

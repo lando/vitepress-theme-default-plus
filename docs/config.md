@@ -34,9 +34,7 @@ Here are the additional configuration options that we've added.
 
   If you don't understand what that is or you only have a single docs site then its best to just ignore this one.
 
-#### gaTracking
-
-#### gaSettings
+#### ga
 
 #### sharedNavbar
 

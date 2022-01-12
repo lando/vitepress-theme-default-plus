@@ -11,7 +11,7 @@
     <ParentLayout>
       <template #sidebar-top>
         <CarbonAds
-          v-if="carbonAds.show"
+          v-if="carbonAds.enabled"
           :placement="carbonAds.placement"
           :serve="carbonAds.serve"
         />

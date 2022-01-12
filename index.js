@@ -73,15 +73,15 @@ module.exports = (options, app) => {
     ],
   ];
 
-  if (options.gaTracking) {
-    plugins.push(['@vuepress/plugin-google-analytics', options.gaSettings]);
+  if (options.ga.enabled) {
+    plugins.push(['@vuepress/plugin-google-analytics', options.ga]);
     debug('added google analytics plugin');
   }
 
   // Add in seach and/or docsearch if applicable
-  if (options.showSearch) {
-    if (options.searchSettings.apiKey && options.searchSettings.indexName) {
-      plugins.push(['@vuepress/docsearch', options.searchSettings]);
+  if (options.search.enabled) {
+    if (options.search.apiKey && options.search.indexName) {
+      plugins.push(['@vuepress/docsearch', options.search]);
       debug('added docsearch plugin');
     } else {
       plugins.push(['@vuepress/search']);
@@ -146,8 +146,8 @@ module.exports = (options, app) => {
 
       const {contributors, versions} = options.pages;
       // Determine which data we should actually try to populate
-      const fetchContributors = contributors.show && _.isEmpty(contributors.data);
-      const fetchVersions = versions.show && _.isEmpty(versions.data);
+      const fetchContributors = contributors.enabled && _.isEmpty(contributors.data);
+      const fetchVersions = versions.enabled && _.isEmpty(versions.data);
 
       // Try to autopopulate data contributors data if needed
       if (options.autoPopulate && fetchContributors) {
@@ -170,7 +170,7 @@ module.exports = (options, app) => {
       }
 
       // Add contributors page if its hasnt already been manually set
-      if (contributors.show && !_.includes(topLevelPages, 'contributors')) {
+      if (contributors.enabled && !_.includes(topLevelPages, 'contributors')) {
         app.options.themeConfig.sidebar.push({text: contributors.title, link: contributors.link});
         debug('programatically added %s to sidebar linking to %s', contributors.title, contributors.link);
         // Also add the page if its an internal link and we dont have a page already
@@ -182,7 +182,7 @@ module.exports = (options, app) => {
       }
 
       // Add versions page if its hasnt already been manually set
-      if (versions.show && !_.includes(topLevelPages, 'versions')) {
+      if (versions.enabled && !_.includes(topLevelPages, 'versions')) {
         app.options.themeConfig.sidebar.push({text: versions.title, link: versions.link});
         debug('programatically added %s to sidebar linking to %s', versions.title, versions.link);
         // Add information about the "dev" release if we can
