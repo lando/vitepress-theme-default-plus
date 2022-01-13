@@ -56,7 +56,7 @@
 <script setup>
 // Deps
 import {computed} from 'vue';
-import gravatarUrl from 'gravatar-url';
+import blueimpMd5 from 'blueimp-md5';
 import * as timeago from 'timeago.js';
 
 // Stuff from parent theme
@@ -126,7 +126,10 @@ const useContributors = () => {
     const contributors = page.value.git.contributors || [];
     // add in gravatar things
     contributors.forEach(contributor => {
-      contributor.gravatar = gravatarUrl(contributor.email, {size: 60});
+      const gravatarUrl = new URL('https://gravatar.com/avatar/');
+      gravatarUrl.pathname += blueimpMd5(contributor.email);
+      gravatarUrl.search = new URLSearchParams({size: 60});
+      contributor.gravatar = gravatarUrl.toString();
       contributor.alt = `Picture of ${contributor.name}`;
       contributor.title = `${contributor.name} (${contributor.email}) - ${contributor.commits} commits`;
     });
