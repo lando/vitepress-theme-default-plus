@@ -92,8 +92,6 @@ module.exports = (options, app) => {
   return {
     name: '@lando/vuepress-theme-default-plus',
     extends: '@vuepress/theme-default',
-    // @TODO: in beta.33+ or better we can remove CustomPage.vue and the page template in Layout.vue
-    // and just rely on the below
     alias: {
       '@theme/PageMeta.vue': path.resolve(__dirname, 'components', 'CustomPageMeta.vue'),
     },

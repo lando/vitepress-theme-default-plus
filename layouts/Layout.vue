@@ -39,13 +39,13 @@
             <template #top />
             <template #bottom />
           </Guide>
-          <CustomPage
+          <Page
             v-else
             :key="page.path"
           >
             <template #top />
             <template #bottom />
-          </CustomPage>
+          </Page>
         </Transition>
       </template>
     </ParentLayout>
@@ -62,11 +62,11 @@ import {useScrollPromise} from '@vuepress/theme-default/lib/client/composables';
 // Parent components
 import ParentLayout from '@vuepress/theme-default/lib/client/layouts/Layout.vue';
 import Home from '@vuepress/theme-default/lib/client/components/Home.vue';
-import Guide from '../components/Guide.vue';
+import Page from '@vuepress/theme-default/lib/client/components/Page.vue';
 
 // Theme components
 import CarbonAds from '../components/CarbonAds.vue';
-import CustomPage from '../components/CustomPage.vue';
+import Guide from '../components/Guide.vue';
 import SidebarHeader from '../components/SidebarHeader.vue';
 import Sponsors from '../components/SponsorsList.vue';
 
