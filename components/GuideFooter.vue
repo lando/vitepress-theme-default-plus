@@ -72,7 +72,7 @@ export default {
     font-style: italic;
   }
   .original-rule {
-    border-bottom: 1px dotted #ddd;
+    border-bottom: 1px dotted var(--c-border);
     padding-top: 1em;
     margin-bottom: 1em;
   }

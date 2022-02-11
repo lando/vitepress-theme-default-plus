@@ -54,7 +54,7 @@
 
 <script setup>
 // Deps
-import {computed, Transition} from 'vue'; // eslint-disable-line no-unused-vars
+import {Transition} from 'vue'; // eslint-disable-line no-unused-vars
 import {usePageData, usePageFrontmatter} from '@vuepress/client';
 import {useThemeData} from '@vuepress/plugin-theme-data/lib/client';
 import {useScrollPromise} from '@vuepress/theme-default/lib/client/composables';

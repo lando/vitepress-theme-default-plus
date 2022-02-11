@@ -1,77 +1,145 @@
 <template>
-  <div class="written-by">
-    Written by:
-    <a
-      :href="link"
-      target="_blank"
-    >{{ name }}</a>
-    <a
-      :href="link"
-      target="_blank"
-    ><img
-      :src="pic"
-      :alt="name"
-    ></a>
-    <div
-      v-if="test"
-      class="tested-by"
-    >
-      Guide Tested: <a
-        :href="test"
-        target="_blank"
-      >Yes</a>
+  <div class="byline">
+    <div class="authors">
+      <span
+        v-if="hasAuthors"
+        class="author-label"
+      >
+        Written by:
+      </span>
+      <span
+        v-for="author in authors"
+        :key="author.name"
+        class="author"
+      >
+        <a
+          :href="author.link"
+          target="_blank"
+        >{{ author.name }}</a>{{ author.separator }}
+      </span>
+      <div
+        v-if="hasLastUpdated"
+        class="last-updated"
+      >
+        Updated {{ lastUpdated }}
+      </div>
     </div>
-    <div v-else>
-      Guide Tested: <span class="not-tested">No</span>
+    <div class="pics">
+      <span
+        v-for="author in authors"
+        :key="author.name"
+        class="pic"
+      >
+        <a
+          :href="author.link"
+          target="_blank"
+        ><img
+          :src="author.pic"
+          :alt="author.name"
+          class="custom"
+        ></a>
+      </span>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'GuideHeader',
-  props: {
-    name: {
-      type: String,
-      default: 'Team Lando',
-    },
-    pic: {
-      type: String,
-      default: 'https://www.gravatar.com/avatar/db2470075fb67c330c155cab9698826f',
-    },
-    link: {
-      type: String,
-      default: 'https://twitter.com/devwithlando',
-    },
-    test: {
-      type: String,
-      default: null,
+<script setup>
+// Deps
+import blueimpMd5 from 'blueimp-md5';
+import * as timeago from 'timeago.js';
+import {computed} from 'vue';
+import {usePageData, usePageFrontmatter} from '@vuepress/client';
+import {useThemeLocaleData} from '@vuepress/theme-default/lib/client/composables';
+
+const props = defineProps({
+  authors: {
+    type: Array,
+    default: () => {
+      const frontmatter = usePageFrontmatter();
+      const themeLocale = useThemeLocaleData();
+      const page = usePageData();
+      const showContributors = frontmatter.value.hasOwnProperty('contributors')
+        ? frontmatter.value.contributors : themeLocale.value.contributors || false;
+
+      if (!showContributors || !page.value.git) return [];
+
+      const contributors = page.value.git.contributors || [];
+      // add in gravatar things
+      contributors.forEach(contributor => {
+        const gravatarUrl = new URL('https://gravatar.com/avatar/');
+        gravatarUrl.pathname += blueimpMd5(contributor.email);
+        gravatarUrl.search = new URLSearchParams({size: 60});
+        contributor.pic = gravatarUrl.toString();
+        contributor.link = `mailto:${contributor.email}`;
+      });
+      return contributors;
     },
   },
-};
+  updated: {
+    type: Object,
+    default: () => {
+      const themeLocale = useThemeLocaleData();
+      const page = usePageData();
+      const frontmatter = usePageFrontmatter();
+
+      const showLastUpdated = frontmatter.value.hasOwnProperty('lastUpdated')
+        ? frontmatter.value.lastUpdated : themeLocale.value.lastUpdated || false;
+
+      if (!showLastUpdated) return false;
+      if (!page.value.git || !page.value.git.updatedTime) return null;
+      const timestamp = page.value.git.updatedTime;
+      return {timestamp};
+    },
+  },
+});
+
+const hasAuthors = computed(() => !!props.authors.length);
+
+// Set authors using frontmatter or fallback to github contrib information if available
+const authors = computed(() => {
+  const authors = props.authors.map(author => Object.assign(author, {separator: ', '}));
+  // Bail if we have no authors
+  if (!hasAuthors.value) return [];
+  // Otherwise process things
+  const lastAuthor = authors[authors.length - 1];
+  lastAuthor.separator = '';
+  return authors;
+});
+
+const hasLastUpdated = computed(() => props.updated.timestamp !== null && props.updated.timestamp !== false);
+
+const lastUpdated = computed(() => {
+  if (!hasLastUpdated.value) return null;
+  const updatedDate = new Date(props.updated.timestamp);
+  return timeago.format(updatedDate.toLocaleString());
+});
+
 </script>
 
 <style lang="scss">
 @import '../styles/main.scss';
-
-.written-by {
-  font-size: 0.85em;
+.byline {
+  display: flex;
+  justify-content: space-between;
   padding-bottom: 1rem;
-  border-bottom: 1px dotted #ddd;
-  img {
-    width: 24px;
-    border-radius: 100%;
-    float: right;
-    position: relative;
-    bottom: 6px;
+  border-bottom: 1px solid var(--c-border);
+  .authors {
+    color: var(--c-text-quote);
+    font-size: 0.85em;
+    width: 60%;
   }
-  .tested-by {
-    a {
-      color: #2ecc71;
+  .last-updated {
+    margin-top: 5px;
+  }
+  .pics {
+    .pic {
+      img {
+        margin-left: -14px;
+        border-radius: 50% !important;
+        width: 30px;
+        max-width: initial;
+      }
     }
-  }
-  .not-tested {
-    color: #f00;
   }
 }
 </style>

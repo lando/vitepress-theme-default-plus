@@ -29,8 +29,12 @@ module.exports = {
         collapsible: true,
         children: [
           {
-            text: 'Making a guide',
+            text: 'Making a guide 1',
             link: '/making-a-guide.md',
+          },
+          {
+            text: 'Making a guide 2',
+            link: '/making-a-guide-2.md',
           },
         ],
       },

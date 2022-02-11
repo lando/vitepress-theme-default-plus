@@ -31,7 +31,6 @@
   </div>
 </template>
 
-
 <script>
 import {computed} from 'vue';
 import {useThemeData} from '@vuepress/plugin-theme-data/lib/client';

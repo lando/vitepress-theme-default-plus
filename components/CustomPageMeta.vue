@@ -14,18 +14,18 @@
           </ClientOnly>
         </div>
         <div
-          v-if="editNavLink"
+          v-if="props.editNavLink"
           class="meta-item edit-link"
         >
           <AutoLink
             class="meta-item"
-            :item="editNavLink"
+            :item="props.editNavLink"
           />
         </div>
       </div>
 
       <div
-        v-if="contributors && contributors.length"
+        v-if="props.contributors && props.contributors.length"
         class="meta-item contributors"
       >
         <span class="meta-item-label">
@@ -33,14 +33,14 @@
         </span>
         <span class="meta-item-info">
           <span
-            v-for="(contributor, index) in contributors"
+            v-for="(contributor, index) in props.contributors"
             :key="index"
             class="contributor"
             :title="contributor.title"
           >
             <img
               class="meta-item-avatar"
-              :src="contributor.gravatar"
+              :src="contributor.pic"
               :alt="contributor.alt"
               :title="contributor.title"
               width="30"
@@ -65,86 +65,96 @@ import {useThemeLocaleData} from '@vuepress/theme-default/lib/client/composables
 import {resolveEditLink} from '@vuepress/theme-default/lib/client/utils';
 import AutoLink from '@vuepress/theme-default/lib/client/components/AutoLink.vue';
 
-const useEditNavLink = () => {
-  const themeLocale = useThemeLocaleData();
-  const page = usePageData();
-  const frontmatter = usePageFrontmatter();
-  return computed(() => {
-    const showEditLink = frontmatter.value.hasOwnProperty('editLink')
-      ? frontmatter.value.editLink : themeLocale.value.editLink || false;
+const props = defineProps({
+  contributors: {
+    type: Array,
+    default: () => {
+      const themeLocale = useThemeLocaleData();
+      const page = usePageData();
+      const frontmatter = usePageFrontmatter();
+      const showContributors = frontmatter.value.hasOwnProperty('contributors')
+        ? frontmatter.value.contributors : themeLocale.value.contributors || false;
 
-    // Bail quick if we can
-    if (!showEditLink) return false;
-    const {
-      sourceRepo,
-      docsRepo = sourceRepo,
-      docsBranch = 'main',
-      docsDir = '',
-      editLinkText,
-    } = themeLocale.value;
+      if (!showContributors || !page.value.git) return false;
+      const contributors = page.value.git.contributors || [];
+      // add in gravatar things
+      contributors.forEach(contributor => {
+        const gravatarUrl = new URL('https://gravatar.com/avatar/');
+        gravatarUrl.pathname += blueimpMd5(contributor.email);
+        gravatarUrl.search = new URLSearchParams({size: 60});
+        contributor.pic = gravatarUrl.toString();
+        contributor.alt = `Picture of ${contributor.name}`;
+        contributor.title = `${contributor.name} (${contributor.email}) - ${contributor.commits} commits`;
+        contributor.link = `mailto:${contributor.email}`;
+      });
+      return contributors;
+    },
+  },
+  editNavLink: {
+    type: Object,
+    default: () => {
+      const themeLocale = useThemeLocaleData();
+      const page = usePageData();
+      const frontmatter = usePageFrontmatter();
 
-    // Try to bail again
-    if (!docsRepo) return false;
-    const editLink = resolveEditLink({
-      docsRepo,
-      docsBranch,
-      docsDir,
-      filePathRelative: page.value.filePathRelative,
-      editLinkPattern: frontmatter.value.editLinkPattern || themeLocale.value.editLinkPattern,
-    });
+      const showEditLink = frontmatter.value.hasOwnProperty('editLink')
+        ? frontmatter.value.editLink : themeLocale.value.editLink || false;
 
-    // Final bail attemp
-    if (!editLink) return false;
-    return {text: editLinkText || 'Edit this page', link: editLink};
-  });
-};
+      // Bail quick if we can
+      if (!showEditLink) return false;
+      const {
+        sourceRepo,
+        docsRepo = sourceRepo,
+        docsBranch = 'main',
+        docsDir = '',
+        editLinkText,
+      } = themeLocale.value;
 
-const useLastUpdated = () => {
-  const themeLocale = useThemeLocaleData();
-  const page = usePageData();
-  const frontmatter = usePageFrontmatter();
-  return computed(() => {
-    const showLastUpdated = frontmatter.value.hasOwnProperty('lastUpdated')
-      ? frontmatter.value.lastUpdated : themeLocale.value.lastUpdated || false;
+      // Try to bail again
+      if (!docsRepo) return false;
+      const editLink = resolveEditLink({
+        docsRepo,
+        docsBranch,
+        docsDir,
+        filePathRelative: page.value.filePathRelative,
+        editLinkPattern: frontmatter.value.editLinkPattern || themeLocale.value.editLinkPattern,
+      });
 
-    if (!showLastUpdated) return false;
-    if (!page.value.git || !page.value.git.updatedTime) return null;
-    const updatedDate = new Date(page.value.git.updatedTime);
-    return timeago.format(updatedDate.toLocaleString());
-  });
-};
+      // Final bail attemp
+      if (!editLink) return false;
+      return {text: editLinkText || 'Edit this page', link: editLink};
+    },
+  },
+  lastUpdated: {
+    type: Object,
+    default: () => {
+      const themeLocale = useThemeLocaleData();
+      const page = usePageData();
+      const frontmatter = usePageFrontmatter();
 
-const useContributors = () => {
-  const themeLocale = useThemeLocaleData();
-  const page = usePageData();
-  const frontmatter = usePageFrontmatter();
-  return computed(() => {
-    const showContributors = frontmatter.value.hasOwnProperty('contributors')
-      ? frontmatter.value.contributors : themeLocale.value.contributors || false;
+      const showLastUpdated = frontmatter.value.hasOwnProperty('lastUpdated')
+        ? frontmatter.value.lastUpdated : themeLocale.value.lastUpdated || false;
 
-    if (!showContributors || !page.value.git) return false;
-    const contributors = page.value.git.contributors || [];
-    // add in gravatar things
-    contributors.forEach(contributor => {
-      const gravatarUrl = new URL('https://gravatar.com/avatar/');
-      gravatarUrl.pathname += blueimpMd5(contributor.email);
-      gravatarUrl.search = new URLSearchParams({size: 60});
-      contributor.gravatar = gravatarUrl.toString();
-      contributor.alt = `Picture of ${contributor.name}`;
-      contributor.title = `${contributor.name} (${contributor.email}) - ${contributor.commits} commits`;
-    });
-    return contributors;
-  });
-};
+      if (!showLastUpdated) return false;
+      if (!page.value.git || !page.value.git.updatedTime) return null;
+      const timestamp = page.value.git.updatedTime;
+      return {timestamp};
+    },
+  },
+});
 
 // Get things
-const contributors = useContributors();
-const editNavLink = useEditNavLink();
-const lastUpdated = useLastUpdated();
 const themeLocale = useThemeLocaleData();
-
 // compute show
-const show = computed(() => contributors.value || editNavLink.value || lastUpdated.value);
+const show = computed(() => props.contributors || props.editNavLink || props.lastUpdated);
+// compute last updated
+const hasLastUpdated = computed(() => props.lastUpdated.timestamp !== null && props.lastUpdated.timestamp !== false);
+const lastUpdated = computed(() => {
+  if (!hasLastUpdated.value) return null;
+  const updatedDate = new Date(props.lastUpdated.timestamp);
+  return timeago.format(updatedDate.toLocaleString());
+});
+
 </script>
 
 <style lang="scss" scoped>
