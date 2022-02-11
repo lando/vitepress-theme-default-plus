@@ -122,7 +122,6 @@ const lastUpdated = computed(() => {
   display: flex;
   justify-content: space-between;
   padding-bottom: 1rem;
-  border-bottom: 1px solid var(--c-border);
   .authors {
     color: var(--c-text-quote);
     font-size: 0.85em;
