@@ -21,7 +21,7 @@
         v-if="hasLastUpdated"
         class="last-updated"
       >
-        Updated {{ lastUpdated }}
+        {{ themeLocale.lastUpdatedText }} {{ lastUpdated }}
       </div>
     </div>
     <div class="pics">
@@ -93,8 +93,10 @@ const props = defineProps({
   },
 });
 
+// Get things
+const themeLocale = useThemeLocaleData();
+// computed
 const hasAuthors = computed(() => !!props.authors.length);
-
 // Set authors using frontmatter or fallback to github contrib information if available
 const authors = computed(() => {
   const authors = props.authors.map(author => Object.assign(author, {separator: ', '}));
@@ -107,7 +109,6 @@ const authors = computed(() => {
 });
 
 const hasLastUpdated = computed(() => props.updated.timestamp !== null && props.updated.timestamp !== false);
-
 const lastUpdated = computed(() => {
   if (!hasLastUpdated.value) return null;
   const updatedDate = new Date(props.updated.timestamp);

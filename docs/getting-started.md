@@ -4,22 +4,17 @@
 
 To start you should install the theme into your VuePress 2 site with either `yarn` or `npm`.
 
-<CodeGroup>
-  <CodeGroupItem title="YARN" active>
-
+:::: code-group
+::: code-group-item YARN
 ```bash:no-line-numbers
 yarn add @lando/vuepress-theme-default-plus --dev
 ```
-
-  </CodeGroupItem>
-  <CodeGroupItem title="NPM">
-
+:::
+::: code-group-item NPM
 ```bash:no-line-numbers
 npm install @lando/vuepress-theme-default-plus --save-dev
 ```
-
-  </CodeGroupItem>
-</CodeGroup>
+::::
 
 ## Usage
 

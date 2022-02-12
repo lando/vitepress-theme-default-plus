@@ -2,4 +2,3 @@
   base = "./"
   publish = "docs/.vuepress/dist"
   command = "yarn build"
-  # This sort of lets us build only on tagged commits to prod

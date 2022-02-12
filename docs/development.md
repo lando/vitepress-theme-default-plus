@@ -1,37 +1,93 @@
 # Development
 
-* Requires [Lando](https://lando.dev/)
-* Prefers [Yarn](https://classic.yarnpkg.com/lang/en/docs/install)
+## Requirements
 
-```bash
-git clone https://github.com/lando/vuepress-theme-lando-docs.git && cd vuepress-theme-lando-docs
-yarn install
-```
+([Lando](https://lando.dev/)) **OR** ([Node 14+](https://nodejs.org/en/download/) and [Yarn](https://classic.yarnpkg.com/lang/en/docs/install))
 
-If you dont' want to install Node 14 or Yarn for whatever reason you can install [Lando](https://docs.lando.dev/basics/installation.html) and use that:
+:::tip Yarn is optional
+`yarn` is technically optional but is preferred and is assumed in the docs below. That said you can probably use `npm` as a drop in replacement for `yarn` below and end up in the same place.
+:::
 
-```bash
-git clone https://github.com/lando/vuepress-theme-lando-docs.git && cd vuepress-theme-lando-docs
-# Install deps and get node
+:::: code-group
+::: code-group-item LANDO
+
+```bash:no-line-numbers
+# clone repo
+git clone https://github.com/lando/vuepress-theme-default-plus.git &&
+  \ cd vuepress-theme-default-plus
+
+# start up app
 lando start
 
-# Run commands
-lando node
-lando yarn
+# launch dev server
+lando dev
 ```
+
+:::
+::: code-group-item YARN
+
+```bash:no-line-numbers
+# clone repo
+git clone https://github.com/lando/vuepress-theme-default-plus.git &&
+  \ cd vuepress-theme-default-plus
+
+# install deps
+yarn
+
+# launch dev server
+yarn dev
+
+# launch dev server in debug mode
+DEBUG="@lando/*" yarn dev
+```
+
+:::
+::::
 
 ## Testing
 
-```bash
-# Lint the code
-yarn lint
+:::: code-group
+::: code-group-item LANDO
 
-# Run unit tests
+```bash:no-line-numbers
+# lint the code
+lando yarn test
+```
+
+:::
+::: code-group-item YARN
+
+```bash:no-line-numbers
+# lint the code
 yarn test
 ```
 
+:::
+::::
+
 ## Releasing
 
-```bash
+:::: code-group
+::: code-group-item LANDO
+
+```bash:no-line-numbers
+# build the site
+lando yarn build
+
+# deploy the site
+lando yarn release
+```
+
+:::
+::: code-group-item YARN
+
+```bash:no-line-numbers
+# build the site
+yarn build
+
+# deploy the site
 yarn release
 ```
+
+:::
+::::

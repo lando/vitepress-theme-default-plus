@@ -154,7 +154,6 @@ const lastUpdated = computed(() => {
   const updatedDate = new Date(props.lastUpdated.timestamp);
   return timeago.format(updatedDate.toLocaleString());
 });
-
 </script>
 
 <style lang="scss" scoped>

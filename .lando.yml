@@ -1,7 +1,7 @@
 name: vuepress-theme-default-plus
 services:
   node:
-    type: node:14
+    type: node:16
     build:
       - yarn install
     scanner: false
@@ -12,3 +12,8 @@ tooling:
     service: node
   yarn:
     service: node
+  dev:
+    service: node
+    cmd: yarn dev
+    env:
+      DEBUG: "@lando/*"
