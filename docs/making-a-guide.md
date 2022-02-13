@@ -1,5 +1,6 @@
 ---
 title: Making A Guide 1
+description: Making a guide and shit
 guide: true
 ---
 

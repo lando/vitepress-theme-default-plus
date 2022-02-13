@@ -46,6 +46,8 @@ Here are the additional configuration options that we've added.
 
 ## Search
 
+## Social
+
 ## Sponsors
 
 ## Carbon Ads

@@ -4,6 +4,10 @@
       <div class="right-bar">
         <slot name="right-bar-top" />
         <Sponsors v-if="sponsors.enabled" />
+        <SocialLinks
+          v-if="social.enabled"
+          :icons="social.icons"
+        />
         <slot name="right-bar-bottom" />
       </div>
     </slot>
@@ -21,6 +25,10 @@
           :version="sidebarHeader.version"
           :link="sidebarHeader.versionLink"
           :icon="sidebarHeader.icon"
+        />
+        <SocialLinks
+          v-if="social.enabled"
+          :icons="social.icons"
         />
       </template>
 
@@ -68,6 +76,7 @@ import Page from '@vuepress/theme-default/lib/client/components/Page.vue';
 import CarbonAds from '../components/CarbonAds.vue';
 import Guide from '../components/Guide.vue';
 import SidebarHeader from '../components/SidebarHeader.vue';
+import SocialLinks from '../components/SocialLinks.vue';
 import Sponsors from '../components/SponsorsList.vue';
 
 // Get theme data
@@ -75,7 +84,7 @@ const frontmatter = usePageFrontmatter();
 const page = usePageData();
 const themeData = useThemeData();
 // Get the config from themedata
-const {carbonAds, sidebarHeader, sponsors} = themeData.value;
+const {carbonAds, sidebarHeader, social, sponsors} = themeData.value;
 
 // Helpers to manage transitions
 const scrollPromise = useScrollPromise();
