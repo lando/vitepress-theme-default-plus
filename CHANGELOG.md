@@ -1,3 +1,12 @@
+https://vuepress-theme-default-plus.lando.dev/
+
+v1.0.0-beta.1 [November 8, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.1)
+--------------------------------
+
+* First beta with feature completeness (we think?). See [docs on docs](https://vuepress-theme-default-plus.lando.dev/).
+
+* Adjust VuePress Dependencies
+
 v0.2.3 [November 8, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v0.2.3)
 ------------------------
 
