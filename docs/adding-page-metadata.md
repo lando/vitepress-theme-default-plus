@@ -1,7 +1,6 @@
 ---
-title: Making A Guide 1
-description: Learn how to automatically populate guide content using the VuePress 2 Default Theme Plus.
-image: https://external-preview.redd.it/mj-2SFKKXAMK3tXrlo1smwLCSIantySqxSgfgMoJH2U.jpg?width=640&crop=smart&auto=webp&s=4f983b744fba16877e80218131a917b92904af26
+title: Adding page metadata
+description: Learn how to add social metatags to your content
 guide: true
 ---
 

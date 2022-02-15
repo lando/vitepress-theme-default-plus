@@ -1,6 +1,8 @@
 ---
 title: Making A Guide 2
+description: Learn how to manually populate guide content using the VuePress 2 Default Theme Plus.
 guide: true
+image: https://external-preview.redd.it/mj-2SFKKXAMK3tXrlo1smwLCSIantySqxSgfgMoJH2U.jpg?width=640&crop=smart&auto=webp&s=4f983b744fba16877e80218131a917b92904af26
 authors:
   - name: Mike Pirog
     link: mailto:mike@lando.dev

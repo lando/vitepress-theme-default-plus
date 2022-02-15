@@ -1,3 +1,7 @@
+---
+description: VuePress 2 Default Theme Plus extends the VuePress2 default theme with some extra power and features.
+---
+
 # Overview
 
 This extends the [default VuePress 2 theme](https://v2.vuepress.vuejs.org/reference/default-theme/config.html#basic-config) with some extra power and features such as:

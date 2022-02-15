@@ -1,3 +1,9 @@
+---
+title: Making A Guide 1
+description: Get help and support for Vuepress 2 Default Theme Plus.
+guide: true
+---
+
 # Help and Support
 
 If you have a question or would like some community support we recommend you [join us on Slack](https://launchpass.com/devwithlando). Note that this is the Slack community for [Lando](https://lando.dev) but we are more than happy to help with this module as well!

@@ -134,6 +134,48 @@ module.exports = (options, app) => {
         const {versionLink, title, key} = page.data;
         debug('added version link %s to page data "%s" (%s)', versionLink, title, key);
       }
+
+      // if head is not an array then lets make it into an empty array
+      if (!_.isArray(page.data.frontmatter.head)) page.data.frontmatter.head = [];
+
+      // construct twitter metadata push unshift into frontmatter
+      // Vuepress2 seems to prioritize the earliest same named content so we need to push
+      // instead of unshift
+      const title = page.frontmatter.title || page.data.title || app.options.title || app.siteData.title;
+      const description = page.frontmatter.description || page.data.frontmatter.description || app.options.title;
+      const timestamp = _.get(page, 'data.git.updatedTime', new Date().getTime());
+      page.data.frontmatter.head.push(
+        ['meta', {name: 'twitter:card', content: 'summary'}],
+        ['meta', {name: 'twitter:title', content: title}],
+        ['meta', {name: 'twitter:description', content: description}],
+        ['meta', {name: 'twitter:site', content: _.get(app, 'themeConfig.social.owner', title)}],
+        ['meta', {property: 'og:type', content: 'article'}],
+        ['meta', {property: 'og:title', content: title}],
+        ['meta', {property: 'og:description', content: description}],
+        ['meta', {property: 'og:site_name', content: app.siteData.title}],
+        ['meta', {property: 'article:published_time', content: new Date(timestamp)}],
+        ['meta', {itemprop: 'name', content: title}],
+        ['meta', {itemprop: 'description', content: description}],
+      );
+
+      // add urls if we can
+      if (_.has(app, 'themeConfig.canonicalUrl')) {
+        const url = `${app.themeConfig.canonicalUrl}${app.base}${page.data.path}`;
+        page.data.frontmatter.head.push(
+          ['meta', {name: 'twitter:url', content: url}],
+          ['meta', {property: 'og:url', content: url}],
+        );
+      }
+      // add image if we can
+      if (_.has(page, 'frontmatter.image')) {
+        const image = page.frontmatter.image;
+        page.data.frontmatter.head.push(
+          ['meta', {name: 'og:image', content: image}],
+          ['meta', {name: 'og:image:alt', content: title}],
+          ['meta', {name: 'twitter:image', content: image}],
+          ['meta', {name: 'twitter:image:alt', content: title}],
+        );
+      }
     },
 
     // Add in some pages

@@ -12,7 +12,7 @@ module.exports = {
   ],
   theme: path.resolve(__dirname, '../..'),
   themeConfig: {
-    // @vuepress/theme-default
+    canonicalUrl: 'https://vuepress-theme-default-plus.lando.dev',
     docsDir: 'docs',
     docsBranch: 'main',
     navbar: [
@@ -36,6 +36,10 @@ module.exports = {
             text: 'Making a guide 2',
             link: '/making-a-guide-2.md',
           },
+          {
+            text: 'Adding page metadata',
+            link: '/adding-page-metadata.md',
+          },
         ],
       },
       '/development.md',
@@ -51,6 +55,7 @@ module.exports = {
     },
     social: {
       enabled: true,
+      owner: '@devwithlando',
       icons: [{
         title: 'Twitter',
         svg: {

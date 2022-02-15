@@ -1,3 +1,7 @@
+---
+description: Learn how to install and get started with VuePress 2 Default Theme Plus!
+---
+
 # Getting Started
 
 ## Installation

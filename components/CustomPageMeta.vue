@@ -148,7 +148,7 @@ const themeLocale = useThemeLocaleData();
 // compute show
 const show = computed(() => props.contributors || props.editNavLink || props.lastUpdated);
 // compute last updated
-const hasLastUpdated = computed(() => props.lastUpdated.timestamp !== null && props.lastUpdated.timestamp !== false);
+const hasLastUpdated = computed(() => props.lastUpdated && props.lastUpdated.timestamp !== null && props.lastUpdated.timestamp !== false);
 const lastUpdated = computed(() => {
   if (!hasLastUpdated.value) return null;
   const updatedDate = new Date(props.lastUpdated.timestamp);
