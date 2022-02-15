@@ -11,6 +11,13 @@
       <Content />
     </div>
 
+    <MailChimp
+      v-if="hasSignupForm"
+      :action="frontmatter.mailchimp.action"
+      :title="frontmatter.mailchimp.title"
+      :byline="frontmatter.mailchimp.byline"
+      :button="frontmatter.mailchimp.button"
+    />
     <CustomPageMeta
       :contributors="frontmatter.authors"
       :edit-nav-link="frontmatter.editlink"
@@ -24,16 +31,27 @@
 </template>
 
 <script setup>
+import {computed} from 'vue';
 import {usePageFrontmatter} from '@vuepress/client';
 // Get parent page nav
 import PageNav from '@vuepress/theme-default/lib/client/components/PageNav.vue';
 // Use our custom page meta component
 import GuideHeader from './GuideHeader.vue';
 import CustomPageMeta from './CustomPageMeta.vue';
+import MailChimp from './../global/MailChimp.vue';
 
 // Get frontmatter data
 const frontmatter = usePageFrontmatter();
+const hasSignupForm = computed(() => frontmatter.value.mailchimp && frontmatter.value.mailchimp.action);
 </script>
 
 <style lang="scss">
+.newsletter {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 2rem 2.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  overflow: auto;
+}
 </style>

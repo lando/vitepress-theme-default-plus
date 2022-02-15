@@ -40,6 +40,10 @@ module.exports = {
             text: 'Adding page metadata',
             link: '/adding-page-metadata.md',
           },
+          {
+            text: 'Adding a guide signup',
+            link: '/guide-signup.md',
+          },
         ],
       },
       '/development.md',
