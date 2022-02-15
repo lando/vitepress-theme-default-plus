@@ -4,23 +4,97 @@ description: Learn how to add social metatags to your content
 guide: true
 ---
 
-Guides are _how tos_ or _tutorials_ that fit somewhere in between technical documentation and blog posts. They generally
-seek to answer a single question such as "How do I create a guide using this theme?" and are heavy on code snippets. In this case there are actually two ways to create a guide:
+VuePress 2 Default Theme + will automatically add commonly used metatags to your page based on the pages frontmatter, site information and theme configuration.
 
-* Autopopulating data from GitHub
-* [Manually entering data](./making-a-guide-2.md)
+If you care about this then we recommend  you _at the very least_ set the `canonicalUrl` in the [theme config](./config.md) and set a `description` in the pages frontmatter.
 
-## Autopopulating data from GitHub
+For this page we have the following canoncial theme config and front matter:
 
-To automatically grab relevant authorship and data information make sure you set `repo` to a publically accessible GitHub repo and also set `autoPopulate` to `true` in the [theme config](./config.md).
+`config.js`
+```js
+module.exports = {
+  ...
+  theme: '@lando/vuepress-theme-default-plus',
+  themeConfig: {
+    ...
+    canonicalUrl: 'https://vuepress-theme-default-plus.lando.dev',
+    ...
+  }
+  ...
+};
+```
 
-Once you have done that then you can make a guide by adding the following frontmatter to your markdown file.
-
+`adding-page-metadata.md`
 ```md
 ---
-title: Making A Guide 1
+title: Adding page metadata
+description: Learn how to add social metatags to your content
 guide: true
 ---
 ```
 
-You can check out the full markdown file that generated this page [here](https://github.com/lando/vuepress-theme-default-plus/blob/main/docs/making-a-guide.md). If you are interested in manually setting the `authors`, `date` and edit link then check out [Making a Guide 2](./making-a-guide-2.md)
+And it results in the below markup:
+
+```html
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Adding page metadata">
+<meta name="twitter:description" content="Learn how to add social metatags to your content">
+<meta name="twitter:site" content="@devwithlando">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Adding page metadata">
+<meta property="og:description" content="Learn how to add social metatags to your content">
+<meta property="og:site_name" content="VuePress 2 Default Theme +">
+<meta property="article:published_time" content="2022-02-15T18:37:45.000Z">
+<meta itemprop="name" content="Adding page metadata">
+<meta itemprop="description" content="Learn how to add social metatags to your content">
+<meta name="twitter:url" content="https://vuepress-theme-default-plus.lando.dev/adding-page-metadata.html">
+<meta property="og:url" content="https://vuepress-theme-default-plus.lando.dev/adding-page-metadata.html">
+<link rel="canonical" href="https://vuepress-theme-default-plus.lando.dev/adding-page-metadata.html">
+```
+
+## Advanced
+
+You can also override the `title` and `description` as well as add an optional `image` tags.
+
+```md
+---
+title: Making A Guide 2
+description: Learn how to manually populate guide content using the VuePress 2 Default Theme Plus.
+image: https://external-preview.redd.it/mj-2SFKKXAMK3tXrlo1smwLCSIantySqxSgfgMoJH2U.jpg?width=640&crop=smart&auto=webp&s=4f983b744fba16877e80218131a917b92904af26
+---
+```
+
+If you require MOAR POWAH you can add or edit _any_ additional metatags as you see fit using the `head` key inside of your frontmatter.
+
+```md
+---
+head:
+  - - meta
+    - name: things:not-to-do
+      content: give you up
+  - - meta
+    - name: things:not-to-do-2
+      content: let you down
+  - - meta
+    - name: things:not-to-do-3
+      content: run around
+  - - meta
+    - name: things:not-to-do-4
+      content: desert you
+  - - meta
+    - name: things:not-to-do-5
+      content: make you cry
+  - - meta
+    - name: things:not-to-do-6
+      content: say goodbye
+  - - meta
+    - name: things:not-to-do-7
+      content: tell a lie
+  - - meta
+    - name: things:not-to-do-8
+      content: hurt you
+  - - link
+    - rel: canonical
+      href: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+---
+```

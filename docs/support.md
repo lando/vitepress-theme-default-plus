@@ -1,6 +1,6 @@
 ---
 title: Making A Guide 1
-description: Get help and support for Vuepress 2 Default Theme Plus.
+description: Get help and support for Vuepress 2 Default Theme +.
 guide: true
 ---
 

@@ -148,7 +148,7 @@ module.exports = (options, app) => {
         ['meta', {name: 'twitter:card', content: 'summary'}],
         ['meta', {name: 'twitter:title', content: title}],
         ['meta', {name: 'twitter:description', content: description}],
-        ['meta', {name: 'twitter:site', content: _.get(app, 'themeConfig.social.owner', title)}],
+        ['meta', {name: 'twitter:site', content: _.get(app, 'options.themeConfig.social.owner', title)}],
         ['meta', {property: 'og:type', content: 'article'}],
         ['meta', {property: 'og:title', content: title}],
         ['meta', {property: 'og:description', content: description}],
@@ -159,13 +159,15 @@ module.exports = (options, app) => {
       );
 
       // add urls if we can
-      if (_.has(app, 'themeConfig.canonicalUrl')) {
-        const url = `${app.themeConfig.canonicalUrl}${app.base}${page.data.path}`;
+      if (_.has(app, 'options.themeConfig.canonicalUrl')) {
+        const url = `${app.options.themeConfig.canonicalUrl}${app.options.base}${_.trim(page.data.path, '/')}`;
         page.data.frontmatter.head.push(
           ['meta', {name: 'twitter:url', content: url}],
           ['meta', {property: 'og:url', content: url}],
+          ['link', {rel: 'canonical', href: url}],
         );
       }
+
       // add image if we can
       if (_.has(page, 'frontmatter.image')) {
         const image = page.frontmatter.image;
