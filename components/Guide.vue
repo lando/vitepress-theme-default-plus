@@ -45,11 +45,10 @@ const frontmatter = usePageFrontmatter();
 const hasSignupForm = computed(() => frontmatter.value.mailchimp && frontmatter.value.mailchimp.action);
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .newsletter {
   max-width: var(--content-width);
   margin: 0 auto;
-  padding: 2rem 2.5rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
   overflow: auto;
