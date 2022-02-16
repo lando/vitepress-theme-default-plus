@@ -19,7 +19,7 @@ If you'd like to report a bug or submit a feature request then please [use the i
 
 If you need priority and dedicated support, expediated bug fixes or more features then please contact us below:
 
-<form class="netlify" name="contact" method="POST" data-netlify="true">
+<form class="netlify" name="contact" method="POST" netflify data-netlify="true">
   <p>
     <label>Name: <input type="text" name="name" /></label>
   </p>
