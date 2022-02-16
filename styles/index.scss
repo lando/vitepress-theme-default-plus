@@ -57,7 +57,9 @@
   --code-ln-wrapper-width: 3.5rem;
 
   // font vars
-  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, "Source Sans Pro",
+    Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-family-logo: 'Lexend', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   --font-family-code: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 

@@ -8,16 +8,15 @@ module.exports = {
   description: 'The VuePress2 default Theme with some extra power!',
   head: [
     ['link', {rel: 'icon', href: '/images/favicon.png'}],
-    ['link', {rel: 'stylesheet', href: '//fonts.googleapis.com/css?family=Poppins:700|Source+Sans+Pro&display=swap'}],
+    ['link', {rel: 'preconnect', href: '//fonts.googleapis.com'}],
+    ['link', {rel: 'preconnect', href: '//fonts.gstatic.com', crossorigin: true}],
+    ['link', {rel: 'stylesheet', href: '//fonts.googleapis.com/css2?family=Lexend:wght@500&display=swap'}],
   ],
   theme: path.resolve(__dirname, '../..'),
   themeConfig: {
     canonicalUrl: 'https://vuepress-theme-default-plus.lando.dev',
     docsDir: 'docs',
     docsBranch: 'main',
-    navbar: [
-      {text: 'GitHub', link: 'https://github.com/lando/vuepress-theme-default-plus/'},
-    ],
     repo: 'lando/vuepress-theme-default-plus',
     sidebar: [
       '/index.md',
@@ -92,6 +91,17 @@ module.exports = {
     sponsors: {
       enabled: true,
       data: yaml.load(fs.readFileSync(path.resolve(__dirname, '..', '..', 'sponsors.yml'), 'utf8')),
+    },
+    carbonAds: {
+      enabled: true,
+      placement: 'landodev',
+      serve: 'CE7DCKJU',
+    },
+
+    // Use Google Analytics
+    ga: {
+      enabled: true,
+      id: 'G-ZSK3T9FTQ9',
     },
   },
 };

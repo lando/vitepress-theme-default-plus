@@ -94,4 +94,7 @@ const onBeforeLeave = scrollPromise.pending;
 
 <style lang="scss">
 @import '../styles/main.scss';
+.navbar .site-name {
+  font-family: var(--font-family-logo);
+}
 </style>

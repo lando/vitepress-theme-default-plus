@@ -48,6 +48,7 @@
     "@vuepress/utils": "^2.0.0-beta.35",
     "@vueuse/core": "^5.0.0",
     "blueimp-md5": "^2.19.0",
+    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "sass": "^1.47.0",
     "sass-loader": "^12.4.0",

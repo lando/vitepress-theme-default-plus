@@ -14,9 +14,9 @@ const {getTopLevelPages, makeFauxInternal} = require('./lib/utils');
 
 module.exports = (options, app) => {
   // Rebase options on defaults
-  // @TODO: Set LANDO defaults here if options.lando = true is set
-  options = {...require('./lib/defaults'), ...options};
-  app.options.themeConfig = {...require('./lib/defaults'), ...app.options.themeConfig};
+  const defaults = options.landoDocs ? require('./lib/lando') : require('./lib/defaults');
+  options = {...defaults, ...options};
+  app.options.themeConfig = {...defaults, ...app.options.themeConfig};
 
   // We want to preserve the value of options.repo but we do not want to set it because it will show up
   // in the nav if we do
@@ -75,13 +75,13 @@ module.exports = (options, app) => {
     ],
   ];
 
-  if (options.ga.enabled) {
+  if (options.ga && options.ga.enabled) {
     plugins.push(['@vuepress/plugin-google-analytics', options.ga]);
     debug('added google analytics plugin');
   }
 
   // Add in seach and/or docsearch if applicable
-  if (options.search.enabled) {
+  if (options.ga && options.search.enabled) {
     if (options.search.apiKey && options.search.indexName) {
       plugins.push(['@vuepress/docsearch', options.search]);
       debug('added docsearch plugin');
