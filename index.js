@@ -14,7 +14,9 @@ const {getTopLevelPages, makeFauxInternal} = require('./lib/utils');
 
 module.exports = (options, app) => {
   // Rebase options on defaults
+  // @TODO: Set LANDO defaults here if options.lando = true is set
   options = {...require('./lib/defaults'), ...options};
+  app.options.themeConfig = {...require('./lib/defaults'), ...app.options.themeConfig};
 
   // We want to preserve the value of options.repo but we do not want to set it because it will show up
   // in the nav if we do
