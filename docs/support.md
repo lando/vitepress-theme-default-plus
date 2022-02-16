@@ -20,6 +20,7 @@ If you'd like to report a bug or submit a feature request then please [use the i
 If you need priority and dedicated support, expediated bug fixes or more features then please contact us below:
 
 <form class="netlify" name="contact" method="POST" netflify data-netlify="true">
+  <input type="hidden" name="form-name" value="contact" />
   <p>
     <label>Name: <input type="text" name="name" /></label>
   </p>
@@ -33,5 +34,3 @@ If you need priority and dedicated support, expediated bug fixes or more feature
     <button type="submit">Submit</button>
   </p>
 </form>
-
-@[code](/form.html)
