@@ -66,8 +66,7 @@ const props = defineProps({
 @media (max-width: $MQMobile) {
   .sidebar-open .sidebar .social-links {
     margin-top: 1.5em;
-    padding: 1.5rem 1.5rem;
-    border-top: 1px solid var(--c-border);
+    padding: 0.5rem 1.5rem 1.5rem;
     border-bottom: 1px solid var(--c-border);
     height: 20px;
     background: var(--c-bg);

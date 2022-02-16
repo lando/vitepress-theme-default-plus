@@ -19,16 +19,16 @@
           :placement="carbonAds.placement"
           :serve="carbonAds.serve"
         />
+        <SocialLinks
+          v-if="social.enabled"
+          :icons="social.icons"
+        />
         <SidebarHeader
           v-if="sidebarHeader.enabled"
           :title="sidebarHeader.title"
           :version="sidebarHeader.version"
           :link="sidebarHeader.versionLink"
           :icon="sidebarHeader.icon"
-        />
-        <SocialLinks
-          v-if="social.enabled"
-          :icons="social.icons"
         />
       </template>
 

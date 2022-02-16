@@ -75,11 +75,16 @@
   }
   @media (max-width: 719px) {
     font-weight: 700;
-    font-size: 1.1em;
+    font-size: 1.2em;
     border-bottom: 0;
     padding-bottom: 0;
+    flex-direction: column;
     .sidebar-version {
+      display: none;
       margin-top: 2px;
+      .badge {
+        font-size: 0.7em;
+      }
     }
     .sidebar-icon {
       display: none;
