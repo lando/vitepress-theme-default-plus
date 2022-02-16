@@ -108,7 +108,7 @@ const authors = computed(() => {
   return authors;
 });
 
-const hasLastUpdated = computed(() => props.lastUpdated && props.updated.timestamp !== null && props.updated.timestamp !== false);
+const hasLastUpdated = computed(() => props.updated && props.updated.timestamp !== null && props.updated.timestamp !== false);
 const lastUpdated = computed(() => {
   if (!hasLastUpdated.value) return null;
   const updatedDate = new Date(props.updated.timestamp);
