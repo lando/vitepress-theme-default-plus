@@ -4,7 +4,7 @@
       v-if="props.icon"
       class="sidebar-icon"
     >
-      <img :src="props.icon">
+      <img :src="$withBase(props.icon)">
     </span>
     <span
       v-if="props.title"

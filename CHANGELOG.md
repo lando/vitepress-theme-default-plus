@@ -1,3 +1,8 @@
+v1.0.0-beta.3 [February 16, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.3)
+---------------------------------
+
+* Improved `sidebarHeader.icon` so it honors `base`
+
 v1.0.0-beta.2 [February 16, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.2)
 ---------------------------------
 
