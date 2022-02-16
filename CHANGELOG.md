@@ -3,6 +3,7 @@ v1.0.0-beta.2 - In Progress
 
 * Fixed bug causing `MailChimp` component to be offset in some contexts
 * Fixed bug where `Help and Support` was named `Making a Guide 1`
+* Fixed bug where theme defaults were not being merged into `themeConfig` correctly
 
 v1.0.0-beta.1 [November 8, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.1)
 --------------------------------
