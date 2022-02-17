@@ -1,10 +1,11 @@
-v1.0.0-beta.3 [February 16, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.3)
+v1.0.0-beta.3 [February 17, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.3)
 ---------------------------------
 
 * Improved `sidebarHeader.icon` so it honors `base`
 * Improved `social` and `sidebarHeader` styling for mobile
 * Improved `<form>` stylings
 * Fixed bug causing `lastUpdated` to not show up in `GuideHeader`
+* Fixed bug causing Docsearch to not work correctly
 
 v1.0.0-beta.2 [February 16, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.2)
 ---------------------------------

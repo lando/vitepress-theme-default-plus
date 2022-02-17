@@ -14,7 +14,7 @@ const isSpecialClick = event => event.button === 1 ||
   event.metaKey ||
   event.shiftKey;
 
-const useDocsearchShim = baseUrl => {
+const useDocsearchShim = (baseUrl = null) => {
   const router = useRouter();
   const site = useSiteData();
   return {

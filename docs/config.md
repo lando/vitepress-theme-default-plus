@@ -38,13 +38,13 @@ Here are the additional configuration options that we've added.
 
   If you don't understand what that is or you only have a single docs site then its best to just ignore this one.
 
-#### canonicalBase
+#### canonicalUrl
 
 * Type: `String`
 
 * Default: `null`
 
-* Example: `canonicalBase: "https://vuepress-theme-default-plus.lando.dev"`
+* Example: `canonicalUrl: "https://vuepress-theme-default-plus.lando.dev"`
 
 * Details:
 
@@ -185,7 +185,7 @@ The `content`, `link` and `title` are all editable. You can also choose to _not_
 
   ```js
   search: {
-    enabled: true,
+    enabled: false,
   },
   ```
 
@@ -202,6 +202,8 @@ The `content`, `link` and `title` are all editable. You can also choose to _not_
 * Details:
 
 Set `enable: true` to turn on the default search functionality. If you wish to leverage [Docsearch](https://docsearch.algolia.com/) then you also need to pass in an `apiKey` and `indexName`.
+
+Note that if you want to search across many sites that operate under a single domain then you will also need to set the `baseUrl`.
 
 ## Social
 

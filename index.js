@@ -81,9 +81,9 @@ module.exports = (options, app) => {
   }
 
   // Add in seach and/or docsearch if applicable
-  if (options.ga && options.search.enabled) {
+  if (options.search && options.search.enabled) {
     if (options.search.apiKey && options.search.indexName) {
-      plugins.push(['@vuepress/docsearch', options.search]);
+      plugins.push([path.resolve(__dirname, './plugins/plugin-docsearch-plus.js'), options.search]);
       debug('added docsearch plugin');
     } else {
       plugins.push(['@vuepress/search']);
@@ -98,13 +98,9 @@ module.exports = (options, app) => {
       '@theme/PageMeta.vue': path.resolve(__dirname, 'components', 'CustomPageMeta.vue'),
     },
     define: {
-      __DOCSEARCH_OPTIONS__: options,
       __THEME_OPTIONS__: options,
     },
     layouts: path.resolve(__dirname, 'layouts'),
-    clientAppEnhanceFiles: [
-      path.resolve(__dirname, './client/docsearch.js'),
-    ],
     plugins,
 
     // Add some page data
