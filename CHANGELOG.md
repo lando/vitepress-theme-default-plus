@@ -1,6 +1,7 @@
 v1.0.0-beta.4 is in development
 -------------------------------
 
+* Improved centering on `SidebarHeader`
 * Removed background on `SocialLinks` for better dark mode transition
 
 v1.0.0-beta.3 [February 17, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.3)

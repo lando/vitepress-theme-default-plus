@@ -65,10 +65,12 @@
   border-bottom: 1px solid var(--c-border);
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   .sidebar-version {
     margin-top: 3px;
   }
   .sidebar-icon {
+    display: flex;
     img {
       width: 24px;
     }
