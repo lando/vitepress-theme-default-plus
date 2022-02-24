@@ -47,5 +47,5 @@ jobs:
       - name: Auto deploy to ${{ matrix.auto-deploy-repos }}
         uses: lando/auto-deploy-action@v2
         with:
-          repo: ${{ matrix.auto-deploy-repos }}'
+          slug: ${{ matrix.auto-deploy-repos }}
           token: ${{ github.token }}
