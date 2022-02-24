@@ -62,8 +62,12 @@ jobs:
           - lando/go
           - lando/joomla
           - lando/lagoon
+          - lando/lamp
+          - lando/laravel
+          - lando/lemp
           - lando/mailhog
           - lando/mariadb
+          - lando/mean
           - lando/memcached
           - lando/mongo
           - lando/mssql
@@ -78,9 +82,11 @@ jobs:
           - lando/python
           - lando/redis
           - lando/ruby
+          - lando/symfony
           - lando/tomcat
           - lando/solr
           - lando/varnish
+          - lando/wordpress
     steps:
       # Install deps and cache
       - name: Checkout code
