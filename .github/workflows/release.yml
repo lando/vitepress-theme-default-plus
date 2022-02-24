@@ -17,7 +17,34 @@ jobs:
         node-version:
           - '14'
         auto-deploy-repos:
+          - lando/acquia
+          - lando/apache
+          - lando/backdrop
+          - lando/dotnet
+          - lando/drupal
+          - lando/elasticsearch
+          - lando/go
+          - lando/joomla
+          - lando/lagoon
+          - lando/mailhog
+          - lando/mariadb
+          - lando/memcached
+          - lando/mongo
+          - lando/mssql
+          - lando/mysql
+          - lando/nginx
+          - lando/node
+          - lando/pantheon
           - lando/php
+          - lando/phpmyadmin
+          - lando/platformsh
+          - lando/postgres
+          - lando/python
+          - lando/redis
+          - lando/ruby
+          - lando/tomcat
+          - lando/solr
+          - lando/varnish
     steps:
       # Install deps and cache
       - name: Checkout code
