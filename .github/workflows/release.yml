@@ -48,4 +48,4 @@ jobs:
         uses: lando/auto-deploy-action@v2
         with:
           slug: ${{ matrix.auto-deploy-repos }}
-          token: ${{ github.token }}
+          token: ${{ secrets.PIROG_TOKEN }}
