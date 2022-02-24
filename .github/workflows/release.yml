@@ -49,3 +49,6 @@ jobs:
         with:
           slug: ${{ matrix.auto-deploy-repos }}
           token: ${{ secrets.PIROG_TOKEN }}
+          pr: false
+          branch: main
+
