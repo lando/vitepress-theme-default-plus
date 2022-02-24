@@ -1,3 +1,17 @@
+v1.0.0-beta.9 [February 23, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.9)
+-------------------------------
+
+* Improved centering on `SidebarHeader`
+* Removed background on `SocialLinks` for better dark mode transition
+* Updated `lando` navbar defaults
+
+v1.0.0-beta.8 [February 23, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.8)
+-------------------------------
+
+* Improved centering on `SidebarHeader`
+* Removed background on `SocialLinks` for better dark mode transition
+* Updated `lando` navbar defaults
+
 v1.0.0-beta.7 [February 23, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.7)
 -------------------------------
 
