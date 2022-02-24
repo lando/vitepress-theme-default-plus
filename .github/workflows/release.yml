@@ -1,4 +1,4 @@
-name: Publish to NPM
+name: Publish to NPM and auto deploy to dependents
 
 on:
   push:
@@ -16,6 +16,8 @@ jobs:
           - ubuntu-20.04
         node-version:
           - '14'
+        auto-deploy-repos:
+          - lando/php
     steps:
       # Install deps and cache
       - name: Checkout code
@@ -34,9 +36,16 @@ jobs:
         run: yarn lint
       - name: Run unit tests
         run: yarn test
-        
-      # Deploy
+
+      # Deploy to NPM
       - name: Deploy stable releases
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_DEPLOY_TOKEN}}
+
+      # Auto deploy to everything else
+      - name: Auto deploy to ${{ matrix.auto-deploy-repos }}
+        uses: lando/auto-deploy-action@v2
+        with:
+          repo: ${{ matrix.auto-deploy-repos }}'
+          token: ${{ github.token }}
