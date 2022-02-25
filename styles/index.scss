@@ -1,7 +1,8 @@
 :root {
   // brand colors
-  --c-brand: #ed3f7a;
-  --c-brand-light: #f26f9b;
+  --c-brand: #dd3f8f;
+  --c-brand-light: #dd3f8f;
+  --c-brand-bg: #e0eaff;
 
   // background colors
   --c-bg: #ffffff;
@@ -17,15 +18,15 @@
   --c-text-light: #3a5169;
   --c-text-lighter: #4e6e8e;
   --c-text-lightest: #6a8bad;
-  --c-text-quote: #999999;
+  --c-text-quote: #767676;
 
   // border colors
   --c-border: #eaecef;
   --c-border-dark: #dfe2e5;
 
   // custom container colors
-  --c-tip: #ed3f7a;
-  --c-tip-bg: var(--c-bg-light);
+  --c-tip: var(--c-brand);
+  --c-tip-bg: var(--c-brand-bg);
   --c-tip-title: var(--c-text);
   --c-tip-text: var(--c-text);
   --c-tip-text-accent: var(--c-text-accent);
@@ -42,7 +43,7 @@
   --c-details-bg: #eeeeee;
 
   // badge component colors
-  --c-badge-tip: var(--c-tip);
+  --c-badge-tip: var(--c-brand);
   --c-badge-warning: var(--c-warning);
   --c-badge-danger: var(--c-danger);
 
@@ -133,6 +134,7 @@ html.dark {
   // brand colors
   --c-brand: #ed3f7a;
   --c-brand-light: #f26f9b;
+  --c-brand-bg: var(--c-bg-lighter);
 
   // background colors
   --c-bg: #22272e;
@@ -150,7 +152,8 @@ html.dark {
   --c-border-dark: #34404c;
 
   // custom container colors
-  --c-tip: #ed3f7a;
+  --c-tip: #dd3f8f;
+  --c-tip-bg: var(--c-bg-light);
   --c-warning: #ceab00;
   --c-warning-bg: #7e755b;
   --c-warning-title: #ceac03;
@@ -178,7 +181,7 @@ html.dark .DocSearch {
 
 // very basic form stylings
 form.netlify {
-  background-color: var(--c-bg-lighter);
+  background-color: var(--c-brand-bg);
   padding: 2em 3em;
   input[type=email], input[type=text], textarea {
     border: 0 solid #f8f8f8;
@@ -197,12 +200,22 @@ form.netlify {
     font-family: var(--font-family);
   }
   button[type=submit] {
-    padding: 1.2em 3em;
     width: 25%;
     margin: auto;
-    border: 0 solid #d3d3d3;
     box-sizing: border-box;
     font-size: 16px;
+    display: inline-block;
+    font-size: 1.2rem;
+    padding: 0.8rem 1.6rem;
+    background-color: transparent;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 4px;
+    border-color: var(--c-brand);
+    color: var(--c-brand);
+    transition: background-color var(--c-brand);
+    box-sizing: border-box;
+    cursor: pointer;
     &:hover {
       background-color: var(--c-brand);
       color: #ffffff;

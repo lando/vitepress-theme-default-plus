@@ -103,7 +103,7 @@ const email = ref(null);
   border-radius: 3px;
   box-sizing: border-box;
   width: auto;
-  background-color: var(--c-bg-light);
+  background-color: var(--c-brand-bg);
 }
 .newsletter__title {
   font-size: 1.7rem;
@@ -169,7 +169,7 @@ const email = ref(null);
     margin: 1em 0;
   }
   .newsletter__wrap {
-    background-color: var(--c-bg-light);
+    background-color: var(--c-brand-bg);
   }
   @media (max-width: $MQMobile) {
     .post-subscribe .subscribe-form {
