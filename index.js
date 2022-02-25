@@ -91,6 +91,11 @@ module.exports = (options, app) => {
     }
   }
 
+  // If baseUrl and base are both set and home is not then lets set a better default
+  if (app.options.base && options.baseUrl && !options.home) {
+    options.home = `/${path.relative(app.options.base, new URL(options.baseUrl).pathname)}`;
+  }
+
   return {
     name: '@lando/vuepress-theme-default-plus',
     extends: '@vuepress/theme-default',
