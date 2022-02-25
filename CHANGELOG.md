@@ -2,7 +2,7 @@ v1.0.0-beta.14 [February 25, 2021](https://github.com/lando/vuepress-theme-defau
 -------------------------------
 
 * Added ability to override downstream `alias` in `themeConfig`
-* Improved default `home` setting when running in `baseUrl` mode [#18]
+* Improved default `home` setting when running in `baseUrl` mode [#18](https://github.com/lando/vuepress-theme-default-plus/issues/18)
 
 v1.0.0-beta.12 [February 23, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.12)
 -------------------------------
