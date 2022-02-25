@@ -24,6 +24,25 @@ Here are the additional configuration options that we've added.
 
   This requires you also set `repo`.
 
+
+#### alias
+
+* Type: `Object`
+
+* Default: `{}`
+
+* Details:
+
+  This allows the user to override any downstream components with their own. See [https://v2.vuepress.vuejs.org/advanced/cookbook/making-a-theme-extendable.html#component-aliases].
+
+* Example:
+
+  ```js
+  alias: {
+    '@theme/Home.vue': './Home.vue'),
+  },
+  ```
+
 #### baseUrl
 
 * Type: `String`

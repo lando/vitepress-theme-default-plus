@@ -95,7 +95,8 @@ module.exports = (options, app) => {
     name: '@lando/vuepress-theme-default-plus',
     extends: '@vuepress/theme-default',
     alias: {
-      '@theme/PageMeta.vue': path.resolve(__dirname, 'components', 'CustomPageMeta.vue'),
+      ...{'@theme/PageMeta.vue': path.resolve(__dirname, 'components', 'CustomPageMeta.vue')},
+      ...options.alias,
     },
     define: {
       __THEME_OPTIONS__: options,

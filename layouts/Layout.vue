@@ -1,7 +1,10 @@
 <template>
   <div class="layout-wrapper">
     <slot name="right-bar">
-      <div class="right-bar">
+      <div
+        v-if="!frontmatter.home"
+        class="right-bar"
+      >
         <slot name="right-bar-top" />
         <Sponsors v-if="sponsors.enabled" />
         <SocialLinks
@@ -69,8 +72,8 @@ import {useScrollPromise} from '@vuepress/theme-default/lib/client/composables';
 
 // Parent components
 import ParentLayout from '@vuepress/theme-default/lib/client/layouts/Layout.vue';
-import Home from '@vuepress/theme-default/lib/client/components/Home.vue';
-import Page from '@vuepress/theme-default/lib/client/components/Page.vue';
+import Home from '@theme/Home.vue';
+import Page from '@theme/Page.vue';
 
 // Theme components
 import CarbonAds from '../components/CarbonAds.vue';
