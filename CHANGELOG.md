@@ -1,3 +1,9 @@
+v1.0.0-beta.15 [February 25, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.15)
+-------------------------------
+
+* Removed unused components
+* Updated the branding
+
 v1.0.0-beta.14 [February 25, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.14)
 -------------------------------
 
