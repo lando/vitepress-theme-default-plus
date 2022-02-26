@@ -179,6 +179,15 @@ html.dark .DocSearch {
     0 -4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+blockquote {
+  border-left-width: 0.5rem;
+  border-left-style: solid;
+  border-color: var(--c-brand-light);
+  color: var(--c-brand);
+  padding: 1.27em;
+  font-style: italic;
+}
+
 // very basic form stylings
 form.netlify {
   background-color: var(--c-brand-bg);
