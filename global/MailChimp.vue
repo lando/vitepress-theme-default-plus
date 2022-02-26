@@ -104,6 +104,18 @@ const email = ref(null);
   box-sizing: border-box;
   width: auto;
   background-color: var(--c-brand-bg);
+  input[type=email], input[type=text], textarea {
+    border: 0 solid #f8f8f8;
+    box-sizing: border-box;
+    font-size: 1em;
+    height: 50px;
+    width: 100%;
+    padding: 1em;
+    &:focus {
+      outline: 1px solid var(--c-brand-light);
+      outline-offset: 2px;
+    }
+  }
 }
 .newsletter__title {
   font-size: 1.7rem;
@@ -124,16 +136,26 @@ const email = ref(null);
   outline: none;
 }
 .button {
-  font-size: inherit;
-  border: none;
-  cursor: pointer;
-  background: var(--c-text-accent);
-  color: #fff;
-  padding: 0.6rem 1.8rem;
+  margin: auto;
   box-sizing: border-box;
-  border-radius: 3px;
-  width: 100%;
-  outline: none;
+  font-size: 16px;
+  display: inline-block;
+  font-size: 1.2rem;
+  padding: 0.8rem 1.6rem;
+  background-color: var(--c-brand);
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 4px;
+  border-color: var(--c-brand);
+  color: #ffffff;
+  transition: background-color var(--c-brand-light);
+  box-sizing: border-box;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--c-brand-light);
+    color: #ffffff;
+    transition: all 0.2s;
+  }
 }
 .post-subscribe {
   .subscribe {

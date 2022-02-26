@@ -45,7 +45,7 @@ const props = defineProps({
   padding: 1.5rem 1.5rem;
   border-bottom: 1px solid var(--c-border);
   height: 20px;
-  background: var(--c-bg);
+  background: transparent;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
