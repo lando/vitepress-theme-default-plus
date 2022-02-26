@@ -2,7 +2,7 @@
   <div class="layout-wrapper">
     <slot name="right-bar">
       <div
-        v-if="!frontmatter.home"
+        v-if="!frontmatter.home && frontmatter.rightbar !== false"
         class="right-bar"
       >
         <slot name="right-bar-top" />

@@ -43,6 +43,10 @@ module.exports = {
             text: 'Adding a guide signup',
             link: '/guide-signup.md',
           },
+          {
+            text: 'Disabling rightbar',
+            link: '/disabling-rightbar.md',
+          },
         ],
       },
       '/development.md',

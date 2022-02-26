@@ -303,3 +303,22 @@ Note that if you want to search across many sites that operate under a single do
     serve: 'CE7DCKJU',
   },
   ```
+
+## Frontmatter
+
+Note that the below are _in addition_ to the [options](https://v2.vuepress.vuejs.org/reference/default-theme/frontmatter.html#all-pages) from the default theme.
+
+### All Pages
+
+#### rightbar
+
+* Type: `false` | 'auto'
+
+* Details:
+
+  Configure the visibility of the rightbar on a given page.
+
+### Guides
+
+* See [Making a guide 1](./making-a-guide.md)
+* See [Making a guide 2](./making-a-guide-2.md)
