@@ -1,6 +1,7 @@
 v1.0.0-beta.16 [February 26, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.16)
 -------------------------------
 
+* Added `half`, `third`, `center`, `left`, `right` and `card` custom containers
 * Added `rightbar` option to `frontmatter`, works like `sidebar` but can disable `rightbar`
 * Made `form` styling elements more consistent
 * Fixed various styling bugs

@@ -47,6 +47,10 @@ module.exports = {
             text: 'Disabling rightbar',
             link: '/disabling-rightbar.md',
           },
+          {
+            text: 'Advanced markdown',
+            link: '/advanced-markdown.md',
+          },
         ],
       },
       '/development.md',

@@ -1,6 +1,6 @@
 ---
 title: Disabling the rightbar
-description: Learn how to easily add a guide newsletter signup.
+description: Learn how to easily disable the rightbar in a given page.
 guide: true
 rightbar: false
 ---

@@ -96,6 +96,44 @@ module.exports = (options, app) => {
     options.home = `/${path.relative(app.options.base, new URL(options.baseUrl).pathname)}`;
   }
 
+  // Add some custom containers
+  plugins.push(
+    ['@vuepress/container', {
+      type: 'half',
+      defaultTitle: '',
+    }],
+  );
+  plugins.push(
+    ['@vuepress/container', {
+      type: 'third',
+      defaultTitle: '',
+    }],
+  );
+  plugins.push(
+    ['@vuepress/container', {
+      type: 'center',
+      defaultTitle: '',
+    }],
+  );
+  plugins.push(
+    ['@vuepress/container', {
+      type: 'left',
+      defaultTitle: '',
+    }],
+  );
+  plugins.push(
+    ['@vuepress/container', {
+      type: 'right',
+      defaultTitle: '',
+    }],
+  );
+  plugins.push(
+    ['@vuepress/container', {
+      type: 'card',
+      defaultTitle: '',
+    }],
+  );
+
   return {
     name: '@lando/vuepress-theme-default-plus',
     extends: '@vuepress/theme-default',
