@@ -58,6 +58,7 @@ jobs:
           - lando/backdrop
           - lando/cli
           - lando/core
+          - lando/docs
           - lando/dotnet
           - lando/drupal
           - lando/elasticsearch
