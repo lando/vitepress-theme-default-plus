@@ -1,3 +1,8 @@
+v1.0.0-beta.17 [February 26, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.17)
+-------------------------------
+
+* Fixed bug causing `home` to `404` when deployed in `baseUrl` subsite configuration
+
 v1.0.0-beta.16 [February 26, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.16)
 -------------------------------
 
