@@ -80,6 +80,11 @@ module.exports = (options, app) => {
     debug('added google analytics plugin');
   }
 
+  if (options.hubspot && options.hubspot.enabled) {
+    plugins.push([path.resolve(__dirname, './plugins/plugin-hubspot-tracking.js'), options.hubspot]);
+    debug('added hubspot tracking plugin');
+  }
+
   // Add in seach and/or docsearch if applicable
   if (options.search && options.search.enabled) {
     if (options.search.apiKey && options.search.indexName) {

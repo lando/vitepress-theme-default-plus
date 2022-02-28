@@ -69,22 +69,6 @@ Here are the additional configuration options that we've added.
 
   Set this if you care about the theme automatically generating common metatags with URL data.
 
-
-#### ga
-
-* Type: `Object`
-
-* Default:
-
-  ```yaml
-  enabled: true
-  id: null
-  ```
-
-* Details:
-
-  Set if you want to hookup Google Tag stuff
-
 #### sharedNavbar
 
 * Type: `Array`
@@ -103,6 +87,42 @@ Here are the additional configuration options that we've added.
 
   This prepends a bunch of entries to the usual `navbar` and follows the same format. It is usually used in combination with `baseUrl` to bring its "treat like internal link" functionality to the `navbar`.
 
+
+## Tracking
+
+#### ga
+
+* Type: `Object`
+
+* Default:
+
+  ```js
+  ga: {
+    enabled: false,
+    id: null,
+  }
+  ```
+
+* Details:
+
+  Set if you want to hookup Google Tag stuff. `id` needs to be a Measurement ID eg format `G-XXXXXXXXXX`.
+
+#### hubspot
+
+* Type: `Object`
+
+* Default:
+
+  ```js
+  hubspot: {
+    enabled: false,
+    id: null,
+  }
+  ```
+
+* Details:
+
+  Set if you want to hookup Hubspot tracking codes. `id` needs to be the `id` in ` //js.hs-scripts.com/${ID}.js`.
 
 ## Sidebar Header
 

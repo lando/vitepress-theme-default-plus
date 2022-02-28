@@ -1,3 +1,8 @@
+v1.0.0-beta.18 [February 28, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.18)
+-------------------------------
+
+* Added support for Hubspot tracking code [#21](https://github.com/lando/vuepress-theme-default-plus/issues/21)
+
 v1.0.0-beta.17 [February 26, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.17)
 -------------------------------
 
