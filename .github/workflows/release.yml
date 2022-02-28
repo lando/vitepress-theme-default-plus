@@ -57,6 +57,7 @@ jobs:
           - lando/apache
           - lando/backdrop
           - lando/cli
+          - lando/compose
           - lando/core
           - lando/docs
           - lando/dotnet
