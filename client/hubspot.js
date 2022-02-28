@@ -1,19 +1,16 @@
 import {defineClientAppEnhance} from '@vuepress/client';
 
-const options = {...__THEME_OPTIONS__, __HUBSPOT_OPTIONS__};
+const {id = undefined} = __HUBSPOT_OPTIONS__;
 
 export default defineClientAppEnhance(({app, router, siteData}) => {
   // Bail if we arent ready to rock
-  if (window.dataLayer && window.hubspot) {
-    return;
-  }
-  if (options.hubspot && !options.hubspot.id) {
-    return;
-  }
+  if (__VUEPRESS_SSR__) return;
+  if (window.dataLayer && window.hubspot) return;
+  if (!id) return;
 
   // insert hubspot `<script>` before closing body tag
   const hubspotScript = document.createElement('script');
-  hubspotScript.src = `//js.hs-scripts.com/${options.hubspot.id}.js`;
+  hubspotScript.src = `//js.hs-scripts.com/${id}.js`;
   hubspotScript.async = true;
   hubspotScript.defer = true;
   hubspotScript.id = 'hs-script-loader';
@@ -29,5 +26,5 @@ export default defineClientAppEnhance(({app, router, siteData}) => {
   };
 
   hubspot('js', new Date());
-  hubspot('config', options.hubspot.id);
+  hubspot('config', id);
 });
