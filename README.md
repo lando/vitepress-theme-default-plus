@@ -4,9 +4,12 @@ This extends the [default VuePress 2 theme](https://v2.vuepress.vuejs.org/refere
 
 * Automatically generated and customizable _Previous Versions_ page
 * Automatically generated and customizable _Contributorz_ page
+* Automatic `meta` tag features for Facebook, OG and Twitter
+* Tracking code support for Google Tag Manager and Hubspot
 * Some basic documentation versioning features
 * Features to help combining different docs sites into a single coherent docs experience
-* Some helper components for YouTube, Guides and newsletteing
+* Some helper components for YouTube, Guides and Mailchimp
+* Custom markdown containers for richer content
 * A configurable _Special Sponsors_ section
 * [CarbonAds](https://www.carbonads.net/) support
 
