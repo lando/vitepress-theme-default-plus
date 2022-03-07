@@ -1,3 +1,8 @@
+v1.0.0-beta.20 [March 7, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.20)
+-------------------------------
+
+* Empty release for deploy testing purposes
+
 v1.0.0-beta.19 [March 7, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.19)
 -------------------------------
 
