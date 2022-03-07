@@ -141,10 +141,9 @@ jobs:
         run: yarn install --prefer-offline --frozen-lockfile
 
       # Auto deploy to everything else
-      - name: Auto deploy to ${{ matrix.auto-deploy-repos }}
+      - name: PR deploy to ${{ matrix.auto-deploy-repos }}
         uses: lando/auto-deploy-action@v2
         with:
           slug: ${{ matrix.pr-deploy-repos }}
           token: ${{ secrets.PIROG_TOKEN }}
           pr: true
-          branch: main
