@@ -262,7 +262,6 @@ module.exports = {
       ],
     },
   ],
-
   // Sidebar header
   sidebarHeader: {
     auto: true,

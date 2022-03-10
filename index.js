@@ -19,8 +19,8 @@ module.exports = (options, app) => {
   }
 
   // Rebase options on defaults
-  options = {...options.defaults, ...options};
-  app.options.themeConfig = {...options.defaults, ...app.options.themeConfig};
+  options = _.merge({}, options.defaults, options);
+  app.options.themeConfig = _.merge({}, options.defaults, app.options.themeConfig);
   // Remove defaults so its less confusing
   delete options.defaults;
   debug('merging user config over defaults, result: %O', options);
