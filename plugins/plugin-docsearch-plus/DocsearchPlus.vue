@@ -60,11 +60,15 @@ export default {
       type: Object,
       required: true,
     },
+    searchBase: {
+      type: String,
+      default: null,
+    },
   },
   setup(props) {
     const routeLocale = useRouteLocale();
     const lang = usePageLang();
-    const docsearchShim = useDocsearchShim(props.options.baseUrl);
+    const docsearchShim = useDocsearchShim(props.searchBase);
     // resolve docsearch props for current locale
     const propsLocale = computed(() => {
       let _a;

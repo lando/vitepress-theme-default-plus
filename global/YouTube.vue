@@ -43,4 +43,16 @@ const url = computed(() => `https://www.youtube.com/embed/${props.id}`);
     position: absolute;
   }
 }
+
+
+@media (max-width: $MQMobileNarrow) {
+  .video-responsive {
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 0;
+    width: auto;
+    margin: 0.85rem -1.5rem;
+    border-radius: 0;
+  }
+}
 </style>

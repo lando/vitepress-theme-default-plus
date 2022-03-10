@@ -46,11 +46,25 @@ const hasSignupForm = computed(() => frontmatter.value.mailchimp && frontmatter.
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/main.scss';
 .newsletter {
-  max-width: var(--content-width);
+  padding: 1.8rem 2.3rem;
   margin: 0 auto;
   padding-top: 1rem;
   padding-bottom: 1rem;
   overflow: auto;
+  width: auto;
+}
+@media (max-width: $MQMobileNarrow) {
+  .newsletter {
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 0;
+    width: 100%;
+  }
+  .newsletter__wrap {
+    margin: 0.85rem -1.5rem;
+    border-radius: 0;
+  }
 }
 </style>

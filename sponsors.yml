@@ -1,16 +1,20 @@
-- name: Platform.sh
-  id: platformsh
-  url: https://platform.sh
-  logo: https://lando.dev/images/platform_sh_logo.png
 - name: amazee.io
   id: amazeeio
   url: https://www.amazee.io/
-  logo: https://lando.dev/images/amazee_io_logo.png
-- name: Pantheon
-  id: pantheon
-  url: https://pantheon.io/
-  logo: https://lando.dev/images/pantheon_logo.png
+  logo: https://docs.lagoon.sh/lagoon-logo.png
+  type: full
+- name: Platform.sh
+  id: platformsh
+  url: https://platform.sh
+  logo: https://2019.badcamp.org/sites/default/files/sponsors/logos/2019-06/Platformsh%20logo.png
+  type: full
 - name: Blackmesh by Contegix
   id: blackmesh
   url: https://www.blackmesh.com/
-  logo: https://lando.dev/images/blackmesh_logo.png
+  logo: https://content.energage.com/company-images/SL18/SE74366/SE74366_logo_orig.png
+  type: half
+- name: Pantheon
+  id: pantheon
+  url: https://pantheon.io/
+  logo: https://www.drupal.org/files/Pantheon_logo_black_0.png
+  type: half

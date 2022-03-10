@@ -80,7 +80,7 @@
     font-size: 1.2em;
     border-bottom: 0;
     padding-bottom: 0;
-    flex-direction: column;
+    flex-direction: row;
     .sidebar-version {
       display: none;
       margin-top: 2px;

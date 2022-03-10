@@ -70,7 +70,9 @@
   --navbar-padding-h: 1.5rem;
   --sidebar-width: 20rem;
   --sidebar-width-mobile: calc(var(--sidebar-width) * 0.82);
-  --content-width: 740px;
+  --content-width: 820px;
+  --rightbar-width: 220px;
+  --total-width: calc(var(--content-width) + var(--rightbar-width));
   --homepage-width: 960px;
 }
 
@@ -237,4 +239,10 @@ form.netlify {
 label {
   font-size: .9em;
   font-weight: bold;;
+}
+
+.toggle-dark-button {
+  &:hover {
+    color: var(--c-brand);
+  }
 }

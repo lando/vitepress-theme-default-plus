@@ -1,23 +1,34 @@
 <template>
   <div class="social-links">
-    <a
+    <div
       v-for="(icon, index) in props.icons"
       :key="index"
-      :href="icon.link"
+      class="social-link"
     >
-      <svg
-        v-if="icon.svg"
-        xmlns="http://www.w3.org/2000/svg"
-        role="img"
-        viewBox="0 0 24 24"
+      <a
+        :href="icon.link"
+        target="_blank"
+        rel="noopener noreferrer"
+        :aria-label="icon.title"
       >
-        <title>{{ icon.title }}</title>
-        <path
-          v-if="icon.svg.path"
-          :d="icon.svg.path"
-        />
-      </svg>
-    </a>
+        <svg
+          v-if="icon.svg"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          v-bind="icon.svg.attributes"
+        >
+          <title v-if="icon.svg.title">{{ icon.title }}</title>
+          <path
+            v-if="icon.svg.path"
+            v-bind="icon.svg.path"
+          />
+          <polygon
+            v-if="icon.svg.polygon"
+            v-bind="icon.svg.polygon"
+          />
+        </svg>
+      </a>
+    </div>
   </div>
 </template>
 
@@ -34,51 +45,28 @@ const props = defineProps({
 
 <style lang="scss">
 @import '../styles/main.scss';
-.sidebar .social-links {
-  display: none;
-}
-.right-bar .social-links {
-  position: fixed;
-  top: var(--navbar-height);
-  right: 2em;
-  width: 150px;
-  padding: 1.5rem 1.5rem;
-  border-bottom: 1px solid var(--c-border);
-  height: 20px;
-  background: transparent;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: space-between;
-  svg {
-    width: 20px;
-    fill: var(--c-brand-light);
-  }
-}
-
-@media (max-width: 1500px) {
-  .right-bar .social-links {
-    display: none;
-  }
-}
-
-@media (max-width: $MQMobile) {
-  .sidebar-open .sidebar .social-links {
-    margin-top: 1.5em;
-    padding: 0.5rem 1.5rem 1.5rem;
-    border-bottom: 1px solid var(--c-border);
-    height: 20px;
+.navbar-items-wrapper {
+  .social-links {
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-content: center;
-    justify-content: space-between;
+    margin-right: -0.5em;
+  }
+  .social-link {
+    display: flex;
+    margin: auto;
+    margin-left: 1rem;
+    margin-top: 4px;
+    border: 0;
+    background: none;
+    opacity: 0.8;
+    cursor: pointer;
     svg {
-      width: 25px;
-      fill: var(--c-brand);
+      width: 1.25em;
+      height: 1.26em;
+      stroke: var(--c-text);
+      &:hover {
+        stroke: var(--c-brand);
+      }
     }
   }
 }
-
 </style>

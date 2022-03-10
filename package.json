@@ -21,7 +21,7 @@
   "scripts": {
     "dev": "vuepress dev docs --clean-cache --clean-temp",
     "build": "vuepress build docs",
-    "lint": "eslint . --ext .js,.vue",
+    "lint": "eslint . docs/.vuepress --ext .js,.vue",
     "release": "bump --prompt --tag --all --push",
     "test": "yarn lint"
   },

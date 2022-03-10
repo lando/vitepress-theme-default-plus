@@ -11,8 +11,8 @@
         <a v-bind="version">{{ version.name }}</a>
       </li>
     </ul>
-    <div v-if="edgeVersion">
-      Or check out bleeding edge documentation over on the <a v-bind="edgeVersion">{{ edgeVersion.name }}</a> branch!
+    <div v-if="props.edgeVersion">
+      Or check out bleeding edge documentation over on the <a v-bind="props.edgeVersion">{{ props.edgeVersion.name }}</a> branch!
     </div>
   </div>
 </template>

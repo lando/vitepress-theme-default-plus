@@ -1,12 +1,15 @@
 name: vuepress-theme-default-plus
 services:
   node:
-    type: node:16
+    type: node:14
     build:
       - yarn install
     scanner: false
     ssl: false
     sslExpose: false
+    overrides:
+      ports:
+        - 8071:8071
 tooling:
   node:
     service: node
@@ -14,6 +17,6 @@ tooling:
     service: node
   dev:
     service: node
-    cmd: yarn dev
+    cmd: yarn dev --port 8071
     env:
       DEBUG: "@lando/*"

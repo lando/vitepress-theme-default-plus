@@ -199,4 +199,17 @@ const email = ref(null);
     }
   }
 }
+
+@media (max-width: $MQMobileNarrow) {
+  .newsletter {
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 0;
+    width: 100%;
+  }
+  .newsletter__wrap {
+    margin: 0.85rem -1.5rem;
+    border-radius: 0;
+  }
+}
 </style>

@@ -57,3 +57,21 @@ You'll need to get the form action URL for the MailChimp audience you want the u
   byline="Join our revolution to free developers from the mind forged manacled of lesser dev tools"
   button="I'm your huckleberry!"
 />
+
+## Sponsors
+
+#### Usage:
+
+You'll need to set sponsors over [here](./config.html#sponsors) for this to work.
+
+```md
+<Sponsors />
+```
+
+#### Example:
+
+```md
+<Sponsors />
+```
+
+<Sponsors />

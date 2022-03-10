@@ -1,22 +1,29 @@
 // Mods
 const _ = require('lodash');
-const {createPage} = require('@vuepress/core');
-const customLinks = require('./plugins/plugin-custom-links.js');
-const debug = require('debug')('@lando/default-plus');
-const {isLinkHttp} = require('@vuepress/shared');
-const {logger, path} = require('@vuepress/utils');
-const url = require('url');
+const chokidar = require('chokidar');
+const debug = require('debug')('@lando/vuepress-theme-default-plus');
+const {chalk, logger, path} = require('@vuepress/utils');
 
 // Our things
-const autopopulate = require('./lib/autopopulate');
-const pages = require('./lib/pages');
-const {getTopLevelPages, makeFauxInternal} = require('./lib/utils');
+const {getPlugins} = require('./lib/plugins');
 
 module.exports = (options, app) => {
+  // If landoDocs/lando is set and defaults are empty then start there
+  if (_.isEmpty(options.defaults) && (options.landoDocs || options.lando)) {
+    debug('no user defaults set, using lando doc defaults');
+    options.defaults = require('./config/lando');
+  // Otherwise if we are empty then just set to defaults
+  } else if (_.isEmpty(options.defaults)) {
+    debug('no user defaults set, using theme defaults');
+    options.defaults = require('./config/defaults');
+  }
+
   // Rebase options on defaults
-  const defaults = options.landoDocs ? require('./lib/lando') : require('./lib/defaults');
-  options = {...defaults, ...options};
-  app.options.themeConfig = {...defaults, ...app.options.themeConfig};
+  options = {...options.defaults, ...options};
+  app.options.themeConfig = {...options.defaults, ...app.options.themeConfig};
+  // Remove defaults so its less confusing
+  delete options.defaults;
+  debug('merging user config over defaults, result: %O', options);
 
   // We want to preserve the value of options.repo but we do not want to set it because it will show up
   // in the nav if we do
@@ -24,120 +31,104 @@ module.exports = (options, app) => {
   delete options.repo;
   debug('removed repo and set sourceRepo to %s', options.sourceRepo);
 
-  // If we have a source repo then lets try to get more data on it, specifically if its github or otherwise
-  if (options.sourceRepo) {
-    if (!isLinkHttp(options.sourceRep) || /github\.com/.test(options.sourceRep)) {
-      debug('determined this is a GitHub repo');
-      options.isGithubRepo = true;
-      options.githubOwner = url.parse(options.sourceRepo).pathname.split('/')[0];
-      options.githubRepo = url.parse(options.sourceRepo).pathname.split('/')[1];
-      options.sourceRepoType = 'github';
-      debug('github repo slug is %s/%s', options.githubOwner, options.githubRepo);
-    }
-  }
-
-  // If baseURL is set then lets mutate sharedNavbar
-  if (options.baseUrl) {
-    options.sharedNavbar = makeFauxInternal(options.sharedNavbar, options.baseUrl);
-    debug('rebased navbar so links to %s appear as internal links', options.baseUrl);
-  }
-
+  // SHARED NAVBAR
   // If we want to show the shared navbar then lets add it to the begining of the navbar
   if (!_.isNil(options.sharedNavbar)) {
     options.navbar = options.sharedNavbar.concat(options.navbar);
     debug('prepended shared navbar to user specified navbar with %o', options.sharedNavbar);
   }
 
-  // Get a list of pages for the top level of sidebar and normalize them for easy compare
-  const topLevelPages = getTopLevelPages(options.sidebar);
-  debug('found normalized top level pages %o', topLevelPages);
+  // ALWAYS ON PLUGINS
+  const plugins = getPlugins(options);
+  debug('loaded always on plugins %o', _.map(plugins, plugin => plugin[0]));
 
-  // Plugins that we need no matter what
-  const plugins = [
-    // Use sass palette stuff
-    ['@vuepress/plugin-palette',
-      {
-        preset: 'sass',
-      },
-    ],
-    // Load in gloal components
-    ['@vuepress/register-components',
-      {
-        componentsDir: path.resolve(__dirname, 'global'),
-        componentsPatterns: ['*.vue', '**/*.vue'],
-      },
-    ],
-    // Just pass in ALL THE THEME DATA for now
-    ['@vuepress/plugin-theme-data',
-      {
-        themeData: options,
-      },
-    ],
-  ];
-
-  if (options.ga && options.ga.enabled) {
+  // GOOGLE ANALYTICS PLUGIN
+  if (options.ga) {
     plugins.push(['@vuepress/plugin-google-analytics', options.ga]);
-    debug('added google analytics plugin');
+    debug('loaded google analytics plugin with config %o', options.ga);
   }
 
-  if (options.hubspot && options.hubspot.enabled) {
-    plugins.push([path.resolve(__dirname, './plugins/plugin-hubspot-tracking.js'), options.hubspot]);
-    debug('added hubspot tracking plugin');
+  // HUBSPOT TRACKING PLUGIN
+  if (options.hubspot) {
+    plugins.push([path.resolve(__dirname, 'plugins', 'plugin-hubspot-tracking'), options.hubspot]);
+    debug('loaded hubspot tracking plugin with config %o', options.hubspot);
   }
 
-  // Add in seach and/or docsearch if applicable
-  if (options.search && options.search.enabled) {
+  // AUTOMETA PLUGIN
+  if (options.autometa) {
+    plugins.push([path.resolve(__dirname, 'plugins', 'plugin-autometa'), options.autometa]);
+    debug('loaded autometa plugin with config: %o', options.autometa);
+  }
+
+  // FAUX INTERNAL LINKS PLUGIN
+  if (options.baseUrl) {
+    plugins.push([path.resolve(__dirname, 'plugins', 'plugin-faux-internal'), options]);
+    debug('loaded faux internal plugin with baseurl: %o', options.baseUrl);
+  }
+
+  // SEARCH PLUGIN
+  if (options.search) {
     if (options.search.apiKey && options.search.indexName) {
-      plugins.push([path.resolve(__dirname, './plugins/plugin-docsearch-plus.js'), options.search]);
-      debug('added docsearch plugin');
+      // Fallback to baseUrl for convenience
+      options.search.searchBase = options.search.searchBase || options.baseUrl;
+      plugins.push([path.resolve(__dirname, 'plugins', 'plugin-docsearch-plus'), options.search]);
+      debug('loaded docsearch plus plugin with config: %o', options.search);
     } else {
       plugins.push(['@vuepress/search']);
-      debug('added search plugin');
+      debug('loaded core search plus');
     }
   }
 
-  // If baseUrl and base are both set and home is not then lets set a better default
-  if (app.options.base && options.baseUrl && !options.home) {
-    options.home = options.baseUrl;
+  // SIDEBAR HEADER PLUGIN
+  if (options.sidebarHeader) {
+    options.sidebarHeader.repo = options.sidebarHeader.repo || options.sourceRepo;
+    plugins.push([path.resolve(__dirname, 'plugins', 'plugin-sidebar-header'), options.sidebarHeader]);
+    debug('loaded sidebar header plugin with config: %o', options.sidebarHeader);
   }
 
-  // Add some custom containers
-  plugins.push(
-    ['@vuepress/container', {
-      type: 'half',
-      defaultTitle: '',
-    }],
-  );
-  plugins.push(
-    ['@vuepress/container', {
-      type: 'third',
-      defaultTitle: '',
-    }],
-  );
-  plugins.push(
-    ['@vuepress/container', {
-      type: 'center',
-      defaultTitle: '',
-    }],
-  );
-  plugins.push(
-    ['@vuepress/container', {
-      type: 'left',
-      defaultTitle: '',
-    }],
-  );
-  plugins.push(
-    ['@vuepress/container', {
-      type: 'right',
-      defaultTitle: '',
-    }],
-  );
-  plugins.push(
-    ['@vuepress/container', {
-      type: 'card',
-      defaultTitle: '',
-    }],
-  );
+  // VERSIONS PAGE PLUGIN
+  if (options.versionsPage) {
+    options.versionsPage.repo = options.versionsPage.repo || options.sourceRepo;
+    options.versionsPage.docsDir = options.versionsPage.docsDir || options.docsDir;
+    options.versionsPage.docsBranch = options.versionsPage.docsBranch || options.docsBranch;
+    plugins.push([path.resolve(__dirname, 'plugins', 'plugin-versions-page'), options.versionsPage]);
+    debug('loaded versions page plugin with config: %o', options.versionsPage);
+    // globally add the Version list component
+    plugins.push(['@vuepress/register-components',
+      {
+        components: {
+          VersionsList: path.resolve(__dirname, 'plugins', 'plugin-versions-page', 'VersionsList.vue'),
+        },
+      },
+    ]);
+  }
+
+  // CONTRIBTUORS PAGE PLUGIN
+  if (options.contributorsPage) {
+    options.contributorsPage.repo = options.contributorsPage.repo || options.sourceRepo;
+    options.contributorsPage.docsDir = options.contributorsPage.docsDir || options.docsDir;
+    options.contributorsPage.docsBranch = options.contributorsPage.docsBranch || options.docsBranch;
+    plugins.push([path.resolve(__dirname, 'plugins', 'plugin-contributors-page'), options.contributorsPage]);
+    debug('loaded contributors page plugin with config: %o', options.contributorsPage);
+    // globally add the Version list component
+    plugins.push(['@vuepress/register-components',
+      {
+        components: {
+          ContributorList: path.resolve(__dirname, 'plugins', 'plugin-contributors-page', 'ContributorList.vue'),
+        },
+      },
+    ]);
+  }
+
+  // TOC
+  // SPONSORS
+
+  // PAGE TYPE
+    // GUIDE
+    // ARTICLE?
+  // JOB POSTINGS
+  // TAGGING
+  // FULL SCREEN MODE
 
   return {
     name: '@lando/vuepress-theme-default-plus',
@@ -155,155 +146,15 @@ module.exports = (options, app) => {
     layouts: path.resolve(__dirname, 'layouts'),
     plugins,
 
-    // Add some page data
-    async extendsPage(page) {
-      // Assess whether we can/should fetch the latest version
-      const fetchLatestVersion = options.autoPopulate && options.isGithubRepo;
-
-      // Try to autopopulate latest versions data if needed
-      if (fetchLatestVersion && !options.sidebarHeader.version) {
-        debug('trying to grab latest version data from %s', options.sourceRepo);
-        try {
-          const memoedlatestVersion = _.memoize(async () => await autopopulate.latestVersion(options, options));
-          const latestVersion = await memoedlatestVersion();
-          options.sidebarHeader.version = latestVersion.name;
-          options.sidebarHeader.versionLink = options.versionLink || latestVersion.url;
-        } catch (err) {
-          logger.error('could not automatically grab latest version with error', err);
-        };
-      }
-
-      // Add latest version and link to page data
-      if (options.sidebarHeader.version) {
-        page.data.version = options.sidebarHeader.version;
-        const {version, title, key} = page.data;
-        debug('added version %s to page data "%s" (%s)', version, title, key);
-      }
-      if (options.sidebarHeader.versionLink) {
-        page.data.versionLink = options.sidebarHeader.versionLink;
-        const {versionLink, title, key} = page.data;
-        debug('added version link %s to page data "%s" (%s)', versionLink, title, key);
-      }
-
-      // if head is not an array then lets make it into an empty array
-      if (!_.isArray(page.data.frontmatter.head)) page.data.frontmatter.head = [];
-
-      // construct twitter metadata push unshift into frontmatter
-      // Vuepress2 seems to prioritize the earliest same named content so we need to push
-      // instead of unshift
-      const title = page.frontmatter.title || page.data.title || app.options.title || app.siteData.title;
-      const description = page.frontmatter.description || page.data.frontmatter.description || app.options.title;
-      const timestamp = _.get(page, 'data.git.updatedTime', new Date().getTime());
-      page.data.frontmatter.head.push(
-        ['meta', {name: 'twitter:card', content: 'summary'}],
-        ['meta', {name: 'twitter:title', content: title}],
-        ['meta', {name: 'twitter:description', content: description}],
-        ['meta', {name: 'twitter:site', content: _.get(app, 'options.themeConfig.social.owner', title)}],
-        ['meta', {property: 'og:type', content: 'article'}],
-        ['meta', {property: 'og:title', content: title}],
-        ['meta', {property: 'og:description', content: description}],
-        ['meta', {property: 'og:site_name', content: app.siteData.title}],
-        ['meta', {property: 'article:published_time', content: new Date(timestamp)}],
-        ['meta', {itemprop: 'name', content: title}],
-        ['meta', {itemprop: 'description', content: description}],
-      );
-
-      // add urls if we can
-      if (_.has(app, 'options.themeConfig.canonicalUrl')) {
-        const url = `${app.options.themeConfig.canonicalUrl}${app.options.base}${_.trim(page.data.path, '/')}`;
-        page.data.frontmatter.head.push(
-          ['meta', {name: 'twitter:url', content: url}],
-          ['meta', {property: 'og:url', content: url}],
-          ['link', {rel: 'canonical', href: url}],
-        );
-      }
-
-      // add image if we can
-      if (_.has(page, 'frontmatter.image')) {
-        const image = page.frontmatter.image;
-        page.data.frontmatter.head.push(
-          ['meta', {name: 'og:image', content: image}],
-          ['meta', {name: 'og:image:alt', content: title}],
-          ['meta', {name: 'twitter:image', content: image}],
-          ['meta', {name: 'twitter:image:alt', content: title}],
-        );
-      }
-    },
-
-    // Add in some pages
-    async onInitialized(app) {
-      // Throw warning message if autopopulate is on but repo is not github
-      if (options.autoPopulate && !options.isGithubRepo) {
-        logger.warn('Autopopulate is on but does not work with non-github repos!');
-      }
-
-      // Try to autopopulate data as needed
-      // Determine whether we have the things we need to actually autopopulate
-      options.autoPopulate = options.autoPopulate && options.isGithubRepo;
-
-      const {contributors, versions} = options.pages;
-      // Determine which data we should actually try to populate
-      const fetchContributors = contributors.enabled && _.isEmpty(contributors.data);
-      const fetchVersions = versions.enabled && _.isEmpty(versions.data);
-
-      // Try to autopopulate data contributors data if needed
-      if (options.autoPopulate && fetchContributors) {
-        debug('trying to grab contributors data from %s', options.sourceRepo);
-        try {
-          contributors.data = await autopopulate.contributors(options);
-        } catch (err) {
-          logger.error('could not automatically grab contributors with error', err);
-        };
-      }
-
-      // Try to autopopulate data versions data if needed
-      if (options.autoPopulate && fetchVersions) {
-        debug('trying to grab versions data from %s', options.sourceRepo);
-        try {
-          versions.data = await autopopulate.versions(options, options);
-        } catch (err) {
-          logger.error('could not automatically grab versions with error', err);
-        };
-      }
-
-      // Add contributors page if its hasnt already been manually set
-      if (contributors.enabled && !_.includes(topLevelPages, 'contributors')) {
-        app.options.themeConfig.sidebar.push({text: contributors.title, link: contributors.link});
-        debug('programatically added %s to sidebar linking to %s', contributors.title, contributors.link);
-        // Also add the page if its an internal link and we dont have a page already
-        if (!isLinkHttp(contributors.link) && app.pages.every(page => page.path !== contributors.link)) {
-          const contributorsPage = await createPage(app, pages.contributors(contributors));
-          app.pages.push(contributorsPage);
-          debug('programatically added contributors page to %s', contributors.link);
-        }
-      }
-
-      // Add versions page if its hasnt already been manually set
-      if (versions.enabled && !_.includes(topLevelPages, 'versions')) {
-        app.options.themeConfig.sidebar.push({text: versions.title, link: versions.link});
-        debug('programatically added %s to sidebar linking to %s', versions.title, versions.link);
-        // Add information about the "dev" release if we can
-        if (versions.showEdge && options.isGithubRepo) {
-          const {githubOwner, githubRepo, docsBranch, docsDir} = options;
-          versions.edgeVersion = {
-            href: `https://github.com/${githubOwner}/${githubRepo}/tree/${docsBranch}/${docsDir}`,
-            name: docsBranch,
-            target: '_blank',
-            rel: 'noopener noreferrer',
-          };
-        };
-        // Also add the page if its an internal link and we dont have a page already
-        if (!isLinkHttp(versions.link) && app.pages.every(page => page.path !== versions.link)) {
-          const versionsPage = await createPage(app, pages.versions(versions));
-          app.pages.push(versionsPage);
-          debug('programatically added versions page to %s', versions.link);
-        }
-      }
-    },
-
-    // Replace the core linksPlugin
-    extendsMarkdown: md => {
-      md.use(customLinks, options);
+    // Watch our plugin dir for changes as well
+    async onWatched(app, watchers, restart) {
+      const cwd = process.cwd();
+      const pluginWatcher = chokidar.watch(path.resolve(__dirname, 'plugins'), {cwd, ignoreInitial: true});
+      pluginWatcher.on('change', file => {
+        logger.info(`config ${chalk.magenta(file)} is modified`);
+        restart();
+      });
+      watchers.push(pluginWatcher);
     },
   };
 };

@@ -16,7 +16,7 @@
 
 <script setup>
 import {defineAsyncComponent} from 'vue';
-import Contributor from './../components/Contributor.vue';
+import Contributor from './Contributor.vue';
 
 const AsyncContributor = defineAsyncComponent({
   loader: async () => Contributor,

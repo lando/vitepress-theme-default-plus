@@ -1,63 +1,66 @@
 <template>
   <div class="layout-wrapper">
-    <slot name="right-bar">
-      <div
-        v-if="!frontmatter.home && frontmatter.rightbar !== false"
-        class="right-bar"
-      >
-        <slot name="right-bar-top" />
-        <Sponsors v-if="sponsors.enabled" />
-        <SocialLinks
-          v-if="social.enabled"
-          :icons="social.icons"
-        />
-        <slot name="right-bar-bottom" />
-      </div>
-    </slot>
-
     <ParentLayout>
+      <template #navbar-after>
+        <SocialLinks
+          v-if="social"
+          :icons="social"
+        />
+      </template>
       <template #sidebar-top>
         <CarbonAds
-          v-if="carbonAds.enabled"
+          v-if="carbonAds"
           :placement="carbonAds.placement"
           :serve="carbonAds.serve"
         />
-        <SocialLinks
-          v-if="social.enabled"
-          :icons="social.icons"
-        />
         <SidebarHeader
-          v-if="sidebarHeader.enabled"
+          v-if="sidebarHeader"
           :title="sidebarHeader.title"
           :version="sidebarHeader.version"
-          :link="sidebarHeader.versionLink"
+          :link="sidebarHeader.link"
           :icon="sidebarHeader.icon"
         />
       </template>
 
       <template #page>
-        <Transition
-          name="fade-slide-y"
-          mode="out-in"
-          @before-enter="onBeforeEnter"
-          @before-leave="onBeforeLeave"
-        >
-          <Home v-if="frontmatter.home" />
-          <Guide
-            v-else-if="frontmatter.guide"
-            :key="page.path"
-          >
-            <template #top />
-            <template #bottom />
-          </Guide>
-          <Page
-            v-else
-            :key="page.path"
-          >
-            <template #top />
-            <template #bottom />
-          </Page>
-        </Transition>
+        <div class="page-wrapper-outer">
+          <div class="page-wrapper-inner">
+            <Home v-if="frontmatter.home" />
+            <Transition
+              v-else
+              name="fade-slide-y"
+              mode="out-in"
+              @before-enter="onBeforeEnter"
+              @before-leave="onBeforeLeave"
+            >
+              <Guide
+                v-if="frontmatter.guide"
+                :key="page.path"
+              >
+                <template #top />
+                <template #bottom />
+              </Guide>
+              <Page
+                v-else
+                :key="page.path"
+              >
+                <template #top />
+                <template #bottom />
+              </Page>
+            </Transition>
+
+            <slot name="right-bar">
+              <slot name="right-bar-top" />
+              <div
+                v-if="(!frontmatter.home && frontmatter.rightbar !== false) && sponsors && frontmatter.sponsors !== false"
+                class="rightbar"
+              >
+                <Sponsors />
+              </div>
+              <slot name="right-bar-bottom" />
+            </slot>
+          </div>
+        </div>
       </template>
     </ParentLayout>
   </div>
@@ -78,9 +81,11 @@ import Page from '@theme/Page.vue';
 // Theme components
 import CarbonAds from '../components/CarbonAds.vue';
 import Guide from '../components/Guide.vue';
-import SidebarHeader from '../components/SidebarHeader.vue';
 import SocialLinks from '../components/SocialLinks.vue';
-import Sponsors from '../components/SponsorsList.vue';
+import Sponsors from '../global/Sponsors.vue';
+
+// Plugin components
+import SidebarHeader from '../plugins/plugin-sidebar-header/SidebarHeader.vue';
 
 // Get theme data
 const frontmatter = usePageFrontmatter();
@@ -99,5 +104,54 @@ const onBeforeLeave = scrollPromise.pending;
 @import '../styles/main.scss';
 .navbar .site-name {
   font-family: var(--font-family-logo);
+}
+.page-wrapper-outer {
+  padding-top: var(--navbar-height);
+  padding-left: var(--sidebar-width);
+  display: flex;
+}
+.page-wrapper-inner {
+  display: flex;
+  align-items: flex-start;
+  margin: auto;
+  max-width: var(--total-width);
+}
+.page {
+  width: var(--content-width);
+  padding-top: 0;
+  padding-left: 0;
+}
+.rightbar {
+  width: var(--rightbar-width);
+  padding-left: 0;
+  position: sticky;
+  top: var(--navbar-height);
+  margin-top: calc(0.5rem - var(--navbar-height));
+  padding-top: calc(1rem + var(--navbar-height));
+}
+
+@media (max-width: 1500px) {
+  .rightbar {
+    display: none;
+  }
+}
+@media (max-width: $MQNarrow) {
+  .page-wrapper-outer {
+    padding-left: var(--sidebar-width-mobile);
+  }
+  .page-wrapper-inner {
+    width: 100%;
+  }
+  .page {
+    width: 100%;
+  }
+}
+@media (max-width: $MQMobile) {
+  .page-wrapper-outer {
+    padding-left: 0;
+  }
+  .page-wrapper-inner {
+    width: 100%;
+  }
 }
 </style>
