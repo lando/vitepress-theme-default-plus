@@ -102,6 +102,14 @@ const onBeforeLeave = scrollPromise.pending;
 
 <style lang="scss">
 @import '../styles/main.scss';
+.lando-home {
+  .page-wrapper-outer {
+    padding: 0;
+  }
+  .page-wrapper-inner {
+    max-width: none;
+  }
+}
 .navbar .site-name {
   font-family: var(--font-family-logo);
 }
