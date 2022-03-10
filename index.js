@@ -82,6 +82,7 @@ module.exports = (options, app) => {
   // SIDEBAR HEADER PLUGIN
   if (options.sidebarHeader) {
     options.sidebarHeader.repo = options.sidebarHeader.repo || options.sourceRepo;
+    options.sidebarHeader.auto = true;
     plugins.push([path.resolve(__dirname, 'plugins', 'plugin-sidebar-header'), options.sidebarHeader]);
     debug('loaded sidebar header plugin with config: %o', options.sidebarHeader);
   }
