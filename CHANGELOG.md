@@ -1,3 +1,8 @@
+v1.0.0-beta.22 [March 10, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.22)
+-------------------------------
+
+* Refactored so things are less shitty
+
 v1.0.0-beta.21 [March 7, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.21)
 -------------------------------
 
