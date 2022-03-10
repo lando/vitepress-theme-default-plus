@@ -16,7 +16,6 @@ module.exports = (options, app) => {
   return {
     name,
     onGenerated: () => {
-
       if (!app.env.isBuild) {
         debug('robots.txt will only generate in production build');
         return {};
