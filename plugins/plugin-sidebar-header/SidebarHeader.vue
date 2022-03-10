@@ -56,7 +56,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/main.scss';
+@import '../../styles/main.scss';
 .sidebar-header {
   display: flex;
   padding: 2rem 1.5rem 1.5rem;

@@ -32,7 +32,7 @@ const props = defineProps({
 </script>
 
 <style lang="scss">
-@import '../styles/main.scss';
+@import '../../styles/main.scss';
 .contributors-list {
   display: flex;
   flex-direction: row;
