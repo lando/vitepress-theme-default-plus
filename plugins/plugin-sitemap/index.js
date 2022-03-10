@@ -1,4 +1,4 @@
-const {path} = require('@vuepress/utils');
+const {chalk, path, warn} = require('@vuepress/utils');
 const {SitemapStream} = require('sitemap');
 const {createWriteStream} = require('fs');
 const debug = require('debug')('@lando/default-plus');
@@ -29,11 +29,12 @@ module.exports = (options, app) => {
     name,
     onGenerated: () => {
       const hostname = hostUrl === ''
-        ? app.options.themeConfig.canonicalUrl || app.options.themeConfig.baseUrl
+        ? app.options.themeConfig.autometa.canonicalUrl || app.options.themeConfig.baseUrl
         : hostUrl;
 
       if (!hostname) {
-        return debug('Not generating sitemap because there is no hostname / baseurl to use');
+        warn(`plugin ${chalk.magenta(name)} not generating sitemap because there is no hostname / baseurl to use`);
+        return {};
       }
 
       debug('Generating sitemap...');

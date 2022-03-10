@@ -16,53 +16,55 @@ module.exports = (options, app) => {
   return {
     name,
     onGenerated: () => {
+
+      if (!app.env.isBuild) {
+        debug('robots.txt will only generate in production build');
+        return {};
+      }
+
       debug('Generating robots.txt ...');
 
-      if (app.env.isBuild) {
-        const robotsTxt = path.resolve(
-          app.options.dest, outputFile,
-        );
+      const robotsTxt = path.resolve(
+        app.options.dest, outputFile,
+      );
 
-        // Get all policies togeter; If none provided, it will allow all except path: /admin
-        let policyArray = [];
+      // Get all policies togeter; If none provided, it will allow all except path: /admin
+      let policyArray = [];
 
-        const disallowAllPolicy = {
-          userAgent: '*',
-          disallow: '/',
-        };
-        const allowAllPolicy = {
-          userAgent: '*',
-          disallow: '',
-        };
+      const disallowAllPolicy = {
+        userAgent: '*',
+        disallow: '/',
+      };
+      const allowAllPolicy = {
+        userAgent: '*',
+        disallow: '',
+      };
 
-        if (disallowAll) {
-          policyArray.push(disallowAllPolicy);
+      if (disallowAll) {
+        policyArray.push(disallowAllPolicy);
+      } else {
+        if (allowAll) {
+          policyArray.push(allowAllPolicy);
         } else {
-          if (allowAll) {
-            policyArray.push(allowAllPolicy);
+          // allowAll and disallowAll not provided, then use policies
+          if (typeof policies !== 'undefined' && policies.length > 0) {
+            policies.forEach(policy => {
+              policyArray.push(policy);
+            });
           } else {
-            // allowAll and disallowAll not provided, then use policies
-            if (typeof policies !== 'undefined' && policies.length > 0) {
-              policies.forEach(policy => {
-                policyArray.push(policy);
-              });
-            } else {
-              policyArray.push(allowAllPolicy);
-            }
+            policyArray.push(allowAllPolicy);
           }
         }
-
-        robotstxt({
-          policy: policyArray,
-        }).then(content => {
-          fs.writeFileSync(robotsTxt, content);
-          return content;
-        }).catch(error => {
-          throw error;
-        });
-      } else {
-        debug('robots.txt will only generate in build');
       }
+
+      robotstxt({
+        policy: policyArray,
+      }).then(content => {
+        fs.writeFileSync(robotsTxt, content);
+        return content;
+      }).catch(error => {
+        throw error;
+      });
     },
   };
 };
