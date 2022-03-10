@@ -261,10 +261,6 @@ module.exports = {
         },
       ],
     },
-    {
-      text: 'Sponsor',
-      link: 'https://lando.dev/sponsor',
-    },
   ],
 
   // Sidebar header

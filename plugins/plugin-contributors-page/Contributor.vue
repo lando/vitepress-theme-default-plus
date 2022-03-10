@@ -43,7 +43,7 @@
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/main.scss';
+@import '../../styles/main.scss';
 .contributor-block {
   width: 100px;
   padding: 15px 15px;
