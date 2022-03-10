@@ -79,6 +79,18 @@ module.exports = (options, app) => {
     }
   }
 
+  // ROBOTS.TXT PLUGIN
+  if (options.robots) {
+    plugins.push([path.resolve(__dirname, 'plugins', 'plugin-robots'), options.robots]);
+    debug('loaded robots.txt plugin with config: %o', options.robots);
+  }
+
+  // SITEMAP PLUGIN
+  if (options.sitemap) {
+    plugins.push([path.resolve(__dirname, 'plugins', 'plugin-sitemap'), options.sitemap]);
+    debug('loaded sitemap plugin with config: %o', options.sitemap);
+  }
+
   // SIDEBAR HEADER PLUGIN
   if (options.sidebarHeader) {
     options.sidebarHeader.repo = options.sidebarHeader.repo || options.sourceRepo;

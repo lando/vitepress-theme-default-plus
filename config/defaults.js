@@ -37,6 +37,17 @@ module.exports = {
   // Use Google Analytics
   hubspot: false,
 
+  // Use Robots
+  robots: {
+    enabled: true,
+    allowAll: true,
+  },
+
+  // Use Sitemap
+  sitemap: {
+    enabled: true,
+  },
+
   // Versions pages
   versionsPage: {
     auto: true,

@@ -48,10 +48,12 @@
     "@vuepress/utils": "^2.0.0-beta.35",
     "@vueuse/core": "^5.0.0",
     "blueimp-md5": "^2.19.0",
+    "generate-robotstxt": "^8.0.3",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "sass": "^1.47.0",
     "sass-loader": "^12.4.0",
+    "sitemap": "^7.1.1",
     "timeago.js": "^4.0.2",
     "vue": "^3.2.20",
     "vue-router": "^4.0.12"
