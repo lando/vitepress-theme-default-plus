@@ -13,6 +13,7 @@ module.exports = {
   logo: '/lando/icon.svg',
   navbar: [],
   sidebar: [],
+  sidebarDepth: 1,
 
   // @lando/vuepress-theme-default-plus config
   alias: {},

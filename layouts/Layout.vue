@@ -55,6 +55,7 @@
                 v-if="(!frontmatter.home && frontmatter.rightbar !== false) && sponsors && frontmatter.sponsors !== false"
                 class="rightbar"
               >
+                <TOC />
                 <Sponsors />
               </div>
               <slot name="right-bar-bottom" />
@@ -83,6 +84,7 @@ import CarbonAds from '../components/CarbonAds.vue';
 import Guide from '../components/Guide.vue';
 import SocialLinks from '../components/SocialLinks.vue';
 import Sponsors from '../global/Sponsors.vue';
+import TOC from '../components/TOC.vue';
 
 // Plugin components
 import SidebarHeader from '../plugins/plugin-sidebar-header/SidebarHeader.vue';
