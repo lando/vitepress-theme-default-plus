@@ -23,7 +23,11 @@ module.exports = (options = {}, app) => {
       // Vuepress2 seems to prioritize the earliest same named content so we need to push
       // instead of unshift
       const title = page.frontmatter.title || page.data.title || app.options.title || app.siteData.title;
-      const description = page.frontmatter.description || page.data.frontmatter.description || app.options.title;
+      const description = page.frontmatter.description
+        || page.data.frontmatter.description
+        || page.frontmatter.summary
+        || page.data.frontmatter.summary
+        || app.options.title;
       const timestamp = _.get(page, 'data.git.updatedTime', new Date().getTime());
       page.data.frontmatter.head.push(
         ['meta', {name: 'twitter:card', content: 'summary'}],

@@ -1,8 +1,5 @@
 ---
-description: Learn the configuration options for VuePress2 Default Theme Plus.
-sponsors: false
-toc: false
-rightbar: false
+summary: Learn the configuration options for VuePress2 Default Theme Plus.
 ---
 
 # Configuration
