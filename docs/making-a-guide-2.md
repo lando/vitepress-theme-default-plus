@@ -21,7 +21,7 @@ Guides are _how tos_ or _tutorials_ that fit somewhere in between technical docu
 seek to answer a single question such as "How do I create a guide using this theme?" and are heavy on code snippets. In this case there are actually two ways to create a guide:
 
 * Manually entering data
-* [Autopopulating data from GitHub](./making-a-guide.md)
+* [Autopopulating data from GitHub](./making-a-guide.html)
 
 ## Manually entering data
 
@@ -50,4 +50,4 @@ updated:
 ---
 ```
 
-You can check out the full markdown file that generated this page [here](https://github.com/lando/vuepress-theme-default-plus/blob/main/docs/making-a-guide-2.md). If you are interested in automatically setting the `authors`, `date` and edit link then check out [Making a Guide](./making-a-guide.md)
+You can check out the full markdown file that generated this page [here](https://github.com/lando/vuepress-theme-default-plus/blob/main/docs/making-a-guide-2.html). If you are interested in automatically setting the `authors`, `date` and edit link then check out [Making a Guide](./making-a-guide.html)

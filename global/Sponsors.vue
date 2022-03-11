@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="hasSponsors && frontmatter.sponsors !== false"
+    v-if="hasSponsors"
     class="sponsors"
   >
     <span class="header">SPONSORS</span>
@@ -42,11 +42,9 @@
 <script setup>
 import {computed} from 'vue';
 import {useThemeData} from '@vuepress/plugin-theme-data/lib/client';
-import {usePageFrontmatter} from '@vuepress/client';
 
 // Get theme data
 const themeData = useThemeData();
-const frontmatter = usePageFrontmatter();
 // Get relevant config from themedata
 const {sponsors} = themeData.value;
 // Compute sponsor list

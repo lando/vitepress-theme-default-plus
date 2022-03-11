@@ -126,42 +126,44 @@ module.exports = {
     SIDEBAR CONFIG
     */
     sidebar: [
-      '/index.md',
-      '/getting-started.md',
-      '/config.md',
-      '/components.md',
+      '/index.html',
+      '/getting-started.html',
+      '/config.html',
+      '/frontmatter.html',
+      '/components.html',
+      '/containers.html',
       {
         text: 'Guides',
         collapsible: true,
         children: [
           {
             text: 'Making a guide 1',
-            link: '/making-a-guide.md',
+            link: '/making-a-guide.html',
           },
           {
             text: 'Making a guide 2',
-            link: '/making-a-guide-2.md',
+            link: '/making-a-guide-2.html',
           },
           {
             text: 'Adding page metadata',
-            link: '/adding-page-metadata.md',
+            link: '/adding-page-metadata.html',
           },
           {
             text: 'Adding a guide signup',
-            link: '/guide-signup.md',
+            link: '/guide-signup.html',
           },
           {
             text: 'Disabling rightbar',
-            link: '/disabling-rightbar.md',
+            link: '/disabling-rightbar.html',
           },
           {
             text: 'Advanced markdown',
-            link: '/advanced-markdown.md',
+            link: '/advanced-markdown.html',
           },
         ],
       },
-      '/development.md',
-      '/support.md',
+      '/development.html',
+      '/support.html',
       {text: 'Examples', link: 'https://github.com/lando/vuepress-theme-default-plus'},
       {text: 'Release Notes', link: 'https://github.com/lando/vuepress-theme-default-plus/releases'},
     ],

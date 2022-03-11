@@ -3,7 +3,7 @@ description: Learn about the VuePress 2 components you can use with VuePress2 De
 ---
 # Components
 
-This theme adds a few more helpful and globally available components in addition to the ones [already provided by the default theme](https://v2.vuepress.vuejs.org/reference/default-theme/components.html). We have also added a "Guide" component but it is best used [this like](./making-a-guide.md).
+This theme adds a few more helpful and globally available components in addition to the ones [already provided by the default theme](https://v2.vuepress.vuejs.org/reference/default-theme/components.html). We have also added a "Guide" component but it is best used [this like](./making-a-guide.html).
 
 Anyway, here are the additional globally available components that we've added.
 

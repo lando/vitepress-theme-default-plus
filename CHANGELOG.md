@@ -1,8 +1,11 @@
-v1.0.0-beta.25 [March 12, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.25)
+v1.0.0-beta.26 [March 12, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.26)
 -------------------------------
 
+* Added fallback support for `frontmatter.description` with `frontmatter.summary`
+* Added `toc` component to `rightbar`
 * Added `robots.txt` support
 * Added `sitemap.xml` support
+* Elevated `Frontmatter` and `Custom Container` docs to the top level
 
 v1.0.0-beta.24 [March 10, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.24)
 -------------------------------

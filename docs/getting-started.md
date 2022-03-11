@@ -51,4 +51,4 @@ module.exports = {
 };
 ```
 
-Check out the [configuration page](./config.md) for the complete set of config options.
+Check out the [configuration page](./config.html) for the complete set of config options.

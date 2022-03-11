@@ -52,11 +52,11 @@
             <slot name="right-bar">
               <slot name="right-bar-top" />
               <div
-                v-if="(!frontmatter.home && frontmatter.rightbar !== false) && sponsors && frontmatter.sponsors !== false"
+                v-if="showRightbar"
                 class="rightbar"
               >
-                <TOC />
-                <Sponsors />
+                <TOC v-if="frontmatter.toc !== false" />
+                <Sponsors v-if="frontmatter.sponsors !== false" />
               </div>
               <slot name="right-bar-bottom" />
             </slot>
@@ -69,7 +69,7 @@
 
 <script setup>
 // Deps
-import {Transition} from 'vue'; // eslint-disable-line no-unused-vars
+import {Transition, computed} from 'vue'; // eslint-disable-line no-unused-vars
 import {usePageData, usePageFrontmatter} from '@vuepress/client';
 import {useThemeData} from '@vuepress/plugin-theme-data/lib/client';
 import {useScrollPromise} from '@vuepress/theme-default/lib/client/composables';
@@ -94,12 +94,23 @@ const frontmatter = usePageFrontmatter();
 const page = usePageData();
 const themeData = useThemeData();
 // Get the config from themedata
-const {carbonAds, sidebarHeader, social, sponsors} = themeData.value;
+const {carbonAds, sidebarHeader, social} = themeData.value;
 
 // Helpers to manage transitions
 const scrollPromise = useScrollPromise();
 const onBeforeEnter = scrollPromise.resolve;
 const onBeforeLeave = scrollPromise.pending;
+
+// Compute rightbar visibility
+const showRightbar = computed(() => {
+  // Do not show on home page
+  if (frontmatter.value.home === true) return false;
+  // Do not show if purposefully disabled
+  if (frontmatter.value.rightbar === false) return false;
+  // Do not show if all children components have been disabled
+  return (frontmatter.value.sponsors !== false)
+    && (frontmatter.value.toc !== false);
+});
 </script>
 
 <style lang="scss">
@@ -137,7 +148,7 @@ const onBeforeLeave = scrollPromise.pending;
   position: sticky;
   top: var(--navbar-height);
   margin-top: calc(0.5rem - var(--navbar-height));
-  padding-top: calc(1rem + var(--navbar-height));
+  padding-top: calc(-2rem + var(--navbar-height));
 }
 
 @media (max-width: 1500px) {
