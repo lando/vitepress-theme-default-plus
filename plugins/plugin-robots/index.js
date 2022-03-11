@@ -1,14 +1,16 @@
 const {path} = require('@vuepress/utils');
 const robotstxt = require('generate-robotstxt');
 const fs = require('fs');
-const debug = require('debug')('@lando/default-plus');
 
 const name = '@lando/plugin-robots';
+const debug = require('debug')(name);
 
 module.exports = (options, app) => {
   const {
     allowAll = false,
     disallowAll = false,
+    host,
+    sitemap,
     policies,
     outputFile = 'robots.txt',
   } = options;
@@ -21,7 +23,7 @@ module.exports = (options, app) => {
         return {};
       }
 
-      debug('Generating robots.txt ...');
+      debug('generating robots.txt ...');
 
       const robotsTxt = path.resolve(
         app.options.dest, outputFile,
@@ -56,10 +58,18 @@ module.exports = (options, app) => {
         }
       }
 
+      // Build our data
+      const data = {policy: policyArray};
+      if (host) data.host = host;
+      if (sitemap) data.sitemap = sitemap;
+
       robotstxt({
         policy: policyArray,
+        host,
+        sitemap,
       }).then(content => {
         fs.writeFileSync(robotsTxt, content);
+        debug('wrote robots.txt to %s with content %0', robotsTxt, content);
         return content;
       }).catch(error => {
         throw error;

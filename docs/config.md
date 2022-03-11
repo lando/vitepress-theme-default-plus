@@ -281,7 +281,6 @@ And here is our special config:
 
   ```js
   robots: {
-    enabled: true,
     allowAll: true,
   },
   ```
@@ -289,10 +288,11 @@ And here is our special config:
 * Example:
 
   ```js
-  search: {
-    enabled: true,
+  robots: {
+    host: 'https://vuepress-theme-default-plus.lando.dev/',
+    sitemap: 'https://vuepress-theme-default-plus.lando.dev/sitemap.xml,
     disallowAll: false,
-    allowAll: false,      
+    allowAll: false,
     policies: [
       {
         userAgent: '*',
@@ -311,7 +311,11 @@ And here is our special config:
 
 * Details:
 
-If `disallowAll` is set to true, it will ignore all other options and exclude everything on the site from indexing.  `allowAll` is set to true by default and this ignored the `policies` option.  To use the `policies` option, make sure both `disallowAll` and `allowAll` are set to `false`.
+If `disallowAll` is set to `true`, it will ignore all other options and exclude everything on the site from indexing. `allowAll` is set to `true` by default and this ignores the `policies` option.
+
+To use the `policies` option, make sure both `disallowAll` and `allowAll` are set to `false`.
+
+You can specify `host` and `sitemap` directly. If you omit them the theme will attempt to set them if it can and it makes sense.
 
 ## Search
 
@@ -356,17 +360,14 @@ Note that if you want to search across many sites that operate under a single do
 * Default:
 
   ```js
-  sitemap: {
-    enabled: true,
-  },
+  sitemap: true
   ```
 
 * Example:
 
   ```js
   sitemap: {
-    enabled: true,
-    hostUrl: 'https://stuffandthings.com',
+    baseUrl: 'https://stuffandthings.com',
     changefreq: 'daily',
     priority: 0.5,
     urls: [
@@ -379,10 +380,15 @@ Note that if you want to search across many sites that operate under a single do
   },
   ```
 * Details:
-The sitemap plugin will use the [canonicalurl](#canonicalurl) and then the [baseUrl](#generic-config) if they are defined to set the base url.  You can override this with the `hostUrl` option if need be.
-You can also globally set the `changefreq` and `priority` for all pages that do not have them defined in their frontmatter.  You can also add additional urls that may not get picked up in the pages object via `urls`. You can also choose to exclude certain urls via the `exclude` option array as well.
+
+If the `baseUrl` above is not specified then the theme will try to use [autometa.canonicalurl](#canonicalurl) and then the [generic.baseUrl](#generic-config). You can also globally set the `changefreq` and `priority` for all pages that do not have them defined in their frontmatter.
+
+You can also add additional urls that may not get picked up in the pages object via `urls`. You can also choose to exclude certain urls via the `exclude` option array as well.
+
 * Frontmatter
+
 You can override the global config for the following options via the frontmatter of any page:
+
 ```yaml
 ---
 sitemap:

@@ -1,23 +1,17 @@
-const {chalk, path, warn} = require('@vuepress/utils');
-const {SitemapStream} = require('sitemap');
-const {createWriteStream} = require('fs');
-const debug = require('debug')('@lando/default-plus');
+const {chalk, fs, path, warn} = require('@vuepress/utils');
+const {SitemapStream, streamToPromise} = require('sitemap');
 
 const name = '@lando/plugin-sitemap';
+const debug = require('debug')(name);
 
-/**
- * @param {*} path
- * @param {*} localePathPrefixes
- * @return {*}
- */
-function stripLocalePrefix(path, localePathPrefixes) {
+const stripLocalePrefix = (path, localePathPrefixes) => {
   const matchingPrefix = localePathPrefixes.filter(prefix => path.startsWith(prefix)).shift();
   return {normalizedPath: path.replace(matchingPrefix, '/'), localePrefix: matchingPrefix};
-}
+};
 
 module.exports = (options, app) => {
   const {
-    hostUrl = '',
+    baseUrl = '',
     outFile = 'sitemap.xml',
     changefreq = 'daily',
     priority = 0.5,
@@ -28,16 +22,12 @@ module.exports = (options, app) => {
   return {
     name,
     onGenerated: () => {
-      const hostname = hostUrl === ''
-        ? app.options.themeConfig.autometa.canonicalUrl || app.options.themeConfig.baseUrl
-        : hostUrl;
-
-      if (!hostname) {
-        warn(`plugin ${chalk.magenta(name)} not generating sitemap because there is no hostname / baseurl to use`);
+      if (!baseUrl) {
+        warn(`plugin ${chalk.magenta(name)} not generating sitemap because there is no baseurl to use`);
         return {};
       }
 
-      debug('Generating sitemap...');
+      debug('generating sitemap...');
 
       const base = app.siteData.base;
       const locales = app.siteData.locales;
@@ -96,38 +86,39 @@ module.exports = (options, app) => {
         );
       });
 
-      const sitemap = new SitemapStream({
-        hostname,
-      });
-
-      const sitemapXML = path.resolve(app.options.dest || options.dest, outFile);
-      const writeStream = createWriteStream(sitemapXML);
-      sitemap.pipe(writeStream);
+      const sitemap = new SitemapStream({hostname: baseUrl});
+      const destFile = path.resolve(app.options.dest || options.dest, outFile);
 
       // Add in all our page urls
       pagesMap.forEach((page, url) => {
         if (!exclude.includes(url)) {
-          sitemap.write({
+          const data = {
             url: withBase(url),
             changefreq: page.changefreq,
             priority: page.priority,
             lastmod: page.lastmodISO,
-          });
+          };
+          debug('added %s to sitemap with %o', data.url, data);
+          sitemap.write(data);
         }
       });
 
       // Add in additional urls specified
       urls.forEach(url => {
-        sitemap.write({
+        const data = {
           url: withBase(url),
           changefreq: changefreq,
           priority: priority,
-        });
+        };
+        debug('added additional page %s to sitemap with %o', data.url, data);
+        sitemap.write(data);
       });
 
       sitemap.end();
-
-      debug(`Sitemap has been written.`);
+      streamToPromise(sitemap).then(result => {
+        fs.writeFileSync(destFile, result.toString());
+        debug(`sitemap has been written to %s`, destFile);
+      });
     },
   };
 };

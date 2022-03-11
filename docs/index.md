@@ -18,6 +18,7 @@ This extends the [default VuePress 2 theme](https://v2.vuepress.vuejs.org/refere
 * Automatically generated and customizable _Contributorz_ page
 * Additional `Guide` page type
 * Additional global components for `YouTube` and `MailChimp`
+* `robots.txt` and `sitemap.xml` generation
 * [CarbonAds](https://www.carbonads.net/) support
 
 ## Caveats

@@ -2,15 +2,19 @@
 
 This extends the [default VuePress 2 theme](https://v2.vuepress.vuejs.org/reference/default-theme/config.html#basic-config) with some extra power and features such as:
 
+* Easily distributable default config sets and shared navbar items
+* Additional `containers` to help spruce up your Markdown
+* Google Analytics/Tag Manager support
+* HubSpot tracking code support
+* Automatic metatag generation
+* Features to help combining different docs sites into a single coherent docs experience
+* `Docsearch` support
+* Customizable `SidebarHeader` header for more larger and more complex sites
 * Automatically generated and customizable _Previous Versions_ page
 * Automatically generated and customizable _Contributorz_ page
-* Automatic `meta` tag features for Facebook, OG and Twitter
-* Tracking code support for Google Tag Manager and Hubspot
-* Some basic documentation versioning features
-* Features to help combining different docs sites into a single coherent docs experience
-* Some helper components for YouTube, Guides and Mailchimp
-* Custom markdown containers for richer content
-* A configurable _Special Sponsors_ section
+* Additional `Guide` page type
+* Additional global components for `YouTube` and `MailChimp`
+* `robots.txt` and `sitemap.xml` generation
 * [CarbonAds](https://www.carbonads.net/) support
 
 Note that autogeneration of contributors and versioning information currently only works with GitHub. You can, however, manually populate these values for other VCS for now.

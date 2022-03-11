@@ -46,6 +46,14 @@ module.exports = {
     id: '6478338',
   },
 
+  // Use Robots
+  robots: {
+    allowAll: true,
+  },
+
+  // Use Sitemap
+  sitemap: true,
+
   // Shared navbar
   // If baseURL is set then these will be "external" links prefixed with it
   sharedNavbar: [

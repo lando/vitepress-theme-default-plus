@@ -81,12 +81,18 @@ module.exports = (options, app) => {
 
   // ROBOTS.TXT PLUGIN
   if (options.robots) {
+    options.robots.host = options.robots.host || options.baseUrl || options.autometa.canonicalUrl;
+    if (options.sitemap && options.robots.host) {
+      options.robots.sitemap = `${new URL(options.robots.host).origin}/sitemap.xml`;
+    }
     plugins.push([path.resolve(__dirname, 'plugins', 'plugin-robots'), options.robots]);
     debug('loaded robots.txt plugin with config: %o', options.robots);
   }
 
   // SITEMAP PLUGIN
   if (options.sitemap) {
+    if (options.sitemap === true) options.sitemap = {};
+    options.sitemap.baseUrl = options.sitemap.baseUrl || options.autometa.canonicalUrl || options.baseUrl;
     plugins.push([path.resolve(__dirname, 'plugins', 'plugin-sitemap'), options.sitemap]);
     debug('loaded sitemap plugin with config: %o', options.sitemap);
   }

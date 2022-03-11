@@ -39,21 +39,11 @@ module.exports = {
 
   // Use Robots
   robots: {
-    enabled: true,
     allowAll: true,
   },
 
   // Use Sitemap
-  sitemap: {
-    enabled: true,
-  },
-
-  // Versions pages
-  versionsPage: {
-    auto: true,
-    trimLatest: true,
-    showEdge: true,
-  },
+  sitemap: true,
 
   // Shared navbar
   // If baseURL is set then these will be "external" links prefixed with it
@@ -61,9 +51,21 @@ module.exports = {
 
   // Sidebar header
   sidebarHeader: false,
+
+  // Search
   search: false,
+
+  // Social links
   social: false,
+
   // Shows the special sponsors on the right, see sponsors below
   // Can be true|false|or a list of sponsor ids to show
   sponsors: false,
+
+  // Versions pages
+  versionsPage: {
+    auto: true,
+    trimLatest: true,
+    showEdge: true,
+  },
 };
