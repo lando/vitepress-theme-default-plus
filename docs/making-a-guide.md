@@ -17,6 +17,10 @@ To automatically grab relevant authorship and data information make sure you set
 
 Once you have done that then you can make a guide by adding the following frontmatter to your markdown file.
 
+::: warning You must set the title!
+Note that because of how the underlying components are layered and called you must set the title in the frontmatter. This will populate the `h1` on the page. You can and should then omit the `h1` in the markdown content itself.
+:::
+
 ```md
 ---
 title: Making A Guide 1

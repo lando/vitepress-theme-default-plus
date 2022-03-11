@@ -27,6 +27,10 @@ seek to answer a single question such as "How do I create a guide using this the
 
 To manually enter authorship, update time and edit link information manually just add some combination of the below frontmatter to the top of your guide's markdown file.
 
+::: warning You must set the title!
+Note that because of how the underlying components are layered and called you must set the title in the frontmatter. This will populate the `h1` on the page. You can and should then omit the `h1` in the markdown content itself.
+:::
+
 ::: tip Timestamp in ms
 Note that the update timestamp is in milliseconds and not seconds!
 :::
