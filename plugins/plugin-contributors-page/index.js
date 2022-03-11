@@ -42,9 +42,13 @@ module.exports = (options = {}, app) => {
     }
   }
 
-  // Get top level pages
+  // Get top level pages and warn if we alreayd have a page tehre
   const topLevelPages = getTopLevelPages(_.get(app, 'options.themeConfig.sidebar', []));
   debug('found normalized top level pages %o', topLevelPages);
+  if (_.includes(topLevelPages, path.basename(options.link, path.extname(options.link)))) {
+    warn(`plugin ${chalk.magenta(name)} detected a page already exists at ${options.link}, not generating!`);
+    return {};
+  }
 
   return {
     name,
@@ -73,30 +77,27 @@ module.exports = (options = {}, app) => {
         };
       }
 
-      // @TODO: add sidebare if we can
-      if (!_.includes(topLevelPages, 'contributors')) {
-        app.options.themeConfig.sidebar.push({text: options.title, link: options.link});
-        debug('programatically added %o to sidebar linking to %o', options.title, options.link);
+      app.options.themeConfig.sidebar.push({text: options.title, link: options.link});
+      debug('programatically added %o to sidebar linking to %o', options.title, options.link);
 
-        // Also add the page if its an internal link and we dont have a page already
-        if (!isLinkHttp(options.link) && app.pages.every(page => page.path !== options.link)) {
-          const contributorsPage = await createPage(app, {
-            path: options.link,
-            content: options.content,
-            frontmatter: {
-              contributors: false,
-              contributorsData: _(options.data)
-                .filter(contributor => contributor.name !== 'dependabot[bot]')
-                .value(),
-              description: 'Check out all the awesome people who contributed to this project!',
-              editLink: false,
-              lastUpdated: false,
-              title: options.title,
-            },
-          });
-          app.pages.push(contributorsPage);
-          debug('programatically added contributors page to %o', options.link);
-        }
+      // Also add the page if its an internal link and we dont have a page already
+      if (!isLinkHttp(options.link) && app.pages.every(page => page.path !== options.link)) {
+        const contributorsPage = await createPage(app, {
+          path: options.link,
+          content: options.content,
+          frontmatter: {
+            contributors: false,
+            contributorsData: _(options.data)
+              .filter(contributor => contributor.name !== 'dependabot[bot]')
+              .value(),
+            description: 'Check out all the awesome people who contributed to this project!',
+            editLink: false,
+            lastUpdated: false,
+            title: options.title,
+          },
+        });
+        app.pages.push(contributorsPage);
+        debug('programatically added contributors page to %o', options.link);
       }
     },
   };

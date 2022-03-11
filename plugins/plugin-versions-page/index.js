@@ -44,9 +44,13 @@ module.exports = (options = {}, app) => {
     }
   }
 
-  // Get top level pages
+  // Get top level pages and warn if we alreayd have a page tehre
   const topLevelPages = getTopLevelPages(_.get(app, 'options.themeConfig.sidebar', []));
   debug('found normalized top level pages %o', topLevelPages);
+  if (_.includes(topLevelPages, path.basename(options.link, path.extname(options.link)))) {
+    warn(`plugin ${chalk.magenta(name)} detected a page already exists at ${options.link}, not generating!`);
+    return {};
+  }
 
   return {
     name,
@@ -83,46 +87,44 @@ module.exports = (options = {}, app) => {
       }
 
       // Add if we dont already have a versions page
-      if (!_.includes(topLevelPages, 'versions')) {
-        app.options.themeConfig.sidebar.push({text: options.title, link: options.link});
-        debug('programatically added %o to sidebar linking to %o', options.title, options.link);
+      app.options.themeConfig.sidebar.push({text: options.title, link: options.link});
+      debug('programatically added %o to sidebar linking to %o', options.title, options.link);
 
-        // Add information about the "edge" release if we can
-        if (isLinkHttp(options.showEdge)) {
-          options.edgeVersion = {
-            href: options.showEdge,
-            name: 'edge',
-            target: '_blank',
-            rel: 'noopener noreferrer',
-          };
-        } else if (options.showEdge && options.isGitHub) {
-          const {owner, project, docsBranch, docsDir} = options;
-          options.edgeVersion = {
-            href: `https://github.com/${owner}/${project}/tree/${docsBranch}/${docsDir}`,
-            name: docsBranch,
-            target: '_blank',
-            rel: 'noopener noreferrer',
-          };
+      // Add information about the "edge" release if we can
+      if (isLinkHttp(options.showEdge)) {
+        options.edgeVersion = {
+          href: options.showEdge,
+          name: 'edge',
+          target: '_blank',
+          rel: 'noopener noreferrer',
         };
+      } else if (options.showEdge && options.isGitHub) {
+        const {owner, project, docsBranch, docsDir} = options;
+        options.edgeVersion = {
+          href: `https://github.com/${owner}/${project}/tree/${docsBranch}/${docsDir}`,
+          name: docsBranch,
+          target: '_blank',
+          rel: 'noopener noreferrer',
+        };
+      };
 
-        // Also add the page if its an internal link and we dont have a page already
-        if (!isLinkHttp(options.link) && app.pages.every(page => page.path !== options.link)) {
-          const versionsPage = await createPage(app, {
-            path: options.link,
-            content: options.content,
-            frontmatter: {
-              contributors: false,
-              description: 'Check out previous versions of this documentation.',
-              editLink: false,
-              edgeVersion: options.edgeVersion,
-              lastUpdated: false,
-              title: options.title,
-              versionsData: options.data,
-            },
-          });
-          app.pages.push(versionsPage);
-          debug('programatically added versions page to %o', options.link);
-        }
+      // Also add the page if its an internal link and we dont have a page already
+      if (!isLinkHttp(options.link) && app.pages.every(page => page.path !== options.link)) {
+        const versionsPage = await createPage(app, {
+          path: options.link,
+          content: options.content,
+          frontmatter: {
+            contributors: false,
+            description: 'Check out previous versions of this documentation.',
+            editLink: false,
+            edgeVersion: options.edgeVersion,
+            lastUpdated: false,
+            title: options.title,
+            versionsData: options.data,
+          },
+        });
+        app.pages.push(versionsPage);
+        debug('programatically added versions page to %o', options.link);
       }
     },
   };
