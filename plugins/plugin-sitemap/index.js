@@ -66,7 +66,7 @@ module.exports = (options, app) => {
         const relatedLocales = localesByNormalizedPagePath.get(normalizedPath);
 
         let links = [];
-        if (relatedLocales.length > 1) {
+        if (locales.length > 0 && relatedLocales.length > 1) {
           links = relatedLocales.map(localePrefix => {
             return {
               lang: locales[localePrefix].lang,
