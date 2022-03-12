@@ -1,3 +1,10 @@
+v1.0.0-beta.27 [March 13, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.27)
+-------------------------------
+
+* Changed default `sidebarDepth` to `0` since `TOC` does the work now
+* Fixed `lang` bug in `sitemp.xml` generation
+* Improved edge handling of `TOC` marker
+
 v1.0.0-beta.26 [March 12, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.26)
 -------------------------------
 

@@ -11,7 +11,7 @@ module.exports = {
   logo: '/images/hero.png',
   navbar: [],
   sidebar: [],
-  sidebarDepth: 1,
+  sidebarDepth: 0,
 
   // @lando/vuepress-theme-default-plus config
   // Attempt to automatically assign meta

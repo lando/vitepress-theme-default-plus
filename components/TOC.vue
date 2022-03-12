@@ -27,12 +27,14 @@
 <script setup>
 import {onBeforeUnmount, onBeforeUpdate, onMounted, ref, reactive, watch} from 'vue';
 import {usePageData} from '@vuepress/client';
+import {useRouter} from 'vue-router';
 
 const page = usePageData();
 let initTop;
 let activeIndex = ref(0);
 const marker = reactive({top: 0, opacity: 0});
 const root = ref(null);
+const router = useRouter();
 const items = ref([]);
 
 // get offset top
@@ -42,6 +44,13 @@ const getAbsoluteTop = dom => {
         document.body.scrollTop +
         document.documentElement.scrollTop
     : 0;
+};
+
+const setIndex = index => {
+  activeIndex.value = index;
+  const position = items.value[index].offsetTop + 4;
+  marker.top = `${position}px`;
+  marker.opacity = (items.value.length > 0) ? 1: 0;
 };
 
 const onScroll = () => {
@@ -71,12 +80,8 @@ const _onScroll = () => onScroll();
 const _onHashChange = () => {
   const hash = decodeURIComponent(location.hash.substring(1));
   const index = (page.value.headers || []).findIndex(h => h.slug === hash);
-  if (index >= 0) {
-    activeIndex.value = index;
-    const position = items.value[index].offsetTop + 4;
-    marker.top = `${position}px`;
-    marker.opacity = 1;
-  }
+  if (index >= 0) setIndex(index);
+  if (index === -1 && items.value.length > 0) setIndex(0);
   const dom = hash && document.getElementById(hash);
   if (dom) window.scrollTo(0, getAbsoluteTop(dom) - 20);
 };
@@ -94,14 +99,18 @@ onBeforeUpdate(() => {
   items.value = [];
 });
 onMounted(() => {
-  setTimeout(() => triggerEvt(), 1000);
+  setTimeout(() => triggerEvt(), 500);
   window.addEventListener('scroll', _onScroll);
   window.addEventListener('hashchange', _onHashChange);
 });
+router.afterEach(route => {
+  if (items.value.length === 0) marker.opacity = 0;
+  else if (items.value[0] === null) marker.opacity = 0;
+  else if (route.hash) triggerEvt();
+  else setIndex(0);
+});
 watch(activeIndex, value => {
-  const position = items.value[value].offsetTop + 4;
-  marker.top = `${position}px`;
-  marker.opacity = 1;
+  setIndex(value);
 });
 </script>
 
