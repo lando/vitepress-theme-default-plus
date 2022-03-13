@@ -105,6 +105,12 @@ module.exports = (options, app) => {
     debug('loaded sidebar header plugin with config: %o', options.sidebarHeader);
   }
 
+  // READ MODE PLUGIN
+  if (options.readMode) {
+    plugins.push([path.resolve(__dirname, 'plugins', 'plugin-read-mode'), options.readMode]);
+    debug('loaded read mode plugin with config: %o', options.readMode);
+  }
+
   // VERSIONS PAGE PLUGIN
   if (options.versionsPage) {
     options.versionsPage.repo = options.versionsPage.repo || options.sourceRepo;
@@ -138,16 +144,6 @@ module.exports = (options, app) => {
       },
     ]);
   }
-
-  // TOC
-  // SPONSORS
-
-  // PAGE TYPE
-    // GUIDE
-    // ARTICLE?
-  // JOB POSTINGS
-  // TAGGING
-  // FULL SCREEN MODE
 
   return {
     name: '@lando/vuepress-theme-default-plus',

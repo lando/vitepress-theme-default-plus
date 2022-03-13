@@ -38,6 +38,12 @@ module.exports = {
   // Use Google Analytics
   hubspot: false,
 
+  // Use Readmode
+  readMode: true,
+
+  // Use rightbar
+  rightbar: true,
+
   // Use Robots
   robots: {
     allowAll: true,
@@ -62,6 +68,9 @@ module.exports = {
   // Shows the special sponsors on the right, see sponsors below
   // Can be true|false|or a list of sponsor ids to show
   sponsors: false,
+
+  // Table of contents
+  toc: true,
 
   // Versions pages
   versionsPage: {

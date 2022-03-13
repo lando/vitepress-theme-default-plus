@@ -47,6 +47,12 @@ module.exports = {
     id: '6478338',
   },
 
+  // Use Readmode
+  readMode: true,
+
+  // Use rightbar
+  rightbar: true,
+
   // Use Robots
   robots: {
     allowAll: true,
@@ -346,6 +352,7 @@ module.exports = {
     },
     link: 'https://lando.dev/sponsor',
   }],
+
   // Shows the special sponsors on the right, see sponsors below
   // Can be true|false|or a list of sponsor ids to show
   sponsors: {
@@ -353,6 +360,10 @@ module.exports = {
     link: 'https://lando.dev/sponsor',
     data: yaml.load(fs.readFileSync(path.resolve(__dirname, '..', 'sponsors.yml'), 'utf8')),
   },
+
+  // Table of contents
+  toc: true,
+
   versionsPage: {
     auto: true,
     trimLatest: true,

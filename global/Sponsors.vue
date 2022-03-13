@@ -3,7 +3,7 @@
     v-if="hasSponsors"
     class="sponsors"
   >
-    <span class="header">SPONSORS</span>
+    <span class="header">Sponsors</span>
     <div class="sponsors-wrapper">
       <div
         v-for="(sponsor, index) in sponsorList"
@@ -60,17 +60,6 @@ const hasSponsors = computed(() => sponsors.data.length > 0);
 
 <style lang="scss" scoped>
 @import '../styles/main.scss';
-.sponsors {
-  .header {
-    color: var(--c-text-light);
-    display: block;
-    margin: 3em 0 1em;
-    font-weight: 700;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: .4px;
-  }
-}
 .sponsors-wrapper {
   display: flex;
   flex-direction: row;
@@ -143,6 +132,12 @@ const hasSponsors = computed(() => sponsors.data.length > 0);
     .sponsors {
       display: none;
     }
+  }
+}
+
+.read-mode {
+  .sponsors {
+    display: none;
   }
 }
 </style>

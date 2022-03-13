@@ -55,8 +55,9 @@
                 v-if="showRightbar"
                 class="rightbar"
               >
-                <TOC v-if="frontmatter.toc !== false" />
-                <Sponsors v-if="frontmatter.sponsors !== false" />
+                <TOC v-if="toc && frontmatter.toc !== false" />
+                <Sponsors v-if="sponsors && frontmatter.sponsors !== false" />
+                <ReadMode v-if="readMode && frontmatter.readMode !== false" />
               </div>
               <slot name="right-bar-bottom" />
             </slot>
@@ -69,7 +70,7 @@
 
 <script setup>
 // Deps
-import {Transition, computed} from 'vue'; // eslint-disable-line no-unused-vars
+import {Transition, computed, inject} from 'vue'; // eslint-disable-line no-unused-vars
 import {usePageData, usePageFrontmatter} from '@vuepress/client';
 import {useThemeData} from '@vuepress/plugin-theme-data/lib/client';
 import {useScrollPromise} from '@vuepress/theme-default/lib/client/composables';
@@ -87,14 +88,15 @@ import Sponsors from '../global/Sponsors.vue';
 import TOC from '../components/TOC.vue';
 
 // Plugin components
-import SidebarHeader from '../plugins/plugin-sidebar-header/SidebarHeader.vue';
+import SidebarHeader from './../plugins/plugin-sidebar-header/SidebarHeader.vue';
+import ReadMode from './../plugins/plugin-read-mode/ReadMode.vue';
 
 // Get theme data
 const frontmatter = usePageFrontmatter();
 const page = usePageData();
 const themeData = useThemeData();
 // Get the config from themedata
-const {carbonAds, sidebarHeader, social} = themeData.value;
+const {carbonAds, readMode, rightbar, sidebarHeader, social, sponsors, toc} = themeData.value;
 
 // Helpers to manage transitions
 const scrollPromise = useScrollPromise();
@@ -106,10 +108,11 @@ const showRightbar = computed(() => {
   // Do not show on home page
   if (frontmatter.value.home === true) return false;
   // Do not show if purposefully disabled
-  if (frontmatter.value.rightbar === false) return false;
+  else if (!rightbar || frontmatter.value.rightbar === false) return false;
   // Do not show if all children components have been disabled
-  return (frontmatter.value.sponsors !== false)
-    && (frontmatter.value.toc !== false);
+  return (readMode && frontmatter.value.readMode !== false)
+    || (sponsors && frontmatter.value.sponsors !== false)
+    || (toc && frontmatter.value.toc !== false);
 });
 </script>
 
@@ -122,6 +125,9 @@ const showRightbar = computed(() => {
   .page-wrapper-inner {
     max-width: none;
   }
+}
+.navbar {
+  transition: transform var(--t-transform), background-color var(--t-color), border-color var(--t-color);
 }
 .navbar .site-name {
   font-family: var(--font-family-logo);
@@ -149,11 +155,35 @@ const showRightbar = computed(() => {
   top: var(--navbar-height);
   margin-top: calc(0.5rem - var(--navbar-height));
   padding-top: calc(-2rem + var(--navbar-height));
+  .header {
+    color: var(--c-text-light);
+    display: block;
+    margin: 3em 0 1em;
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+  }
+}
+
+.read-mode {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  .navbar {
+    transform: translateY(-100%);
+  }
 }
 
 @media (max-width: 1500px) {
   .rightbar {
     display: none;
+  }
+  .read-mode {
+    .page-wrapper-outer {
+      padding-top: 0;
+      padding-left: 0;
+    }
   }
 }
 @media (max-width: $MQNarrow) {

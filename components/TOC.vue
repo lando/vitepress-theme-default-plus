@@ -3,6 +3,7 @@
     ref="root"
     class="toc"
   >
+    <span class="header">On this page</span>
     <div
       class="marker"
       :style="marker"
