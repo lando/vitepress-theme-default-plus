@@ -33,13 +33,14 @@
               @before-enter="onBeforeEnter"
               @before-leave="onBeforeLeave"
             >
-              <Guide
-                v-if="frontmatter.guide"
+              <Component
+                :is="customPageComponent.component"
+                v-if="showCustomPageType"
                 :key="page.path"
               >
                 <template #top />
                 <template #bottom />
-              </Guide>
+              </Component>
               <Page
                 v-else
                 :key="page.path"
@@ -74,7 +75,7 @@
 
 <script setup>
 // Deps
-import {Transition, computed, inject} from 'vue'; // eslint-disable-line no-unused-vars
+import {Transition, defineAsyncComponent, computed, inject} from 'vue'; // eslint-disable-line no-unused-vars
 import {usePageData, usePageFrontmatter} from '@vuepress/client';
 import {useThemeData} from '@vuepress/plugin-theme-data/lib/client';
 import {useScrollPromise} from '@vuepress/theme-default/lib/client/composables';
@@ -86,7 +87,6 @@ import Page from '@theme/Page.vue';
 
 // Theme components
 import CarbonAds from '../components/CarbonAds.vue';
-import Guide from '../components/Guide.vue';
 import SocialLinks from '../components/SocialLinks.vue';
 import Sponsors from '../global/Sponsors.vue';
 import TOC from '../components/TOC.vue';
@@ -95,17 +95,29 @@ import TOC from '../components/TOC.vue';
 import SidebarHeader from './../plugins/plugin-sidebar-header/SidebarHeader.vue';
 import ReadMode from './../plugins/plugin-read-mode/ReadMode.vue';
 
-// Get theme data
+// Get data
 const frontmatter = usePageFrontmatter();
 const page = usePageData();
 const themeData = useThemeData();
 // Get the config from themedata
-const {carbonAds, readMode, rightbar, sidebarHeader, social, sponsors, toc} = themeData.value;
+const {carbonAds, pageTypes, readMode, rightbar, sidebarHeader, social, sponsors, toc} = themeData.value;
 
 // Helpers to manage transitions
 const scrollPromise = useScrollPromise();
 const onBeforeEnter = scrollPromise.resolve;
 const onBeforeLeave = scrollPromise.pending;
+
+// Import pagetype components
+pageTypes.forEach(page => {
+  page.component = defineAsyncComponent(() => import(page.path /* @vite-ignore */));
+});
+
+// Get list of page types that are frontmatter truth
+const getTruthyPageTypes = () => {
+  return pageTypes
+    .map(page => page.key)
+    .filter(key => frontmatter.value[key] === true);
+};
 
 // Compute rightbar visibility
 const showRightbar = computed(() => {
@@ -118,6 +130,12 @@ const showRightbar = computed(() => {
     || (sponsors && frontmatter.value.sponsors !== false)
     || (toc && frontmatter.value.toc !== false);
 });
+
+// Figure out if we need to show a given page type
+const showCustomPageType = computed(() => getTruthyPageTypes().length > 0);
+// Get the custom page type component
+const customPageComponent = computed(() => pageTypes.find(page => page.key === getTruthyPageTypes()[0]));
+
 </script>
 
 <style lang="scss">

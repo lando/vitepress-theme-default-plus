@@ -1,4 +1,5 @@
 'use strict';
+const {path} = require('@vuepress/utils');
 
 module.exports = {
   // @vuepress/theme-default default config overrides
@@ -37,6 +38,17 @@ module.exports = {
 
   // Use Google Analytics
   hubspot: false,
+
+  // Page Types
+  pageTypes: [{
+    name: 'Guide',
+    key: 'guide',
+    path: path.resolve(__dirname, '..', 'components', 'Guide.vue'),
+  }, {
+    name: 'Blog',
+    key: 'blog',
+    path: path.resolve(__dirname, '..', 'components', 'BlogPost.vue'),
+  }],
 
   // Use Readmode
   readMode: {

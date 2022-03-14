@@ -112,96 +112,26 @@ And here is our special config:
 
   Set this if you care about the theme automatically generating common metatags.
 
-## Reading Mode
+## Carbon Ads
 
-#### readMode
+#### carbonAds
 
 * Type: `Object || Boolean`
 
-* Default: `true`
+* Default:
+
+  ```js
+  carbonAds: false
+  ```
 
 * Example:
 
   ```js
-  readMode: {
-    focusName: 'MAKE READING EASIER',
-    distractName: 'MAKE READING HARDER',
+  carbonAds: {
+    placement: 'landodev',
+    serve: 'CE7DCKJU',
   },
   ```
-
-* Details:
-
-  Configure the way "Reading Mode" is set up or disable it completely with `false`.
-
-
-## Tracking
-
-#### ga
-
-* Type: `Object || Boolean`
-
-* Default: `false`
-
-* Example:
-
-  ```js
-  ga: {
-    id: null,
-  }
-  ```
-
-* Details:
-
-  Set if you want to hookup Google Tag stuff. `id` needs to be a Measurement ID eg format `G-XXXXXXXXXX`.
-
-#### hubspot
-
-* Type: `Object || Boolean`
-
-* Default: `false`
-
-* Example:
-
-  ```js
-  hubspot: {
-    id: null,
-  }
-  ```
-
-* Details:
-
-  Set if you want to hookup Hubspot tracking codes. `id` needs to be the `id` in ` //js.hs-scripts.com/${ID}.js`.
-
-## Sidebar Header
-
-#### sidebarHeader
-
-* Type: `Object || Boolean`
-
-* Default: `false`
-
-* Full Example:
-
-  ```js
-  sidebarHeader: {
-    auto: true,
-    repo: 'lando/vuepress-theme-default-plus',
-    icon: './icon.png',
-    title: 'Current Version',
-    version: null,
-    link: null,
-  }
-  ```
-
-* Details:
-
-  `sidebarHeader` allows you to give greater context and organization around the secondary sidebar menu. This is particularly useful if you have a single site that combines the docs of many projects together.
-
-  If you set `auto` to `true` and `repo` is a public GitHub repo then the theme will attempt to populate the other values for you. However, if you manually set a value then the theme will prefer that. So in the above Full Example the theme will set `version` and `link` automatically but will use `Current Version` for the title.
-
-  If you do not set `repo` explicitly the theme will try to use `themeConfig.repo` instead.
-
-  `icon` is optional and puts the specificed icon to the left of the title.
 
 ## Contributors Page
 
@@ -245,53 +175,53 @@ And here is our special config:
 
   If you do not set `repo`, `docsBranch` and `docsDir` explicitly the theme will use `themeConfig.repo`, `themeConfig.docsBranch`, `themeConfig.docsDir` instead.
 
-## Versions Page
+## Page Types
 
-#### versionsPage
+#### pageTypes
 
-* Type: `Object || Boolean`
+* Type: `Array || Boolean`
 
 * Default:
 
   ```js
-  versionsPage: {
-    auto: true,
-    trimLatest: true,
-    showEdge: true,
-  },
+  pageTypes: [{
+    name: 'Guide',
+    key: 'guide',
+    path: path.resolve(__dirname, '..', 'components', 'Guide.vue'),
+  }, {
+    name: 'Blog',
+    key: 'blog',
+    path: path.resolve(__dirname, '..', 'components', 'BlogPost.vue'),
+  }],
   ```
 
-* Full Example:
+* Details:
+
+  `pageType` allows you to easily add additional "custom page components". You can then use those page components by setting the `key` of any of the types to `true` in your frontmatter.
+
+  More concretely and using the example above, which is the default, you can set `blog: true` or `guide: true` in your frontmatter to use either the `Guide` or `BlogPost` components instead of the default `Page` component.
+
+
+## Reading Mode
+
+#### readMode
+
+* Type: `Object || Boolean`
+
+* Default: `true`
+
+* Example:
 
   ```js
-  versionsPage: {
-    auto: true,
-    repo: 'lando/vuepress-theme-default-plus',
-    content: fs.readFileSync(path.resolve(__dirname, 'versions.md')),
-    data: [{
-      name: '3.1.4',
-      href: `https://github.com/pi/pi/tree/3.1.4`,
-      target: '_blank',
-      rel: 'noopener noreferrer',
-    }],
-    docsBranch: 'main',
-    docsDir: '',
-    link: '/versions.html',
-    showEdge: false,
-    title: 'Previous Versions',
-    trimLatest: true,
+  readMode: {
+    focusName: 'MAKE READING EASIER',
+    distractName: 'MAKE READING HARDER',
   },
   ```
 
 * Details:
 
-  This will automatically generate a page of previous versions based on the `data`.
-
-  If you set `auto` to `true` and `repo` is a public GitHub repo then the theme will attempt to populate the data for you. However, if you manually set a value then the theme will prefer that. So in the above Full Example the theme will just use `data` instead of what is on GitHub.
-
-  If you do not set `repo`, `docsBranch` and `docsDir` explicitly the theme will use `themeConfig.repo`, `themeConfig.docsBranch`, `themeConfig.docsDir` instead.
-
-  `trimLatest` will pop off the most recent version. `showEdge` can be either a URL or `true`.
+  Configure the way "Reading Mode" is set up or disable it completely with `false`.
 
 ## Robots.txt
 
@@ -372,6 +302,37 @@ You can specify `host` and `sitemap` directly. If you omit them the theme will a
 Set to `true` to turn on the default search functionality. If you wish to leverage [Docsearch](https://docsearch.algolia.com/) then you also need to pass in an `apiKey` and `indexName`.
 
 Note that if you want to search across many sites that operate under a single domain then you will also need to set the `searchBase`. If you have not set `searchBase` it will use `baseUrl` instead.
+
+## Sidebar Header
+
+#### sidebarHeader
+
+* Type: `Object || Boolean`
+
+* Default: `false`
+
+* Full Example:
+
+  ```js
+  sidebarHeader: {
+    auto: true,
+    repo: 'lando/vuepress-theme-default-plus',
+    icon: './icon.png',
+    title: 'Current Version',
+    version: null,
+    link: null,
+  }
+  ```
+
+* Details:
+
+  `sidebarHeader` allows you to give greater context and organization around the secondary sidebar menu. This is particularly useful if you have a single site that combines the docs of many projects together.
+
+  If you set `auto` to `true` and `repo` is a public GitHub repo then the theme will attempt to populate the other values for you. However, if you manually set a value then the theme will prefer that. So in the above Full Example the theme will set `version` and `link` automatically but will use `Current Version` for the title.
+
+  If you do not set `repo` explicitly the theme will try to use `themeConfig.repo` instead.
+
+  `icon` is optional and puts the specificed icon to the left of the title.
 
 ## Sitemap.xml
 
@@ -487,23 +448,88 @@ sitemap:
   },
   ```
 
-## Carbon Ads
+## Tracking
 
-#### carbonAds
+#### ga
+
+* Type: `Object || Boolean`
+
+* Default: `false`
+
+* Example:
+
+  ```js
+  ga: {
+    id: null,
+  }
+  ```
+
+* Details:
+
+  Set if you want to hookup Google Tag stuff. `id` needs to be a Measurement ID eg format `G-XXXXXXXXXX`.
+
+#### hubspot
+
+* Type: `Object || Boolean`
+
+* Default: `false`
+
+* Example:
+
+  ```js
+  hubspot: {
+    id: null,
+  }
+  ```
+
+* Details:
+
+  Set if you want to hookup Hubspot tracking codes. `id` needs to be the `id` in ` //js.hs-scripts.com/${ID}.js`.
+
+## Versions Page
+
+#### versionsPage
 
 * Type: `Object || Boolean`
 
 * Default:
 
   ```js
-  carbonAds: false
-  ```
-
-* Example:
-
-  ```js
-  carbonAds: {
-    placement: 'landodev',
-    serve: 'CE7DCKJU',
+  versionsPage: {
+    auto: true,
+    trimLatest: true,
+    showEdge: true,
   },
   ```
+
+* Full Example:
+
+  ```js
+  versionsPage: {
+    auto: true,
+    repo: 'lando/vuepress-theme-default-plus',
+    content: fs.readFileSync(path.resolve(__dirname, 'versions.md')),
+    data: [{
+      name: '3.1.4',
+      href: `https://github.com/pi/pi/tree/3.1.4`,
+      target: '_blank',
+      rel: 'noopener noreferrer',
+    }],
+    docsBranch: 'main',
+    docsDir: '',
+    link: '/versions.html',
+    showEdge: false,
+    title: 'Previous Versions',
+    trimLatest: true,
+  },
+  ```
+
+* Details:
+
+  This will automatically generate a page of previous versions based on the `data`.
+
+  If you set `auto` to `true` and `repo` is a public GitHub repo then the theme will attempt to populate the data for you. However, if you manually set a value then the theme will prefer that. So in the above Full Example the theme will just use `data` instead of what is on GitHub.
+
+  If you do not set `repo`, `docsBranch` and `docsDir` explicitly the theme will use `themeConfig.repo`, `themeConfig.docsBranch`, `themeConfig.docsDir` instead.
+
+  `trimLatest` will pop off the most recent version. `showEdge` can be either a URL or `true`.

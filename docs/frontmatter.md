@@ -66,6 +66,12 @@ Note that the below are _in addition_ to the [options](https://v2.vuepress.vuejs
 * See [Making a guide 1](./making-a-guide.html)
 * See [Making a guide 2](./making-a-guide-2.html)
 
+
+## Blog Posts
+
+* See [Making a blog post 1](./making-a-blog-post.html)
+* See [Making a blog post 2](./making-a-blog-post-2.html)
+
 ## Metadata
 
 * See [Adding page metadata](./adding-page-metadata.html)
