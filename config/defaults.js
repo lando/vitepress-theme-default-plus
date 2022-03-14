@@ -34,7 +34,7 @@ module.exports = {
 
   // Contributors Exclude List
   contributorsExclude: [
-    'dependabot[bot]'
+    'dependabot[bot]',
   ],
 
   // Use Google Analytics
