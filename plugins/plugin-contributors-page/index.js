@@ -82,14 +82,17 @@ module.exports = (options = {}, app) => {
 
       // Also add the page if its an internal link and we dont have a page already
       if (!isLinkHttp(options.link) && app.pages.every(page => page.path !== options.link)) {
+        // Grab our contributor exclude list.
+        const contributorsExclude = _.get(app, 'options.themeConfig.contributorsExclude', []);
+
         const contributorsPage = await createPage(app, {
           path: options.link,
           content: options.content,
           frontmatter: {
             contributors: false,
             contributorsData: _(options.data)
-              .filter(contributor => contributor.name !== 'dependabot[bot]')
-              .value(),
+            .filter(contributor => !contributorsExclude.includes(contributor.name))
+            .value(),
             description: 'Check out all the awesome people who contributed to this project!',
             editLink: false,
             lastUpdated: false,
