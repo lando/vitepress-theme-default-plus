@@ -63,7 +63,7 @@ const props = defineProps({
 
       if (!showContributors || !page.value.git) return [];
 
-      // Remove contributors defined in config.
+      // Filter contributors as defined in config.
       const contributorsExclude = themeLocale.value.contributorsExclude || [];
       const contributors = page.value.git.contributors.filter(contributor => !contributorsExclude.includes(contributor.name)) || [];
 

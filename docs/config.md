@@ -245,6 +245,31 @@ And here is our special config:
 
   If you do not set `repo`, `docsBranch` and `docsDir` explicitly the theme will use `themeConfig.repo`, `themeConfig.docsBranch`, `themeConfig.docsDir` instead.
 
+#### contributorsPage
+
+* Type: `Array`
+
+* Default:
+
+  ```js
+  contributorsExclude: [
+    'dependabot[bot]',
+  ],
+  ```
+
+* Full Example:
+
+  ```js
+  contributorsExclude: [
+    'dependabot[bot]',
+    'James T. Kirk',
+  ],
+  ```
+
+* Details:
+
+  This will exclude contributors on the repo contributor page and guides.  It maps to the users GitHub name as is in the API Response.  
+
 ## Versions Page
 
 #### versionsPage
