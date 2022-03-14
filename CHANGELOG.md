@@ -1,3 +1,11 @@
+v1.0.0-beta.28 [March 15, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.28)
+-------------------------------
+
+* Added support for "Reading Mode"
+* Improved global and page-by-page component disabling so its more consistent
+* Fixed bug in `sitemp.xml` generation
+
+
 v1.0.0-beta.27 [March 13, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.27)
 -------------------------------
 

@@ -48,8 +48,10 @@ module.exports = {
   },
 
   // Use Readmode
-  readMode: true,
-
+  readMode: {
+    focusName: 'MAKE READING EASIER',
+    distractName: 'MAKE READING HARDER',
+  },
   // Use rightbar
   rightbar: true,
 

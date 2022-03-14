@@ -24,6 +24,19 @@ Note that the below are _in addition_ to the [options](https://v2.vuepress.vuejs
 
 * See [Disabling the rightbar](./disabling-rightbar.html)
 
+
+#### readMode
+
+* Type: `Boolean`
+
+* Default:
+
+  ```yaml
+  readMode: true
+  ```
+
+  Configure the visibility of the read mode link on a given page.
+
 #### sponsors
 
 * Type: `Boolean`

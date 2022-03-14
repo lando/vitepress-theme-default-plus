@@ -2,10 +2,10 @@
   <div class="read-mode">
     <a @click="toggleReadMode">
       <svg
-        v-if="isReadMode"
+        v-if="!isReadMode"
         xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
+        width="12"
+        height="12"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -27,8 +27,8 @@
       <svg
         v-else
         xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
+        width="12"
+        height="12"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -56,6 +56,20 @@
 import {computed} from 'vue';
 import {useReadMode} from './read-mode.js';
 
+// Props
+const props = defineProps({
+  distractName: {
+    required: true,
+    type: String,
+    default: 'Distraction Mode',
+  },
+  focusName: {
+    required: true,
+    type: String,
+    default: 'Focus Mode',
+  },
+});
+
 // Persistance read mode
 const isReadMode = useReadMode();
 const toggleReadMode = () => {
@@ -64,7 +78,7 @@ const toggleReadMode = () => {
 
 // Text things
 const toggleText = computed(() => {
-  return isReadMode.value ? 'Distraction Mode': 'Focus Mode';
+  return isReadMode.value ? props.distractName: props.focusName;
 });
 </script>
 

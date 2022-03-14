@@ -112,6 +112,28 @@ And here is our special config:
 
   Set this if you care about the theme automatically generating common metatags.
 
+## Reading Mode
+
+#### readMode
+
+* Type: `Object || Boolean`
+
+* Default: `true`
+
+* Example:
+
+  ```js
+  readMode: {
+    focusName: 'MAKE READING EASIER',
+    distractName: 'MAKE READING HARDER',
+  },
+  ```
+
+* Details:
+
+  Configure the way "Reading Mode" is set up or disable it completely with `false`.
+
+
 ## Tracking
 
 #### ga

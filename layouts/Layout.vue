@@ -57,7 +57,11 @@
               >
                 <TOC v-if="toc && frontmatter.toc !== false" />
                 <Sponsors v-if="sponsors && frontmatter.sponsors !== false" />
-                <ReadMode v-if="readMode && frontmatter.readMode !== false" />
+                <ReadMode
+                  v-if="readMode && frontmatter.readMode !== false"
+                  :distract-name="readMode.distractName"
+                  :focus-name="readMode.focusName"
+                />
               </div>
               <slot name="right-bar-bottom" />
             </slot>
