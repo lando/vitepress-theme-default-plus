@@ -79,7 +79,6 @@ module.exports = (options, app) => {
     }
   }
 
-
   // REGISTER PAGE TYPE COMPONENTS
   if (options.pageTypes) {
     const entries = new Map(options.pageTypes.map(page => ([page.name, page.path])));
@@ -153,6 +152,9 @@ module.exports = (options, app) => {
       },
     ]);
   }
+
+  // SIMPLE TAGS PLUGIN
+  plugins.push([path.resolve(__dirname, 'plugins', 'plugin-simple-tags'), options.readMode]);
 
   return {
     name: '@lando/vuepress-theme-default-plus',

@@ -14,6 +14,8 @@ mailchimp:
   title: Want more Pirog themed content?
   byline: Signup and we will send you a weekly blog digest of similar content to keep you satiated.
   button: Sign me up!
+tags:
+  - test
 ---
 
 Blog posts are free form articles that may or may not be techincal in nature. They differ slightly from guides primarily in their presentation and authorship.

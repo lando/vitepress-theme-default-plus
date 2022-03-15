@@ -1,5 +1,8 @@
 ---
 description: Learn about the VuePress 2 components you can use with VuePress2 Default Theme Plus.
+tags:
+  - test
+  - test2
 ---
 # Components
 
