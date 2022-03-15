@@ -79,6 +79,15 @@ module.exports = (options, app) => {
     }
   }
 
+
+  // REGISTER PAGE TYPE COMPONENTS
+  if (options.pageTypes) {
+    const entries = new Map(options.pageTypes.map(page => ([page.name, page.path])));
+    const components = Object.fromEntries(entries);
+    debug('registered page type components: %o', components);
+    plugins.push(['@vuepress/register-components', {components}]);
+  }
+
   // ROBOTS.TXT PLUGIN
   if (options.robots) {
     options.robots.host = options.robots.host || options.baseUrl || options.autometa.canonicalUrl;

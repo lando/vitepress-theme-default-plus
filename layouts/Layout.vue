@@ -34,7 +34,7 @@
               @before-leave="onBeforeLeave"
             >
               <Component
-                :is="customPageComponent.component"
+                :is="pageType.name"
                 v-if="showCustomPageType"
                 :key="page.path"
               >
@@ -107,11 +107,6 @@ const scrollPromise = useScrollPromise();
 const onBeforeEnter = scrollPromise.resolve;
 const onBeforeLeave = scrollPromise.pending;
 
-// Import pagetype components
-pageTypes.forEach(page => {
-  page.component = defineAsyncComponent(() => import(page.path));
-});
-
 // Get list of page types that are frontmatter truth
 const getTruthyPageTypes = () => {
   return pageTypes
@@ -134,7 +129,7 @@ const showRightbar = computed(() => {
 // Figure out if we need to show a given page type
 const showCustomPageType = computed(() => getTruthyPageTypes().length > 0);
 // Get the custom page type component
-const customPageComponent = computed(() => pageTypes.find(page => page.key === getTruthyPageTypes()[0]));
+const pageType = computed(() => pageTypes.find(page => page.key === getTruthyPageTypes()[0]));
 
 </script>
 
@@ -165,6 +160,7 @@ const customPageComponent = computed(() => pageTypes.find(page => page.key === g
   margin: auto;
   max-width: var(--total-width);
   flex-wrap: wrap;
+  justify-content: center;
 }
 .page {
   width: var(--content-width);

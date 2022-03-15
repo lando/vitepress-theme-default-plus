@@ -74,6 +74,37 @@ const hasSignupForm = computed(() => frontmatter.value.mailchimp && frontmatter.
   overflow: auto;
   width: auto;
 }
+@media (max-width: 1500px) {
+  .blog-header-outer {
+    padding: 0;
+    max-width: var(--content-width);
+    h1 {
+      padding: 0 2.5rem;
+    }
+    .blog-header {
+      padding: 0 2.5rem;
+      padding-bottom: 1em;
+    }
+  }
+}
+@media (max-width: $MQNarrow) {
+  .page-wrapper-inner {
+    max-width: auto;
+    width: 100%;
+  }
+  .blog-header-outer {
+    max-width: auto;
+    width: 100%;
+  }
+  .blog-header-outer {
+    h1 {
+      padding: 0 2rem;
+    }
+    .blog-header {
+      padding: 0 2rem;
+    }
+  }
+}
 @media (max-width: $MQMobileNarrow) {
   .newsletter {
     padding-left: 0;
@@ -85,5 +116,14 @@ const hasSignupForm = computed(() => frontmatter.value.mailchimp && frontmatter.
     margin: 0.85rem -1.5rem;
     border-radius: 0;
   }
+  .blog-header-outer {
+    h1 {
+      padding: 0 1.5rem;
+    }
+    .blog-header {
+      padding: 0 1.5rem;
+    }
+  }
+
 }
 </style>
