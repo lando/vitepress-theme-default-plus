@@ -6,7 +6,6 @@ export const readModeSymbol = Symbol('readMode');
 
 export const useReadMode = () => {
   const isReadMode = inject(readModeSymbol);
-  console.log(isReadMode, readModeSymbol);
   return isReadMode;
 };
 

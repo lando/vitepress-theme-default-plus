@@ -1,0 +1,89 @@
+<template>
+  <div class="junk-wrapper">
+    <div class="blog-header-outer">
+      <h1>{{ frontmatter.title }}</h1>
+      <BlogHeader
+        :author="frontmatter.author"
+        :byline="frontmatter.byline"
+        :updated="frontmatter.updated"
+      />
+    </div>
+    <main class="page blog">
+      <slot name="top" />
+
+      <div class="theme-default-content">
+        <Content />
+      </div>
+
+      <MailChimp
+        v-if="hasSignupForm"
+        :action="frontmatter.mailchimp.action"
+        :title="frontmatter.mailchimp.title"
+        :byline="frontmatter.mailchimp.byline"
+        :button="frontmatter.mailchimp.button"
+      />
+      <CustomPageMeta
+        :contributors="frontmatter.authors"
+        :edit-nav-link="frontmatter.editlink"
+        :last-updated="frontmatter.updated"
+      />
+
+      <PageNav />
+
+      <slot name="bottom" />
+    </main>
+  </div>
+</template>
+
+<script setup>
+import {computed} from 'vue';
+import {usePageFrontmatter} from '@vuepress/client';
+// Get parent page nav
+import PageNav from '@vuepress/theme-default/lib/client/components/PageNav.vue';
+// Use our custom page meta component
+import BlogHeader from './BlogHeader.vue';
+import CustomPageMeta from './CustomPageMeta.vue';
+import MailChimp from '../global/MailChimp.vue';
+
+// Get frontmatter data
+const frontmatter = usePageFrontmatter();
+const hasSignupForm = computed(() => frontmatter.value.mailchimp && frontmatter.value.mailchimp.action);
+</script>
+
+<style lang="scss" scoped>
+@import '../styles/main.scss';
+.page-wrapper-inner {
+  flex-wrap: wrap;
+}
+.junk-wrapper {
+  display: contents;
+}
+.blog-header-outer {
+  h1 {
+    width: 85%;
+  }
+  padding: 2rem 2.5rem;
+  padding-top: 0;
+  max-width: var(--total-width);
+}
+.newsletter {
+  padding: 1.8rem 2.3rem;
+  margin: 0 auto;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  overflow: auto;
+  width: auto;
+}
+@media (max-width: $MQMobileNarrow) {
+  .newsletter {
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 0;
+    width: 100%;
+  }
+  .newsletter__wrap {
+    margin: 0.85rem -1.5rem;
+    border-radius: 0;
+  }
+}
+</style>

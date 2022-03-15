@@ -47,6 +47,17 @@ module.exports = {
     id: '6478338',
   },
 
+  // Page Types
+  pageTypes: [{
+    name: 'Guide',
+    key: 'guide',
+    path: path.resolve(__dirname, '..', 'components', 'Guide.vue'),
+  }, {
+    name: 'Blog',
+    key: 'blog',
+    path: path.resolve(__dirname, '..', 'components', 'BlogPost.vue'),
+  }],
+
   // Use Readmode
   readMode: {
     focusName: 'MAKE READING EASIER',

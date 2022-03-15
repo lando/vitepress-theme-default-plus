@@ -58,7 +58,7 @@ module.exports = (options, app) => {
           exclude.push(page.path);
         }
 
-        const lastmodISO = page.data.git.updatedTime !== undefined
+        const lastmodISO = page.data.git !== undefined && page.data.git.updatedTime !== undefined
           ? new Date(page.data.git.updatedTime).toISOString()
           : new Date().toISOString();
 

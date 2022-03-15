@@ -145,11 +145,15 @@ module.exports = {
             link: '/making-a-guide-2.html',
           },
           {
+            text: 'Making a blog post',
+            link: '/making-a-blog-post.html',
+          },
+          {
             text: 'Adding page metadata',
             link: '/adding-page-metadata.html',
           },
           {
-            text: 'Adding a guide signup',
+            text: 'Adding a signup',
             link: '/guide-signup.html',
           },
           {
