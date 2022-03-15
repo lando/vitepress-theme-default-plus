@@ -65,7 +65,9 @@ const props = defineProps({
 
       // Filter contributors as defined in config.
       const contributorsExclude = themeLocale.value.contributorsExclude || [];
-      const contributors = page.value.git.contributors.filter(contributor => !contributorsExclude.includes(contributor.name)) || [];
+      const contributors = page.value.git.contributors !== undefined 
+        ? page.value.git.contributors.filter(contributor => !contributorsExclude.includes(contributor.name))
+        : [];
 
       // add in gravatar things
       contributors.forEach(contributor => {
