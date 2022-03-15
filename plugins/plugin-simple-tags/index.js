@@ -66,16 +66,14 @@ module.exports = (options = {}, app) => {
         } else {
           app.pages.push(await createPage(app, {
             path: tagPage.path,
-            content: JSON.stringify(tagPage.pages),
-            // frontmatter: {
-            //   contributors: false,
-            //   description: 'Check out previous versions of this documentation.',
-            //   editLink: false,
-            //   edgeVersion: options.edgeVersion,
-            //   lastUpdated: false,
-            //   title: options.title,
-            //   versionsData: options.data,
-            // },
+            content: fs.readFileSync(path.resolve(__dirname, 'tag-page.md')),
+            frontmatter: {
+              contributors: false,
+              description: `Check out all the ${tagPage.tag} content.`,
+              lastUpdated: false,
+              title: tagPage.title,
+              pages: tagPage.pages,
+            },
           }));
           debug('programatically added tag page to %o', tagPage.path);
         }
