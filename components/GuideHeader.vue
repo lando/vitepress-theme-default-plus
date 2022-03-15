@@ -63,7 +63,12 @@ const props = defineProps({
 
       if (!showContributors || !page.value.git) return [];
 
-      const contributors = page.value.git.contributors || [];
+      // Filter contributors as defined in config.
+      const contributorsExclude = themeLocale.value.contributorsExclude || [];
+      const contributors = page.value.git.contributors !== undefined
+        ? page.value.git.contributors.filter(contributor => !contributorsExclude.includes(contributor.name))
+        : [];
+
       // add in gravatar things
       contributors.forEach(contributor => {
         const gravatarUrl = new URL('https://gravatar.com/avatar/');

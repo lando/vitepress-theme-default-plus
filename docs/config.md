@@ -52,6 +52,24 @@ And here is our special config:
 
   If you don't understand what that is or you only have a single docs site then its best to just ignore this one.
 
+#### contributorsExclude
+
+* Type: `Array`
+
+* Default: `[]`
+
+* Example:
+
+  ```js
+  contributorsExclude: [
+    'Mike Pirog',
+    'dependabot[bot]',
+  ]
+  ```
+
+* Details:
+
+  This allows you to filter out some contributors from where contributors show up eg `CustomPageMeta` and `GuideHeader`. Note that unlike `contributorsPage.exclude` this is **NOT NECCESARILY** a GitHub username so take care to get the contributor name right.
 
 #### defaults
 
@@ -154,6 +172,9 @@ And here is our special config:
     auto: true,
     repo: 'lando/vuepress-theme-default-plus',
     content: fs.readFileSync(path.resolve(__dirname, 'contributors.md')),
+    exclude: [
+      'dependabot[bot]',
+    ],
     data: [{
       name: 'pirog',
       img: 'https://me.pic',
