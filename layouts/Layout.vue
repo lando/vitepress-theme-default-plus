@@ -109,7 +109,7 @@ const onBeforeLeave = scrollPromise.pending;
 
 // Import pagetype components
 pageTypes.forEach(page => {
-  page.component = defineAsyncComponent(() => import(page.path /* @vite-ignore */));
+  page.component = defineAsyncComponent(() => import(page.path));
 });
 
 // Get list of page types that are frontmatter truth
