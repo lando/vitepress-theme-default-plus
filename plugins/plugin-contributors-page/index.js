@@ -96,6 +96,7 @@ module.exports = (options = {}, app) => {
             editLink: false,
             lastUpdated: false,
             title: options.title,
+            toc: false,
           },
         });
         app.pages.push(contributorsPage);

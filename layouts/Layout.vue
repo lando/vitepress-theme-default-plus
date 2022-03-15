@@ -23,7 +23,10 @@
       </template>
 
       <template #page>
-        <div class="page-wrapper-outer">
+        <div
+          class="page-wrapper-outer"
+          :class="pageType && pageType.key ? `page-type-${pageType.key.toLowerCase()}` : ''"
+        >
           <div class="page-wrapper-inner">
             <Home v-if="frontmatter.home" />
             <Transition
@@ -150,9 +153,17 @@ const pageType = computed(() => pageTypes.find(page => page.key === getTruthyPag
   font-family: var(--font-family-logo);
 }
 .page-wrapper-outer {
-  padding-top: var(--navbar-height);
+  transition: transform var(--t-transform), background-color var(--t-color), border-color var(--t-color);
+  padding-top: calc(var(--navbar-height) + 50px);
   padding-left: var(--sidebar-width);
   display: flex;
+  &.page-type-blog {
+    .page-wrapper-inner {
+      .rightbar {
+        padding-top: 1em;
+      }
+    }
+  }
 }
 .page-wrapper-inner {
   display: flex;
@@ -168,23 +179,26 @@ const pageType = computed(() => pageTypes.find(page => page.key === getTruthyPag
   padding-left: 0;
 }
 .rightbar {
+  transition: transform var(--t-transform), background-color var(--t-color), border-color var(--t-color);
   width: var(--rightbar-width);
+  margin-left: var(--rightbar-margin);
   padding-left: 0;
   position: sticky;
   top: var(--navbar-height);
-  margin-top: calc(0.5rem - var(--navbar-height));
-  padding-top: calc(-2rem + var(--navbar-height));
+  padding-top: 3em;
+  > * {
+    margin-bottom: 1em;
+  }
   .header {
     color: var(--c-text-light);
     display: block;
-    margin: 3em 0 1em;
+    margin: 0em 0 1em;
     font-weight: 700;
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: .4px;
   }
 }
-
 .read-mode {
   .sidebar {
     transform: translateX(-100%);
@@ -192,8 +206,13 @@ const pageType = computed(() => pageTypes.find(page => page.key === getTruthyPag
   .navbar {
     transform: translateY(-100%);
   }
+  .rightbar {
+    transform: translateX(calc(var(--rightbar-margin) * -1));
+  }
+  .page-wrapper-outer {
+    transform: translateX(calc(var(--sidebar-width) * -1 * .25));
+  }
 }
-
 @media (max-width: 1500px) {
   .rightbar {
     display: none;

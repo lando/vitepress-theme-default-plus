@@ -120,6 +120,7 @@ module.exports = (options = {}, app) => {
             edgeVersion: options.edgeVersion,
             lastUpdated: false,
             title: options.title,
+            toc: false,
             versionsData: options.data,
           },
         });

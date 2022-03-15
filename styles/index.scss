@@ -72,7 +72,8 @@
   --sidebar-width-mobile: calc(var(--sidebar-width) * 0.82);
   --content-width: 820px;
   --rightbar-width: 220px;
-  --total-width: calc(var(--content-width) + var(--rightbar-width));
+  --rightbar-margin: 40px;
+  --total-width: calc(var(--content-width) + var(--rightbar-width) + var(--rightbar-margin));
   --homepage-width: 960px;
 }
 

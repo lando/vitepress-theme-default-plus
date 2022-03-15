@@ -52,17 +52,17 @@ const hasSignupForm = computed(() => frontmatter.value.mailchimp && frontmatter.
 
 <style lang="scss" scoped>
 @import '../styles/main.scss';
-.page-wrapper-inner {
-  flex-wrap: wrap;
-}
 .junk-wrapper {
   display: contents;
 }
 .blog-header-outer {
   h1 {
-    width: 85%;
+    width: 95%;
   }
-  padding: 2rem 2.5rem;
+  .blog-header {
+    border-bottom: 1px solid var(--c-border);
+  }
+  padding: 2rem 0 2em 2.5rem;
   padding-top: 0;
   max-width: var(--total-width);
 }
@@ -74,6 +74,11 @@ const hasSignupForm = computed(() => frontmatter.value.mailchimp && frontmatter.
   overflow: auto;
   width: auto;
 }
+.read-mode {
+  .blog-header-outer {
+    padding: 2rem 2.5em 2em 2.5rem;
+  }
+}
 @media (max-width: 1500px) {
   .blog-header-outer {
     padding: 0;
@@ -82,6 +87,7 @@ const hasSignupForm = computed(() => frontmatter.value.mailchimp && frontmatter.
       padding: 0 2.5rem;
     }
     .blog-header {
+      border-bottom: 0;
       padding: 0 2.5rem;
       padding-bottom: 1em;
     }

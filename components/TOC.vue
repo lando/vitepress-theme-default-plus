@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="page.headers.length > 0"
     ref="root"
     class="toc"
   >

@@ -73,9 +73,10 @@ module.exports = (options = {}, app) => {
               lastUpdated: false,
               title: tagPage.title,
               pages: tagPage.pages,
+              toc: false,
             },
           }));
-          debug('programatically added tag page to %o', tagPage.path);
+          debug('programatically added tag page %o to %o', tagPage.title, tagPage.path);
         }
       };
     },
