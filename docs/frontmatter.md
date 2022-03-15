@@ -69,8 +69,7 @@ Note that the below are _in addition_ to the [options](https://v2.vuepress.vuejs
 
 ## Blog Posts
 
-* See [Making a blog post 1](./making-a-blog-post.html)
-* See [Making a blog post 2](./making-a-blog-post-2.html)
+* See [Making a blog post](./making-a-blog-post.html)
 
 ## Metadata
 

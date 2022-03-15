@@ -227,3 +227,30 @@ CONTENT HERE
 ::: card WAIT... ANOTHER WHAT?
 ![Another happy landing](https://c.tenor.com/e9yVO9Q1ckEAAAAC/kenobi-star-wars.gif)
 :::
+
+## Highlight
+
+#### Usage
+
+```md
+::: highlight
+CONTENT HERE
+:::
+```
+
+#### Example
+
+#### Input
+
+```md
+::: highlight
+What if I told you that the Republic was now under the control of a Dark Lord of the Sith?
+:::
+```
+
+#### Output
+
+::: highlight
+What if I told you that the Republic was now under the control of a Dark Lord of the Sith?
+:::
+

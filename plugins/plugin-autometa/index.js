@@ -25,6 +25,8 @@ module.exports = (options = {}, app) => {
       const title = page.frontmatter.title || page.data.title || app.options.title || app.siteData.title;
       const description = page.frontmatter.description
         || page.data.frontmatter.description
+        || page.frontmatter.byline
+        || page.data.frontmatter.byline
         || page.frontmatter.summary
         || page.data.frontmatter.summary
         || app.options.title;

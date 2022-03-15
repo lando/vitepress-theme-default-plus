@@ -73,7 +73,8 @@ const hasSponsors = computed(() => sponsors.data.length > 0);
   align-items: center;
   justify-content: space-around;
   margin-top: 2px;
-  cursor: pointer;;
+  cursor: pointer;
+  border-radius: 3px;
   .sponsor-inner {
     background-color: var(--c-bg-lighter);
     width: 100%;
@@ -83,6 +84,7 @@ const hasSponsors = computed(() => sponsors.data.length > 0);
     display: flex;
     align-items: center;
     justify-content: space-around;
+    border-radius: 3px;
   }
   &.sponsor-half {
     width: 50%;

@@ -241,6 +241,10 @@ label {
   font-weight: bold;;
 }
 
+div[class*=language-] {
+  border-radius: 3px;
+}
+
 .toggle-dark-button {
   &:hover {
     color: var(--c-brand);

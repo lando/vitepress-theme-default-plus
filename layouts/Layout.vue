@@ -164,6 +164,7 @@ const customPageComponent = computed(() => pageTypes.find(page => page.key === g
   align-items: flex-start;
   margin: auto;
   max-width: var(--total-width);
+  flex-wrap: wrap;
 }
 .page {
   width: var(--content-width);

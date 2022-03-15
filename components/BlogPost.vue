@@ -1,33 +1,38 @@
 <template>
-  <main class="page blog">
-    <slot name="top" />
-
-    <div class="theme-default-content">
+  <div class="junk-wrapper">
+    <div class="blog-header-outer">
       <h1>{{ frontmatter.title }}</h1>
-      <GuideHeader
-        :authors="frontmatter.authors"
+      <BlogHeader
+        :author="frontmatter.author"
+        :byline="frontmatter.byline"
         :updated="frontmatter.updated"
       />
-      <Content />
     </div>
+    <main class="page blog">
+      <slot name="top" />
 
-    <MailChimp
-      v-if="hasSignupForm"
-      :action="frontmatter.mailchimp.action"
-      :title="frontmatter.mailchimp.title"
-      :byline="frontmatter.mailchimp.byline"
-      :button="frontmatter.mailchimp.button"
-    />
-    <CustomPageMeta
-      :contributors="frontmatter.authors"
-      :edit-nav-link="frontmatter.editlink"
-      :last-updated="frontmatter.updated"
-    />
+      <div class="theme-default-content">
+        <Content />
+      </div>
 
-    <PageNav />
+      <MailChimp
+        v-if="hasSignupForm"
+        :action="frontmatter.mailchimp.action"
+        :title="frontmatter.mailchimp.title"
+        :byline="frontmatter.mailchimp.byline"
+        :button="frontmatter.mailchimp.button"
+      />
+      <CustomPageMeta
+        :contributors="frontmatter.authors"
+        :edit-nav-link="frontmatter.editlink"
+        :last-updated="frontmatter.updated"
+      />
 
-    <slot name="bottom" />
-  </main>
+      <PageNav />
+
+      <slot name="bottom" />
+    </main>
+  </div>
 </template>
 
 <script setup>
@@ -36,7 +41,7 @@ import {usePageFrontmatter} from '@vuepress/client';
 // Get parent page nav
 import PageNav from '@vuepress/theme-default/lib/client/components/PageNav.vue';
 // Use our custom page meta component
-import GuideHeader from './GuideHeader.vue';
+import BlogHeader from './BlogHeader.vue';
 import CustomPageMeta from './CustomPageMeta.vue';
 import MailChimp from '../global/MailChimp.vue';
 
@@ -47,6 +52,20 @@ const hasSignupForm = computed(() => frontmatter.value.mailchimp && frontmatter.
 
 <style lang="scss" scoped>
 @import '../styles/main.scss';
+.page-wrapper-inner {
+  flex-wrap: wrap;
+}
+.junk-wrapper {
+  display: contents;
+}
+.blog-header-outer {
+  h1 {
+    width: 85%;
+  }
+  padding: 2rem 2.5rem;
+  padding-top: 0;
+  max-width: var(--total-width);
+}
 .newsletter {
   padding: 1.8rem 2.3rem;
   margin: 0 auto;

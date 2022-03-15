@@ -43,6 +43,20 @@
       max-width: 90%;
     }
   }
+  &.highlight {
+    text-align: left;
+    color: var(--c-brand);
+    font-size: 1.2em;
+    font-weight: 900;
+    border-top: 4px solid var(--c-brand);
+    border-bottom: 4px solid var(--c-brand);
+    padding: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    p {
+      margin: 0;
+    }
+  }
 }
 
 @media (max-width: $MQMobile) {

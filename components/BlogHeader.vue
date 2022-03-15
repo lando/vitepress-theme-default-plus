@@ -1,43 +1,48 @@
 <template>
-  <div class="byline">
-    <div class="authors">
-      <span
-        v-if="hasAuthors"
-        class="author-label"
-      >
-        Written by:
-      </span>
-      <span
-        v-for="author in authors"
-        :key="author.name"
-        class="author"
-      >
-        <a
-          :href="author.link"
-          target="_blank"
-        >{{ author.name }}</a>{{ author.separator }}
-      </span>
-      <div
-        v-if="hasLastUpdated"
-        class="last-updated"
-      >
-        {{ themeLocale.lastUpdatedText }} {{ lastUpdated }}
-      </div>
+  <div class="blog-header">
+    <div class="byline">
+      {{ props.byline }}
     </div>
-    <div class="pics">
+    <div
+      v-if="props.author.name"
+      class="attribution"
+    >
       <span
-        v-for="author in authors"
-        :key="author.name"
+        v-if="props.author.pic"
         class="pic"
       >
         <a
-          :href="author.link"
+          :href="props.author.link"
           target="_blank"
         ><img
-          :src="author.pic"
-          :alt="author.name"
+          :src="props.author.pic"
+          :alt="props.author.name"
           class="custom"
         ></a>
+      </span>
+
+      <span
+        class="author"
+      >
+        <a
+          :href="props.author.link"
+          target="_blank"
+        >{{ props.author.name }}</a>
+      </span>
+
+      <span class="separator">|</span>
+
+      <span
+        v-if="hasLastUpdated"
+        class="last-updated"
+      >
+        <span
+          v-if="props.author.location"
+          class="prep"
+        >
+          From
+        </span>{{ author.location }}
+        <span class="prep"> On </span>{{ lastUpdated }}
       </span>
     </div>
   </div>
@@ -45,35 +50,19 @@
 
 <script setup>
 // Deps
-import blueimpMd5 from 'blueimp-md5';
-import * as timeago from 'timeago.js';
 import {computed} from 'vue';
 import {usePageData, usePageFrontmatter} from '@vuepress/client';
 import {useThemeLocaleData} from '@vuepress/theme-default/lib/client/composables';
 
 const props = defineProps({
-  authors: {
-    type: Array,
-    default: () => {
-      const frontmatter = usePageFrontmatter();
-      const themeLocale = useThemeLocaleData();
-      const page = usePageData();
-      const showContributors = frontmatter.value.hasOwnProperty('contributors')
-        ? frontmatter.value.contributors : themeLocale.value.contributors || false;
-
-      if (!showContributors || !page.value.git) return [];
-
-      const contributors = page.value.git.contributors || [];
-      // add in gravatar things
-      contributors.forEach(contributor => {
-        const gravatarUrl = new URL('https://gravatar.com/avatar/');
-        gravatarUrl.pathname += blueimpMd5(contributor.email);
-        gravatarUrl.search = new URLSearchParams({size: 60});
-        contributor.pic = gravatarUrl.toString();
-        contributor.link = `mailto:${contributor.email}`;
-      });
-      return contributors;
-    },
+  author: {
+    type: Object,
+    default: () => ({}),
+    required: true,
+  },
+  byline: {
+    type: String,
+    default: '',
   },
   updated: {
     type: Object,
@@ -93,50 +82,62 @@ const props = defineProps({
   },
 });
 
-// Get things
-const themeLocale = useThemeLocaleData();
-// computed
-const hasAuthors = computed(() => !!props.authors.length);
-// Set authors using frontmatter or fallback to github contrib information if available
-const authors = computed(() => {
-  const authors = props.authors.map(author => Object.assign(author, {separator: ', '}));
-  // Bail if we have no authors
-  if (!hasAuthors.value) return [];
-  // Otherwise process things
-  const lastAuthor = authors[authors.length - 1];
-  lastAuthor.separator = '';
-  return authors;
-});
-
 const hasLastUpdated = computed(() => props.updated && props.updated.timestamp !== null && props.updated.timestamp !== false);
 const lastUpdated = computed(() => {
   if (!hasLastUpdated.value) return null;
   const updatedDate = new Date(props.updated.timestamp);
-  return timeago.format(updatedDate.toLocaleString());
+  const abbrevDays = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  return `${abbrevDays[updatedDate.getDay()]}, ${months[updatedDate.getMonth()]} ${updatedDate.getDate()}, ${updatedDate.getFullYear()}`;
 });
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '../styles/main.scss';
-.byline {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 1rem;
-  .authors {
+.blog-header {
+  padding-bottom: 1em;
+  .byline {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    line-height: 1.9;
+    width: 90%;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--c-text-lighter);
+  }
+  .attribution {
     color: var(--c-text-quote);
-    font-size: 0.85em;
-    width: 60%;
-  }
-  .last-updated {
-    margin-top: 5px;
-  }
-  .pics {
+    font-size: 0.9em;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    a {
+      font-weight: 400;
+      color: var(--c-text-quote);
+      &:hover {
+        color: var(--c-brand);
+      }
+    }
+    .separator {
+      color: var(--c-text);
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+    .prep {
+      text-transform: uppercase;
+      color: var(--c-text);
+      font-size: .6em;
+      font-weight: 700;
+      margin-left: 2px;
+      margin-right: 2px;
+    }
     .pic {
+      margin-right: 8px;
       img {
-        margin-left: -14px;
         border-radius: 50% !important;
-        width: 30px;
+        width: 24px;
         max-width: initial;
       }
     }

@@ -149,10 +149,6 @@ module.exports = {
             link: '/making-a-blog-post.html',
           },
           {
-            text: 'Making a blog post 2',
-            link: '/making-a-blog-post-2.html',
-          },
-          {
             text: 'Adding page metadata',
             link: '/adding-page-metadata.html',
           },
