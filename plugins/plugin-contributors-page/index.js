@@ -21,6 +21,7 @@ module.exports = (options = {}, app) => {
      data: [],
      docsBranch: 'main',
      docsDir: '',
+     excludes: [],
      link: '/contributors.html',
      title: 'Contributorz',
    };
@@ -79,19 +80,17 @@ module.exports = (options = {}, app) => {
 
       app.options.themeConfig.sidebar.push({text: options.title, link: options.link});
       debug('programatically added %o to sidebar linking to %o', options.title, options.link);
+      debug('excluded the following contributors %o', options.exclude);
 
       // Also add the page if its an internal link and we dont have a page already
       if (!isLinkHttp(options.link) && app.pages.every(page => page.path !== options.link)) {
-        // Grab our contributor exclude list.
-        const contributorsExclude = _.get(app, 'options.themeConfig.contributorsExclude', []);
-
         const contributorsPage = await createPage(app, {
           path: options.link,
           content: options.content,
           frontmatter: {
             contributors: false,
             contributorsData: _(options.data)
-            .filter(contributor => !contributorsExclude.includes(contributor.name))
+            .filter(contributor => !options.exclude.includes(contributor.name))
             .value(),
             description: 'Check out all the awesome people who contributed to this project!',
             editLink: false,

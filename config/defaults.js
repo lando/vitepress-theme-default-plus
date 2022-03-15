@@ -31,9 +31,12 @@ module.exports = {
   // Contributors pages
   contributorsPage: {
     auto: true,
+    exclude: [
+      'dependabot[bot]',
+    ],
   },
 
-  // Contributors Exclude List
+  // Exclude from git contributors
   contributorsExclude: [
     'dependabot[bot]',
   ],

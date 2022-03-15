@@ -5,6 +5,7 @@ v1.0.0-beta.28 [March 15, 2021](https://github.com/lando/vuepress-theme-default-
 * Added `BlogPost` as a new page type
 * Added ability to easily add more "page types"
 * Added new "highlight" custom container
+* Improved `contributorsPage` and `contributors` so they can exclude items like bots
 * Improved global and page-by-page component disabling so its more consistent
 * Improved consistency of `border-radius`
 * Fixed bug in `sitemp.xml` generation
