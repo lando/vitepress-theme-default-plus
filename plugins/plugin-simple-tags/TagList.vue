@@ -27,7 +27,7 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/main.scss';
+@import '../../styles/main.scss';
 .tag-list {
   border-top: 1px solid var(--c-border);
   padding-top: 1em;

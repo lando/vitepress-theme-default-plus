@@ -83,7 +83,7 @@ const toggleText = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/main.scss';
+@import '../../styles/main.scss';
 .read-mode {
   margin-top: 1em;
   padding-top: 1em;
