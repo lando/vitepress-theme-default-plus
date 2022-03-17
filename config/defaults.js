@@ -47,6 +47,9 @@ module.exports = {
   // Use Google Analytics
   hubspot: false,
 
+  // Jobs
+  jobs: false,
+
   // Page Types
   pageTypes: [{
     name: 'Guide',

@@ -70,6 +70,7 @@
                   :focus-name="readMode.focusName"
                 />
                 <Sponsors v-if="sponsors && frontmatter.sponsors !== false" />
+                <Jobs v-if="jobs && frontmatter.jobs !== false" />
               </div>
               <slot name="right-bar-bottom" />
             </slot>
@@ -108,7 +109,7 @@ const frontmatter = usePageFrontmatter();
 const page = usePageData();
 const themeData = useThemeData();
 // Get the config from themedata
-const {carbonAds, pageTypes, readMode, rightbar, sidebarHeader, social, sponsors, toc} = themeData.value;
+const {carbonAds, jobs, pageTypes, readMode, rightbar, sidebarHeader, social, sponsors, toc} = themeData.value;
 
 // Helpers to manage transitions
 const scrollPromise = useScrollPromise();
@@ -130,6 +131,7 @@ const showRightbar = computed(() => {
   else if (!rightbar || frontmatter.value.rightbar === false) return false;
   // Do not show if all children components have been disabled
   return (readMode && frontmatter.value.readMode !== false)
+    || (jobs && frontmatter.value.jobs !== false)
     || (sponsors && frontmatter.value.sponsors !== false)
     || (tags && frontmatter.value.tags !== false)
     || (toc && frontmatter.value.toc !== false);

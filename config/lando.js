@@ -55,6 +55,17 @@ module.exports = {
     id: '6478338',
   },
 
+  // Jobs
+  jobs: [
+    {
+      title: 'Lando Developer',
+      logo: 'https://docs.lando.dev/images/icon.svg',
+      link: 'https://docs.google.com/forms/d/e/1FAIpQLSc2vkesq59BblKo8ZX-R1hKTrHphh1kmsg4FgWV1WH5BKEjHQ/viewform',
+      company: 'Lando System Inc',
+      aux: 'DC, Remote',
+    },
+  ],
+
   // Page Types
   pageTypes: [{
     name: 'Guide',

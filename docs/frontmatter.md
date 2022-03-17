@@ -8,6 +8,19 @@ Note that the below are _in addition_ to the [options](https://v2.vuepress.vuejs
 
 ## All Pages
 
+#### jobs
+
+* Type: `Boolean`
+
+* Default:
+
+  ```yaml
+  jobs: true
+  ```
+
+  Configure the visibility of the jobs block on a given page.
+
+
 #### rightbar
 
 * Type: `Boolean`

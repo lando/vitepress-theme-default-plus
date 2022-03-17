@@ -40,6 +40,16 @@ module.exports = {
       id: '6478338',
     },
 
+    jobs: [
+      {
+        title: 'Lando Developer',
+        logo: 'https://docs.lando.dev/images/icon.svg',
+        link: 'https://docs.google.com/forms/d/e/1FAIpQLSc2vkesq59BblKo8ZX-R1hKTrHphh1kmsg4FgWV1WH5BKEjHQ/viewform',
+        company: 'Lando System Inc',
+        aux: 'DC, Remote',
+      },
+    ],
+
     // Sidebar header
     sidebarHeader: {
       auto: true,
@@ -159,6 +169,10 @@ module.exports = {
           {
             text: 'Disabling rightbar',
             link: '/disabling-rightbar.html',
+          },
+          {
+            text: 'Tagging things',
+            link: '/tagging-things.html',
           },
           {
             text: 'Advanced markdown',

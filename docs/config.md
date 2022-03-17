@@ -196,6 +196,32 @@ And here is our special config:
 
   If you do not set `repo`, `docsBranch` and `docsDir` explicitly the theme will use `themeConfig.repo`, `themeConfig.docsBranch`, `themeConfig.docsDir` instead.
 
+## Jobs
+
+#### jons
+
+* Type: `Object || Boolean`
+
+* Default:
+
+  ```js
+  jobs: false
+  ```
+
+* Example:
+
+  ```js
+  jobs: [
+    {
+      title: 'Lando Developer',
+      logo: 'https://docs.lando.dev/images/icon.svg',
+      link: 'https://docs.google.com/forms/d/e/1FAIpQLSc2vkesq59BblKo8ZX-R1hKTrHphh1kmsg4FgWV1WH5BKEjHQ/viewform',
+      company: 'Lando System Inc',
+      aux: 'DC, Remote',
+    },
+  ],
+  ```
+
 ## Page Types
 
 #### pageTypes

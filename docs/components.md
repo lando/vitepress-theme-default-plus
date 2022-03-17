@@ -75,3 +75,22 @@ You'll need to set sponsors over [here](./config.html#sponsors) for this to work
 ```
 
 <Sponsors />
+
+
+## Jobs
+
+#### Usage:
+
+You'll need to set jobs over [here](./config.html#jobs) for this to work.
+
+```md
+<Jobs />
+```
+
+#### Example:
+
+```md
+<Jobs />
+```
+
+<Jobs />
