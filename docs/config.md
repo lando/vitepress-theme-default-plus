@@ -469,6 +469,18 @@ sitemap:
   },
   ```
 
+## Tagging
+
+#### tags
+
+* Type: `Boolean`
+
+* Default: `true`
+
+* Details:
+
+  Tagging is currently not very configurable but you can disable it by setting `tags: false`.
+
 ## Tracking
 
 #### ga

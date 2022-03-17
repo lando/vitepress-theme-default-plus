@@ -2,6 +2,52 @@
 @import 'palette.scss';
 @import '@vuepress/plugin-palette/palette';
 
+// very basic form stylings
+form.netlify {
+  background-color: var(--c-brand-bg);
+  padding: 2em 3em;
+  input[type=email], input[type=text], textarea {
+    border: 0 solid #f8f8f8;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 1em;
+    height: 50px;
+    width: 100%;
+    padding: 1em;
+    &:focus {
+      outline: 1px solid var(--c-brand-light);
+      outline-offset: 2px;
+    }
+  }
+  textarea {
+    height: 200px;
+    font-family: var(--font-family);
+  }
+  button[type=submit] {
+    width: 25%;
+    margin: auto;
+    box-sizing: border-box;
+    font-size: 16px;
+    display: inline-block;
+    font-size: 1.2rem;
+    padding: 0.8rem 1.6rem;
+    background-color: transparent;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 4px;
+    border-color: var(--c-brand);
+    color: var(--c-brand);
+    transition: background-color var(--c-brand-light);
+    box-sizing: border-box;
+    cursor: pointer;
+    &:hover {
+      background-color: var(--c-brand-light);
+      color: #ffffff;
+      transition: all 0.2s;
+    }
+  }
+}
+
 .custom-container {
   &.third {
     width: 33%;

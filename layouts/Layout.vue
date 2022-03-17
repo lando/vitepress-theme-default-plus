@@ -66,6 +66,10 @@
                   :distract-name="readMode.distractName"
                   :focus-name="readMode.focusName"
                 />
+                <TagList
+                  v-if="tags && frontmatter.tags !== false"
+                  :tags="tags"
+                />
               </div>
               <slot name="right-bar-bottom" />
             </slot>
@@ -95,8 +99,9 @@ import Sponsors from '../global/Sponsors.vue';
 import TOC from '../components/TOC.vue';
 
 // Plugin components
-import SidebarHeader from './../plugins/plugin-sidebar-header/SidebarHeader.vue';
 import ReadMode from './../plugins/plugin-read-mode/ReadMode.vue';
+import SidebarHeader from './../plugins/plugin-sidebar-header/SidebarHeader.vue';
+import TagList from './../plugins/plugin-simple-tags/TagList.vue';
 
 // Get data
 const frontmatter = usePageFrontmatter();
@@ -126,6 +131,7 @@ const showRightbar = computed(() => {
   // Do not show if all children components have been disabled
   return (readMode && frontmatter.value.readMode !== false)
     || (sponsors && frontmatter.value.sponsors !== false)
+    || (tags && frontmatter.value.tags !== false)
     || (toc && frontmatter.value.toc !== false);
 });
 
@@ -133,7 +139,8 @@ const showRightbar = computed(() => {
 const showCustomPageType = computed(() => getTruthyPageTypes().length > 0);
 // Get the custom page type component
 const pageType = computed(() => pageTypes.find(page => page.key === getTruthyPageTypes()[0]));
-
+// Get tags
+const tags = computed(() => page.value.tags);
 </script>
 
 <style lang="scss">

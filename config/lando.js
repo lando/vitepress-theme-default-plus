@@ -382,6 +382,9 @@ module.exports = {
     data: yaml.load(fs.readFileSync(path.resolve(__dirname, '..', 'sponsors.yml'), 'utf8')),
   },
 
+  // Toggle tag mode
+  tags: true,
+
   // Table of contents
   toc: true,
 

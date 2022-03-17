@@ -92,6 +92,9 @@ module.exports = {
   // Can be true|false|or a list of sponsor ids to show
   sponsors: false,
 
+  // Toggle tag mode
+  tags: true,
+
   // Table of contents
   toc: true,
 

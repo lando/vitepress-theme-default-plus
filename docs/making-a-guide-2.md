@@ -16,8 +16,7 @@ editlink:
 updated:
   timestamp: 1613073690000
 tags:
-  - test
-  - test3
+  - this is a test tag
 ---
 
 Guides are _how tos_ or _tutorials_ that fit somewhere in between technical documentation and blog posts. They generally

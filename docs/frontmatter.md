@@ -49,6 +49,20 @@ Note that the below are _in addition_ to the [options](https://v2.vuepress.vuejs
 
   Configure the visibility of the sponsors on a given page.
 
+#### tags
+
+* Type: `Array`
+
+* Default:
+
+  ```yaml
+  tags:
+    - awesomeness
+    - some other tag
+  ```
+
+  Sets the given tags for the page. Each tag will also get it's own page that lists all the content tagged with the given tag. You can also set `tags: false` but usually its best to just omit `tags` altogether.
+
 #### toc
 
 * Type: `Boolean`

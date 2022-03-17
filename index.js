@@ -154,7 +154,17 @@ module.exports = (options, app) => {
   }
 
   // SIMPLE TAGS PLUGIN
-  plugins.push([path.resolve(__dirname, 'plugins', 'plugin-simple-tags'), options.readMode]);
+  if (options.tags) {
+    plugins.push([path.resolve(__dirname, 'plugins', 'plugin-simple-tags'), options.tags]);
+    debug('loaded simple tags plugin with config: %o', options.tags);
+    plugins.push(['@vuepress/register-components',
+      {
+        components: {
+          TagPage: path.resolve(__dirname, 'plugins', 'plugin-simple-tags', 'TagPage.vue'),
+        },
+      },
+    ]);
+  }
 
   return {
     name: '@lando/vuepress-theme-default-plus',
@@ -176,7 +186,12 @@ module.exports = (options, app) => {
     async onWatched(app, watchers, restart) {
       const cwd = process.cwd();
       const pluginWatcher = chokidar.watch(path.resolve(__dirname, 'plugins'), {cwd, ignoreInitial: true});
+      const defaultsWatcher = chokidar.watch(path.resolve(__dirname, 'config'), {cwd, ignoreInitial: true});
       pluginWatcher.on('change', file => {
+        logger.info(`config ${chalk.magenta(file)} is modified`);
+        restart();
+      });
+      defaultsWatcher.on('change', file => {
         logger.info(`config ${chalk.magenta(file)} is modified`);
         restart();
       });
