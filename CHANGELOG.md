@@ -1,4 +1,4 @@
-v1.0.0-beta.28 [March 17, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.28)
+v1.0.0-beta.29 [March 17, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.29)
 -------------------------------
 
 * Added toggleable "Reading Mode" feature
