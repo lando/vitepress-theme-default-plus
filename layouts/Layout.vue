@@ -60,16 +60,16 @@
                 class="rightbar"
               >
                 <TOC v-if="toc && frontmatter.toc !== false" />
-                <Sponsors v-if="sponsors && frontmatter.sponsors !== false" />
+                <TagList
+                  v-if="tags && frontmatter.tags !== false"
+                  :tags="tags"
+                />
                 <ReadMode
                   v-if="readMode && frontmatter.readMode !== false"
                   :distract-name="readMode.distractName"
                   :focus-name="readMode.focusName"
                 />
-                <TagList
-                  v-if="tags && frontmatter.tags !== false"
-                  :tags="tags"
-                />
+                <Sponsors v-if="sponsors && frontmatter.sponsors !== false" />
               </div>
               <slot name="right-bar-bottom" />
             </slot>

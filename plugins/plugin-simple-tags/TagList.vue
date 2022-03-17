@@ -29,7 +29,8 @@ const props = defineProps({
 <style lang="scss" scoped>
 @import '../styles/main.scss';
 .tag-list {
-  padding-bottom: 1em;
+  border-top: 1px solid var(--c-border);
+  padding-top: 1em;
   .tag-link {
     display: inline-flex;
     background-color: var(--c-bg-lighter);

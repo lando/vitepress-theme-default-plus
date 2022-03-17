@@ -1,14 +1,17 @@
-v1.0.0-beta.28 [March 15, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.28)
+v1.0.0-beta.28 [March 17, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.28)
 -------------------------------
 
 * Added toggleable "Reading Mode" feature
 * Added `BlogPost` as a new page type
 * Added ability to easily add more "page types"
 * Added new "highlight" custom container
+* Added a simple "tagging" mechanism
+* Added a job posting mechansim
 * Improved `contributorsPage` and `contributors` so they can exclude items like bots
 * Improved global and page-by-page component disabling so its more consistent
 * Improved consistency of `border-radius`
 * Fixed bug in `sitemp.xml` generation
+* Fixed bug in `404` page causing a bad home link to show up
 
 v1.0.0-beta.27 [March 13, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.27)
 -------------------------------
