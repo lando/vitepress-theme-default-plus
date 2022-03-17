@@ -222,6 +222,11 @@ const tags = computed(() => page.value.tags);
     transform: translateX(calc(var(--sidebar-width) * -1 * .25));
   }
 }
+.no-sidebar {
+  .page-wrapper-outer {
+    padding-left: 0;
+  }
+}
 @media (max-width: 1500px) {
   .rightbar {
     display: none;
