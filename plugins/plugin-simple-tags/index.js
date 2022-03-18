@@ -18,7 +18,7 @@ module.exports = (options = {}, app) => {
             name: tag,
             tag,
             key: _.kebabCase(tag),
-            title: _.capitalize(tag),
+            title: _.upperCase(tag),
             path: `/tag/${_.kebabCase(tag)}.html`,
           }))
           .value();
