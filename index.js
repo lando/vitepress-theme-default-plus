@@ -185,17 +185,17 @@ module.exports = (options, app) => {
     // Watch our plugin dir for changes as well
     async onWatched(app, watchers, restart) {
       const cwd = process.cwd();
-      const pluginWatcher = chokidar.watch(path.resolve(__dirname, 'plugins'), {cwd, ignoreInitial: true});
-      const defaultsWatcher = chokidar.watch(path.resolve(__dirname, 'config'), {cwd, ignoreInitial: true});
-      pluginWatcher.on('change', file => {
+      const dirs = [
+        path.resolve(__dirname, 'config'),
+        path.resolve(__dirname, 'lib'),
+        path.resolve(__dirname, 'plugins'),
+      ];
+      const watcher = chokidar.watch(dirs, {cwd, ignoreInitial: true});
+      watcher.on('change', file => {
         logger.info(`config ${chalk.magenta(file)} is modified`);
         restart();
       });
-      defaultsWatcher.on('change', file => {
-        logger.info(`config ${chalk.magenta(file)} is modified`);
-        restart();
-      });
-      watchers.push(pluginWatcher);
+      watchers.push(watcher);
     },
   };
 };
