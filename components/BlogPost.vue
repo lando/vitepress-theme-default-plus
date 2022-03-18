@@ -64,7 +64,7 @@ const hasSignupForm = computed(() => frontmatter.value.mailchimp && frontmatter.
   }
   padding: 2rem 0 2em 2.5rem;
   padding-top: 0;
-  max-width: var(--total-width);
+  width: var(--total-width);
 }
 .newsletter {
   padding: 1.8rem 2.3rem;
