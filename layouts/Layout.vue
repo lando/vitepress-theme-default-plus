@@ -208,6 +208,11 @@ const tags = computed(() => page.value.tags);
     letter-spacing: .4px;
   }
 }
+.no-sidebar {
+  .page-wrapper-outer {
+    padding-left: 0;
+  }
+}
 .read-mode {
   .sidebar {
     transform: translateX(-100%);
@@ -221,12 +226,14 @@ const tags = computed(() => page.value.tags);
   .page-wrapper-outer {
     transform: translateX(calc(var(--sidebar-width) * -1 * .25));
   }
-}
-.no-sidebar {
-  .page-wrapper-outer {
-    padding-left: 0;
+  .no-sidebar {
+    .page-wrapper-outer {
+      padding-left: inherit;
+      transform: none;
+    }
   }
 }
+
 @media (max-width: 1500px) {
   .rightbar {
     display: none;
