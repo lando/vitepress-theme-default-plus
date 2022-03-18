@@ -73,14 +73,16 @@ module.exports = (options = {}, app) => {
             }))
             .value();
           debug('grabbed and parsed contributors are %O', options.data);
+          debug('excluded the following contributors %o', options.exclude);
         } catch (error) {
           warn('could not automatically grab contributors with error', error);
         };
       }
 
-      app.options.themeConfig.sidebar.push({text: options.title, link: options.link});
-      debug('programatically added %o to sidebar linking to %o', options.title, options.link);
-      debug('excluded the following contributors %o', options.exclude);
+      if (app.options.themeConfig.sidebar !== false && _.isArray(app.options.themeConfig.sidebar)) {
+        app.options.themeConfig.sidebar.push({text: options.title, link: options.link});
+        debug('programatically added %o to sidebar linking to %o', options.title, options.link);
+      }
 
       // Also add the page if its an internal link and we dont have a page already
       if (!isLinkHttp(options.link) && app.pages.every(page => page.path !== options.link)) {

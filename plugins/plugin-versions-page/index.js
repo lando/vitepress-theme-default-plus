@@ -86,9 +86,11 @@ module.exports = (options = {}, app) => {
         };
       }
 
-      // Add if we dont already have a versions page
-      app.options.themeConfig.sidebar.push({text: options.title, link: options.link});
-      debug('programatically added %o to sidebar linking to %o', options.title, options.link);
+      // Add if we dont already have a versions page and sidebar is on
+      if (app.options.themeConfig.sidebar !== false && _.isArray(app.options.themeConfig.sidebar)) {
+        app.options.themeConfig.sidebar.push({text: options.title, link: options.link});
+        debug('programatically added %o to sidebar linking to %o', options.title, options.link);
+      }
 
       // Add information about the "edge" release if we can
       if (isLinkHttp(options.showEdge)) {
