@@ -4,6 +4,7 @@ const _ = require('lodash');
 const {chalk, warn} = require('@vuepress/utils');
 const {isLinkHttp} = require('@vuepress/shared');
 const {Octokit} = require('@octokit/core');
+const {path} = require('@vuepress/utils');
 const {paginateRest} = require('@octokit/plugin-paginate-rest');
 const url = require('url');
 
@@ -30,6 +31,9 @@ module.exports = (options = {}, app) => {
 
   return {
     name,
+    alias: {
+      '@theme/SidebarHeader.vue': path.resolve(__dirname, 'SidebarHeader.vue'),
+    },
     async onInitialized(app) {
       // Try to autopopulate latest versions data if we can
       // Note that user entered data takes priority

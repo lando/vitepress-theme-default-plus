@@ -94,15 +94,15 @@ import Home from '@theme/Home.vue';
 import Page from '@theme/Page.vue';
 
 // Theme components
-import CarbonAds from '../components/CarbonAds.vue';
-import SocialLinks from '../components/SocialLinks.vue';
+import CarbonAds from '@theme/CarbonAds.vue';
+import SocialLinks from '@theme/SocialLinks.vue';
+import TOC from '@theme/TOC.vue';
 import Sponsors from '../global/Sponsors.vue';
-import TOC from '../components/TOC.vue';
 
 // Plugin components
-import ReadMode from './../plugins/plugin-read-mode/ReadMode.vue';
-import SidebarHeader from './../plugins/plugin-sidebar-header/SidebarHeader.vue';
-import TagList from './../plugins/plugin-simple-tags/TagList.vue';
+import ReadMode from '@theme/ReadMode.vue';
+import SidebarHeader from '@theme/SidebarHeader.vue';
+import TagList from '@theme/TagList.vue';
 
 // Get data
 const frontmatter = usePageFrontmatter();

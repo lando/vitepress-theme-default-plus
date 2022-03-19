@@ -41,8 +41,8 @@ import {usePageFrontmatter} from '@vuepress/client';
 // Get parent page nav
 import PageNav from '@vuepress/theme-default/lib/client/components/PageNav.vue';
 // Use our custom page meta component
+import CustomPageMeta from '@theme/CustomPageMeta.vue';
 import BlogHeader from './BlogHeader.vue';
-import CustomPageMeta from './CustomPageMeta.vue';
 import MailChimp from '../global/MailChimp.vue';
 
 // Get frontmatter data

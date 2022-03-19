@@ -22,7 +22,7 @@
 
 <script setup>
 import {computed, ref, defineAsyncComponent} from 'vue';
-import TagPageCard from './TagPageCard.vue';
+import TagPageCard from '@theme/TagPageCard.vue';
 
 const Summary = defineAsyncComponent({
   loader: async () => TagPageCard,

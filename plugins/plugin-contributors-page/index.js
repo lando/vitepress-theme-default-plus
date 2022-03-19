@@ -53,6 +53,10 @@ module.exports = (options = {}, app) => {
 
   return {
     name,
+    alias: {
+      '@theme/ContributorList.vue': path.resolve(__dirname, 'ContributorList.vue'),
+      '@theme/Contributor.vue': path.resolve(__dirname, 'Contributor.vue'),
+    },
     async onInitialized(app) {
       // Try to autopopulate contributors data if we can and its not set
       // Note that user entered data takes priority

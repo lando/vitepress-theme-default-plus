@@ -54,6 +54,9 @@ module.exports = (options = {}, app) => {
 
   return {
     name,
+    alias: {
+      '@theme/VersionList.vue': path.resolve(__dirname, 'VersionList.vue'),
+    },
     async onInitialized(app) {
       // Try to autopopulate versions data if we can and its not set
       // Note that user entered data takes priority

@@ -10,6 +10,11 @@ const debug = require('debug')(name);
 module.exports = (options = {}, app) => {
   return {
     name,
+    alias: {
+      '@theme/TagList.vue': path.resolve(__dirname, 'TagList.vue'),
+      '@theme/TagPage.vue': path.resolve(__dirname, 'TagPage.vue'),
+      '@theme/TagPageCard.vue': path.resolve(__dirname, 'TagPageCard.vue'),
+    },
     // start by augmenting tag data here because it runs before onInitialized
     extendsPage: page => {
       if (_.has(page, 'frontmatter.tags')) {

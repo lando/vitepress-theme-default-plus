@@ -171,8 +171,16 @@ module.exports = (options, app) => {
     extends: '@vuepress/theme-default',
     alias: {
       ...{
+        // override defaults
         '@theme/NavbarBrand.vue': path.resolve(__dirname, 'components', 'CustomNavbarBrand.vue'),
         '@theme/PageMeta.vue': path.resolve(__dirname, 'components', 'CustomPageMeta.vue'),
+        // make overideable
+        '@theme/CarbonAds.vue': path.resolve(__dirname, 'components', 'CarbonAds.vue'),
+        '@theme/SocialLinks.vue': path.resolve(__dirname, 'components', 'SocialLinks.vue'),
+        '@theme/TOC.vue': path.resolve(__dirname, 'components', 'TOC.vue'),
+        // override overrides
+        '@theme/CustomNavbarBrand.vue': path.resolve(__dirname, 'components', 'CustomNavbarBrand.vue'),
+        '@theme/CustomPageMeta.vue': path.resolve(__dirname, 'components', 'CustomPageMeta.vue'),
       },
       ...options.alias,
     },
