@@ -28,6 +28,8 @@
           :class="pageType && pageType.key ? `page-type-${pageType.key.toLowerCase()}` : ''"
         >
           <div class="page-wrapper-inner">
+            <slot name="page-top" />
+            <slot :name="`${pageType.key}-top`" />
             <Home v-if="frontmatter.home" />
             <Transition
               v-else
@@ -40,25 +42,13 @@
                 :is="pageType.name"
                 v-if="showCustomPageType"
                 :key="page.path"
-              >
-                <template #top>
-                  <slot :name="`${pageType.key}-top`" />
-                </template>
-                <template #bottom>
-                  <slot :name="`${pageType.key}-bottom`" />
-                </template>
-              </Component>
+              />
               <Page
                 v-else
                 :key="page.path"
-              >
-                <template #top>
-                  <slot name="page-top" />
-                </template>
-                <template #bottom>
-                  <slot name="page-bottom" />
-                </template>
-              </Page>
+              />
+              <slot :name="`${pageType.key}-bottom`" />
+              <slot name="page-bottom" />
             </Transition>
 
             <slot name="right-bar">
@@ -83,6 +73,7 @@
               <slot name="right-bar-bottom" />
             </slot>
           </div>
+          <slot name="footer-inner" />
         </div>
       </template>
 
