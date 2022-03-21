@@ -41,15 +41,23 @@
                 v-if="showCustomPageType"
                 :key="page.path"
               >
-                <template #top />
-                <template #bottom />
+                <template #top>
+                  <slot :name="`${pageType.key}-top`" />
+                </template>
+                <template #bottom>
+                  <slot :name="`${pageType.key}-bottom`" />
+                </template>
               </Component>
               <Page
                 v-else
                 :key="page.path"
               >
-                <template #top />
-                <template #bottom />
+                <template #top>
+                  <slot name="page-top" />
+                </template>
+                <template #bottom>
+                  <slot name="page-bottom" />
+                </template>
               </Page>
             </Transition>
 
@@ -77,6 +85,8 @@
           </div>
         </div>
       </template>
+
+      <slot name="footer" />
     </ParentLayout>
   </div>
 </template>

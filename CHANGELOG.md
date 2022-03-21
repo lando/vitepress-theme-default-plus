@@ -1,6 +1,8 @@
 v1.0.0-beta.30 - IN PROGRESS
 -------------------------------
 
+* Added `footer` slot to `Layout`
+* Made all core components swappable
 * Fixed styling of main content area when both `sidebar` and `rightbar` are disabled
 
 v1.0.0-beta.29 [March 17, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.29)
