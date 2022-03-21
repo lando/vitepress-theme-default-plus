@@ -181,6 +181,9 @@ module.exports = (options, app) => {
         // override overrides
         '@theme/CustomNavbarBrand.vue': path.resolve(__dirname, 'components', 'CustomNavbarBrand.vue'),
         '@theme/CustomPageMeta.vue': path.resolve(__dirname, 'components', 'CustomPageMeta.vue'),
+        // @TODO: special we override the plugin alias because this is requried in our layout regardless of whether the plugin
+        // loads or not
+        '@theme/SidebarHeader.vue': path.resolve(__dirname, 'plugins', 'plugin-sidebar-header', 'SocialLinks.vue'),
       },
       ...options.alias,
     },
