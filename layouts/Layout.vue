@@ -47,9 +47,9 @@
                 v-else
                 :key="page.path"
               />
-              <slot :name="`${pageType.key}-bottom`" />
-              <slot name="page-bottom" />
             </Transition>
+            <slot :name="`${pageType.key}-bottom`" />
+            <slot name="page-bottom" />
 
             <slot name="right-bar">
               <slot name="right-bar-top" />
