@@ -29,7 +29,11 @@
         >
           <div class="page-wrapper-inner">
             <slot name="page-top" />
-            <slot :name="`${pageType.key}-top`" />
+            <slot
+              v-if="pageType.key"
+              :name="`${pageType.key}-top`"
+            />
+
             <Home v-if="frontmatter.home" />
             <Transition
               v-else
@@ -48,7 +52,11 @@
                 :key="page.path"
               />
             </Transition>
-            <slot :name="`${pageType.key}-bottom`" />
+
+            <slot
+              v-if="pageType.key"
+              :name="`${pageType.key}-bottom`"
+            />
             <slot name="page-bottom" />
 
             <slot name="right-bar">
