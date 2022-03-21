@@ -30,7 +30,7 @@
           <div class="page-wrapper-inner">
             <slot name="page-top" />
             <slot
-              v-if="pageType.key"
+              v-if="pageType && pageType.key"
               :name="`${pageType.key}-top`"
             />
 
@@ -54,7 +54,7 @@
             </Transition>
 
             <slot
-              v-if="pageType.key"
+              v-if="pageType && pageType.key"
               :name="`${pageType.key}-bottom`"
             />
             <slot name="page-bottom" />
