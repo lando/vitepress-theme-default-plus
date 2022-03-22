@@ -78,6 +78,7 @@ module.exports = (options = {}, app) => {
               lastUpdated: false,
               title: tagPage.title,
               pages: tagPage.pages,
+              readMode: false,
               toc: false,
             },
           }));
