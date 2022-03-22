@@ -102,6 +102,26 @@ form.netlify {
       margin: 0;
     }
   }
+  &.thumbnail {
+    border: 1px dashed var(--c-border-dark);
+    border-radius: 3px;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    text-align: center;
+    padding: 1.5em;
+    p {
+      margin: 0;
+    }
+  }
+  &.caption {
+    padding: 5px;
+    background-color: var(--c-bg-lighter);
+    color: var(--c-text-light);
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+  }
 }
 
 @media (max-width: $MQMobile) {
