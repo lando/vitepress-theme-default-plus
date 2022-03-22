@@ -1,7 +1,8 @@
 v1.0.0-beta.30 - IN PROGRESS
 -------------------------------
 
-* Added `footer` slot to `Layout`
+* Added `footer` and `page footer` slots to `Layout`
+* Added custom containers for `thumbnail` and `caption`
 * Made all core components swappable
 * Fixed styling of main content area when both `sidebar` and `rightbar` are disabled
 

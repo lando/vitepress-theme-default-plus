@@ -254,3 +254,38 @@ What if I told you that the Republic was now under the control of a Dark Lord of
 What if I told you that the Republic was now under the control of a Dark Lord of the Sith?
 :::
 
+## Thumbnail/Caption
+
+#### Usage
+
+```md
+:::: thumbnail
+SOME IMAGE
+::: caption
+SOME CAPTION
+:::
+::::
+```
+
+#### Example
+
+#### Input
+
+```md
+:::: thumbnail
+![kalabox1-dash](https://thinktandem.io/images/articles/kalabox1.png "Kalabox V1 Dashboard")
+::: caption
+Kalabox Version 1 Dashboard
+:::
+::::
+```
+
+#### Output
+
+:::: thumbnail
+![kalabox1-dash](https://thinktandem.io/images/articles/kalabox1.png "Kalabox V1 Dashboard")
+::: caption
+Kalabox Version 1 Dashboard
+:::
+::::
+
