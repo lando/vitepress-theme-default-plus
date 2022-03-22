@@ -76,9 +76,10 @@ module.exports = (options = {}, app) => {
               contributors: false,
               description: `Check out all the ${tagPage.tag} content.`,
               lastUpdated: false,
-              title: tagPage.title,
               pages: tagPage.pages,
               readMode: false,
+              tags: false,
+              title: tagPage.title,
               toc: false,
             },
           }));
