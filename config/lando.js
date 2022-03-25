@@ -38,12 +38,14 @@ module.exports = {
     auto: true,
     exclude: [
       'dependabot[bot]',
+      'github-actions[bot]',
     ],
   },
 
   // Exclude from git contributors
   contributorsExclude: [
     'dependabot[bot]',
+    'github-actions[bot]',
   ],
 
   // Use Google Analytics
