@@ -58,7 +58,7 @@ module.exports = {
   }, {
     name: 'Blog',
     key: 'blog',
-    path: path.resolve(__dirname, '..', 'components', 'BlogPost.vue'),
+    path: '@theme/BlogPost.vue',
   }],
 
   // Use Readmode

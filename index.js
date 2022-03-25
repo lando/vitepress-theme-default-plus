@@ -175,6 +175,8 @@ module.exports = (options, app) => {
         '@theme/NavbarBrand.vue': path.resolve(__dirname, 'components', 'CustomNavbarBrand.vue'),
         '@theme/PageMeta.vue': path.resolve(__dirname, 'components', 'CustomPageMeta.vue'),
         // make overideable
+        '@theme/BlogHeader.vue': path.resolve(__dirname, 'components', 'BlogHeader.vue'),
+        '@theme/BlogPost.vue': path.resolve(__dirname, 'components', 'BlogPost.vue'),
         '@theme/CarbonAds.vue': path.resolve(__dirname, 'components', 'CarbonAds.vue'),
         '@theme/SocialLinks.vue': path.resolve(__dirname, 'components', 'SocialLinks.vue'),
         '@theme/TOC.vue': path.resolve(__dirname, 'components', 'TOC.vue'),
