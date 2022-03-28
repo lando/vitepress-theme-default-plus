@@ -335,7 +335,7 @@ You can specify `host` and `sitemap` directly. If you omit them the theme will a
   search: {
     apiKey: '15e332feefe9ec96929f44c62f6c88',
     indexName: 'lando',
-    searchBase: 'https://docs.lando.dev,
+    searchBase: 'https://docs.lando.dev',
   },
   ```
 

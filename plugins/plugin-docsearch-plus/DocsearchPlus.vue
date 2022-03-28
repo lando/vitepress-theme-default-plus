@@ -4,7 +4,6 @@ import {usePageLang, useRouteLocale} from '@vuepress/client';
 import {computed, h, onMounted, watch} from 'vue';
 import '@docsearch/css';
 
-import {useSiteData} from '@vuepress/client';
 import {resolveRoutePathFromUrl} from '@vuepress/shared';
 import {createElement} from 'preact';
 import {useRouter} from 'vue-router';
@@ -16,14 +15,13 @@ const isSpecialClick = event => event.button === 1 ||
 
 const useDocsearchShim = (baseUrl = null) => {
   const router = useRouter();
-  const site = useSiteData();
   return {
     // transform full url to route path
     transformItems: items => items.map(item => ({
       ...item,
       // the `item.url` is full url with protocol and hostname
       // so we have to transform it to vue-router path
-      url: applyBaseUrl(item.url, site.value.base, baseUrl),
+      url: applyBaseUrl(item.url, null, baseUrl),
     })),
     // render the hit component with custom `onClick` handler
     hitComponent: ({hit, children}) => createElement('a', {

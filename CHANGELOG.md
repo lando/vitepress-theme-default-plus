@@ -4,6 +4,7 @@ v1.0.0-beta.30 - IN PROGRESS
 * Added `footer` and `page footer` slots to `Layout`
 * Added custom containers for `thumbnail` and `caption`
 * Made all core components swappable
+* Fixed bug causing unified Algolia Docsearch to 404 when search item shares a path component with `base`
 * Fixed styling of main content area when both `sidebar` and `rightbar` are disabled
 
 v1.0.0-beta.29 [March 17, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.29)
