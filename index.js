@@ -177,6 +177,8 @@ module.exports = (options, app) => {
         // make overideable
         '@theme/BlogHeader.vue': path.resolve(__dirname, 'components', 'BlogHeader.vue'),
         '@theme/BlogPost.vue': path.resolve(__dirname, 'components', 'BlogPost.vue'),
+        '@theme/Guide.vue': path.resolve(__dirname, 'components', 'Guide.vue'),
+        '@theme/GuideHeader.vue': path.resolve(__dirname, 'components', 'GuideHeader.vue'),
         '@theme/CarbonAds.vue': path.resolve(__dirname, 'components', 'CarbonAds.vue'),
         '@theme/SocialLinks.vue': path.resolve(__dirname, 'components', 'SocialLinks.vue'),
         '@theme/TOC.vue': path.resolve(__dirname, 'components', 'TOC.vue'),

@@ -43,7 +43,6 @@ import PageNav from '@vuepress/theme-default/lib/client/components/PageNav.vue';
 // Use our custom page meta component
 import CustomPageMeta from '@theme/CustomPageMeta.vue';
 import BlogHeader from '@theme/BlogHeader.vue';
-import MailChimp from '../global/MailChimp.vue';
 
 // Get frontmatter data
 const frontmatter = usePageFrontmatter();

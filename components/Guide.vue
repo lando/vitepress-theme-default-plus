@@ -37,8 +37,7 @@ import {usePageFrontmatter} from '@vuepress/client';
 import PageNav from '@vuepress/theme-default/lib/client/components/PageNav.vue';
 // Use our custom page meta component
 import CustomPageMeta from '@theme/CustomPageMeta.vue';
-import GuideHeader from './GuideHeader.vue';
-import MailChimp from './../global/MailChimp.vue';
+import GuideHeader from '@theme/GuideHeader.vue';
 
 // Get frontmatter data
 const frontmatter = usePageFrontmatter();

@@ -1,5 +1,4 @@
 'use strict';
-const {path} = require('@vuepress/utils');
 
 module.exports = {
   // @vuepress/theme-default default config overrides
@@ -56,7 +55,7 @@ module.exports = {
   pageTypes: [{
     name: 'Guide',
     key: 'guide',
-    path: path.resolve(__dirname, '..', 'components', 'Guide.vue'),
+    path: '@theme/Guide.vue',
   }, {
     name: 'Blog',
     key: 'blog',
