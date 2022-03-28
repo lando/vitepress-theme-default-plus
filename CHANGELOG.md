@@ -1,5 +1,5 @@
-v1.0.0-beta.30 - IN PROGRESS
--------------------------------
+v1.0.0-beta.30 - [March 28, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.30)
+---------------------------------
 
 * Added `footer` and `page footer` slots to `Layout`
 * Added custom containers for `thumbnail` and `caption`
