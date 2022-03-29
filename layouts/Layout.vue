@@ -1,13 +1,19 @@
 <template>
   <div class="layout-wrapper">
     <ParentLayout>
+      <template #navbar-before>
+        <slot name="navbar-before" />
+      </template>
       <template #navbar-after>
         <SocialLinks
           v-if="social"
           :icons="social"
         />
+        <slot name="navbar-after" />
       </template>
+
       <template #sidebar-top>
+        <slot name="sidebar-top" />
         <CarbonAds
           v-if="carbonAds"
           :placement="carbonAds.placement"
@@ -20,6 +26,9 @@
           :link="sidebarHeader.link"
           :icon="sidebarHeader.icon"
         />
+      </template>
+      <template #sidebar-bottom>
+        <slot name="sidebar-bottom" />
       </template>
 
       <template #page>
