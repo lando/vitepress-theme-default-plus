@@ -125,6 +125,7 @@ jobs:
         node-version:
           - '14'
         pr-deploy-repos:
+          - lando/blog
           - lando/events
           - lando/website
           
