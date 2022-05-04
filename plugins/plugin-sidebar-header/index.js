@@ -14,7 +14,7 @@ const octokit = new MyOctokit({auth: process.env.GITHUB_TOKEN});
 const name = '@lando/plugin-sidebar-header';
 const debug = require('debug')(name);
 
-module.exports = (options = {}, app) => {
+const sidebarHeaderPlugin = (options = {}) => {
   // If auto mode is on and repo is set
   if (options.auto && !options.repo) {
     warn(`plugin ${chalk.magenta(name)} repo must be set to use auto mode`);
@@ -29,35 +29,39 @@ module.exports = (options = {}, app) => {
     }
   }
 
-  return {
-    name,
-    alias: {
-      '@theme/SidebarHeader.vue': path.resolve(__dirname, 'SidebarHeader.vue'),
-    },
-    async onInitialized(app) {
-      // Try to autopopulate latest versions data if we can
-      // Note that user entered data takes priority
-      if (options.auto && options.isGitHub) {
-        debug('trying to grab latest version data from %o', options.repo);
-        try {
-          // Try to get latest version
-          const opts = {owner: options.owner, repo: options.project, per_page: 100};
-          const response = await octokit.paginate('GET /repos/{owner}/{repo}/tags', opts);
-          const latest = _.first(response);
-          const data = {
-            title: options.project,
-            version: latest.name,
-            link: `https://github.com/${options.owner}/${options.project}/tree/${latest.name}`,
+  return app => {
+    return {
+      name,
+      alias: {
+        '@theme/SidebarHeader.vue': path.resolve(__dirname, 'SidebarHeader.vue'),
+      },
+      async onInitialized(app) {
+        // Try to autopopulate latest versions data if we can
+        // Note that user entered data takes priority
+        if (options.auto && options.isGitHub) {
+          debug('trying to grab latest version data from %o', options.repo);
+          try {
+            // Try to get latest version
+            const opts = {owner: options.owner, repo: options.project, per_page: 100};
+            const response = await octokit.paginate('GET /repos/{owner}/{repo}/tags', opts);
+            const latest = _.first(response);
+            const data = {
+              title: options.project,
+              version: latest.name,
+              link: `https://github.com/${options.owner}/${options.project}/tree/${latest.name}`,
+            };
+            debug('automatically grabbed version data %o', data);
+            options.title = options.title || data.title;
+            options.version = options.version || data.version;
+            options.link = options.link || data.link;
+            debug('resulting config is %o', options);
+          } catch (error) {
+            warn('could not automatically grab latest version with error', error);
           };
-          debug('automatically grabbed version data %o', data);
-          options.title = options.title || data.title;
-          options.version = options.version || data.version;
-          options.link = options.link || data.link;
-          debug('resulting config is %o', options);
-        } catch (error) {
-          warn('could not automatically grab latest version with error', error);
-        };
-      }
-    },
+        }
+      },
+    };
   };
 };
+
+module.exports = {sidebarHeaderPlugin};

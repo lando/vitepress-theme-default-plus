@@ -16,6 +16,7 @@
     "google"
   ],
   "rules": {
+    "vue/multi-word-component-names": 0,
     "linebreak-style": 0,
     "arrow-parens": ["error",
       "as-needed"

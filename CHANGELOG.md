@@ -1,6 +1,7 @@
-v1.0.0-beta.31 - IN PROGRESS, NOT RELEASED
+v1.0.0-beta.31 - [May 4, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.31)
 ---------------------------------
 
+* Updated to handle upsteam breaking changes in [vuepress@2.0.0-beta.40](https://github.com/vuepress/vuepress-next/blob/main/CHANGELOG.md#200-beta40-2022-04-25)
 * Bubbled up some parent `slots` for `Sidebar` and `Navbar` so they work correctly [#41](https://github.com/lando/vuepress-theme-default-plus/issues/41)
 
 v1.0.0-beta.30 - [March 28, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.30)

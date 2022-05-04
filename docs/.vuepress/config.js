@@ -1,3 +1,4 @@
+const customTheme = require('../../index.js');
 const {fs, path} = require('@vuepress/utils');
 const yaml = require('js-yaml');
 
@@ -11,8 +12,7 @@ module.exports = {
     ['link', {rel: 'preconnect', href: '//fonts.gstatic.com', crossorigin: true}],
     ['link', {rel: 'stylesheet', href: '//fonts.googleapis.com/css2?family=Lexend:wght@500&display=swap'}],
   ],
-  theme: path.resolve(__dirname, '../..'),
-  themeConfig: {
+  theme: customTheme({
     // PARENT CONFIG
     docsDir: 'docs',
     docsBranch: 'main',
@@ -185,5 +185,5 @@ module.exports = {
       {text: 'Examples', link: 'https://github.com/lando/vuepress-theme-default-plus'},
       {text: 'Release Notes', link: 'https://github.com/lando/vuepress-theme-default-plus/releases'},
     ],
-  },
+  }),
 };

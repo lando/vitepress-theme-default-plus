@@ -9,11 +9,17 @@ This theme _extends_ the [VuePress2 Default Theme](https://v2.vuepress.vuejs.org
 Before you get started its _**HEAVILY RECOMMENDED**_ that you set the following parent config before proceeding. Here is what we set for the repo that generates these docs:
 
 ```js
-themConfig: {
-  docsDir: 'docs',
-  docsBranch: 'main',
-  repo: 'lando/vuepress-theme-default-plus',
-},
+const powerTheme = require('@lando/vuepress-theme-default-plus');
+
+module.exports = {
+  ...
+  theme: powerTheme({
+    docsDir: 'docs',
+    docsBranch: 'main',
+    repo: 'lando/vuepress-theme-default-plus',
+  }),
+  ...
+};
 ```
 
 And here is our special config:
@@ -194,7 +200,7 @@ And here is our special config:
 
   If you set `auto` to `true` and `repo` is a public GitHub repo then the theme will attempt to populate the data for you. However, if you manually set a value then the theme will prefer that. So in the above Full Example the theme will just use `data` instead of what is on GitHub.
 
-  If you do not set `repo`, `docsBranch` and `docsDir` explicitly the theme will use `themeConfig.repo`, `themeConfig.docsBranch`, `themeConfig.docsDir` instead.
+  If you do not set `repo`, `docsBranch` and `docsDir` explicitly the theme will use `repo`, `docsBranch`, `docsDir` instead.
 
 ## Jobs
 
@@ -377,7 +383,7 @@ Note that if you want to search across many sites that operate under a single do
 
   If you set `auto` to `true` and `repo` is a public GitHub repo then the theme will attempt to populate the other values for you. However, if you manually set a value then the theme will prefer that. So in the above Full Example the theme will set `version` and `link` automatically but will use `Current Version` for the title.
 
-  If you do not set `repo` explicitly the theme will try to use `themeConfig.repo` instead.
+  If you do not set `repo` explicitly the theme will try to use `repo` instead.
 
   `icon` is optional and puts the specificed icon to the left of the title.
 
@@ -589,6 +595,6 @@ sitemap:
 
   If you set `auto` to `true` and `repo` is a public GitHub repo then the theme will attempt to populate the data for you. However, if you manually set a value then the theme will prefer that. So in the above Full Example the theme will just use `data` instead of what is on GitHub.
 
-  If you do not set `repo`, `docsBranch` and `docsDir` explicitly the theme will use `themeConfig.repo`, `themeConfig.docsBranch`, `themeConfig.docsDir` instead.
+  If you do not set `repo`, `docsBranch` and `docsDir` explicitly the theme will use `repo`, `docsBranch`, `docsDir` instead.
 
   `trimLatest` will pop off the most recent version. `showEdge` can be either a URL or `true`.

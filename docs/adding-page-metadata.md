@@ -12,14 +12,15 @@ For this page we have the following canoncial theme config and front matter:
 
 `config.js`
 ```js
+const powerTheme = require('@lando/vuepress-theme-default-plus');
+
 module.exports = {
   ...
-  theme: '@lando/vuepress-theme-default-plus',
-  themeConfig: {
+  theme: powerTheme({
     ...
     canonicalUrl: 'https://vuepress-theme-default-plus.lando.dev',
     ...
-  }
+  }),
   ...
 };
 ```

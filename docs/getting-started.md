@@ -20,25 +20,20 @@ npm install @lando/vuepress-theme-default-plus --save-dev
 ```
 ::::
 
+::: danger MUST USE VUEPRESS 2.0.0-beta.40+
+Due to breaking changes introduced in [vuepress@2.0.0-beta.40](https://github.com/vuepress/vuepress-next/blob/main/CHANGELOG.md#200-beta40-2022-04-25) you *must* update to at least that version to use this theme. If you cannot update VuePress for whatever reason then use version 1.0.0-beta.30 or lower of this thene,
+:::
+
 ## Usage
 
-Add the theme name to your [theme key](https://v2.vuepress.vuejs.org/guide/theme.html#community-theme) in your VuePress 2 config.js:
+Import the theme directly to your [theme key](https://v2.vuepress.vuejs.org/guide/theme.html#community-theme) in your VuePress 2 `config.js` and pass the config into the theme function.
 
 ```js
+const powerTheme = require('@lando/vuepress-theme-default-plus');
+
 module.exports = {
   ...
-  theme: '@lando/vuepress-theme-default-plus',
-  ...
-};
-```
-
-And configure as usual with `themeConfig`.
-
-```js
-module.exports = {
-  ...
-  theme: '@lando/vuepress-theme-default-plus',
-  themeConfig: {
+  theme: powerTheme({
     ...
     docsDir: 'docs',
     docsBranch: 'main',
@@ -46,7 +41,7 @@ module.exports = {
       {text: 'GitHub', link: 'https://github.com/lando/vuepress-theme-default-plus/'},
     ],
     ...
-  }
+  }),
   ...
 };
 ```
