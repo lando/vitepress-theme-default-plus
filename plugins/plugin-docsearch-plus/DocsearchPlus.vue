@@ -5,7 +5,6 @@ import {computed, h, onMounted, watch} from 'vue';
 import '@docsearch/css';
 
 import {resolveRoutePathFromUrl} from '@vuepress/shared';
-import {createElement} from 'preact';
 import {useRouter} from 'vue-router';
 const isSpecialClick = event => event.button === 1 ||
   event.altKey ||
@@ -24,17 +23,25 @@ const useDocsearchShim = (baseUrl = null) => {
       url: applyBaseUrl(item.url, null, baseUrl),
     })),
     // render the hit component with custom `onClick` handler
-    hitComponent: ({hit, children}) => createElement('a', {
-      href: hit.url,
-      // handle `onClick` by `router.push`
-      onClick: event => {
-        if (isSpecialClick(event)) return;
-        event.preventDefault();
-        // Route to internal or external based on baseURL
-        if (baseUrl) window.location = hit.url;
-        else router.push(hit.url);
+    hitComponent: ({hit, children}) => ({
+      type: 'a',
+      ref: undefined,
+      constructor: undefined,
+      key: undefined,
+      props: {
+        href: hit.url,
+        // handle `onClick` by `router.push`
+        onClick: event => {
+          if (isSpecialClick(event)) return;
+          event.preventDefault();
+          // Route to internal or external based on baseURL
+          if (baseUrl) window.location = hit.url;
+          else router.push(hit.url);
+        },
+        children,
       },
-    }, children),
+      __v: null,
+    }),
     // navigation behavior triggered by `onKeyDown` internally
     navigator: {
       // when pressing Enter without metaKey

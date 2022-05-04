@@ -11,17 +11,6 @@ const docSearchPlusPlugin = options => {
   }
 
   return app => {
-    if (app.env.isDev && app.options.bundler.endsWith('vite')) {
-      app.options.bundlerConfig.viteOptions = require('vite').mergeConfig(
-        app.options.bundlerConfig.viteOptions,
-        {
-          optimizeDeps: {
-            exclude: ['@docsearch/js', 'preact'],
-          },
-        },
-      );
-    }
-
     return {
       name,
       clientAppEnhanceFiles: path.resolve(__dirname, 'docsearch-plus.js'),

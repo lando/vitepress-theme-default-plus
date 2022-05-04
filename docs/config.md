@@ -339,6 +339,7 @@ You can specify `host` and `sitemap` directly. If you omit them the theme will a
   `Docsearch`
   ```js
   search: {
+    appId: 'BH4D9OD16A',
     apiKey: '15e332feefe9ec96929f44c62f6c88',
     indexName: 'lando',
     searchBase: 'https://docs.lando.dev',
@@ -352,7 +353,7 @@ You can specify `host` and `sitemap` directly. If you omit them the theme will a
 
 * Details:
 
-Set to `true` to turn on the default search functionality. If you wish to leverage [Docsearch](https://docsearch.algolia.com/) then you also need to pass in an `apiKey` and `indexName`.
+Set to `true` to turn on the default search functionality. If you wish to leverage [Docsearch](https://docsearch.algolia.com/) then you also need to pass in an `appId, `apiKey` and `indexName`.
 
 Note that if you want to search across many sites that operate under a single domain then you will also need to set the `searchBase`. If you have not set `searchBase` it will use `baseUrl` instead.
 

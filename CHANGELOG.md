@@ -1,3 +1,8 @@
+v1.0.0-beta.32 - [May 4, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.32)
+---------------------------------
+
+* Fixed bug with new `docsearch` package causing WSOD
+
 v1.0.0-beta.31 - [May 4, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.31)
 ---------------------------------
 

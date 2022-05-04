@@ -316,6 +316,7 @@ module.exports = {
     auto: true,
   },
   search: {
+    appId: 'BH4D9OD16A',
     apiKey: '15e332850128e9ec96929f44c62f6c88',
     indexName: 'lando',
   },
