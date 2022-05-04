@@ -71,6 +71,8 @@ yarn test
 
 ## Releasing
 
+Here are some helpful commands to actually deploy a release.
+
 :::: code-group
 ::: code-group-item LANDO
 
@@ -78,7 +80,7 @@ yarn test
 # build the site
 lando yarn build
 
-# deploy the site
+# bump and tag the version the site
 lando yarn release
 ```
 
@@ -89,9 +91,11 @@ lando yarn release
 # build the site
 yarn build
 
-# deploy the site
+# bump and tag the version the site
 yarn release
 ```
 
 :::
 ::::
+
+An actual release to `npm` can be done by [create a release on GitHub](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository). Pre-releases will deploy to `@edge` tag.
