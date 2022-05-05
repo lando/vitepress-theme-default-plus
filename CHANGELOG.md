@@ -1,3 +1,8 @@
+v1.0.0-beta.34 - [May 5, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.34)
+------------------------------
+
+* Fixed bug with default search plugin not using correct package name
+
 v1.0.0-beta.33 - [May 5, 2021](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.33)
 ------------------------------
 

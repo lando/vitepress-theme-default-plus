@@ -84,7 +84,7 @@ module.exports = options => {
 
     // Use default search
     } else {
-      const {searchPlugin} = require('@vuepress/search');
+      const {searchPlugin} = require('@vuepress/plugin-search');
       plugins.push(searchPlugin());
       debug('loaded core search plus');
     }
