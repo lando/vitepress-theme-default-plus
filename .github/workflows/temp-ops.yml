@@ -19,8 +19,8 @@ jobs:
         pr-deploy-repos:
           # docs sites
           # - lando/acquia
-          - lando/apache
-          # - lando/backdrop
+          # - lando/apache
+          - lando/backdrop
           # - lando/cli
           # - lando/compose
           # - lando/core
@@ -74,8 +74,7 @@ jobs:
       - name: PR deploy to ${{ matrix.auto-deploy-repos }}
         uses: lando/auto-deploy-action@v2
         with:
-          args: "&& rm -f yarn.lock && rm -rf node_modules && yarn && yarn add vuepress@next --dev"
-          branch: "pr-update-@lando/vuepress-theme-default-plus@1.0.0-beta.32"
+          args: "&& rm -f yarn.lock && rm -rf node_modules && yarn"
           slug: ${{ matrix.pr-deploy-repos }}
           token: ${{ secrets.PIROG_TOKEN }}
           version: 1.0.0-beta.32
