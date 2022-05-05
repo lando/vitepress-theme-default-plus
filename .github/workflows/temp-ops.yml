@@ -40,25 +40,25 @@ jobs:
           # - lando/mean
           # - lando/memcached
 
-          - lando/mongo
-          - lando/mssql
-          - lando/mysql
-          - lando/nginx
-          - lando/node
-          - lando/pantheon
-          - lando/php
-          - lando/phpmyadmin
-          - lando/platformsh
+          # - lando/mongo
+          # - lando/mssql
+          # - lando/mysql
+          # - lando/nginx
+          # - lando/node
+          # - lando/pantheon
+          # - lando/php
+          # - lando/phpmyadmin
+          # - lando/platformsh
 
-          # - lando/postgres
-          # - lando/python
-          # - lando/redis
-          # - lando/ruby
-          # - lando/symfony
-          # - lando/tomcat
-          # - lando/solr
-          # - lando/varnish
-          # - lando/wordpress
+          - lando/postgres
+          - lando/python
+          - lando/redis
+          - lando/ruby
+          - lando/symfony
+          - lando/tomcat
+          - lando/solr
+          - lando/varnish
+          - lando/wordpress
 
     steps:
       # Install deps and cache
