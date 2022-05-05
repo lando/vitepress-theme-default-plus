@@ -21,23 +21,24 @@ jobs:
           # - lando/acquia
           # - lando/apache
           # - lando/backdrop
-          - lando/cli
-          - lando/compose
-          - lando/core
-          - lando/docs
-          - lando/dotnet
-          # - lando/drupal
-          # - lando/elasticsearch
-          # - lando/go
-          # - lando/joomla
-          # - lando/lagoon
-          # - lando/lamp
-          # - lando/laravel
-          # - lando/lemp
-          # - lando/mailhog
-          # - lando/mariadb
-          # - lando/mean
-          # - lando/memcached
+          # - lando/cli
+          # - lando/compose
+          # - lando/core
+          # - lando/docs
+          # - lando/dotnet
+
+          - lando/drupal
+          - lando/elasticsearch
+          - lando/go
+          - lando/joomla
+          - lando/lagoon
+          - lando/lamp
+          - lando/laravel
+          - lando/lemp
+          - lando/mailhog
+          - lando/mariadb
+          - lando/mean
+          - lando/memcached
           # - lando/mongo
           # - lando/mssql
           # - lando/mysql
