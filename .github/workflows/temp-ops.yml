@@ -1,0 +1,83 @@
+name: Temp action to deploy some changes
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ${{ matrix.os }}
+    env:
+      TERM: xterm
+    strategy:
+      matrix:
+        os:
+          - ubuntu-20.04
+        node-version:
+          - '14'
+        pr-deploy-repos:
+          # docs sites
+          - lando/acquia
+          - lando/apache
+          # - lando/backdrop
+          # - lando/cli
+          # - lando/compose
+          # - lando/core
+          # - lando/docs
+          # - lando/dotnet
+          # - lando/drupal
+          # - lando/elasticsearch
+          # - lando/go
+          # - lando/joomla
+          # - lando/lagoon
+          # - lando/lamp
+          # - lando/laravel
+          # - lando/lemp
+          # - lando/mailhog
+          # - lando/mariadb
+          # - lando/mean
+          # - lando/memcached
+          # - lando/mongo
+          # - lando/mssql
+          # - lando/mysql
+          # - lando/nginx
+          # - lando/node
+          # - lando/pantheon
+          # - lando/php
+          # - lando/phpmyadmin
+          # - lando/platformsh
+          # - lando/postgres
+          # - lando/python
+          # - lando/redis
+          # - lando/ruby
+          # - lando/symfony
+          # - lando/tomcat
+          # - lando/solr
+          # - lando/varnish
+          # - lando/wordpress
+
+    steps:
+      # Install deps and cache
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install node ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: https://registry.npmjs.org
+          cache: yarn
+      - name: Install Yarn dependencies
+        run: yarn install --prefer-offline --frozen-lockfile
+
+      # Auto deploy to everything else
+      - name: PR deploy to ${{ matrix.auto-deploy-repos }}
+        uses: lando/auto-deploy-action@v2
+        with:
+          args: "&& rm -f yarn.lock && rm -rf node_modules && yarn && yarn add vuepress@next --dev"
+          branch: "pr-update-@lando/vuepress-theme-default-plus@1.0.0-beta.32"
+          slug: ${{ matrix.pr-deploy-repos }}
+          token: ${{ secrets.PIROG_TOKEN }}
+          version: 1.0.0-beta.32
+
+
