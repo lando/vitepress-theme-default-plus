@@ -51,7 +51,7 @@ jobs:
             npm publish --access public --tag ${{ env.PRERELEASE_TAG }}
             echo "::notice title=Published ${{ github.ref_name }} to @${{ github.repository }}@${{ env.PRERELEASE_TAG }}::This is a pre-release published to the '${{ env.PRERELEASE_TAG }}' npm tag"
           fi
-auto-deploy:
+  auto-deploy:
     runs-on: ${{ matrix.os }}
     needs: deploy
     env:
