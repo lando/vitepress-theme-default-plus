@@ -17,7 +17,7 @@ jobs:
         os:
           - ubuntu-20.04
         node-version:
-          - '14'
+          - '16'
       # Install deps and cache
     steps:
       - name: Checkout code
@@ -61,7 +61,7 @@ jobs:
         os:
           - ubuntu-20.04
         node-version:
-          - '14'
+          - '16'
         auto-deploy-repos:
           # - lando/acquia
           # - lando/apache
@@ -134,7 +134,7 @@ jobs:
         os:
           - ubuntu-20.04
         node-version:
-          - '14'
+          - '16'
         pr-deploy-repos:
           - lando/blog
           - lando/events
