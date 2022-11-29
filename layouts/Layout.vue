@@ -49,7 +49,7 @@
               <Component
                 :is="pageType.name"
                 v-if="showCustomPageType"
-                :key="page.path"
+                :key="`${pageType.key}-${page.path}`"
               >
                 <template #top>
                   <slot :name="`${pageType.key}-page-top`" />

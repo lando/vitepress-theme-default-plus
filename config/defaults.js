@@ -2,8 +2,9 @@
 
 module.exports = {
   // @vuepress/theme-default default config overrides
+  colorMode: 'auto',
+  colorModeSwitch: true,
   contributors: true,
-  darkMode: true,
   editLink: true,
   editLinkText: 'Suggest an edit to this page',
   lastUpdated: true,

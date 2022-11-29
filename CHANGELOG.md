@@ -1,7 +1,8 @@
-v1.0.0-beta.35 - [November 5, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.35)
------------------------------------
+v1.0.0-beta.35 - [November 29, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.35)
+------------------------------------
 
 * Updated requirement to `node >= 16`
+* Updated to `vuepress@2.0.0-beta.49`
 
 v1.0.0-beta.34 - [May 5, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.34)
 ------------------------------

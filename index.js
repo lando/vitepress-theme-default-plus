@@ -51,7 +51,7 @@ module.exports = options => {
     debug('loaded google analytics plugin with config %o', options.ga);
   }
 
-  // // HUBSPOT TRACKING PLUGIN
+  // HUBSPOT TRACKING PLUGIN
   if (options.hubspot) {
     const {hubspotPlugin} = require(path.resolve(__dirname, 'plugins', 'plugin-hubspot-tracking'));
     plugins.push(hubspotPlugin(options.hubspot));
@@ -98,7 +98,7 @@ module.exports = options => {
     plugins.push(registerComponentsPlugin({components}));
   }
 
-  // // ROBOTS.TXT PLUGIN
+  // ROBOTS.TXT PLUGIN
   if (options.robots) {
     options.robots.host = options.robots.host || options.baseUrl || options.autometa.canonicalUrl;
     if (options.sitemap && options.robots.host) {
@@ -110,7 +110,7 @@ module.exports = options => {
     debug('loaded robots.txt plugin with config: %o', options.robots);
   }
 
-  // // SITEMAP PLUGIN
+  // SITEMAP PLUGIN
   if (options.sitemap) {
     if (options.sitemap === true) options.sitemap = {};
     options.sitemap.baseUrl = options.sitemap.baseUrl || options.autometa.canonicalUrl || options.baseUrl;
@@ -187,6 +187,8 @@ module.exports = options => {
   return {
     name: '@lando/vuepress-theme-default-plus',
     extends: defaultTheme(options),
+    layouts: path.resolve(__dirname, 'layouts'),
+    clientConfigFile: path.resolve(__dirname, 'client.js'),
     alias: {
       ...{
         // override defaults
@@ -205,7 +207,7 @@ module.exports = options => {
         '@theme/CustomPageMeta.vue': path.resolve(__dirname, 'components', 'CustomPageMeta.vue'),
         // @NOTE: special we override the plugin alias because this is requried in our layout regardless of whether the plugin
         // loads or not
-        '@theme/ReadMode.vue': path.resolve(__dirname, 'plugins', 'plugin-read-mode', 'ReadMode.vue'),
+        // '@theme/ReadMode.vue': path.resolve(__dirname, 'plugins', 'plugin-read-mode', 'ReadMode.vue'),
         '@theme/SidebarHeader.vue': path.resolve(__dirname, 'plugins', 'plugin-sidebar-header', 'SidebarHeader.vue'),
         '@theme/TagList.vue': path.resolve(__dirname, 'plugins', 'plugin-simple-tags', 'TagList.vue'),
       },
@@ -214,7 +216,6 @@ module.exports = options => {
     define: {
       __THEME_OPTIONS__: options,
     },
-    layouts: path.resolve(__dirname, 'layouts'),
     plugins,
 
     // Watch our plugin dir for changes as well

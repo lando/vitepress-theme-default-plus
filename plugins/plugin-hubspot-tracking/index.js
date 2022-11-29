@@ -13,7 +13,7 @@ const hubspotPlugin = ({id}) => {
 
     return {
       name,
-      clientAppEnhanceFiles: path.resolve(__dirname, 'hubspot.js'),
+      clientConfigFile: path.resolve(__dirname, 'hubspot.js'),
       define: {
         __HUBSPOT_OPTIONS__: {id},
       },

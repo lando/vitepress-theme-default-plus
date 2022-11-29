@@ -1,6 +1,7 @@
-import {useStorage} from '@vueuse/core';
 import {computed, inject, onMounted, onUnmounted, provide, watch} from 'vue';
-import {defineClientAppSetup} from '@vuepress/client';
+
+import {defineClientConfig} from '@vuepress/client';
+import {useStorage} from '@vueuse/core';
 
 export const readModeSymbol = Symbol('readMode');
 
@@ -8,20 +9,6 @@ export const useReadMode = () => {
   const isReadMode = inject(readModeSymbol);
   return isReadMode;
 };
-
-export default defineClientAppSetup(() => {
-  const readStorage = useStorage('vuepress-plus-read-mode', false);
-  const isReadMode = computed({
-    get() {
-      return readStorage.value;
-    },
-    set(value) {
-      readStorage.value = value;
-    },
-  });
-  provide(readModeSymbol, isReadMode);
-  updateHtmlReadClass(isReadMode);
-});
 
 export const updateHtmlReadClass = isReadMode => {
   const update = (value = isReadMode.value) => {
@@ -33,3 +20,19 @@ export const updateHtmlReadClass = isReadMode => {
   });
   onUnmounted(() => update());
 };
+
+export default defineClientConfig({
+  setup() {
+    const readStorage = useStorage('vuepress-plus-read-mode', false);
+    const isReadMode = computed({
+      get() {
+        return readStorage.value;
+      },
+      set(value) {
+        readStorage.value = value;
+      },
+    });
+    provide(readModeSymbol, isReadMode);
+    updateHtmlReadClass(isReadMode);
+  },
+});

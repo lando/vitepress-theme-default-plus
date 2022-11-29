@@ -13,7 +13,7 @@ const docSearchPlusPlugin = options => {
   return app => {
     return {
       name,
-      clientAppEnhanceFiles: path.resolve(__dirname, 'docsearch-plus.js'),
+      clientConfigFile: path.resolve(__dirname, 'docsearch-plus.js'),
       define: {
         __DOCSEARCH_OPTIONS__: options,
       },

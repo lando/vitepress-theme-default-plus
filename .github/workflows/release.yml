@@ -63,44 +63,44 @@ jobs:
         node-version:
           - '14'
         auto-deploy-repos:
-          - lando/acquia
-          - lando/apache
-          - lando/backdrop
-          - lando/cli
-          - lando/compose
+          # - lando/acquia
+          # - lando/apache
+          # - lando/backdrop
+          # - lando/cli
+          # - lando/compose
           - lando/core
-          - lando/docs
-          - lando/dotnet
-          - lando/drupal
-          - lando/elasticsearch
-          - lando/go
-          - lando/joomla
-          - lando/lagoon
-          - lando/lamp
-          - lando/laravel
-          - lando/lemp
-          - lando/mailhog
-          - lando/mariadb
-          - lando/mean
-          - lando/memcached
-          - lando/mongo
-          - lando/mssql
-          - lando/mysql
-          - lando/nginx
-          - lando/node
-          - lando/pantheon
-          - lando/php
-          - lando/phpmyadmin
-          - lando/platformsh
-          - lando/postgres
-          - lando/python
-          - lando/redis
-          - lando/ruby
-          - lando/symfony
-          - lando/tomcat
-          - lando/solr
-          - lando/varnish
-          - lando/wordpress
+          # - lando/docs
+          # - lando/dotnet
+          # - lando/drupal
+          # - lando/elasticsearch
+          # - lando/go
+          # - lando/joomla
+          # - lando/lagoon
+          # - lando/lamp
+          # - lando/laravel
+          # - lando/lemp
+          # - lando/mailhog
+          # - lando/mariadb
+          # - lando/mean
+          # - lando/memcached
+          # - lando/mongo
+          # - lando/mssql
+          # - lando/mysql
+          # - lando/nginx
+          # - lando/node
+          # - lando/pantheon
+          # - lando/php
+          # - lando/phpmyadmin
+          # - lando/platformsh
+          # - lando/postgres
+          # - lando/python
+          # - lando/redis
+          # - lando/ruby
+          # - lando/symfony
+          # - lando/tomcat
+          # - lando/solr
+          # - lando/varnish
+          # - lando/wordpress
     steps:
       # Install deps and cache
       - name: Checkout code
@@ -120,8 +120,9 @@ jobs:
         with:
           slug: ${{ matrix.auto-deploy-repos }}
           token: ${{ secrets.PIROG_TOKEN }}
-          pr: false
+          pr: true
           branch: main
+          args: vuepress@2.0.0-beta.49 --dev
 
   pr-deploy:
     runs-on: ${{ matrix.os }}

@@ -39,6 +39,8 @@ module.exports = {
     hubspot: {
       id: '6478338',
     },
+    // use default search
+    search: true,
 
     jobs: [
       {
