@@ -1,7 +1,7 @@
 {
   "name": "@lando/vuepress-theme-default-plus",
   "description": "A VuePress 2 Theme that extends the default theme with some more power.",
-  "version": "1.0.0-beta.35",
+  "version": "1.0.0-beta.36",
   "author": "John Ouellet @labboy0276",
   "license": "GPL-3.0",
   "repository": "github:lando/vuepress-theme-default-plus",
