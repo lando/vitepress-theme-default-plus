@@ -21,7 +21,7 @@ export const makeFauxInternal = (items, baseUrl) => _(items).map(item => {
 
   // if it has children then recurse and normalize
   if (item.children) {
-    item.children = exports.makeFauxInternal(item.children, baseUrl);
+    item.children = makeFauxInternal(item.children, baseUrl);
     return item;
   }
 
