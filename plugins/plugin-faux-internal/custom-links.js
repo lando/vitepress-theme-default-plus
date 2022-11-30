@@ -99,7 +99,7 @@ export const customLinksPlugin = (md, options = {}) => {
       const rawPath = internalLinkMatch[1];
       const rawHash = internalLinkMatch[2] || '';
       // resolve relative and absolute path
-      const {relativePath, absolutePath} = (0, resolvePaths.resolvePaths)(rawPath, base, filePathRelative);
+      const {relativePath, absolutePath} = (0, resolvePaths)(rawPath, base, filePathRelative);
       // normalize markdown file path to route path
       //
       // we are removing the `base` from absolute path because it should not be
