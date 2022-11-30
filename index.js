@@ -13,18 +13,22 @@ import {registerComponentsPlugin} from '@vuepress/plugin-register-components';
 import {searchPlugin} from '@vuepress/plugin-search';
 
 // our plugins
-import {autometaPlugin} from './plugins/plugin-autometa';
-import {contributorsPagePlugin} from './plugins/plugin-contributors-page';
-import {docSearchPlusPlugin} from './plugins/plugin-docsearch-plus';
-import {fauxInternalPlugin} from './plugins/plugin-faux-internal';
-import {getPlugins} from './lib/plugins';
-import {hubspotPlugin} from './plugins/plugin-hubspot-tracking';
-import {readModePlugin} from './plugins/plugin-read-mode';
-import {robotsTxtPlugin} from './plugins/plugin-robots';
-import {sidebarHeaderPlugin} from './plugins/plugin-sidebar-header';
-import {simpleTagsPlugin} from './plugins/plugin-simple-tags';
-import {siteMapPlugin} from './plugins/plugin-sitemap';
-import {versionsPagePlugin} from './plugins/plugin-versions-page';
+import {autometaPlugin} from './plugins/plugin-autometa/index.js';
+import {contributorsPagePlugin} from './plugins/plugin-contributors-page/index.js';
+import {docSearchPlusPlugin} from './plugins/plugin-docsearch-plus/index.js';
+import {fauxInternalPlugin} from './plugins/plugin-faux-internal/index.js';
+import {getPlugins} from './lib/plugins.js';
+import {hubspotPlugin} from './plugins/plugin-hubspot-tracking/index.js';
+import {readModePlugin} from './plugins/plugin-read-mode/index.js';
+import {robotsTxtPlugin} from './plugins/plugin-robots/index.js';
+import {sidebarHeaderPlugin} from './plugins/plugin-sidebar-header/index.js';
+import {simpleTagsPlugin} from './plugins/plugin-simple-tags/index.js';
+import {siteMapPlugin} from './plugins/plugin-sitemap/index.js';
+import {versionsPagePlugin} from './plugins/plugin-versions-page/index.js';
+
+// our defaults
+import themeDefaults from './config/defaults.js';
+import themeLandoDefaults from './config/lando.js';
 
 export const defaultThemePlus = options => {
   const debug = Debug('@lando/vuepress-theme-default-plus'); // eslint-disable-line
@@ -32,11 +36,11 @@ export const defaultThemePlus = options => {
   // If landoDocs/lando is set and defaults are empty then start there
   if (_.isEmpty(options.defaults) && (options.landoDocs || options.lando)) {
     debug('no user defaults set, using lando doc defaults');
-    options.defaults = require('./config/lando');
+    options.defaults = themeLandoDefaults;
   // Otherwise if we are empty then just set to defaults
   } else if (_.isEmpty(options.defaults)) {
     debug('no user defaults set, using theme defaults');
-    options.defaults = require('./config/defaults');
+    options.defaults = themeDefaults;
   }
 
   // Rebase options on defaults

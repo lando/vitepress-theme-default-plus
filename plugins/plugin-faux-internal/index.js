@@ -1,6 +1,6 @@
 import {chalk, warn} from '@vuepress/utils';
 import {customLinksPlugin} from './custom-links.js';
-import {makeFauxInternal} from './utils';
+import {makeFauxInternal} from './utils.js';
 
 export const fauxInternalPlugin = (options = {}) => {
   const name = '@lando/plugin-faux-internal';

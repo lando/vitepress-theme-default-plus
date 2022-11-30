@@ -3,7 +3,7 @@ import Debug from 'debug';
 import {chalk, fs, path, warn} from '@vuepress/utils';
 
 import {createPage} from '@vuepress/core';
-import {getTopLevelPages} from './utils';
+import {getTopLevelPages} from './utils.js';
 import {isLinkHttp} from '@vuepress/shared';
 import {Octokit} from '@octokit/core';
 import {paginateRest} from '@octokit/plugin-paginate-rest';

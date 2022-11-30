@@ -18,6 +18,7 @@
     "node": ">=14.0.0"
   },
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "vuepress dev docs --clean-cache --clean-temp",
     "build": "vuepress build docs",

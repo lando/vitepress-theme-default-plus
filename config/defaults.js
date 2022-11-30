@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   // @vuepress/theme-default default config overrides
   colorMode: 'auto',
   colorModeSwitch: true,

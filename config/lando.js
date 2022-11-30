@@ -1,8 +1,7 @@
-'use strict';
-const {fs, path} = require('@vuepress/utils');
-const yaml = require('js-yaml');
+import {fs, path} from '@vuepress/utils';
+import yaml from 'js-yaml';
 
-module.exports = {
+export default {
   // @vuepress/theme-default default config overrides
   colorMode: 'auto',
   colorModeSwitch: true,
