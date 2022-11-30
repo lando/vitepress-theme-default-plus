@@ -1,7 +1,9 @@
 import _ from 'lodash';
 import Debug from 'debug';
-import {chalk, fs, path, warn} from '@vuepress/utils';
+import {chalk, fs, getDirname, path, warn} from '@vuepress/utils';
 import {createPage} from '@vuepress/core';
+
+const __dirname = getDirname(import.meta.url);
 
 export const simpleTagsPlugin = (options = {}) => {
   const name = '@lando/plugin-simple-tags';

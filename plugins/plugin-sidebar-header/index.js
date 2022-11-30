@@ -1,12 +1,14 @@
 
 import _ from 'lodash';
 import Debug from 'debug';
-import {chalk, warn} from '@vuepress/utils';
+import {chalk, getDirname, warn} from '@vuepress/utils';
 import {isLinkHttp} from '@vuepress/shared';
 import {Octokit} from '@octokit/core';
 import {path} from '@vuepress/utils';
 import {paginateRest} from '@octokit/plugin-paginate-rest';
 import url from 'url';
+
+const __dirname = getDirname(import.meta.url);
 
 export const sidebarHeaderPlugin = (options = {}) => {
   const name = '@lando/plugin-sidebar-header';

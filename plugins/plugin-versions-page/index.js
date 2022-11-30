@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import Debug from 'debug';
-import {chalk, fs, path, warn} from '@vuepress/utils';
+import {chalk, fs, getDirname, path, warn} from '@vuepress/utils';
 
 import {createPage} from '@vuepress/core';
 import {getTopLevelPages} from './utils.js';
@@ -8,6 +8,8 @@ import {isLinkHttp} from '@vuepress/shared';
 import {Octokit} from '@octokit/core';
 import {paginateRest} from '@octokit/plugin-paginate-rest';
 import url from 'url';
+
+const __dirname = getDirname(import.meta.url);
 
 export const versionsPagePlugin = (options = {}, sidebar = []) => {
   const name = '@lando/plugin-versions-page';

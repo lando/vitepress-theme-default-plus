@@ -1,6 +1,8 @@
 'use strict';
 
-import {chalk, path, warn} from '@vuepress/utils';
+import {chalk, getDirname, path, warn} from '@vuepress/utils';
+
+const __dirname = getDirname(import.meta.url);
 
 export const hubspotPlugin = ({id}) => {
   const name = '@lando/plugin-hubspot-tracking';

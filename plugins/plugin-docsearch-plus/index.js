@@ -1,4 +1,6 @@
-import {chalk, path, warn} from '@vuepress/utils';
+import {chalk, getDirname, path, warn} from '@vuepress/utils';
+
+const __dirname = getDirname(import.meta.url);
 
 export const docSearchPlusPlugin = options => {
   const name = '@lando/plugin-docsearch-plus';
