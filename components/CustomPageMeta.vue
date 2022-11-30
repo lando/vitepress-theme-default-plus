@@ -56,7 +56,7 @@
 <script setup>
 // Deps
 import {computed} from 'vue';
-import blueimpMd5 from 'blueimp-md5';
+import md5 from 'md5';
 import * as timeago from 'timeago.js';
 
 // Stuff from parent theme
@@ -86,7 +86,7 @@ const props = defineProps({
       // add in gravatar things
       contributors.forEach(contributor => {
         const gravatarUrl = new URL('https://gravatar.com/avatar/');
-        gravatarUrl.pathname += blueimpMd5(contributor.email);
+        gravatarUrl.pathname += md5(contributor.email);
         gravatarUrl.search = new URLSearchParams({size: 60});
         contributor.pic = gravatarUrl.toString();
         contributor.alt = `Picture of ${contributor.name}`;
