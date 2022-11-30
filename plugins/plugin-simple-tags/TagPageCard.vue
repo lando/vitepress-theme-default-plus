@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-import blueimpMd5 from 'blueimp-md5';
+import gravatarUrl from 'gravatar-url';
 import {RouterLink} from 'vue-router';
 import {computed} from 'vue';
 
@@ -78,10 +78,7 @@ const authors = computed(() => {
   const people = (props.page.authors || props.page.contributors)
     .map(person => {
       if (!person.pic && person.email) {
-        const gravatarUrl = new URL('https://gravatar.com/avatar/');
-        gravatarUrl.pathname += blueimpMd5(person.email);
-        gravatarUrl.search = new URLSearchParams({size: 60});
-        person.pic = gravatarUrl.toString();
+        person.pic = gravatarUrl(person.email, {size: 60});
       }
       if (!person.link && person.email) {
         person.link = `mailto:${person.email}`;
