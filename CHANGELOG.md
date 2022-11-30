@@ -1,3 +1,8 @@
+v1.0.0-beta.38 - [November 29, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.37)
+------------------------------------
+
+* Fixed bug loading `ReadMode.vue` when `readmode: false`
+
 v1.0.0-beta.37 - [November 29, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.37)
 ------------------------------------
 
