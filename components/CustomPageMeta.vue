@@ -56,7 +56,7 @@
 <script setup>
 // Deps
 import {computed} from 'vue';
-import md5 from 'md5';
+import gravatarUrl from 'gravatar-url';
 import * as timeago from 'timeago.js';
 
 // Stuff from parent theme
@@ -85,10 +85,7 @@ const props = defineProps({
 
       // add in gravatar things
       contributors.forEach(contributor => {
-        const gravatarUrl = new URL('https://gravatar.com/avatar/');
-        gravatarUrl.pathname += md5(contributor.email);
-        gravatarUrl.search = new URLSearchParams({size: 60});
-        contributor.pic = gravatarUrl.toString();
+        contributor.pic = gravatarUrl(contributor.email, {size: 60});
         contributor.alt = `Picture of ${contributor.name}`;
         contributor.title = `${contributor.name} (${contributor.email}) - ${contributor.commits} commits`;
         contributor.link = `mailto:${contributor.email}`;
