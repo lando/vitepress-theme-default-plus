@@ -1,4 +1,4 @@
-
+import {path} from '@vuepress/utils';
 import {isLinkExternal} from '@vuepress/shared';
 import url from 'url';
 
@@ -8,19 +8,19 @@ export const customLinksPlugin = (md, options = {}) => {
     let relativePath;
     if (rawPath.startsWith('/')) {
       if (rawPath.endsWith('.md')) {
-        absolutePath = path4.join(base, rawPath);
+        absolutePath = path.join(base, rawPath);
         relativePath = removeLeadingSlash(rawPath);
       } else {
         absolutePath = rawPath;
-        relativePath = path4.relative(base, absolutePath);
+        relativePath = path.relative(base, absolutePath);
       }
     } else {
       if (filePathRelative) {
-        relativePath = path4.join(
-          path4.dirname(encodeURI(filePathRelative)),
+        relativePath = path.join(
+          path.dirname(encodeURI(filePathRelative)),
           rawPath,
         );
-        absolutePath = path4.join(base, relativePath);
+        absolutePath = path.join(base, relativePath);
       } else {
         relativePath = rawPath.replace(/^(?:\.\/)?(.*)$/, '$1');
         absolutePath = relativePath;

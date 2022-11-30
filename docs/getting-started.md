@@ -21,7 +21,7 @@ npm install @lando/vuepress-theme-default-plus --save-dev
 ::::
 
 ::: danger MUST USE VUEPRESS 2.0.0-beta.53
-VuePress 2.0.0 is currently in `beta` and as such is currently still introducing [many breaking changes](https://github.com/vuepress/vuepress-next/blob/main/CHANGELOG.md). For that reason you *must* use version 2.0.0-beta.53 with the current version of this theme.
+VuePress 2.0.0 is currently in `beta` and as such is currently still introducing [many breaking changes](https://github.com/vuepress/vuepress-next/blob/main/CHANGELOG.md). For that reason you *must* use version 2.0.0-beta.53 with the current version of this theme..
 
 **THIS MEANS YOU LIKELY WILL NEED TO UPDATE YOUR SUBTHEME TO ACCOMMODATE THE BREAKING CHANGES!.**
 :::
