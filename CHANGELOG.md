@@ -1,4 +1,10 @@
-v1.0.0-beta.38 - [November 29, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.37)
+v1.0.0-beta.39 - [November 29, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.39)
+------------------------------------
+
+* Reverted requirement to `node >= 14`
+* Updated to `vuepress@2.0.0-beta.53`
+
+v1.0.0-beta.38 - [November 29, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.38)
 ------------------------------------
 
 * Fixed bug loading `ReadMode.vue` when `readmode: false`

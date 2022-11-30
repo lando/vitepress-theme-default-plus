@@ -106,11 +106,11 @@
 // Deps
 import {Transition, defineAsyncComponent, computed, inject} from 'vue'; // eslint-disable-line no-unused-vars
 import {usePageData, usePageFrontmatter} from '@vuepress/client';
-import {useThemeData} from '@vuepress/plugin-theme-data/lib/client';
-import {useScrollPromise} from '@vuepress/theme-default/lib/client/composables';
+import {useThemeData} from '@vuepress/plugin-theme-data/client';
+import {useScrollPromise} from '@vuepress/theme-default/client';
 
 // Parent components
-import ParentLayout from '@vuepress/theme-default/lib/client/layouts/Layout.vue';
+import ParentLayout from '@vuepress/theme-default/layouts/Layout.vue';
 import Home from '@theme/Home.vue';
 import Page from '@theme/Page.vue';
 

@@ -1,10 +1,37 @@
-'use strict';
 
-const shared = require('@vuepress/shared');
-const resolvePaths = require('@vuepress/markdown/lib/plugins/linksPlugin/resolvePaths');
-const url = require('url');
+import {isLinkExternal} from '@vuepress/shared';
+import url from 'url';
 
-const customLinksPlugin = (md, options = {}) => {
+export const customLinksPlugin = (md, options = {}) => {
+  const resolvePaths = (rawPath, base, filePathRelative) => {
+    let absolutePath;
+    let relativePath;
+    if (rawPath.startsWith('/')) {
+      if (rawPath.endsWith('.md')) {
+        absolutePath = path4.join(base, rawPath);
+        relativePath = removeLeadingSlash(rawPath);
+      } else {
+        absolutePath = rawPath;
+        relativePath = path4.relative(base, absolutePath);
+      }
+    } else {
+      if (filePathRelative) {
+        relativePath = path4.join(
+          path4.dirname(encodeURI(filePathRelative)),
+          rawPath,
+        );
+        absolutePath = path4.join(base, relativePath);
+      } else {
+        relativePath = rawPath.replace(/^(?:\.\/)?(.*)$/, '$1');
+        absolutePath = relativePath;
+      }
+    }
+    return {
+      absolutePath,
+      relativePath,
+    };
+  };
+
   // tag of internal links
   const internalTag = options.internalTag || 'RouterLink';
   let hasOpenInternalLink = false;
@@ -47,7 +74,7 @@ const customLinksPlugin = (md, options = {}) => {
     // get `base` and `filePathRelative` from `env`
     const {base = '/', filePathRelative = null, frontmatter = {}} = env;
     // check if a link is an external link
-    if ((0, shared.isLinkExternal)(hrefLink, base)) {
+    if ((0, isLinkExternal)(hrefLink, base)) {
       // set `externalAttrs` to current token
       Object.entries(externalAttrs).forEach(([key, val]) => token.attrSet(key, val));
       // check if we should render external icon
@@ -121,4 +148,3 @@ const customLinksPlugin = (md, options = {}) => {
     return self.renderToken(tokens, idx, options);
   };
 };
-module.exports = customLinksPlugin;

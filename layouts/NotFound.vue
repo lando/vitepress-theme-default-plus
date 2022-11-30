@@ -12,7 +12,7 @@
 
 <script setup>
 import {useRouteLocale} from '@vuepress/client';
-import {useThemeLocaleData} from '@vuepress/theme-default/lib/client/composables';
+import {useThemeLocaleData} from '@vuepress/plugin-theme-data/client';
 const routeLocale = useRouteLocale();
 const themeLocale = useThemeLocaleData();
 const messages = themeLocale.value.notFound ?? ['Not Found'];

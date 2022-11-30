@@ -1,8 +1,11 @@
-const customTheme = require('../../index.js');
-const {fs, path} = require('@vuepress/utils');
-const yaml = require('js-yaml');
+import {defaultThemePlus} from './../../index.js';
 
-module.exports = {
+import yaml from 'js-yaml';
+
+import {fs, path} from '@vuepress/utils';
+import {defineUserConfig} from '@vuepress/cli';
+
+export default defineUserConfig({
   lang: 'en-US',
   title: 'VuePress 2 Default Theme +',
   description: 'The VuePress2 default Theme with some extra power!',
@@ -12,7 +15,7 @@ module.exports = {
     ['link', {rel: 'preconnect', href: '//fonts.gstatic.com', crossorigin: true}],
     ['link', {rel: 'stylesheet', href: '//fonts.googleapis.com/css2?family=Lexend:wght@500&display=swap'}],
   ],
-  theme: customTheme({
+  theme: defaultThemePlus({
     // PARENT CONFIG
     docsDir: 'docs',
     docsBranch: 'main',
@@ -188,4 +191,4 @@ module.exports = {
       {text: 'Release Notes', link: 'https://github.com/lando/vuepress-theme-default-plus/releases'},
     ],
   }),
-};
+});

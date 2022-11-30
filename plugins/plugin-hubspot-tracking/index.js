@@ -1,10 +1,9 @@
 'use strict';
 
-const {chalk, path, warn} = require('@vuepress/utils');
+import {chalk, path, warn} from '@vuepress/utils';
 
-const name = '@lando/plugin-hubspot-tracking';
-
-const hubspotPlugin = ({id}) => {
+export const hubspotPlugin = ({id}) => {
+  const name = '@lando/plugin-hubspot-tracking';
   return () => {
     if (!id) {
       warn(`plugin ${chalk.magenta(name)} has no id set, plugin not loaded!`);
@@ -20,5 +19,3 @@ const hubspotPlugin = ({id}) => {
     };
   };
 };
-
-module.exports = {hubspotPlugin};

@@ -1,8 +1,7 @@
-const {chalk, path, warn} = require('@vuepress/utils');
+import {chalk, path, warn} from '@vuepress/utils';
 
-const name = '@lando/plugin-docsearch-plus';
-
-const docSearchPlusPlugin = options => {
+export const docSearchPlusPlugin = options => {
+  const name = '@lando/plugin-docsearch-plus';
   if (!options.apiKey) {
     warn(`plugin ${chalk.magenta(name)} has no apiKey set, falling back to default search`);
   }
@@ -20,5 +19,3 @@ const docSearchPlusPlugin = options => {
     };
   };
 };
-
-module.exports = {docSearchPlusPlugin};

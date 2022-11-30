@@ -1,8 +1,7 @@
-'use strict';
-const _ = require('lodash');
-const {path} = require('@vuepress/utils');
+import _ from 'lodash';
+import {path} from '@vuepress/utils';
 
-exports.getTopLevelPages = items => _(items)
+export const getTopLevelPages = items => _(items)
   .map(item => (_.isString(item)) ? item : item.link)
   .compact()
   .map(item => path.basename(item, '.md'))

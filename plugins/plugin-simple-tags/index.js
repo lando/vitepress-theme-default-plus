@@ -1,13 +1,12 @@
-'use strict';
+import _ from 'lodash';
+import Debug from 'debug';
+import {chalk, fs, path, warn} from '@vuepress/utils';
+import {createPage} from '@vuepress/core';
 
-const _ = require('lodash');
-const {chalk, fs, path, warn} = require('@vuepress/utils');
-const {createPage} = require('@vuepress/core');
+export const simpleTagsPlugin = (options = {}) => {
+  const name = '@lando/plugin-simple-tags';
+  const debug = Debug(name); // eslint-disable-line
 
-const name = '@lando/plugin-simple-tags';
-const debug = require('debug')(name);
-
-const simpleTagsPlugin = (options = {}) => {
   return app => {
     return {
       name,
@@ -91,5 +90,3 @@ const simpleTagsPlugin = (options = {}) => {
     };
   };
 };
-
-module.exports = {simpleTagsPlugin};

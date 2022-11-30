@@ -1,11 +1,8 @@
-'use strict';
+import _ from 'lodash';
+import {chalk, warn} from '@vuepress/utils';
 
-const _ = require('lodash');
-const {chalk, warn} = require('@vuepress/utils');
-
-const name = '@lando/plugin-autometa';
-
-const autometaPlugin = ({twitter, canonicalUrl}) => {
+export const autometaPlugin = ({twitter, canonicalUrl}) => {
+  const name = '@lando/plugin-autometa';
   if (!twitter) {
     warn(`plugin ${chalk.magenta(name)} has no twitter set, this means twitter:site will not bet set`);
   }
@@ -77,5 +74,3 @@ const autometaPlugin = ({twitter, canonicalUrl}) => {
     };
   };
 };
-
-module.exports = {autometaPlugin};

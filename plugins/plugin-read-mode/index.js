@@ -1,9 +1,7 @@
-'use strict';
-const {path} = require('@vuepress/utils');
+import {path} from '@vuepress/utils';
 
-const name = '@lando/plugin-read-mode';
-
-const readModePlugin = () => {
+export const readModePlugin = () => {
+  const name = '@lando/plugin-read-mode';
   return () => {
     return {
       name,
@@ -14,5 +12,3 @@ const readModePlugin = () => {
     };
   };
 };
-
-module.exports = {readModePlugin};

@@ -120,10 +120,9 @@ jobs:
         with:
           slug: ${{ matrix.auto-deploy-repos }}
           token: ${{ secrets.PIROG_TOKEN }}
-          pr: false
+          pr: true
           # comment out below if you switch to pr: true
-          branch: main
-          args: --dev && rm yarn.lock && yarn add vuepress@2.0.0-beta.49 --dev
+          # branch: main
 
   pr-deploy:
     runs-on: ${{ matrix.os }}

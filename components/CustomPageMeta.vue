@@ -61,9 +61,9 @@ import * as timeago from 'timeago.js';
 
 // Stuff from parent theme
 import {usePageData, usePageFrontmatter} from '@vuepress/client';
-import {useThemeLocaleData} from '@vuepress/theme-default/lib/client/composables';
-import {resolveEditLink} from '@vuepress/theme-default/lib/client/utils';
-import AutoLink from '@vuepress/theme-default/lib/client/components/AutoLink.vue';
+import {useThemeLocaleData} from '@vuepress/theme-default/client';
+import {resolveEditLink} from '@vuepress/theme-default/client';
+import AutoLink from '@vuepress/theme-default/components/AutoLink.vue';
 
 const props = defineProps({
   contributors: {

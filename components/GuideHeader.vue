@@ -49,7 +49,7 @@ import blueimpMd5 from 'blueimp-md5';
 import * as timeago from 'timeago.js';
 import {computed} from 'vue';
 import {usePageData, usePageFrontmatter} from '@vuepress/client';
-import {useThemeLocaleData} from '@vuepress/theme-default/lib/client/composables';
+import {useThemeLocaleData} from '@vuepress/theme-default/client';
 
 const props = defineProps({
   authors: {

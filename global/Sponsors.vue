@@ -41,7 +41,7 @@
 
 <script setup>
 import {computed} from 'vue';
-import {useThemeData} from '@vuepress/plugin-theme-data/lib/client';
+import {useThemeData} from '@vuepress/plugin-theme-data/client';
 
 // Get theme data
 const themeData = useThemeData();

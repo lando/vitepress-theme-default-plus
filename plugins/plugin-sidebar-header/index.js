@@ -1,20 +1,19 @@
-'use strict';
 
-const _ = require('lodash');
-const {chalk, warn} = require('@vuepress/utils');
-const {isLinkHttp} = require('@vuepress/shared');
-const {Octokit} = require('@octokit/core');
-const {path} = require('@vuepress/utils');
-const {paginateRest} = require('@octokit/plugin-paginate-rest');
-const url = require('url');
+import _ from 'lodash';
+import Debug from 'debug';
+import {chalk, warn} from '@vuepress/utils';
+import {isLinkHttp} from '@vuepress/shared';
+import {Octokit} from '@octokit/core';
+import {path} from '@vuepress/utils';
+import {paginateRest} from '@octokit/plugin-paginate-rest';
+import url from 'url';
 
-const MyOctokit = Octokit.plugin(paginateRest);
-const octokit = new MyOctokit({auth: process.env.GITHUB_TOKEN});
+export const sidebarHeaderPlugin = (options = {}) => {
+  const name = '@lando/plugin-sidebar-header';
+  const MyOctokit = Octokit.plugin(paginateRest);
+  const octokit = new MyOctokit({auth: process.env.GITHUB_TOKEN});
+  const debug = Debug(name); // eslint-disable-line
 
-const name = '@lando/plugin-sidebar-header';
-const debug = require('debug')(name);
-
-const sidebarHeaderPlugin = (options = {}) => {
   // If auto mode is on and repo is set
   if (options.auto && !options.repo) {
     warn(`plugin ${chalk.magenta(name)} repo must be set to use auto mode`);
@@ -63,5 +62,3 @@ const sidebarHeaderPlugin = (options = {}) => {
     };
   };
 };
-
-module.exports = {sidebarHeaderPlugin};

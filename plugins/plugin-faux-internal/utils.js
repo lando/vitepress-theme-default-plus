@@ -1,9 +1,9 @@
-'use strict';
-const _ = require('lodash');
-const debug = require('debug')('@lando/plugin-faux-internal');
-const url = require('url');
+import _ from 'lodash';
+import Debug from 'debug';
+import url from 'url';
 
-exports.makeFauxInternal = (items, baseUrl) => _(items).map(item => {
+export const makeFauxInternal = (items, baseUrl) => _(items).map(item => {
+  const debug = Debug('@lando/plugin-faux-internal'); // eslint-disable-line
   // if its a first level link just normalize and return
   if (item.link) {
     try {

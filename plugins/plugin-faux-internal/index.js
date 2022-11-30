@@ -1,12 +1,9 @@
-'use strict';
+import {chalk, warn} from '@vuepress/utils';
+import {customLinksPlugin} from './custom-links.js';
+import {makeFauxInternal} from './utils';
 
-const {chalk, warn} = require('@vuepress/utils');
-const customLinks = require('./custom-links.js');
-const {makeFauxInternal} = require('./utils');
-
-const name = '@lando/plugin-faux-internal';
-
-const fauxInternalPlugin = (options = {}) => {
+export const fauxInternalPlugin = (options = {}) => {
+  const name = '@lando/plugin-faux-internal';
   if (!options.baseUrl) {
     warn(`plugin ${chalk.magenta(name)} has no baseUrl set, plugin not loaded`);
     return {};
@@ -25,10 +22,8 @@ const fauxInternalPlugin = (options = {}) => {
       name,
       // Replace the core linksPlugin
       extendsMarkdown: md => {
-        md.use(customLinks, options);
+        md.use(customLinksPlugin, options);
       },
     };
   };
 };
-
-module.exports = {fauxInternalPlugin};

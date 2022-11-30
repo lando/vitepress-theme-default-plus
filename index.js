@@ -1,16 +1,34 @@
 // Mods
-const _ = require('lodash');
-const chokidar = require('chokidar');
-const debug = require('debug')('@lando/vuepress-theme-default-plus');
-const {chalk, logger, path} = require('@vuepress/utils');
+import _ from 'lodash';
+import Debug from 'debug';
+import chokidar from 'chokidar';
 
-const {defaultTheme} = require('@vuepress/theme-default');
-const {registerComponentsPlugin} = require('@vuepress/plugin-register-components');
+// vuepress things
+import {chalk, logger, path} from '@vuepress/utils';
+import {defaultTheme} from '@vuepress/theme-default';
 
-// Our things
-const {getPlugins} = require('./lib/plugins');
+// vuepress core plugins
+import {googleAnalyticsPlugin} from '@vuepress/plugin-google-analytics';
+import {registerComponentsPlugin} from '@vuepress/plugin-register-components';
+import {searchPlugin} from '@vuepress/plugin-search';
 
-module.exports = options => {
+// our plugins
+import {autometaPlugin} from './plugins/plugin-autometa';
+import {contributorsPagePlugin} from './plugins/plugin-contributors-page';
+import {docSearchPlusPlugin} from './plugins/plugin-docsearch-plus';
+import {fauxInternalPlugin} from './plugins/plugin-faux-internal';
+import {getPlugins} from './lib/plugins';
+import {hubspotPlugin} from './plugins/plugin-hubspot-tracking';
+import {readModePlugin} from './plugins/plugin-read-mode';
+import {robotsTxtPlugin} from './plugins/plugin-robots';
+import {sidebarHeaderPlugin} from './plugins/plugin-sidebar-header';
+import {simpleTagsPlugin} from './plugins/plugin-simple-tags';
+import {siteMapPlugin} from './plugins/plugin-sitemap';
+import {versionsPagePlugin} from './plugins/plugin-versions-page';
+
+export const defaultThemePlus = options => {
+  const debug = Debug('@lando/vuepress-theme-default-plus'); // eslint-disable-line
+
   // If landoDocs/lando is set and defaults are empty then start there
   if (_.isEmpty(options.defaults) && (options.landoDocs || options.lando)) {
     debug('no user defaults set, using lando doc defaults');
@@ -46,28 +64,24 @@ module.exports = options => {
 
   // GOOGLE ANALYTICS PLUGIN
   if (options.ga) {
-    const {googleAnalyticsPlugin} = require('@vuepress/plugin-google-analytics');
     plugins.push(googleAnalyticsPlugin(options.ga));
     debug('loaded google analytics plugin with config %o', options.ga);
   }
 
   // HUBSPOT TRACKING PLUGIN
   if (options.hubspot) {
-    const {hubspotPlugin} = require(path.resolve(__dirname, 'plugins', 'plugin-hubspot-tracking'));
     plugins.push(hubspotPlugin(options.hubspot));
     debug('loaded hubspot tracking plugin with config %o', options.hubspot);
   }
 
   // AUTOMETA PLUGIN
   if (options.autometa) {
-    const {autometaPlugin} = require(path.resolve(__dirname, 'plugins', 'plugin-autometa'));
     plugins.push(autometaPlugin(options.autometa));
     debug('loaded autometa plugin with config: %o', options.autometa);
   }
 
   // FAUX INTERNAL LINKS PLUGIN
   if (options.baseUrl) {
-    const {fauxInternalPlugin} = require(path.resolve(__dirname, 'plugins', 'plugin-faux-internal'));
     plugins.push(fauxInternalPlugin(options));
     debug('loaded faux internal plugin with baseurl: %o', options.baseUrl);
   }
@@ -77,14 +91,11 @@ module.exports = options => {
     // Use advanced search
     if (options.search.apiKey && options.search.indexName) {
       options.search.searchBase = options.search.searchBase || options.baseUrl;
-
-      const {docSearchPlusPlugin} = require(path.resolve(__dirname, 'plugins', 'plugin-docsearch-plus'));
       plugins.push(docSearchPlusPlugin(options.search));
       debug('loaded docsearch plus plugin with config: %o', options.search);
 
     // Use default search
     } else {
-      const {searchPlugin} = require('@vuepress/plugin-search');
       plugins.push(searchPlugin());
       debug('loaded core search plus');
     }
@@ -105,7 +116,6 @@ module.exports = options => {
       options.robots.sitemap = `${new URL(options.robots.host).origin}/sitemap.xml`;
     }
 
-    const {robotsTxtPlugin} = require(path.resolve(__dirname, 'plugins', 'plugin-robots'));
     plugins.push(robotsTxtPlugin(options.robots));
     debug('loaded robots.txt plugin with config: %o', options.robots);
   }
@@ -115,7 +125,6 @@ module.exports = options => {
     if (options.sitemap === true) options.sitemap = {};
     options.sitemap.baseUrl = options.sitemap.baseUrl || options.autometa.canonicalUrl || options.baseUrl;
 
-    const {siteMapPlugin} = require(path.resolve(__dirname, 'plugins', 'plugin-sitemap'));
     plugins.push(siteMapPlugin(options.sitemap));
     debug('loaded sitemap plugin with config: %o', options.sitemap);
   }
@@ -125,14 +134,12 @@ module.exports = options => {
     options.sidebarHeader.repo = options.sidebarHeader.repo || options.sourceRepo;
     options.sidebarHeader.auto = true;
 
-    const {sidebarHeaderPlugin} = require(path.resolve(__dirname, 'plugins', 'plugin-sidebar-header'));
     plugins.push(sidebarHeaderPlugin(options.sidebarHeader));
     debug('loaded sidebar header plugin with config: %o', options.sidebarHeader);
   }
 
   // READ MODE PLUGIN
   if (options.readMode) {
-    const {readModePlugin} = require(path.resolve(__dirname, 'plugins', 'plugin-read-mode'));
     plugins.push(readModePlugin(options.readMode));
     debug('loaded read mode plugin with config: %o', options.readMode);
   }
@@ -143,7 +150,6 @@ module.exports = options => {
     options.versionsPage.docsDir = options.versionsPage.docsDir || options.docsDir;
     options.versionsPage.docsBranch = options.versionsPage.docsBranch || options.docsBranch;
 
-    const {versionsPagePlugin} = require(path.resolve(__dirname, 'plugins', 'plugin-versions-page'));
     plugins.push(versionsPagePlugin(options.versionsPage, options.sidebar));
     debug('loaded versions page plugin with config: %o', options.versionsPage);
     // globally add the Version list component
@@ -160,7 +166,6 @@ module.exports = options => {
     options.contributorsPage.docsDir = options.contributorsPage.docsDir || options.docsDir;
     options.contributorsPage.docsBranch = options.contributorsPage.docsBranch || options.docsBranch;
 
-    const {contributorsPagePlugin} = require(path.resolve(__dirname, 'plugins', 'plugin-contributors-page'));
     plugins.push(contributorsPagePlugin(options.contributorsPage, options.sidebar));
     debug('loaded contributors page plugin with config: %o', options.contributorsPage);
     // globally add the Version list component
@@ -173,7 +178,6 @@ module.exports = options => {
 
   // SIMPLE TAGS PLUGIN
   if (options.tags) {
-    const {simpleTagsPlugin} = require(path.resolve(__dirname, 'plugins', 'plugin-simple-tags'));
     plugins.push(simpleTagsPlugin(options.tags));
     debug('loaded simple tags plugin with config: %o', options.tags);
 
@@ -187,7 +191,6 @@ module.exports = options => {
   return {
     name: '@lando/vuepress-theme-default-plus',
     extends: defaultTheme(options),
-    layouts: path.resolve(__dirname, 'layouts'),
     clientConfigFile: path.resolve(__dirname, 'client.js'),
     alias: {
       ...{

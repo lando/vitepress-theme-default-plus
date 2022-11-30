@@ -1,21 +1,20 @@
-'use strict';
+import _ from 'lodash';
+import Debug from 'debug';
+import {chalk, fs, path, warn} from '@vuepress/utils';
 
-const _ = require('lodash');
-const {chalk, fs, path, warn} = require('@vuepress/utils');
-const {createPage} = require('@vuepress/core');
-const {getTopLevelPages} = require('./utils');
-const {isLinkHttp} = require('@vuepress/shared');
-const {Octokit} = require('@octokit/core');
-const {paginateRest} = require('@octokit/plugin-paginate-rest');
-const url = require('url');
+import {createPage} from '@vuepress/core';
+import {getTopLevelPages} from './utils';
+import {isLinkHttp} from '@vuepress/shared';
+import {Octokit} from '@octokit/core';
+import {paginateRest} from '@octokit/plugin-paginate-rest';
+import url from 'url';
 
-const MyOctokit = Octokit.plugin(paginateRest);
-const octokit = new MyOctokit({auth: process.env.GITHUB_TOKEN});
+export const versionsPagePlugin = (options = {}, sidebar = []) => {
+  const name = '@lando/plugin-versions-page';
+  const MyOctokit = Octokit.plugin(paginateRest);
+  const octokit = new MyOctokit({auth: process.env.GITHUB_TOKEN});
+  const debug = Debug(name); // eslint-disable-line
 
-const name = '@lando/plugin-versions-page';
-const debug = require('debug')(name);
-
-const versionsPagePlugin = (options = {}, sidebar = []) => {
    const defaults = {
      content: fs.readFileSync(path.resolve(__dirname, 'versions.md')),
      data: [],
@@ -137,5 +136,3 @@ const versionsPagePlugin = (options = {}, sidebar = []) => {
     };
   };
 };
-
-module.exports = {versionsPagePlugin};

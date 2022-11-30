@@ -1,11 +1,11 @@
-const {path} = require('@vuepress/utils');
-const robotstxt = require('generate-robotstxt');
-const fs = require('fs');
+import Debug from 'debug';
+import {fs, path} from '@vuepress/utils';
+import robotstxt from 'generate-robotstxt';
 
-const name = '@lando/plugin-robots';
-const debug = require('debug')(name);
+export const robotsTxtPlugin = options => {
+  const name = '@lando/plugin-robots';
+  const debug = Debug(name); // eslint-disable-line
 
-const robotsTxtPlugin = options => {
   const {
     allowAll = false,
     disallowAll = false,
@@ -79,5 +79,3 @@ const robotsTxtPlugin = options => {
     };
   };
 };
-
-module.exports = {robotsTxtPlugin};

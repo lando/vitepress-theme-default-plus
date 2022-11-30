@@ -1,15 +1,16 @@
-const {chalk, fs, path, warn} = require('@vuepress/utils');
-const {SitemapStream, streamToPromise} = require('sitemap');
+import Debug from 'debug';
+import {chalk, fs, path, warn} from '@vuepress/utils';
+import {SitemapStream, streamToPromise} from 'sitemap';
 
-const name = '@lando/plugin-sitemap';
-const debug = require('debug')(name);
+export const siteMapPlugin = options => {
+  const name = '@lando/plugin-sitemap';
+  const debug = Debug(name); // eslint-disable-line
 
-const stripLocalePrefix = (path, localePathPrefixes) => {
-  const matchingPrefix = localePathPrefixes.filter(prefix => path.startsWith(prefix)).shift();
-  return {normalizedPath: path.replace(matchingPrefix, '/'), localePrefix: matchingPrefix};
-};
+  const stripLocalePrefix = (path, localePathPrefixes) => {
+    const matchingPrefix = localePathPrefixes.filter(prefix => path.startsWith(prefix)).shift();
+    return {normalizedPath: path.replace(matchingPrefix, '/'), localePrefix: matchingPrefix};
+  };
 
-const siteMapPlugin = options => {
   const {
     baseUrl = '',
     outFile = 'sitemap.xml',
@@ -124,5 +125,3 @@ const siteMapPlugin = options => {
     };
   };
 };
-
-module.exports = {siteMapPlugin};

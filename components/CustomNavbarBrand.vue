@@ -6,7 +6,7 @@ import {
   withBase,
 } from '@vuepress/client';
 import {computed, h} from 'vue';
-import {useDarkMode, useThemeLocaleData} from '@vuepress/theme-default/lib/client/composables';
+import {useDarkMode, useThemeLocaleData} from '@vuepress/theme-default/client';
 
 const routeLocale = useRouteLocale();
 const siteLocale = useSiteLocaleData();
