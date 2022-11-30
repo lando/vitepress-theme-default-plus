@@ -1,3 +1,14 @@
+v1.0.0-beta.37 - [November 29, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.37)
+------------------------------------
+
+* Downstream deploy test
+
+
+v1.0.0-beta.36 - [November 29, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.36)
+------------------------------------
+
+* Downstream deploy test
+
 v1.0.0-beta.35 - [November 29, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.35)
 ------------------------------------
 
