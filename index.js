@@ -4,7 +4,7 @@ import Debug from 'debug';
 import chokidar from 'chokidar';
 
 // vuepress things
-import {chalk, logger, path} from '@vuepress/utils';
+import {chalk, getDirname, logger, path} from '@vuepress/utils';
 import {defaultTheme} from '@vuepress/theme-default';
 
 // vuepress core plugins
@@ -29,6 +29,8 @@ import {versionsPagePlugin} from './plugins/plugin-versions-page/index.js';
 // our defaults
 import themeDefaults from './config/defaults.js';
 import themeLandoDefaults from './config/lando.js';
+
+const __dirname = getDirname(import.meta.url);
 
 export const defaultThemePlus = options => {
   const debug = Debug('@lando/vuepress-theme-default-plus'); // eslint-disable-line

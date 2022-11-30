@@ -2,8 +2,10 @@ import {defaultThemePlus} from './../../index.js';
 
 import yaml from 'js-yaml';
 
-import {fs, path} from '@vuepress/utils';
+import {fs, getDirname, path} from '@vuepress/utils';
 import {defineUserConfig} from '@vuepress/cli';
+
+const __dirname = getDirname(import.meta.url);
 
 export default defineUserConfig({
   lang: 'en-US',

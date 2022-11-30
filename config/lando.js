@@ -1,5 +1,7 @@
-import {fs, path} from '@vuepress/utils';
+import {fs, getDirname, path} from '@vuepress/utils';
 import yaml from 'js-yaml';
+
+const __dirname = getDirname(import.meta.url);
 
 export default {
   // @vuepress/theme-default default config overrides
