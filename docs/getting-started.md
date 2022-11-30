@@ -20,8 +20,10 @@ npm install @lando/vuepress-theme-default-plus --save-dev
 ```
 ::::
 
-::: danger MUST USE VUEPRESS 2.0.0-beta.40+
-Due to breaking changes introduced in [vuepress@2.0.0-beta.40](https://github.com/vuepress/vuepress-next/blob/main/CHANGELOG.md#200-beta40-2022-04-25) you *must* update to at least that version to use this theme. If you cannot update VuePress for whatever reason then use version 1.0.0-beta.30 or lower of this thene,
+::: danger MUST USE VUEPRESS 2.0.0-beta.53
+VuePress 2.0.0 is currently in `beta` and as such is currently still introducing [many breaking changes](https://github.com/vuepress/vuepress-next/blob/main/CHANGELOG.md). For that reason you *must* use version 2.0.0-beta.53 with the current version of this theme.
+
+**THIS MEANS YOU LIKELY WILL NEED TO UPDATE YOUR SUBTHEME TO ACCOMMODATE THE BREAKING CHANGES!.**
 :::
 
 ## Usage
@@ -29,11 +31,12 @@ Due to breaking changes introduced in [vuepress@2.0.0-beta.40](https://github.co
 Import the theme directly to your [theme key](https://v2.vuepress.vuejs.org/guide/theme.html#community-theme) in your VuePress 2 `config.js` and pass the config into the theme function.
 
 ```js
-const powerTheme = require('@lando/vuepress-theme-default-plus');
+import {defineUserConfig} from '@vuepress/cli';
+import {defaultThemePlus} from '@lando/vuepress-theme-default-plus';
 
-module.exports = {
+export default defineUserConfig({
   ...
-  theme: powerTheme({
+  theme: defaultThemePlus({
     ...
     docsDir: 'docs',
     docsBranch: 'main',
@@ -43,7 +46,7 @@ module.exports = {
     ...
   }),
   ...
-};
+});
 ```
 
 Check out the [configuration page](./config.html) for the complete set of config options.

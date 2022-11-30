@@ -9,17 +9,18 @@ This theme _extends_ the [VuePress2 Default Theme](https://v2.vuepress.vuejs.org
 Before you get started its _**HEAVILY RECOMMENDED**_ that you set the following parent config before proceeding. Here is what we set for the repo that generates these docs:
 
 ```js
-const powerTheme = require('@lando/vuepress-theme-default-plus');
+import {defineUserConfig} from '@vuepress/cli';
+import {defaultThemePlus} from '@lando/vuepress-theme-default-plus';
 
-module.exports = {
+export default defineUserConfig({
   ...
-  theme: powerTheme({
+  theme: defaultThemePlus({
     docsDir: 'docs',
     docsBranch: 'main',
     repo: 'lando/vuepress-theme-default-plus',
   }),
   ...
-};
+});
 ```
 
 And here is our special config:
