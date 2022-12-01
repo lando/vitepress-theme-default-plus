@@ -121,6 +121,7 @@ jobs:
           slug: ${{ matrix.auto-deploy-repos }}
           token: ${{ secrets.PIROG_TOKEN }}
           pr: true
+          args: vuepress@2.0.0-beta.53 --dev
           # comment out below if you switch to pr: true
           # branch: main
 
@@ -160,4 +161,4 @@ jobs:
           slug: ${{ matrix.pr-deploy-repos }}
           token: ${{ secrets.PIROG_TOKEN }}
           pr: true
-          args: vuepress@2.0.0-beta.49 --dev
+          args: vuepress@2.0.0-beta.53 --dev
