@@ -225,7 +225,21 @@ export const defaultThemePlus = options => {
     define: {
       __THEME_OPTIONS__: options,
     },
+
+    // all our plugins
     plugins,
+
+    // we need to make sure that blueimp is included in dep optimization because it is commonjs
+    extendsBundlerOptions: (bundlerOptions, app) => {
+      // extends options of @vuepress/bundler-vite
+      if (app.options.bundler.name === '@vuepress/bundler-vite') {
+        const path = 'viteOptions.optimizeDeps.include';
+        const includes = _.get(bundlerOptions, path, []);
+        includes.push('blueimp-md5');
+        _.set(bundlerOptions, path, _.uniq(includes));
+        debug('modified vite to include blueimp-md5, includes are now %j', _.get(bundlerOptions, path));
+      }
+    },
 
     // Watch our plugin dir for changes as well
     async onWatched(app, watchers, restart) {
