@@ -1,3 +1,8 @@
+v1.0.0-beta.40 - [December 2, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.40)
+-----------------------------------
+
+* Added `satisfies` to `plugin-sidebar-header` to target specific releases
+
 v1.0.0-beta.39 - [November 29, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.39)
 ------------------------------------
 

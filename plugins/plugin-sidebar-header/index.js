@@ -6,6 +6,7 @@ import {isLinkHttp} from '@vuepress/shared';
 import {Octokit} from '@octokit/core';
 import {path} from '@vuepress/utils';
 import {paginateRest} from '@octokit/plugin-paginate-rest';
+import satisfies from 'semver/functions/satisfies.js';
 import url from 'url';
 
 const __dirname = getDirname(import.meta.url);
@@ -45,7 +46,13 @@ export const sidebarHeaderPlugin = (options = {}) => {
             // Try to get latest version
             const opts = {owner: options.owner, repo: options.project, per_page: 100};
             const response = await octokit.paginate('GET /repos/{owner}/{repo}/tags', opts);
-            const latest = _.first(response);
+            // If we have version requirements then filter to sasify
+            const versions = response.filter(release => {
+              if (options.satisfies) return satisfies(release.name, options.satisfies);
+              return true;
+            });
+
+            const latest = _.first(versions);
             const data = {
               title: options.project,
               version: latest.name,
