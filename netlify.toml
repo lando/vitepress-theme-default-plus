@@ -20,3 +20,8 @@
   for = "/images/*"
   [headers.values]
 	  Cache-Control = "public, max-age=31536000"
+
+[[redirects]]
+  from = "/1.x/*"
+  to = "/:splat"
+  status = 200
