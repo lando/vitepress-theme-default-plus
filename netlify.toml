@@ -23,9 +23,7 @@
 
 [[redirects]]
   from = "/"
-  to = "/1.x"
+  to = "/1.x/index.html"
+  force = true
   status = 200
-[[redirects]]
-  from = "/*"
-  to = "/1.x/:splat"
-  status = 200
+
