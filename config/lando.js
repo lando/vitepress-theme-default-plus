@@ -106,24 +106,7 @@ export default {
     },
     {
       text: 'CLI',
-      children: [
-        {
-          text: 'Acquia',
-          link: 'https://docs.lando.dev/acquia',
-        },
-        {
-          text: 'Lagoon (beta)',
-          link: 'https://docs.lando.dev/lagoon',
-        },
-        {
-          text: 'Pantheon',
-          link: 'https://docs.lando.dev/pantheon',
-        },
-        {
-          text: 'Platform.sh (beta)',
-          link: 'https://docs.lando.dev/platformsh',
-        },
-      ],
+      link: 'https://docs.lando.dev/cli/',
     },
     {
       text: 'Config',
@@ -203,10 +186,11 @@ export default {
       ],
     },
     {
-      text: 'Services',
+      text: 'Runtimes',
       children: [
         {
           text: 'Application Languages',
+          columns: 2,
           children: [
             {
               text: 'dotnet',
@@ -234,8 +218,14 @@ export default {
             },
           ],
         },
+      ],
+    },
+    {
+      text: 'Services',
+      children: [
         {
           text: 'Databases',
+          columns: 4,
           children: [
             {
               text: 'MariaDB',
@@ -261,6 +251,7 @@ export default {
         },
         {
           text: 'Caches',
+          columns: 4,
           children: [
             {
               text: 'Memcached',
@@ -278,6 +269,7 @@ export default {
         },
         {
           text: 'Indexes',
+          columns: 4,
           children: [
             {
               text: 'Elasticsearch',
@@ -291,6 +283,7 @@ export default {
         },
         {
           text: 'Web Servers',
+          columns: 4,
           children: [
             {
               text: 'Apache',
@@ -308,6 +301,7 @@ export default {
         },
         {
           text: 'Dev Tools',
+          columns: 4,
           children: [
             {
               text: 'MailHog',
@@ -321,6 +315,7 @@ export default {
         },
         {
           text: 'DIY',
+          columns: 4,
           children: [
             {
               text: 'Compose',
