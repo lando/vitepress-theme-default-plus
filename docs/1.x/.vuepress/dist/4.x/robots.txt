@@ -1,4 +1,0 @@
-User-agent: *
-Disallow:
-Sitemap: https://vuepress-theme-default-plus.lando.dev/sitemap.xml
-Host: https://vuepress-theme-default-plus.lando.dev

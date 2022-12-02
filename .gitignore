@@ -77,6 +77,4 @@ typings/
 
 # legacy vuepress build output and temp dirs
 _site
-docs/.vuepress/.temp
-docs/.vuepress/.cache
-docs/.vuepress/dist
+.temp/
