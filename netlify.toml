@@ -23,6 +23,9 @@
 
 [[redirects]]
   from = "/"
-  to = "vuepress-theme-default-plus.netlify.app/1.x"
+  to = "/1.x"
   status = 200
-  force = true
+[[redirects]]
+  from = "/*"
+  to = "/1.x/:splat"
+  status = 200
