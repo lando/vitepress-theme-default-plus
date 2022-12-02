@@ -22,19 +22,7 @@
 	  Cache-Control = "public, max-age=31536000"
 
 [[redirects]]
-  from = "/"
-  to = "/1.x/index.html"
-  force = true
-  status = 200
-
-[[redirects]]
-  from = "/v1/*"
-  to = "/1.x/index.html"
-  force = true
-  status = 200
-
-[[redirects]]
-  from = "/thing.html"
-  to = "/0.x/index.html"
+  from = "/*"
+  to = "/1.x/:splat"
   force = true
   status = 200
