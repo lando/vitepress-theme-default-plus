@@ -21,8 +21,8 @@
   [headers.values]
 	  Cache-Control = "public, max-age=31536000"
 
-[[redirects]]
-  from = "/"
-  to = "/1.x/"
-  status = 200
-  force = true
+# [[redirects]]
+#   from = "/"
+#   to = "/1.x/"
+#   status = 200
+#   force = true
