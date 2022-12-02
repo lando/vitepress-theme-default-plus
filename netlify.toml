@@ -23,5 +23,5 @@
 
 [[redirects]]
   from = "/"
-  to = "https://vuepress-theme-default-plus.lando.dev/1.x"
+  to = "https://vuepress-theme-default-plus.netlify.app/1.x"
   status = 200
