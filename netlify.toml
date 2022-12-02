@@ -22,7 +22,6 @@
 	  Cache-Control = "public, max-age=31536000"
 
 [[redirects]]
-  from = "/1.x"
-  to = "/"
+  from = "/*"
+  to = "vuepress-theme-default-plus.netlify.app/1.x/:splat"
   status = 200
-
