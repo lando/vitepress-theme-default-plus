@@ -1,3 +1,8 @@
+v1.0.0-beta.41 - [December 2, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.41)
+-----------------------------------
+
+* Autodeploy release
+
 v1.0.0-beta.40 - [December 2, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.40)
 -----------------------------------
 
