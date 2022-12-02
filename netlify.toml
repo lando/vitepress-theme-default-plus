@@ -26,6 +26,6 @@
   to = "/1.x"
   status = 200
 [[redirects]]
-  from = "/1.x/*"
-  to = "/:splat"
+  from = "/*"
+  to = "/1.x/:splat"
   status = 200
