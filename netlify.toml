@@ -23,9 +23,5 @@
 
 [[redirects]]
   from = "/"
-  to = "/1.x"
-  status = 200
-[[redirects]]
-  from = "/1.x/*"
-  to = "/:splat"
+  to = "https://vuepress-theme-default-plus.lando.dev/1.x"
   status = 200
