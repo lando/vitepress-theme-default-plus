@@ -1,0 +1,13 @@
+<template><div><h2 id="put-the-tags-in-your-frontmatter" tabindex="-1"><a class="header-anchor" href="#put-the-tags-in-your-frontmatter" aria-hidden="true">#</a> Put the tags in your frontmatter</h2>
+<div class="language-markdown line-numbers-mode" data-ext="md"><pre v-pre class="language-markdown"><code><span class="token front-matter-block"><span class="token punctuation">---</span>
+<span class="token front-matter yaml language-yaml"><span class="token key atrule">title</span><span class="token punctuation">:</span> Tagging things
+<span class="token key atrule">description</span><span class="token punctuation">:</span> Learn how to tag content
+<span class="token key atrule">guide</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+<span class="token key atrule">tags</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> this is a test tag</span>
+<span class="token punctuation">---</span></span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="see-the-tag-in-the-right-bar" tabindex="-1"><a class="header-anchor" href="#see-the-tag-in-the-right-bar" aria-hidden="true">#</a> See the tag in the right bar</h2>
+<p>If you look to the right bar you can see the tags listed there. If you click on it you'll end up on the page for that tag.</p>
+</div></template>
+
+

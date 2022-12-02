@@ -1,0 +1,68 @@
+<template><div><p>This theme provides a bunch of <RouterLink to="/1.x/config.html#custom-containers">custom markdown containers</RouterLink> that can be used on their own. They can also be combined and wrapped together. Here is some content that demonstrates that.</p>
+<h2 id="triple-cards" tabindex="-1"><a class="header-anchor" href="#triple-cards" aria-hidden="true">#</a> Triple cards</h2>
+<p>Put three cat cards next to one another</p>
+<p>::::third
+:::card Cat 1
+<img src="https://media0.giphy.com/media/SUWn1xWsXKDbz6Y1Dx/giphy.gif" alt="Cat 1">
+:::
+::::</p>
+<p>::::third
+:::card Cat 2
+<img src="https://media0.giphy.com/media/rxYG6rKr0iQla/200.gif" alt="Cat 2">
+:::
+::::</p>
+<p>::::third
+:::card Cat 3
+<img src="https://media2.giphy.com/media/YRVP7mapl24G6RNkwJ/200.gif" alt="Cat 3">
+:::
+::::</p>
+<h3 id="markdown" tabindex="-1"><a class="header-anchor" href="#markdown" aria-hidden="true">#</a> Markdown</h3>
+<div class="language-markdown line-numbers-mode" data-ext="md"><pre v-pre class="language-markdown"><code>::::third
+:::card Cat 1
+<span class="token url"><span class="token operator">!</span>[<span class="token content">Cat 1</span>](<span class="token url">https://media0.giphy.com/media/SUWn1xWsXKDbz6Y1Dx/giphy.gif</span>)</span>
+:::
+::::
+
+::::third
+:::card Cat 2
+<span class="token url"><span class="token operator">!</span>[<span class="token content">Cat 2</span>](<span class="token url">https://media0.giphy.com/media/rxYG6rKr0iQla/200.gif</span>)</span>
+:::
+::::
+
+::::third
+:::card Cat 3
+<span class="token url"><span class="token operator">!</span>[<span class="token content">Cat 3</span>](<span class="token url">https://media2.giphy.com/media/YRVP7mapl24G6RNkwJ/200.gif</span>)</span>
+:::
+::::
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="floaty-cards" tabindex="-1"><a class="header-anchor" href="#floaty-cards" aria-hidden="true">#</a> Floaty cards</h2>
+<p>::::right
+:::card Cat 1
+<img src="https://media0.giphy.com/media/SUWn1xWsXKDbz6Y1Dx/giphy.gif" alt="Cat 1">
+:::
+::::</p>
+<p>Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.</p>
+<p>::::left
+:::card Cat 2
+<img src="https://media0.giphy.com/media/rxYG6rKr0iQla/200.gif" alt="Cat 2">
+:::
+::::</p>
+<p>Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.</p>
+<h3 id="markdown-1" tabindex="-1"><a class="header-anchor" href="#markdown-1" aria-hidden="true">#</a> Markdown</h3>
+<div class="language-markdown line-numbers-mode" data-ext="md"><pre v-pre class="language-markdown"><code>::::right
+:::card Cat 1
+<span class="token url"><span class="token operator">!</span>[<span class="token content">Cat 1</span>](<span class="token url">https://media0.giphy.com/media/SUWn1xWsXKDbz6Y1Dx/giphy.gif</span>)</span>
+:::
+::::
+
+Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.
+
+::::left
+:::card Cat 2
+<span class="token url"><span class="token operator">!</span>[<span class="token content">Cat 2</span>](<span class="token url">https://media0.giphy.com/media/rxYG6rKr0iQla/200.gif</span>)</span>
+:::
+::::
+
+Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.Float a cat card. Float a cat card. Float a cat card.
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div></template>
+
+
