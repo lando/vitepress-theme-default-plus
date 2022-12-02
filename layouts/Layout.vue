@@ -176,6 +176,7 @@ const tags = computed(() => page.value.tags);
     max-width: none;
   }
 }
+
 .navbar {
   transition: transform var(--t-transform), background-color var(--t-color), border-color var(--t-color);
 }
@@ -266,6 +267,7 @@ const tags = computed(() => page.value.tags);
     }
   }
 }
+
 @media (max-width: $MQNarrow) {
   .page-wrapper-outer {
     padding-left: var(--sidebar-width-mobile);
@@ -277,6 +279,7 @@ const tags = computed(() => page.value.tags);
     width: 100%;
   }
 }
+
 @media (max-width: $MQMobile) {
   .page-wrapper-outer {
     padding-left: 0;

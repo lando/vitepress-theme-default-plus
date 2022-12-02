@@ -205,7 +205,7 @@ And here is our special config:
 
 ## Jobs
 
-#### jons
+#### jobs
 
 * Type: `Object || Boolean`
 
@@ -228,6 +228,66 @@ And here is our special config:
     },
   ],
   ```
+
+## Navbar
+
+#### navbar
+
+* Type: `Object`
+
+* Default:
+
+  ```js
+  columns: 3
+  ```
+
+* Example:
+
+  ```js
+  navbar: [
+    ...
+    {
+      text: 'Recipes',
+      children: [
+        {
+          text: 'Hosting Integrations',
+          columns: 2,
+          children: [
+            {
+              text: 'Acquia',
+              link: 'https://docs.lando.dev/acquia',
+            },
+            {
+              text: 'Lagoon (beta)',
+              link: 'https://docs.lando.dev/lagoon',
+            },
+            {
+              text: 'Pantheon',
+              link: 'https://docs.lando.dev/pantheon',
+            },
+            {
+              text: 'Platform.sh (beta)',
+              link: 'https://docs.lando.dev/platformsh',
+            },
+          ],
+        },
+        {
+          text: 'PHP Frameworks',
+          children: [
+            {
+              text: 'Backdrop',
+              link: 'https://docs.lando.dev/backdrop',
+            },
+          ],
+        },
+        ...
+      },
+    ]
+  ```
+
+* Details:
+
+  Note that `columns` currently only works with "subitems" eg children that are expressed in "sections" as in the example above.
 
 ## Page Types
 

@@ -202,6 +202,7 @@ export const defaultThemePlus = options => {
       ...{
         // override defaults
         '@theme/NavbarBrand.vue': path.resolve(__dirname, 'components', 'CustomNavbarBrand.vue'),
+        '@theme/NavbarDropdown.vue': path.resolve(__dirname, 'components', 'CustomNavbarDropdown.vue'),
         '@theme/PageMeta.vue': path.resolve(__dirname, 'components', 'CustomPageMeta.vue'),
         // make overideable
         '@theme/BlogHeader.vue': path.resolve(__dirname, 'components', 'BlogHeader.vue'),
