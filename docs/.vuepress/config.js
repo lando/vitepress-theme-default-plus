@@ -57,6 +57,14 @@ export default defineUserConfig({
       },
     ],
 
+    // VERSIONS PAGE
+    versionsPage: {
+      auto: true,
+      trimLatest: true,
+      showEdge: true,
+      satisfies: '>0.9',
+    },
+
     // Sidebar header
     sidebarHeader: {
       auto: true,

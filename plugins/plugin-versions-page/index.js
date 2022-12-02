@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import Debug from 'debug';
-import {chalk, fs, getDirname, path, warn} from '@vuepress/utils';
+import satisfies from 'semver/functions/satisfies.js';
 
+import {chalk, fs, getDirname, path, warn} from '@vuepress/utils';
 import {createPage} from '@vuepress/core';
 import {getTopLevelPages} from './utils.js';
 import {isLinkHttp} from '@vuepress/shared';
@@ -89,6 +90,13 @@ export const versionsPagePlugin = (options = {}, sidebar = []) => {
           } catch (error) {
             warn('could not automatically grab latest version with error', error);
           };
+        }
+
+        // filter versions by satisifies if its set
+        if (options.satisfies) {
+          options.data = options.data.filter(datum => {
+            return satisfies(datum.name, options.satisfies, {includePrerelease: true, loose: true});
+          });
         }
 
         // Add if we dont already have a versions page and sidebar is on

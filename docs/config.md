@@ -628,6 +628,7 @@ sitemap:
   versionsPage: {
     auto: true,
     trimLatest: true,
+    satisfies: null,
     showEdge: true,
   },
   ```
@@ -648,6 +649,7 @@ sitemap:
     docsBranch: 'main',
     docsDir: '',
     link: '/versions.html',
+    satisfies: '>0.9',
     showEdge: false,
     title: 'Previous Versions',
     trimLatest: true,
@@ -663,3 +665,5 @@ sitemap:
   If you do not set `repo`, `docsBranch` and `docsDir` explicitly the theme will use `repo`, `docsBranch`, `docsDir` instead.
 
   `trimLatest` will pop off the most recent version. `showEdge` can be either a URL or `true`.
+
+  You can also specify `satisfies` which is a [semver](https://github.com/npm/node-semver) comparision string. This will only show the satisfied subset of `data.name` versions.
