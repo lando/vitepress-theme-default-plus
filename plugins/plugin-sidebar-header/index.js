@@ -48,10 +48,11 @@ export const sidebarHeaderPlugin = (options = {}) => {
             const response = await octokit.paginate('GET /repos/{owner}/{repo}/tags', opts);
             // If we have version requirements then filter to sasify
             const versions = response.filter(release => {
-              if (options.satisfies) return satisfies(release.name, options.satisfies);
+              if (options.satisfies) {
+                return satisfies(release.name, options.satisfies, {includePrerelease: true, loose: true});
+              };
               return true;
             });
-
             const latest = _.first(versions);
             const data = {
               title: options.project,

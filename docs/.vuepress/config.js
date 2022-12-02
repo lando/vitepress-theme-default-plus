@@ -61,6 +61,7 @@ export default defineUserConfig({
     sidebarHeader: {
       auto: true,
       title: 'Current Version',
+      satisfies: '>0.9',
     },
 
     // Sponsors
