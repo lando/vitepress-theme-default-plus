@@ -23,5 +23,9 @@
 
 [[redirects]]
   from = "/"
-  to = "https://vuepress-theme-default-plus.netlify.app/1.x"
+  to = "/1.x"
+  status = 200
+[[redirects]]
+  from = "/1.x/*"
+  to = "/:splat"
   status = 200
