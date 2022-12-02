@@ -1,4 +1,4 @@
-import {defaultThemePlus} from './../../index.js';
+import {defaultThemePlus} from './../../../index.js';
 
 import yaml from 'js-yaml';
 
@@ -62,21 +62,21 @@ export default defineUserConfig({
       auto: true,
       trimLatest: true,
       showEdge: true,
-      satisfies: '>0.9',
+      satisfies: '<1.x',
     },
 
     // Sidebar header
     sidebarHeader: {
       auto: true,
       title: 'Current Version',
-      satisfies: '>0.9',
+      satisfies: '<1',
     },
 
     // Sponsors
     sponsors: {
       text: 'your logo?',
       link: 'https://lando.dev/sponsor',
-      data: yaml.load(fs.readFileSync(path.resolve(__dirname, '..', '..', 'sponsors.yml'), 'utf8')),
+      data: yaml.load(fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'sponsors.yml'), 'utf8')),
     },
 
     // Use social media icons
@@ -147,59 +147,5 @@ export default defineUserConfig({
       },
       link: 'https://lando.dev/sponsor',
     }],
-
-    /*
-    SIDEBAR CONFIG
-    */
-    sidebar: [
-      '/index.html',
-      '/getting-started.html',
-      '/config.html',
-      '/frontmatter.html',
-      '/components.html',
-      '/containers.html',
-      {
-        text: 'Guides',
-        collapsible: true,
-        children: [
-          {
-            text: 'Making a guide 1',
-            link: '/making-a-guide.html',
-          },
-          {
-            text: 'Making a guide 2',
-            link: '/making-a-guide-2.html',
-          },
-          {
-            text: 'Making a blog post',
-            link: '/making-a-blog-post.html',
-          },
-          {
-            text: 'Adding page metadata',
-            link: '/adding-page-metadata.html',
-          },
-          {
-            text: 'Adding a signup',
-            link: '/guide-signup.html',
-          },
-          {
-            text: 'Disabling rightbar',
-            link: '/disabling-rightbar.html',
-          },
-          {
-            text: 'Tagging things',
-            link: '/tagging-things.html',
-          },
-          {
-            text: 'Advanced markdown',
-            link: '/advanced-markdown.html',
-          },
-        ],
-      },
-      '/development.html',
-      '/support.html',
-      {text: 'Examples', link: 'https://github.com/lando/vuepress-theme-default-plus'},
-      {text: 'Release Notes', link: 'https://github.com/lando/vuepress-theme-default-plus/releases'},
-    ],
   }),
 });

@@ -20,8 +20,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "vuepress dev docs --clean-cache --clean-temp",
-    "build": "vuepress build docs",
+    "dev": "yarn dev:1.x",
+    "dev:1.x": "vuepress dev docs/1.x --clean-cache --clean-temp",
+    "dev:0.x": "vuepress dev docs/0.x --clean-cache --clean-temp",
+    "build": "vuepress build docs --dest docs/.vuepress/dist/3.x && vuepress build docs --dest docs/.vuepress/dist/4.x",
     "lint": "eslint . --ext .js,.vue",
     "release": "bump --prompt --tag --all --push",
     "test": "yarn lint"
