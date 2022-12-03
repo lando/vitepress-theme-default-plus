@@ -22,11 +22,11 @@
 	  Cache-Control = "public, max-age=31536000"
 
 # This makes sure static assets are handled properly
-# [[redirects]]
-#   from = "/:version/:type/*"
-#   to = "/:version/:type/:splat"
-#   status = 200
-#   force = true
+[[redirects]]
+  from = "/1.x/assets/*"
+  to = "/1.x/assets/:splat"
+  status = 200
+  force = true
 
 # this sets 1.x as the "base" domain
 [[redirects]]
