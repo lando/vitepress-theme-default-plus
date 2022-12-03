@@ -23,8 +23,8 @@
 
 # This makes sure static assets are handled properly
 [[redirects]]
-  from = "/1.x/:type/*"
-  to = "/1.x/:type/:splat"
+  from = "/:version/:type/*"
+  to = "/:version/:type/:splat"
   status = 200
   force = true
 
@@ -35,3 +35,9 @@
   status = 200
   force = true
 
+# this sets 0.x as the "base" domain
+[[redirects]]
+  from = "/0.x/*"
+  to = "/0.x/:splat"
+  status = 200
+  force = true
