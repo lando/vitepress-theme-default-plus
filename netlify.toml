@@ -21,33 +21,33 @@
   [headers.values]
 	  Cache-Control = "public, max-age=31536000"
 
-# This makes sure static assets are handled properly
-[[redirects]]
-  from = "/1.x/:type/*"
-  to = "/1.x/:type/:splat"
-  status = 200
-  force = true
-[[redirects]]
-  from = "/0.x/:type/*"
-  to = "/0.x/:type/:splat"
-  status = 200
-  force = true
+# # This makes sure static assets are handled properly
+# [[redirects]]
+#   from = "/1.x/:type/*"
+#   to = "/1.x/:type/:splat"
+#   status = 200
+#   force = true
+# [[redirects]]
+#   from = "/0.x/:type/*"
+#   to = "/0.x/:type/:splat"
+#   status = 200
+#   force = true
 
-# this sets 1.x as the "base" domain
-[[redirects]]
-  from = "/*"
-  to = "/1.x/:splat"
-  status = 200
-  force = true
+# # this sets 1.x as the "base" domain
+# [[redirects]]
+#   from = "/*"
+#   to = "/1.x/:splat"
+#   status = 200
+#   force = true
 
-# this ensures both "version" sites exist
-[[redirects]]
-  from = "/0.x/*"
-  to = "/0.x/:splat"
-  status = 200
-  force = true
-[[redirects]]
-  from = "/1.x/*"
-  to = "/1.x/:splat"
-  status = 200
-  force = true
+# # this ensures both "version" sites exist
+# [[redirects]]
+#   from = "/0.x/*"
+#   to = "/0.x/:splat"
+#   status = 200
+#   force = true
+# [[redirects]]
+#   from = "/1.x/*"
+#   to = "/1.x/:splat"
+#   status = 200
+#   force = true
