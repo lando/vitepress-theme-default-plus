@@ -11,7 +11,7 @@ export default defineUserConfig({
   lang: 'en-US',
   title: 'VuePress 2 Default Theme +',
   description: 'The VuePress2 default Theme with some extra power!',
-  base: '/1.x/',
+  base: '/',
   head: [
     ['link', {rel: 'icon', href: '/images/favicon.png'}],
     ['link', {rel: 'preconnect', href: '//fonts.googleapis.com'}],
