@@ -1,6 +1,6 @@
 [build]
   base = "./"
-  publish = "docs/.vuepress/dist"
+  publish = "docs/.vuepress/dist/1.x"
   command = "yarn build"
 
 # Sets our asset optimization
