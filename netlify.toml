@@ -23,8 +23,8 @@
 
 # This makes sure static assets are handled properly
 [[redirects]]
-  from = "/1.x/assets/*"
-  to = "/1.x/assets/:splat"
+  from = "/1.x/:type/*"
+  to = "/1.x/:type/:splat"
   status = 200
   force = true
 
