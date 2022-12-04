@@ -13,7 +13,9 @@ export default defineUserConfig({
   description: 'The VuePress2 default theme with some extra power!',
   base: '/',
   head: [
-    ['link', {rel: 'icon', href: '/images/favicon.png'}],
+    ['link', {rel: 'icon', type: 'image/png', sizes: '32x32', href: '/images/favicon-32x32.png'}],
+    ['link', {rel: 'icon', type: 'image/png', sizes: '16x16', href: '/images/favicon-16x16.png'}],
+    ['link', {rel: 'icon', href: '/favicon.ico'}],
     ['link', {rel: 'preconnect', href: '//fonts.googleapis.com'}],
     ['link', {rel: 'preconnect', href: '//fonts.gstatic.com', crossorigin: true}],
     ['link', {rel: 'stylesheet', href: '//fonts.googleapis.com/css2?family=Lexend:wght@500&display=swap'}],
