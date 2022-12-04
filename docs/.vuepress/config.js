@@ -77,7 +77,7 @@ export default defineUserConfig({
     sponsors: {
       text: 'your logo?',
       link: 'https://lando.dev/sponsor',
-      data: yaml.load(fs.readFileSync(path.resolve(__dirname, 'sponsors.yml'), 'utf8')),
+      data: yaml.load(fs.readFileSync(path.resolve(__dirname, '..', 'sponsors.yml'), 'utf8')),
     },
 
     // Use social media icons

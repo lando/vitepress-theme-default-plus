@@ -8,7 +8,7 @@
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
-    "@lando/vuepress-theme-default-plus": "file:./../index.js",
+    "@lando/vuepress-theme-default-plus": "file:./../",
     "vuepress": "2.0.0-beta.53"
   }
 }
