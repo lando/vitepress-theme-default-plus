@@ -1,6 +1,10 @@
 @import '@vuepress/plugin-palette/style';
 @import '@vuepress/plugin-palette/palette';
 
+.badge.success {
+  background-color: var(--c-success);
+}
+
 // very basic form stylings
 form.netlify {
   background-color: var(--c-brand-bg);

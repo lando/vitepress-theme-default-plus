@@ -31,6 +31,7 @@
           :version="sidebarHeader.version"
           :link="sidebarHeader.link"
           :icon="sidebarHeader.icon"
+          :type="sidebarHeader.type"
         />
       </template>
       <template #sidebar-bottom>

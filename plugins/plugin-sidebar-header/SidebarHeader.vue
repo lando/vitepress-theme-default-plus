@@ -22,11 +22,11 @@
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Badge type="tip">{{ props.version }}</Badge>
+        <Badge :type="props.type">{{ props.version }}</Badge>
       </a>
       <Badge
         v-else
-        type="tip"
+        :type="props.type"
       >
         {{ props.version }}
       </Badge>
@@ -51,6 +51,10 @@
     icon: {
       type: String,
       default: null,
+    },
+    type: {
+      type: String,
+      default: 'tip',
     },
   });
 </script>

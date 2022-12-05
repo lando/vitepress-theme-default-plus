@@ -466,6 +466,7 @@ Note that if you want to search across many sites that operate under a single do
     version: null,
     link: null,
     satisifies: undefined,
+    type: 'tip',
   }
   ```
 
@@ -476,6 +477,8 @@ Note that if you want to search across many sites that operate under a single do
   If you set `auto` to `true` and `repo` is a public GitHub repo then the theme will attempt to populate the other values for you. However, if you manually set a value then the theme will prefer that. So in the above Full Example the theme will set `version` and `link` automatically but will use `Current Version` for the title.
 
   If you are using `auto` you can also specify `satisfies` which is a [semver](https://github.com/npm/node-semver) comparision string. This will use the first entry from the resulting subset of releases. Note that this also assumes the `name` of your GitHub release is a semver compatible string.
+
+  You can specify `type` and it will wrap the version badge in `badge TYPE`. By default it is `badge tip`. If you modify this you will need to define the `badge TYPE` style eg if you set `type: hot` then you will need to define `badge hot` in CSS.
 
   If you do not set `repo` explicitly the theme will try to use `repo` instead.
 

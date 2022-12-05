@@ -73,6 +73,7 @@ export default defineUserConfig({
       auto: true,
       title: 'Current Version',
       satisfies: '>0.9',
+      type: 'success',
     },
 
     // Sponsors
