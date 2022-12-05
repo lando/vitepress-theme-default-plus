@@ -102,7 +102,7 @@ export default {
   // If baseURL is set then these will be "external" links prefixed with it
   sharedNavbar: [
     {
-      text: 'NO',
+      text: 'Getting Started',
       link: 'https://docs.lando.dev/getting-started/',
     },
     {
@@ -110,8 +110,67 @@ export default {
       link: 'https://docs.lando.dev/cli/',
     },
     {
-      text: 'Config',
-      link: 'https://docs.lando.dev/config/',
+      text: 'Core',
+      children: [
+        {
+          text: 'Config',
+          columns: 4,
+          children: [
+            {
+              text: 'Landofile',
+              link: 'https://docs.lando.dev/config/v4/landofile.html',
+            },
+            {
+              text: 'Global',
+              link: 'https://docs.lando.dev/config/v4/config.html',
+            },
+            {
+              text: 'Services',
+              link: 'https://docs.lando.dev/config/v4/services.html',
+            },
+            {
+              text: 'Tooling',
+              link: 'https://docs.lando.dev/config/v4/tooling.html',
+            },
+          ],
+        },
+        {
+          text: 'Plugins',
+          columns: 3,
+          children: [
+            {
+              text: 'Recipes',
+              link: 'https://docs.lando.dev/config/v4/recipes.html',
+            },
+            {
+              text: 'Proxy',
+              link: 'https://docs.lando.dev/config/v4/proxy.html',
+            },
+            {
+              text: 'Environment',
+              link: 'https://docs.lando.dev/config/v4/environment.html',
+            },
+            {
+              text: 'SSL',
+              link: 'https://docs.lando.dev/config/v4/ssl.html',
+            },
+            {
+              text: 'Certs',
+              link: 'https://docs.lando.dev/config/v4/certs.html',
+            },
+            {
+              text: 'SSH Keys',
+              link: 'https://docs.lando.dev/config/v4/keys.html',
+            },
+            {
+              text: 'User',
+              link: 'https://docs.lando.dev/config/v4/user.html',
+            },
+            // other things to consider:
+            // scan, build, mount, healthcheck, auth, etc
+          ],
+        },
+      ],
     },
     {
       text: 'Recipes',

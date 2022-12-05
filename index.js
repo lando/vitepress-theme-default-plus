@@ -43,11 +43,11 @@ export const defaultThemePlus = options => {
     options.defaults = themeLandoV4Defaults;
   // ditto but for lando v3
   } else if (_.isEmpty(options.defaults) && options.landoDocs === 3) {
-    debug('no user defaults set, using theme defaults');
+    debug('no user defaults set, using lando v3 defaults');
     options.defaults = themeLandoV3Defaults;
   // Same as above but for legacy things
   } else if (_.isEmpty(options.defaults) && (options.landoDocs || options.lando)) {
-    debug('no user defaults set, using lando v3 doc defaults');
+    debug('no user defaults set, using lando v3 defaults');
     options.defaults = themeLandoV3Defaults;
   // Otherwise if we are empty then just set to defaults
   } else if (_.isEmpty(options.defaults)) {
