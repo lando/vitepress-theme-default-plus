@@ -29,17 +29,26 @@ import {versionsPagePlugin} from './plugins/plugin-versions-page/index.js';
 
 // our defaults
 import themeDefaults from './config/defaults.js';
-import themeLandoDefaults from './config/lando.js';
+import themeLandoV3Defaults from './config/landov3.js';
+import themeLandoV4Defaults from './config/landov4.js';
 
 const __dirname = getDirname(import.meta.url);
 
 export const defaultThemePlus = options => {
   const debug = Debug('@lando/vuepress-theme-default-plus'); // eslint-disable-line
 
-  // If landoDocs/lando is set and defaults are empty then start there
-  if (_.isEmpty(options.defaults) && (options.landoDocs || options.lando)) {
-    debug('no user defaults set, using lando doc defaults');
-    options.defaults = themeLandoDefaults;
+  // prefer landov4 if defaults not set
+  if (_.isEmpty(options.defaults) && options.landoDocs === 4) {
+    debug('no user defaults set, using lando v4 defaults');
+    options.defaults = themeLandoV4Defaults;
+  // ditto but for lando v3
+  } else if (_.isEmpty(options.defaults) && options.landoDocs === 3) {
+    debug('no user defaults set, using theme defaults');
+    options.defaults = themeLandoV3Defaults;
+  // Same as above but for legacy things
+  } else if (_.isEmpty(options.defaults) && (options.landoDocs || options.lando)) {
+    debug('no user defaults set, using lando v3 doc defaults');
+    options.defaults = themeLandoV3Defaults;
   // Otherwise if we are empty then just set to defaults
   } else if (_.isEmpty(options.defaults)) {
     debug('no user defaults set, using theme defaults');
