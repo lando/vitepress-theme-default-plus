@@ -111,7 +111,7 @@ export default {
     },
     {
       text: 'Config',
-      link: 'https://docs.lando.dev/config/',
+      link: 'https://docs.lando.dev/config/v3/',
     },
     {
       text: 'Recipes',
