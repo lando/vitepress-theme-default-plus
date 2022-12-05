@@ -1,10 +1,11 @@
 <template>
-  <div class="alert-banner">
+  <div
+    v-if="showAlert && props.content !== ''"
+    class="alert-banner"
+  >
     <div class="alert-content">
-      <span>
-        some content and then like a <a href="/.">link to something else that is good and right .</a>
-      </span>
-      <span>
+      <span v-html="props.content" />
+      <span v-if="props.closeable">
         <button
           class="alert-dismiss-button"
           @click="dismissAlert"
@@ -18,12 +19,25 @@
 
 <script setup>
 import {onMounted, onUnmounted, ref, watch} from 'vue';
-import {useThemeLocaleData} from '@vuepress/theme-default/client';
-import {usePageFrontmatter} from '@vuepress/client';
 
-const themeLocale = useThemeLocaleData();
-const frontmatter = usePageFrontmatter();
-const isAlertMode = ref(frontmatter.value.alert || themeLocale.value.alert);
+const props = defineProps({
+  content: {
+    type: String,
+    default: '',
+    required: true,
+  },
+  scheme: {
+    type: String,
+    default: 'neutral',
+  },
+  closeable: {
+    type: Boolean,
+    default: true,
+  },
+});
+
+const isAlertMode = ref(props.content !== '');
+const showAlert = ref(isAlertMode.value);
 
 const update = (value = isAlertMode.value) => {
   const htmlEl = window.document.querySelector('html');
@@ -32,6 +46,7 @@ const update = (value = isAlertMode.value) => {
 
 const dismissAlert = () => {
   update(false);
+  showAlert.value = false;
 };
 
 onMounted(() => {
@@ -40,7 +55,7 @@ onMounted(() => {
 onUnmounted(() => update());
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../../styles/main.scss';
 .alert-banner {
   position: fixed;
@@ -52,16 +67,23 @@ onUnmounted(() => update());
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--c-bg-lighter);
-  font-size: 0.95rem;
-  font-weight: 500;
-  a {
-    color: var(--c-bg-lighter);
-    font-weight: 800;
-    &:hover {
-      text-decoration: underline;
+  z-index: 9999;
+  .alert-content {
+    span {
+      color: var(--c-bg-lighter);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    a {
+      color: var(--c-bg-lighter);
+      font-weight: 800;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
+
+
   .alert-dismiss-button {
     color: var(--c-bg-lighter);
     font-size: 1rem;

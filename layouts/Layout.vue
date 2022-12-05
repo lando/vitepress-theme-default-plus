@@ -1,6 +1,11 @@
 <template>
   <div class="layout-wrapper">
-    <Alert v-if="showAlert" />
+    <Alert
+      v-if="alert.content !== ''"
+      :content="alert.content"
+      :scheme="alert.scheme"
+      :closeable="alert.closeable"
+    />
     <ParentLayout>
       <template #navbar-before>
         <slot name="navbar-before" />
@@ -145,11 +150,6 @@ const getTruthyPageTypes = () => {
     .map(page => page.key)
     .filter(key => frontmatter.value[key] === true);
 };
-
-// Compute alert visibility
-const showAlert = computed(() => {
-  return frontmatter.value.alert || alert;
-});
 
 // Compute rightbar visibility
 const showRightbar = computed(() => {
