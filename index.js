@@ -13,6 +13,7 @@ import {registerComponentsPlugin} from '@vuepress/plugin-register-components';
 import {searchPlugin} from '@vuepress/plugin-search';
 
 // our plugins
+import {alertPlugin} from './plugins/plugin-alert/index.js';
 import {autometaPlugin} from './plugins/plugin-autometa/index.js';
 import {contributorsPagePlugin} from './plugins/plugin-contributors-page/index.js';
 import {docSearchPlusPlugin} from './plugins/plugin-docsearch-plus/index.js';
@@ -194,6 +195,12 @@ export const defaultThemePlus = options => {
     }));
   }
 
+  // ALERT PLUGIN
+  if (options.alert) {
+    plugins.push(alertPlugin(options.alert));
+    debug('loaded alert plugin with config: %o', options.alert);
+  }
+
   return {
     name: '@lando/vuepress-theme-default-plus',
     extends: defaultTheme(options),
@@ -217,6 +224,7 @@ export const defaultThemePlus = options => {
         '@theme/CustomPageMeta.vue': path.resolve(__dirname, 'components', 'CustomPageMeta.vue'),
         // @NOTE: special we override the plugin alias because this is requried in our layout regardless of whether the plugin
         // loads or not
+        '@theme/Alert.vue': path.resolve(__dirname, 'plugins', 'plugin-alert', 'Alert.vue'),
         '@theme/ReadMode.vue': path.resolve(__dirname, 'plugins', 'plugin-read-mode', 'ReadMode.vue'),
         '@theme/SidebarHeader.vue': path.resolve(__dirname, 'plugins', 'plugin-sidebar-header', 'SidebarHeader.vue'),
         '@theme/TagList.vue': path.resolve(__dirname, 'plugins', 'plugin-simple-tags', 'TagList.vue'),

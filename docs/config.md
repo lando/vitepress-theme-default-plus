@@ -1,5 +1,6 @@
 ---
 summary: Learn the configuration options for VuePress2 Default Theme Plus.
+alert: true
 ---
 
 # Configuration

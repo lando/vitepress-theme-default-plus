@@ -16,6 +16,9 @@ export default {
   // Attempt to automatically assign meta
   autometa: false,
 
+  // Allow for a top alert to be shown
+  alert: false,
+
   // Allow user to replace aliases
   alias: {},
 

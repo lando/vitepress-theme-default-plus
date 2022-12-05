@@ -1,5 +1,6 @@
 <template>
   <div class="layout-wrapper">
+    <Alert v-if="showAlert" />
     <ParentLayout>
       <template #navbar-before>
         <slot name="navbar-before" />
@@ -121,6 +122,7 @@ import TOC from '@theme/TOC.vue';
 import Sponsors from '../global/Sponsors.vue';
 
 // Plugin components
+import Alert from '@theme/Alert.vue';
 import ReadMode from '@theme/ReadMode.vue';
 import SidebarHeader from '@theme/SidebarHeader.vue';
 import TagList from '@theme/TagList.vue';
@@ -130,7 +132,7 @@ const frontmatter = usePageFrontmatter();
 const page = usePageData();
 const themeData = useThemeData();
 // Get the config from themedata
-const {carbonAds, jobs, pageTypes, readMode, rightbar, sidebarHeader, social, sponsors, toc} = themeData.value;
+const {alert, carbonAds, jobs, pageTypes, readMode, rightbar, sidebarHeader, social, sponsors, toc} = themeData.value;
 
 // Helpers to manage transitions
 const scrollPromise = useScrollPromise();
@@ -143,6 +145,11 @@ const getTruthyPageTypes = () => {
     .map(page => page.key)
     .filter(key => frontmatter.value[key] === true);
 };
+
+// Compute alert visibility
+const showAlert = computed(() => {
+  return frontmatter.value.alert || alert;
+});
 
 // Compute rightbar visibility
 const showRightbar = computed(() => {

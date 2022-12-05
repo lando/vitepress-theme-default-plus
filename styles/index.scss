@@ -42,6 +42,18 @@
   --c-danger-text-accent: var(--c-text);
   --c-details-bg: #eeeeee;
 
+  // add a few more for alerts
+  --c-success: var(--c-brand);
+  --c-success-bg: var(--c-brand-bg);
+  --c-success-title: var(--c-text);
+  --c-success-text: var(--c-text);
+  --c-success-text-accent: var(--c-text-accent);
+  --c-neutral: var(--c-brand);
+  --c-neutral-bg: var(--c-brand-bg);
+  --c-neutral-title: var(--c-text);
+  --c-neutral-text: var(--c-text);
+  --c-neutral-text-accent: var(--c-text-accent);
+
   // badge component colors
   --c-badge-tip: var(--c-brand);
   --c-badge-warning: var(--c-warning);
@@ -181,6 +193,20 @@ html.dark .DocSearch {
   --docsearch-key-gradient: linear-gradient(-225deg, #444950, #1c1e21);
   --docsearch-footer-shadow: inset 0 1px 0 0 rgba(73, 76, 106, 0.5),
     0 -4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+// plugin-alert
+html.alert {
+  --alert-height: 40px;
+  .navbar {
+    top: var(--alert-height);
+  }
+  .sidebar {
+    top: calc(var(--navbar-height) + var(--alert-height));
+  }
+  .page-wrapper-outer {
+    padding-top: calc(var(--navbar-height) + var(--alert-height) + 50px);
+  }
 }
 
 blockquote {
