@@ -116,6 +116,35 @@ And here is our special config:
 
   This prepends a bunch of entries to the usual `navbar` and follows the same format. It is usually used in combination with `baseUrl` to bring its "treat like internal link" functionality to the `navbar`. It also is useful if you want to extend this theme deploy a shared navbar
 
+## Alert
+
+#### alert
+
+* Type: `Object || Boolean`
+
+* Default: `false`
+
+* Example:
+
+  ```js
+  alert: {
+    content: 'Are you looking for the 3.x docs? You can go to them <a href="/3.x">here</a>.',
+    scheme: 'neutral',
+    closeable: true,
+  },
+  ```
+
+* Details:
+
+  This will print an alert at the top of the page. You can pass in HTML content allow "dangerous things" will be stripped.
+
+  Setting `closeable` to false will persist the alert and not let the user dismiss it.
+
+  You can set a `scheme` for the alert which will append the `alert-scheme-SCHEME` class to the alert container eg `alert-scheme-success`. We have provided the following schemes by default: `danger|warning|tip|neutral|success`. If you
+  specify a different scheme you will want to make sure to provide the `alert-scheme-MYSCHEME` class.
+
+  You can also configure the `alert` height with the `--alert-height` pallette variable.
+
 ## Autometa
 
 #### autometa

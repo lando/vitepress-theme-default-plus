@@ -17,11 +17,7 @@ export default {
   autometa: false,
 
   // Allow for a top alert to be shown
-  alert: {
-    content: 'some content and then like a <a href="/.">link to something else that is good and right .</a>',
-    scheme: 'success',
-    closeable: false,
-  },
+  alert: false,
 
   // Allow user to replace aliases
   alias: {},

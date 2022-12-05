@@ -1,7 +1,7 @@
 <template>
   <div class="layout-wrapper">
     <Alert
-      v-if="alert.content !== ''"
+      v-if="alert && alert.content !== ''"
       :content="alert.content"
       :scheme="alert.scheme"
       :closeable="alert.closeable"

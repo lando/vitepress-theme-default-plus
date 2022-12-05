@@ -1,9 +1,9 @@
 <template>
   <div
     v-if="showAlert && props.content !== ''"
-    class="alert-banner"
+    :class="`alert-banner alert-scheme-${props.scheme}`"
   >
-    <div class="alert-content">
+    <div :class="`alert-content`">
       <span v-html="props.content" />
       <span v-if="props.closeable">
         <button
@@ -63,19 +63,16 @@ onUnmounted(() => update());
   left: 0;
   right: 0;
   height: var(--alert-height);
-  background-color: var(--c-brand);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
   .alert-content {
     span {
-      color: var(--c-bg-lighter);
       font-size: 0.95rem;
       font-weight: 500;
     }
     a {
-      color: var(--c-bg-lighter);
       font-weight: 800;
       &:hover {
         text-decoration: underline;
@@ -83,15 +80,78 @@ onUnmounted(() => update());
     }
   }
 
-
   .alert-dismiss-button {
-    color: var(--c-bg-lighter);
     font-size: 1rem;
     cursor: pointer;
     background-color: transparent;
     border: 0;
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  &.alert-scheme-danger {
+    background-color: var(--c-danger);
+    span {
+      color: var(--c-bg-lighter);
+    }
+    a {
+      color: var(--c-bg-lighter);
+    }
+    .alert-dismiss-button {
+      color: var(--c-bg-lighter);
+    }
+  }
+
+  &.alert-scheme-warning {
+    background-color: var(--c-warning);
+    span {
+      color: var(--c-bg-lighter);
+    }
+    a {
+      color: var(--c-bg-lighter);
+    }
+    .alert-dismiss-button {
+      color: var(--c-bg-lighter);
+    }
+  }
+
+  &.alert-scheme-tip {
+    background-color: var(--c-tip-bg);
+    span {
+      color: var(--c-tip-text);
+    }
+    a {
+      color: var(--c-tip-text);
+    }
+    .alert-dismiss-button {
+      color: var(--c-tip-text);
+    }
+  }
+
+  &.alert-scheme-neutral {
+    background-color: var(--c-brand);
+    span {
+      color: var(--c-bg-lighter);
+    }
+    a {
+      color: var(--c-bg-lighter);
+    }
+    .alert-dismiss-button {
+      color: var(--c-bg-lighter);
+    }
+  }
+
+  &.alert-scheme-success {
+    background-color: var(--c-success);
+    span {
+      color: var(--c-bg-lighter);
+    }
+    a {
+      color: var(--c-bg-lighter);
+    }
+    .alert-dismiss-button {
+      color: var(--c-bg-lighter);
     }
   }
 }

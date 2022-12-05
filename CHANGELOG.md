@@ -2,6 +2,7 @@ v1.0.0-beta.42 - [December 3, 2022](https://github.com/lando/vuepress-theme-defa
 -----------------------------------
 
 * Added `satisfies` to `plugin-versions-page` to target specific releases
+* Added `plugin-alert` to easily set a site-wide alert message at the top of the page.
 
 v1.0.0-beta.41 - [December 2, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.41)
 -----------------------------------

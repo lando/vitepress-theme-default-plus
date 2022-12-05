@@ -18,6 +18,7 @@ export default {
   sidebarDepth: 0,
 
   // @lando/vuepress-theme-default-plus config
+  alert: false,
   alias: {},
 
   autometa: {
