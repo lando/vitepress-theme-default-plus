@@ -56,7 +56,8 @@ export const defaultThemePlus = options => {
   }
 
   // Rebase options on defaults
-  options = {...options.defaults, ...options};
+  options = _.merge({}, options.defaults, options);
+
   delete options.defaults;
   // Remove defaults so its less confusing
   debug('merging user config over defaults, result: %O', options);
