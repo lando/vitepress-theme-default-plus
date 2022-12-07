@@ -388,7 +388,8 @@ export default {
   ],
   // Sidebar header
   sidebarHeader: {
-    auto: true,
+    satisfies: '>4 || >4.0.0 || >4.0.0-*',
+    type: 'success',
   },
   search: {
     appId: 'BH4D9OD16A',
@@ -477,11 +478,7 @@ export default {
   // Table of contents
   toc: true,
 
-  sidebarHeader: {
-    satisfies: '>4 || >4.0.0 || >4.0.0-*',
-    type: 'success',
-  },
-
+  // Versions page
   versionsPage: {
     auto: true,
     trimLatest: true,

@@ -330,6 +330,7 @@ export default {
   // Sidebar header
   sidebarHeader: {
     auto: true,
+    satisfies: '>3.0.0 && <4',
   },
   search: {
     appId: 'BH4D9OD16A',
@@ -418,10 +419,7 @@ export default {
   // Table of contents
   toc: true,
 
-  sidebarHeader: {
-    satisfies: '>3.0.0 && <4',
-  },
-
+  // Versions page
   versionsPage: {
     auto: true,
     trimLatest: true,
