@@ -330,7 +330,7 @@ export default {
   // Sidebar header
   sidebarHeader: {
     auto: true,
-    satisfies: '>3.0.0 && <4',
+    satisfies: '<4',
   },
   search: {
     appId: 'BH4D9OD16A',
@@ -424,6 +424,6 @@ export default {
     auto: true,
     trimLatest: true,
     showEdge: true,
-    satisfies: '>3.0.0 && <4',
+    satisfies: '<4',
   },
 };

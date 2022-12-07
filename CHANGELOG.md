@@ -1,3 +1,8 @@
+v1.0.0-beta.44 - [December 6, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.44)
+-----------------------------------
+
+* Meaningless release
+
 v1.0.0-beta.43 - [December 6, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.43)
 -----------------------------------
 
