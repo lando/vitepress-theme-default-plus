@@ -111,7 +111,7 @@ export default {
     },
     {
       text: 'Config',
-      link: 'https://docs.lando.dev/config/v3/',
+      link: 'https://docs.lando.dev/core/v3/',
     },
     {
       text: 'Recipes',
@@ -418,9 +418,14 @@ export default {
   // Table of contents
   toc: true,
 
+  sidebarHeader: {
+    satisfies: '>3.0.0 && <4',
+  },
+
   versionsPage: {
     auto: true,
     trimLatest: true,
     showEdge: true,
+    satisfies: '>3.0.0 && <4',
   },
 };
