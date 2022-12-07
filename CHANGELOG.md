@@ -1,4 +1,4 @@
-v1.0.0-beta.43 - [TBD](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.43)
+v1.0.0-beta.43 - [December 6, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.43)
 -----------------------------------
 
 * Fixed order of operations bug with new `satisfies` for `plugin-sidebar-header` and `plugin-versions-page`
