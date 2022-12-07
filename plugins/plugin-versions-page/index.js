@@ -70,12 +70,6 @@ export const versionsPagePlugin = (options = {}, sidebar = []) => {
             const opts = {owner: options.owner, repo: options.project, per_page: 100};
             const response = await octokit.paginate('GET /repos/{owner}/{repo}/tags', opts);
 
-            // Trim latests version if applicable
-            if (options.trimLatest) {
-              const latest = response.shift();
-              debug('trimmed latest version (%o) from list', latest.name);
-            }
-
             // Parse and format the response
             options.data = _(response)
               .map(version => ({
@@ -97,6 +91,13 @@ export const versionsPagePlugin = (options = {}, sidebar = []) => {
           options.data = options.data.filter(datum => {
             return satisfies(datum.name, options.satisfies, {includePrerelease: true, loose: true});
           });
+          debug('filtered versions based on %o are %O', options.satisfies, options.data);
+        }
+
+        // Trim latests version if applicable
+        if (options.trimLatest) {
+          const latest = options.data.shift();
+          debug('trimmed latest version (%o) from list', latest.name);
         }
 
         // Add if we dont already have a versions page and sidebar is on

@@ -46,6 +46,7 @@ export const sidebarHeaderPlugin = (options = {}) => {
             // Try to get latest version
             const opts = {owner: options.owner, repo: options.project, per_page: 100};
             const response = await octokit.paginate('GET /repos/{owner}/{repo}/tags', opts);
+
             // If we have version requirements then filter to sasify
             const versions = response.filter(release => {
               if (options.satisfies) {
@@ -53,17 +54,37 @@ export const sidebarHeaderPlugin = (options = {}) => {
               };
               return true;
             });
+
+            // show where we send up
+            debug('filtered versions based on %o are %O', options.satisfies, versions);
+
+            // get the latest
+            // NOTE: this assumes you release things in order, it does not sort versions
             const latest = _.first(versions);
-            const data = {
-              title: options.project,
-              version: latest.name,
-              link: `https://github.com/${options.owner}/${options.project}/tree/${latest.name}`,
-            };
-            debug('automatically grabbed version data %o', data);
-            options.title = options.title || data.title;
-            options.version = options.version || data.version;
-            options.link = options.link || data.link;
-            debug('resulting config is %o', options);
+            debug('selected %o as latest version', latest.name);
+
+            // throw a warning if we have no release
+            if (!latest) {
+              warn('could not find a release that met the given criteria!');
+            }
+
+            // if we have something then proceed
+            if (latest) {
+              const data = {
+                title: options.project,
+                version: latest.name,
+                link: `https://github.com/${options.owner}/${options.project}/tree/${latest.name}`,
+              };
+              debug('automatically grabbed version data %o', data);
+              options.title = options.title || data.title;
+              options.version = options.version || data.version;
+              options.link = options.link || data.link;
+              debug('resulting config is %o', options);
+
+            // throw a warning if we have no release
+            } else {
+              warn('could not find a release that met the given criteria!');
+            }
           } catch (error) {
             warn('could not automatically grab latest version with error', error);
           };

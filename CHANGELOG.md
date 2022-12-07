@@ -1,8 +1,13 @@
+v1.0.0-beta.43 - [TBD](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.43)
+-----------------------------------
+
+* Fixed order of operations bug with new `satisfies` for `plugin-sidebar-header` and `plugin-versions-page`
+
 v1.0.0-beta.42 - [December 4, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.42)
 -----------------------------------
 
 * Added `satisfies` to `plugin-versions-page` to target specific releases
-* Added `plugin-alert` to easily set a site-wide alert message at the top of the page.
+* Added `plugin-alert` to easily set a site-wide alert message at the top of the page
 * Added `type` to `plugin-sidebar-header` to set a custom class for the version badge
 
 v1.0.0-beta.41 - [December 2, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.41)
