@@ -392,8 +392,8 @@ export default {
     type: 'success',
   },
   search: {
-    appId: 'BH4D9OD16A',
-    apiKey: '15e332850128e9ec96929f44c62f6c88',
+    appId: '9S3BH0SKWT',
+    apiKey: 'd3db589efd595b115848fc6a654d3263',
     indexName: 'lando',
   },
   social: [{
