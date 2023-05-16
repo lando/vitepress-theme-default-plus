@@ -1,3 +1,9 @@
+v1.0.0-beta.45 - [May 16, 2023](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.45)
+-----------------------------------
+
+* Update Algolia search app ID/api key.
+
+
 v1.0.0-beta.44 - [December 6, 2022](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.44)
 -----------------------------------
 
