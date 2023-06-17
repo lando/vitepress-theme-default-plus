@@ -38,6 +38,12 @@ If you'd like to report a bug or submit a feature request then please [use the i
 
 We try to log all changes big and small in both [THE CHANGELOG](https://github.com/lando/vuepress-theme-default-plus/blob/main/CHANGELOG.md) and the [release notes](https://github.com/lando/vuepress-theme-default-plus/releases).
 
+## Releasing
+
+To deploy and publish a new version of the package to the `npm` registry you need only [create a release on GitHub](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) with a [semver](https://semver.org) tag.
+
+Note that prereleases will get pushed to the `edge` tag on the `npm` registry.
+
 ## Contributors
 
 <a href="https://github.com/lando/vuepress-theme-default-plus/graphs/contributors">

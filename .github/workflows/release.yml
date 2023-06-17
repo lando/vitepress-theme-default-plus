@@ -4,7 +4,6 @@ on:
   release:
     types:
       - published
-      - edited
 
 jobs:
   deploy:
@@ -21,9 +20,9 @@ jobs:
       # Install deps and cache
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
@@ -38,6 +37,8 @@ jobs:
         run: yarn test
 
       # Deploy to NPM
+      - name: Prepare release
+        uses: lando/prepare-release-action@v2
       - name: Deploy release to npm
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_DEPLOY_TOKEN}}
@@ -51,6 +52,7 @@ jobs:
             npm publish --access public --tag ${{ env.PRERELEASE_TAG }}
             echo "::notice title=Published ${{ github.ref_name }} to @${{ github.repository }}@${{ env.PRERELEASE_TAG }}::This is a pre-release published to the '${{ env.PRERELEASE_TAG }}' npm tag"
           fi
+
   auto-deploy:
     runs-on: ${{ matrix.os }}
     needs: deploy
@@ -144,9 +146,9 @@ jobs:
     steps:
       # Install deps and cache
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
@@ -186,9 +188,9 @@ jobs:
     steps:
       # Install deps and cache
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
