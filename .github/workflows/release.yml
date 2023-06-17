@@ -157,7 +157,7 @@ jobs:
         run: yarn install --prefer-offline --frozen-lockfile
 
       # Auto deploy to everything else
-      - name: Auto deploy to ${{ matrix.auto-deploy-repos }}
+      - name: Auto deploy to ${{ matrix.auto-deploy-repos.name }}
         uses: lando/auto-deploy-action@v2
         with:
           branch: main
@@ -199,7 +199,7 @@ jobs:
         run: yarn install --prefer-offline --frozen-lockfile
 
       # Auto deploy to everything else
-      - name: PR deploy to ${{ matrix.auto-deploy-repos }}
+      - name: PR deploy to ${{ matrix.auto-deploy-repos.name }}
         uses: lando/auto-deploy-action@v2
         with:
           slug: ${{ matrix.pr-deploy-repos.name }}
