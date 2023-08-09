@@ -1,3 +1,7 @@
+## v1.0.0-beta.48 - [August 8, 2023](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.48)
+
+* Meaningless release
+
 ## v1.0.0-beta.47 - [August 8, 2023](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.47)
 
 * Added ability to disable config sets `sharedNavbar` by setting it to any non array value
