@@ -69,9 +69,9 @@ yarn test
 :::
 ::::
 
-## Releasing
+## Building
 
-Here are some helpful commands to actually deploy a release.
+Here are some helpful commands to build an artifact
 
 :::: code-group
 ::: code-group-item LANDO
@@ -79,9 +79,6 @@ Here are some helpful commands to actually deploy a release.
 ```bash:no-line-numbers
 # build the site
 lando yarn build
-
-# bump and tag the version the site
-lando yarn release
 ```
 
 :::
@@ -90,12 +87,13 @@ lando yarn release
 ```bash:no-line-numbers
 # build the site
 yarn build
-
-# bump and tag the version the site
-yarn release
 ```
 
 :::
 ::::
 
-An actual release to `npm` can be done by [create a release on GitHub](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository). Pre-releases will deploy to `@edge` tag.
+## Releasing
+
+An actual release to `npm` can be done by [creating a release on GitHub](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository). Pre-releases will deploy to `@edge` tag.
+
+This will also trigger our [prepare release](https://github.com/lando/prepare-release-action) and [auto-deploy](https://github.com/lando/auto-deploy-action) actions.

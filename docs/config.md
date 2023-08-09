@@ -4,7 +4,7 @@ summary: Learn the configuration options for VuePress2 Default Theme Plus.
 
 # Configuration
 
-This theme _extends_ the [VuePress2 Default Theme](https://v2.vuepress.vuejs.org/reference/default-theme/config.html#basic-config) but sets [slightly different defaults](https://github.com/lando/vuepress-theme-default-plus/blob/main/lib/defaults.js). _Theoretically_ all the options supported in the default theme should also be available in this one.
+This theme _extends_ the [VuePress2 Default Theme](https://v2.vuepress.vuejs.org/reference/default-theme/config.html#basic-config) but sets [slightly different defaults](https://github.com/lando/vuepress-theme-default-plus/blob/main/config). _Theoretically_ all the options supported in the default theme should also be available in this one.
 
 Before you get started its _**HEAVILY RECOMMENDED**_ that you set the following parent config before proceeding. Here is what we set for the repo that generates these docs:
 

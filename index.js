@@ -70,7 +70,7 @@ export const defaultThemePlus = options => {
 
   // SHARED NAVBAR
   // If we want to show the shared navbar then lets add it to the begining of the navbar
-  if (!_.isNil(options.sharedNavbar)) {
+  if (!_.isNil(options.sharedNavbar) && _.isArray(options.sharedNavbar)) {
     options.navbar = options.sharedNavbar.concat(options.navbar);
     debug('prepended shared navbar to user specified navbar with %o', options.sharedNavbar);
   }
