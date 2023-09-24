@@ -1,6 +1,6 @@
-## v1.0.0-beta.48 - [August 8, 2023](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.48)
+## v1.0.0-beta.48 - [September 24, 2023](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.48)
 
-* Meaningless release
+* Added `alert` to `navbar` items. [Read More](https://vuepress-theme-default-plus.lando.dev/config.html#navbar)
 
 ## v1.0.0-beta.47 - [August 8, 2023](https://github.com/lando/vuepress-theme-default-plus/releases/tag/v1.0.0-beta.47)
 

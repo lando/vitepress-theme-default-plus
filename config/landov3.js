@@ -110,8 +110,69 @@ export default {
       link: 'https://docs.lando.dev/cli/',
     },
     {
-      text: 'Config',
-      link: 'https://docs.lando.dev/core/v3/',
+      text: 'Core',
+      children: [
+        {
+          text: 'Landofile',
+          columns: 3,
+          children: [
+            {text: 'Basics', link: 'https://docs.lando.dev/core/v3/index.html'},
+            {text: 'Services', link: 'https://docs.lando.dev/core/v3/services.html'},
+            {text: 'Recipes', link: 'https://docs.lando.dev/core/v3/recipes.html'},
+            {text: 'Tooling', link: 'https://docs.lando.dev/core/v3/tooling.html'},
+            {text: 'Proxy', link: 'https://docs.lando.dev/core/v3/proxy.html'},
+            {text: 'Events', link: 'https://docs.lando.dev/core/v3/events.html'},
+          ],
+        },
+        {
+          text: 'Configuration',
+          columns: 2,
+          children: [
+            {text: 'Global', link: 'https://docs.lando.dev/core/v3/index.html'},
+            {text: 'Environment', link: 'https://docs.lando.dev/core/v3/env.html'},
+            {text: 'Experimental', link: 'https://docs.lando.dev/core/v3/experimental.html'},
+            {text: 'Networking', link: 'https://docs.lando.dev/core/v3/networking.html'},
+            {
+              text: 'Orchestrator',
+              link: 'https://docs.lando.dev/core/v3/orchestrator.html',
+              alert: {
+                expires: 1697299993000,
+                type: 'new',
+                text: 'NEW!',
+              },
+            },
+            {text: 'Performance', link: 'https://docs.lando.dev/core/v3/performance.html'},
+            {text: 'Plugins', link: 'https://docs.lando.dev/core/v3/plugins.html'},
+            {text: 'Releases', link: 'https://docs.lando.dev/core/v3/releases.html'},
+            {text: 'Security', link: 'https://docs.lando.dev/core/v3/security.html'},
+            {text: 'SSH', link: 'https://docs.lando.dev/core/v3/ssh.html'},
+            {text: 'Shared Files', link: 'https://docs.lando.dev/core/v3/files.html'},
+          ],
+        },
+        {
+          text: 'Plugins',
+          columns: 2,
+          children: [
+            {
+              text: 'Healthcheck',
+              link: 'https://docs.lando.dev/core/v3/healthcheck.html',
+              alert: {
+                expires: 1697299993000,
+                type: 'new',
+                text: 'NEW!',
+              },
+            },
+            {text: 'Scanner', link: 'https://docs.lando.dev/core/v3/scanner.html'},
+          ],
+        },
+        {
+          text: 'Services',
+          columns: 2,
+          children: [
+            {text: 'Lando', link: 'https://docs.lando.dev/core/v3/lando-service.html'},
+          ],
+        },
+      ],
     },
     {
       text: 'Recipes',
@@ -120,68 +181,29 @@ export default {
           text: 'Hosting Integrations',
           columns: 2,
           children: [
-            {
-              text: 'Acquia',
-              link: 'https://docs.lando.dev/acquia',
-            },
-            {
-              text: 'Lagoon (beta)',
-              link: 'https://docs.lando.dev/lagoon',
-            },
-            {
-              text: 'Pantheon',
-              link: 'https://docs.lando.dev/pantheon',
-            },
-            {
-              text: 'Platform.sh (beta)',
-              link: 'https://docs.lando.dev/platformsh',
-            },
+            {text: 'Acquia', link: 'https://docs.lando.dev/acquia'},
+            {text: 'Lagoon (beta)', link: 'https://docs.lando.dev/lagoon'},
+            {text: 'Pantheon', link: 'https://docs.lando.dev/pantheon'},
+            {text: 'Platform.sh (beta)', link: 'https://docs.lando.dev/platformsh'},
           ],
         },
         {
           text: 'PHP Frameworks',
           children: [
-            {
-              text: 'Backdrop',
-              link: 'https://docs.lando.dev/backdrop',
-            },
-            {
-              text: 'Drupal',
-              link: 'https://docs.lando.dev/drupal',
-            },
-            {
-              text: 'Joomla',
-              link: 'https://docs.lando.dev/joomla',
-            },
-            {
-              text: 'Laravel',
-              link: 'https://docs.lando.dev/laravel',
-            },
-            {
-              text: 'Symfony',
-              link: 'https://docs.lando.dev/symfony',
-            },
-            {
-              text: 'WordPress',
-              link: 'https://docs.lando.dev/wordpress',
-            },
+            {text: 'Backdrop', link: 'https://docs.lando.dev/backdrop'},
+            {text: 'Drupal', link: 'https://docs.lando.dev/drupal'},
+            {text: 'Joomla', link: 'https://docs.lando.dev/joomla'},
+            {text: 'Laravel', link: 'https://docs.lando.dev/laravel'},
+            {text: 'Symfony', link: 'https://docs.lando.dev/symfony'},
+            {text: 'WordPress', link: 'https://docs.lando.dev/wordpress'},
           ],
         },
         {
           text: 'Stacks',
           children: [
-            {
-              text: 'LAMP',
-              link: 'https://docs.lando.dev/lamp',
-            },
-            {
-              text: 'LEMP',
-              link: 'https://docs.lando.dev/lemp',
-            },
-            {
-              text: 'MEAN',
-              link: 'https://docs.lando.dev/mean',
-            },
+            {text: 'LAMP', link: 'https://docs.lando.dev/lamp'},
+            {text: 'LEMP', link: 'https://docs.lando.dev/lemp'},
+            {text: 'MEAN', link: 'https://docs.lando.dev/mean'},
           ],
         },
       ],
@@ -193,30 +215,19 @@ export default {
           text: 'Application Languages',
           columns: 2,
           children: [
-            {
-              text: 'dotnet',
-              link: 'https://docs.lando.dev/dotnet',
-            },
-            {
-              text: 'Go',
-              link: 'https://docs.lando.dev/go',
-            },
-            {
-              text: 'node',
-              link: 'https://docs.lando.dev/node',
-            },
-            {
-              text: 'PHP',
-              link: 'https://docs.lando.dev/php',
-            },
-            {
-              text: 'Python',
-              link: 'https://docs.lando.dev/python',
-            },
-            {
-              text: 'Ruby',
-              link: 'https://docs.lando.dev/ruby',
-            },
+            {text: 'dotnet', link: 'https://docs.lando.dev/dotnet'},
+            {text: 'Go', link: 'https://docs.lando.dev/go'},
+            {text: 'node', link: 'https://docs.lando.dev/node'},
+            {text: 'PHP', link: 'https://docs.lando.dev/php'},
+            {text: 'Python', link: 'https://docs.lando.dev/python'},
+            {text: 'Ruby', link: 'https://docs.lando.dev/ruby'},
+          ],
+        },
+        {
+          text: 'General Purpose / DIY',
+          columns: 2,
+          children: [
+            {text: 'Lando', link: 'https://docs.lando.dev/core/v3/lando-service.html'},
           ],
         },
       ],
@@ -228,99 +239,68 @@ export default {
           text: 'Databases',
           columns: 4,
           children: [
-            {
-              text: 'MariaDB',
-              link: 'https://docs.lando.dev/mariadb',
-            },
-            {
-              text: 'MongoDB',
-              link: 'https://docs.lando.dev/mongo',
-            },
-            {
-              text: 'MSSQL',
-              link: 'https://docs.lando.dev/mssql',
-            },
-            {
-              text: 'MySQL',
-              link: 'https://docs.lando.dev/mysql',
-            },
-            {
-              text: 'PostgreSQL',
-              link: 'https://docs.lando.dev/postgres',
-            },
+            {text: 'MariaDB', link: 'https://docs.lando.dev/mariadb'},
+            {text: 'MongoDB', link: 'https://docs.lando.dev/mongo'},
+            {text: 'MSSQL', link: 'https://docs.lando.dev/mssql'},
+            {text: 'MySQL', link: 'https://docs.lando.dev/mysql'},
+            {text: 'PostgreSQL', link: 'https://docs.lando.dev/postgres'},
           ],
         },
         {
           text: 'Caches',
           columns: 4,
           children: [
-            {
-              text: 'Memcached',
-              link: 'https://docs.lando.dev/memcached',
-            },
-            {
-              text: 'redis',
-              link: 'https://docs.lando.dev/redis',
-            },
-            {
-              text: 'Varnish',
-              link: 'https://docs.lando.dev/varnish',
-            },
+            {text: 'Memcached', link: 'https://docs.lando.dev/memcached'},
+            {text: 'redis', link: 'https://docs.lando.dev/redis'},
+            {text: 'Varnish', link: 'https://docs.lando.dev/varnish'},
           ],
         },
         {
           text: 'Indexes',
           columns: 4,
           children: [
-            {
-              text: 'Elasticsearch',
-              link: 'https://docs.lando.dev/elasticsearch',
-            },
-            {
-              text: 'Solr',
-              link: 'https://docs.lando.dev/solr',
-            },
+            {text: 'Elasticsearch', link: 'https://docs.lando.dev/elasticsearch'},
+            {text: 'Solr', link: 'https://docs.lando.dev/solr'},
           ],
         },
         {
           text: 'Web Servers',
           columns: 4,
           children: [
-            {
-              text: 'Apache',
-              link: 'https://docs.lando.dev/apache',
-            },
-            {
-              text: 'nginx',
-              link: 'https://docs.lando.dev/nginx',
-            },
-            {
-              text: 'tomcat',
-              link: 'https://docs.lando.dev/tomcat',
-            },
+            {text: 'Apache', link: 'https://docs.lando.dev/apache'},
+            {text: 'nginx', link: 'https://docs.lando.dev/nginx'},
+            {text: 'tomcat', link: 'https://docs.lando.dev/tomcat'},
           ],
         },
         {
           text: 'Dev Tools',
           columns: 4,
           children: [
-            {
-              text: 'MailHog',
-              link: 'https://docs.lando.dev/mailhog',
-            },
-            {
-              text: 'PhpMyAdmin',
-              link: 'https://docs.lando.dev/phpmyadmin',
-            },
+            {text: 'MailHog', link: 'https://docs.lando.dev/mailhog'},
+            {text: 'PhpMyAdmin', link: 'https://docs.lando.dev/phpmyadmin'},
           ],
         },
         {
-          text: 'DIY',
-          columns: 4,
+          text: 'General Purpose / DIY',
+          columns: 2,
           children: [
+            {
+              text: 'Lando',
+              link: 'https://docs.lando.dev/core/v3/lando-service.html',
+              alert: {
+                expires: 1697299993000,
+                type: 'new',
+                text: 'NEW!',
+              },
+            },
             {
               text: 'Compose',
               link: 'https://docs.lando.dev/compose',
+              alert: {
+                expires: 1697299993000,
+                type: 'deprecated',
+                text: 'DEPRECATED!',
+              },
             },
           ],
         },

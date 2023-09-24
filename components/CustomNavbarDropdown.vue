@@ -10,6 +10,10 @@
       :aria-label="dropdownAriaLabel"
       @click="handleDropdown"
     >
+      <span
+        v-if="treeHasNewAlerts"
+        class="alert-circle"
+      />
       <span class="title">{{ item.text }}</span>
       <span class="arrow down" />
     </button>
@@ -48,7 +52,6 @@
                     (open = false)
                 "
               />
-
               <span v-else>{{ child.text }}</span>
             </h4>
 
@@ -67,7 +70,15 @@
                       isLastItemOfArray(child, item.children) &&
                       (open = false)
                   "
-                />
+                >
+                  <template #after>
+                    <Badge
+                      v-if="hasAlert(grandchild) && isActiveAlert(grandchild.alert)"
+                      v-bind="getAlert(grandchild.alert)"
+                      vertical="middle"
+                    />
+                  </template>
+                </AutoLink>
               </li>
             </ul>
           </template>
@@ -92,6 +103,22 @@ import DropdownTransition from '@theme/DropdownTransition.vue';
 import {computed, ref, toRefs, watch} from 'vue';
 import {useRoute} from 'vue-router';
 
+const flattenTree = (items, collect = []) => {
+  // break up children and items
+  const {children, ...item} = items;
+  // collec the item
+  collect.push(item);
+  // if we have children we need to recurse and add
+  if (children && children.length > 0) {
+    children.map(child => {
+      collect.push(flattenTree(child));
+    });
+  };
+
+  // faltten and return
+  return collect.flat(Infinity);
+};
+
 const props = defineProps({
   item: {
     type: Object,
@@ -102,6 +129,16 @@ const props = defineProps({
 const {item} = toRefs(props);
 
 const dropdownAriaLabel = computed(() => item.value.ariaLabel || item.value.text);
+const treeHasNewAlerts = computed(() => {
+  const items = flattenTree(item.value);
+  const activeAlerts = items
+    .filter(item => hasAlert(item))
+    .map(item => getAlert(item.alert))
+    .filter(alert => alert.type === 'new')
+    .filter(alert => alert && alert.expires > new Date().getTime());
+
+  return activeAlerts.length > 0;
+});
 
 const open = ref(false);
 const route = useRoute();
@@ -111,6 +148,16 @@ watch(
     open.value = false;
   },
 );
+
+const getAlert = alert => {
+  if (typeof alert === 'string') alert = {text: alert};
+  return {type: 'success', expires: 2000000000000, ...alert};
+};
+
+const isActiveAlert = alert => {
+  const {expires} = getAlert(alert);
+  return new Date().getTime() < expires;
+};
 
 /*
  * Open the dropdown when user tab and click from keyboard.
@@ -127,6 +174,16 @@ const handleDropdown = e => {
   } else {
     open.value = false;
   }
+};
+
+const hasAlert = item => {
+  const {alert} = item;
+  return (
+    alert
+    && alert !== null
+    && alert !== undefined
+    && (typeof alert === 'string' || typeof alert == 'object')
+  );
 };
 
 const isLastItemOfArray = (item, arr = []) =>
@@ -153,12 +210,25 @@ const getItemColumnsClass = item => {
 .navbar-dropdown-wrapper:not(.mobile) {
   display: flex;
   flex-wrap: wrap;
+  .navbar-dropdown-title:not(.mobile) {
+    .alert-circle {
+      height: 10px;
+      width: 10px;
+      background-color: var(--c-brand);
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 3px;
+    }
+  }
   .navbar-dropdown-subitem-wrapper:not(.mobile) {
     display: flex;
     flex-wrap: wrap;
     width: 400px;
     li {
       padding: 5px;
+      .badge {
+        margin-bottom: 2px;
+      }
     }
     &.navbar-dropdown-columns-full {
       li {

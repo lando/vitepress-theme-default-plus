@@ -289,6 +289,7 @@ And here is our special config:
             {
               text: 'Lagoon (beta)',
               link: 'https://docs.lando.dev/lagoon',
+              alert: 'UPDATED!'
             },
             {
               text: 'Pantheon',
@@ -297,6 +298,11 @@ And here is our special config:
             {
               text: 'Platform.sh (beta)',
               link: 'https://docs.lando.dev/platformsh',
+              alert: {
+                text: 'DEPRECATED!',
+                type: 'danger',
+                expires: 4125485593000,
+              },
             },
           ],
         },
@@ -317,6 +323,12 @@ And here is our special config:
 * Details:
 
   Note that `columns` currently only works with "subitems" eg children that are expressed in "sections" as in the example above.
+
+  You can add the optional `alert` to any child item. This will add a stylized and expiring badge before the link with text of your choosing. If you make `alert` a `string` it will use that as the badge text. If you make `alert` an `object` you can also customize the style and the expiration date of the alert.
+
+  `alert` can be styled with setting `alert.type` to one of `new`, `updated`, `deprecated` or `eol`. You can automatically remove the alert at given time by setting `alert.expires` which must be expressed as a timestamp in milliseconds.
+
+  If a top level menu item contains any children with `alerts` of type `new` then an alert circle will appear in front of that menu item as a circle colored with the theme's primary color.
 
 ## Page Types
 

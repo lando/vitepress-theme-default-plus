@@ -1,8 +1,21 @@
 @import '@vuepress/plugin-palette/style';
 @import '@vuepress/plugin-palette/palette';
 
-.badge.success {
+.badge.success, .badge.new {
   background-color: var(--c-success);
+}
+
+.badge.updated {
+  background-color: var(--c-tip-bg);
+  color: var(--c-text-light);
+}
+
+.badge.deprecated {
+  background-color: var(--c-warning);
+}
+
+.badge.eol, .badge.removed {
+  background-color: var(--c-danger);
 }
 
 // very basic form stylings
