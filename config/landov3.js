@@ -131,7 +131,6 @@ export default {
             {text: 'Global', link: 'https://docs.lando.dev/core/v3/index.html'},
             {text: 'Environment', link: 'https://docs.lando.dev/core/v3/env.html'},
             {text: 'Experimental', link: 'https://docs.lando.dev/core/v3/experimental.html'},
-            {text: 'Networking', link: 'https://docs.lando.dev/core/v3/networking.html'},
             {
               text: 'Orchestrator',
               link: 'https://docs.lando.dev/core/v3/orchestrator.html',
@@ -162,6 +161,7 @@ export default {
                 text: 'NEW!',
               },
             },
+            {text: 'Networking', link: 'https://docs.lando.dev/core/v3/networking.html'},
             {text: 'Scanner', link: 'https://docs.lando.dev/core/v3/scanner.html'},
           ],
         },
@@ -169,7 +169,15 @@ export default {
           text: 'Services',
           columns: 2,
           children: [
-            {text: 'Lando', link: 'https://docs.lando.dev/core/v3/lando-service.html'},
+            {
+              text: 'Lando',
+              link: 'https://docs.lando.dev/core/v3/lando-service.html',
+              alert: {
+                expires: 1697299993000,
+                type: 'new',
+                text: 'NEW!',
+              },
+            },
           ],
         },
       ],
