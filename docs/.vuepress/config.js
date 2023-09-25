@@ -21,7 +21,6 @@ export default defineUserConfig({
     ['link', {rel: 'stylesheet', href: '//fonts.googleapis.com/css2?family=Lexend:wght@500&display=swap'}],
   ],
   theme: defaultThemePlus({
-    landoDocs: 4,
     // PARENT CONFIG
     docsDir: 'docs',
     docsBranch: 'main',
