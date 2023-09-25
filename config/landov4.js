@@ -128,7 +128,6 @@ export default {
           text: 'Services',
           columns: 2,
           children: [
-            {text: 'Lando', link: 'https://docs.lando.dev/core/v4/services/lando.html'},
             {text: 'L-337', link: 'https://docs.lando.dev/core/v4/services/l337.html'},
           ],
         },
