@@ -1,11 +1,8 @@
-import path from 'node:path'
-import {defineConfig} from '@jcamp/vitepress-blog-theme/config'
+import path from 'node:path';
+import {defineConfig} from '../../config';
 
 export default defineConfig({
   vite: {
-    optimizeDeps: {
-      exclude: ['@jcamp/vitepress-blog-theme'],
-    },
     resolve: {
       alias: {
         '@lando/vitepress-theme-default-plus': path.resolve(__dirname, '../../index.js'),
@@ -102,11 +99,6 @@ export default defineConfig({
       },
     ],
 
-    sidebar: {
-      '/guide/': sidebarGuide(),
-      '/reference/': sidebarReference(),
-    },
-
     socialLinks: [
       {
         icon: 'github',
@@ -114,47 +106,4 @@ export default defineConfig({
       },
     ],
   },
-})
-
-function sidebarGuide() {
-  return [
-    {
-      text: 'Introduction',
-      collapsed: false,
-      items: [
-        {
-          text: 'What is VitePress Blog?',
-          link: '/guide/what-is-vitepress-blog',
-        },
-        { text: 'Getting Started', link: '/guide/getting-started' },
-        { text: 'Roadmap', link: '/guide/roadmap' },
-        { text: 'Credits', link: '/guide/credits' },
-      ],
-    },
-    {
-      text: 'Front Matter',
-      collapsed: false,
-      items: [
-        { text: 'Post Front Matter', link: '/guide/frontmatter-post' },
-        { text: 'Author Front Matter', link: '/guide/frontmatter-author' },
-      ],
-    },
-    {
-      text: 'Config & API Reference',
-      link: '/reference/config',
-    },
-  ]
-}
-
-function sidebarReference() {
-  return [
-    {
-      text: 'Reference',
-      items: [
-        { text: 'Site Config', link: '/reference/config' },
-        { text: 'Tailwind', link: '/reference/tailwind' },
-        { text: 'Icons', link: '/reference/icons' },
-      ],
-    },
-  ]
-}
+});

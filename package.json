@@ -21,8 +21,11 @@
   "scripts": {
     "build": "vitepress build docs",
     "dev": "vitepress dev docs",
-    "lint": "eslint . docs/.vitepress --ext .js,.vue",
+    "lint": "eslint . --ext .js,.vue",
     "test": "npm run lint"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.0",
@@ -35,14 +38,5 @@
     "vitepress": "^1.0.0-rc.32",
     "vue": "^3.3.12",
     "vue-eslint-parser": "^9.3.2"
-  },
-  "postcss": {
-    "plugins": {
-      "tailwindcss": {},
-      "autoprefixer": {}
-    }
-  },
-  "dependencies": {
-    "lodash": "^4.17.21"
   }
 }
