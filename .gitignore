@@ -75,8 +75,10 @@ typings/
 # https://nextjs.org/blog/next-9-1#public-directory-support
 # public
 
-# legacy vuepress build output and temp dirs
+# legacy vitepress build output and temp dirs
 _site
-docs/**/.vuepress/.temp
-docs/**/.vuepress/.cache
-docs/**/.vuepress/dist
+
+# vitepress dirs
+docs/.vitepress/.temp
+docs/.vitepress/cache
+docs/.vitepress/dist

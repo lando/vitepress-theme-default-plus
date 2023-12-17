@@ -1,4 +1,4 @@
-import {defaultThemePlus} from '../../index.js';
+import {defaultThemePlus} from '../../index-old.js';
 
 import yaml from 'js-yaml';
 
