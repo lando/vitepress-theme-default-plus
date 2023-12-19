@@ -27,7 +27,6 @@ const url = computed(() => `https://www.youtube.com/embed/${props.id}`);
 </script>
 
 <style lang="scss">
-@import '../styles/main.scss';
 
 .video-responsive {
   margin-top: 1em;
@@ -45,7 +44,7 @@ const url = computed(() => `https://www.youtube.com/embed/${props.id}`);
 }
 
 
-@media (max-width: $MQMobileNarrow) {
+@media (max-width: 767px) {
   .video-responsive {
     padding-left: 0;
     padding-right: 0;

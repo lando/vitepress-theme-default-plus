@@ -3,7 +3,12 @@
     v-if="hasSponsors"
     class="sponsors"
   >
-    <span class="header">Sponsors</span>
+    <span
+      v-if="props.title"
+      class="ad-header"
+    >
+      {{ props.title }}
+    </span>
     <div class="sponsors-wrapper">
       <div
         v-for="(sponsor, index) in sponsorList"
@@ -24,14 +29,17 @@
       </div>
     </div>
 
-    <div class="sponsor-footer">
+    <div
+      v-if="props.text || props.link"
+      class="sponsor-footer"
+    >
       <a
-        :href="sponsors.link"
+        :href="props.link"
         target="_blank"
       >
         <div class="sponsor sponsor-full">
           <span class="sponsor-link">
-            {{ sponsors.text }}
+            {{ props.text }}
           </span>
         </div>
       </a>
@@ -41,25 +49,45 @@
 
 <script setup>
 import {computed} from 'vue';
-import {useThemeData} from '@vuepress/plugin-theme-data/client';
+import {useData} from 'vitepress';
 
-// Get theme data
-const themeData = useThemeData();
-// Get relevant config from themedata
-const {sponsors} = themeData.value;
+const {theme, frontmatter} = useData();
+const sponsors = frontmatter.value.sponsors ?? theme.value.sponsors ?? [];
+
+const props = defineProps({
+  text: {
+    type: [String, Boolean],
+    default: () => {
+      const {theme, frontmatter} = useData();
+      const sponsors = frontmatter.value.sponsors ?? theme.value.sponsors ?? [];
+      return sponsors.text ?? 'your logo?';
+    },
+  },
+  link: {
+    type: [String, Boolean],
+    default: () => {
+      const {theme, frontmatter} = useData();
+      const sponsors = frontmatter.value.sponsors ?? theme.value.sponsors ?? [];
+      return sponsors.link;
+    },
+  },
+  title: {
+    required: true,
+    type: [String, Boolean],
+    default: 'SPONSORS',
+  },
+});
+
 // Compute sponsor list
 const sponsorList = computed(() => {
-  sponsors.data.forEach(sponsor => {
-    sponsor.classes = `sponsor sponsor-${sponsor.type}`;
-  });
-  return sponsors.data;
+  return sponsors.data.map(sponsor => ({...sponsor, classes: `sponsor sponsor-${sponsor.type}`}));
 });
+
 // Compute whether we end up with any sponsors or not
-const hasSponsors = computed(() => sponsors.data.length > 0);
+const hasSponsors = computed(() => sponsors !== false && sponsors && sponsors.data && sponsors.data.length > 0);
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/main.scss';
 .sponsors-wrapper {
   display: flex;
   flex-direction: row;
@@ -74,9 +102,9 @@ const hasSponsors = computed(() => sponsors.data.length > 0);
   justify-content: space-around;
   margin-top: 2px;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: var(--vpl-c-border-radius);
   .sponsor-inner {
-    background-color: var(--c-bg-lighter);
+    background-color: var(--vp-c-bg-alt);
     width: 100%;
     height: 100%;
     margin-left: 1px;
@@ -84,7 +112,7 @@ const hasSponsors = computed(() => sponsors.data.length > 0);
     display: flex;
     align-items: center;
     justify-content: space-around;
-    border-radius: 3px;
+    border-radius: var(--vpl-c-border-radius);
   }
   &.sponsor-half {
     width: 50%;
@@ -111,7 +139,7 @@ const hasSponsors = computed(() => sponsors.data.length > 0);
     justify-content: space-around;
     align-items: center;
     width: auto;
-    background-color: var(--c-bg-lighter);
+    background-color: var(--vp-c-bg-alt);
     width: 100%;
     height: 50px;
     margin-left: 1px;
@@ -120,7 +148,7 @@ const hasSponsors = computed(() => sponsors.data.length > 0);
     align-items: center;
     justify-content: space-around;
     .sponsor-link {
-      color: var(--c-text-light);
+      color: var(--vp-c-text-1);
       display: block;
       font-weight: 700;
       font-size: 11px;

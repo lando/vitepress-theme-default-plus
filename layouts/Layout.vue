@@ -125,7 +125,7 @@ import Page from '@theme/Page.vue';
 import CarbonAds from '@theme/CarbonAds.vue';
 import SocialLinks from '@theme/SocialLinks.vue';
 import TOC from '@theme/TOC.vue';
-import Sponsors from '../global/Sponsors.vue';
+import Sponsors from '../components/VPLSponsors.vue';
 
 // Plugin components
 import Alert from '@theme/Alert.vue';

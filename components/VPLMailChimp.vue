@@ -51,14 +51,19 @@
               value=""
             >
           </div>
-          <input
-            id="mc-embedded-subscribe"
-            :class="{ button: true, disabled: !email }"
-            :disabled="!email"
-            type="submit"
-            :value="props.button"
-            name="subscribe"
+          <VPButton
+            size="big"
+            :text="props.button"
           >
+            <input
+              id="mc-embedded-subscribe"
+              :class="{ disabled: !email }"
+              :disabled="!email"
+              type="submit"
+              name="subscribe"
+              value=""
+            >
+          </VPButton>
         </form>
       </div>
     </div>
@@ -67,6 +72,8 @@
 
 <script setup>
 import {ref} from 'vue';
+import {VPButton} from 'vitepress/theme';
+
 const props = defineProps({
   action: {
     required: true,
@@ -90,20 +97,18 @@ const email = ref(null);
 </script>
 
 <style lang="scss">
-@import '../styles/main.scss';
 .newsletter {
   text-align: center;
   width: 100%;
   font-size: 1rem;
-  color: var(--c-text);
+  color: var(--vp-c-text-1);
 }
 .newsletter__wrap {
-  margin: 1.5rem auto;
+  border-radius: var(--vpl-c-border-radius);
+  margin: 16px 0;
   padding: 1.8rem 2.3rem;
-  border-radius: 3px;
   box-sizing: border-box;
   width: auto;
-  background-color: var(--c-brand-bg);
   input[type=email], input[type=text], textarea {
     border: 0 solid #f8f8f8;
     box-sizing: border-box;
@@ -112,7 +117,7 @@ const email = ref(null);
     width: 100%;
     padding: 1em;
     &:focus {
-      outline: 1px solid var(--c-brand-light);
+      outline: 1px solid var(--vp-c-brand-soft);
       outline-offset: 2px;
     }
   }
@@ -125,57 +130,10 @@ const email = ref(null);
   margin-bottom: 1.5rem;
   line-height: 1.7rem;
 }
-.newsletter__input {
-  font-size: inherit;
-  border: 1px solid var(--c-border);
-  width: 100%;
-  padding: 0.6rem 1.2rem;
-  box-sizing: border-box;
-  border-radius: 3px;
-  margin-bottom: 0.8rem;
-  outline: none;
-}
-.button {
-  margin: auto;
-  box-sizing: border-box;
-  font-size: 16px;
-  display: inline-block;
-  font-size: 1.2rem;
-  padding: 0.8rem 1.6rem;
-  background-color: var(--c-brand);
-  border-width: 2px;
-  border-style: solid;
-  border-radius: 4px;
-  border-color: var(--c-brand);
-  color: #ffffff;
-  transition: background-color var(--c-brand-light);
-  box-sizing: border-box;
-  cursor: pointer;
-  &:hover {
-    background-color: var(--c-brand-light);
-    color: #ffffff;
-    transition: all 0.2s;
-  }
-}
 .post-subscribe {
   .subscribe {
     width: 100%;
     padding: 0;
-    .button {
-      font-size: inherit;
-      border: none;
-      cursor: pointer;
-      background: var(--c-brand);
-      color: #fff;
-      padding: 0.6rem 1.2rem;
-      box-sizing: border-box;
-      border-radius: 3px;
-      width: 100%;
-      outline: none;
-      text-transform: none;
-      font-weight: 400;
-      height: auto;
-    }
   }
   .subscribe-input {
     background-color: #fff;
@@ -184,23 +142,22 @@ const email = ref(null);
     width: 100%;
     padding: 0.6rem 1.2rem;
     box-sizing: border-box;
-    border-radius: 3px;
-    margin-bottom: 0.8rem;
+    border-radius: var(--vpl-c-border-radius);
     outline: none;
     height: auto;
     margin: 1em 0;
   }
   .newsletter__wrap {
-    background-color: var(--c-brand-bg);
+    background-color: var(--vp-c-brand-soft);
   }
-  @media (max-width: $MQMobile) {
+  @media (max-width: 767px) {
     .post-subscribe .subscribe-form {
       display: block;
     }
   }
 }
 
-@media (max-width: $MQMobileNarrow) {
+@media (max-width: 420px) {
   .newsletter {
     padding-left: 0;
     padding-right: 0;

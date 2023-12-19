@@ -3,7 +3,12 @@
     v-if="hasJobs"
     class="jobs"
   >
-    <span class="header">Jobs</span>
+    <span
+      v-if="props.title"
+      class="ad-header"
+    >
+      {{ props.title }}
+    </span>
     <div
       v-for="(job, index) in jobs"
       :key="index"
@@ -33,32 +38,42 @@
 
 <script setup>
 import {computed} from 'vue';
-import {useThemeData} from '@vuepress/plugin-theme-data/client';
+import {useData} from 'vitepress';
 
-// Get theme data
-const themeData = useThemeData();
-// Get relevant config from themedata
-const {jobs} = themeData.value;
+const props = defineProps({
+  title: {
+    required: true,
+    type: [String, Boolean],
+    default: 'Jobs',
+  },
+});
+
+const {theme, frontmatter} = useData();
+const jobs = frontmatter.value.jobs ?? theme.value.jobs ?? [];
+
 // Compute whether we end up with any jobs or not
-const hasJobs = computed(() => jobs.length > 0);
+const hasJobs = computed(() => jobs !== false && jobs.length > 0);
+
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/main.scss';
 .job {
-  background-color: var(--c-bg-lighter);
+  background-color: var(--vp-c-bg-alt);
   padding: 10px;
-  border-radius: 3px;
+  border-radius: var(--vpl-c-border-radius);
   font-weight: 400;
   margin-bottom: 10px;
   a {
+    text-decoration: none;
     display: flex;
     align-items: center;
-    color: var(--c-text-light);
+    color: var(--vp-c-text-1);
+    font-weight: 700;
   }
   .job-image {
     width: 34px;
     margin-right: 5px;
+    text-decoration: none;
     img {
       max-height: 24px;
       max-width: 24px;
@@ -68,15 +83,12 @@ const hasJobs = computed(() => jobs.length > 0);
     width: 100%;
     .job-title {
       font-size: 14px;
-      font-weight: 400;
-      a {
-        color: var(--c-brand);
-      }
     }
     .job-aux {
-      color: var(--c-text-quote);
       font-size: 10px;
       letter-spacing: .3px;
+      color: var(--vp-c-brand-1);
+      font-weight: 400;
     }
   }
 }

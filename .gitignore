@@ -78,7 +78,8 @@ typings/
 # legacy vitepress build output and temp dirs
 _site
 
-# vitepress dirs
+# vitepress thangs
 docs/.vitepress/.temp
 docs/.vitepress/cache
 docs/.vitepress/dist
+docs/.vitepress/config.js.timestamp-*-*.mjs

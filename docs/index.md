@@ -2,9 +2,29 @@
 description: VuePress 2 Default Theme Plus extends the VuePress2 default theme with some extra power and features.
 ---
 
-# Overview
+# VitePress Theme +
 
-This extends the [default VuePress 2 theme](https://v2.vuepress.vuejs.org/reference/default-theme/config.html#basic-config) with some extra power and features such as:
+This extends the [VitePress blog theme](https://vitepressblog.dev) and by extension the [VitePress default theme](https://vitepress.dev) with some extra power and features such as:
+
+### Global Components
+
+In addition to the default theme [Badge](https://vitepress.dev/reference/default-theme-badge) component we add the following extra global components:
+
+:::: warning
+::: half
+* [Jobs](./components/jobs)
+* [MailChimp](./components/mailchimp)
+:::
+::: half
+* [Sponsors](./components/sponsors)
+* [YouTube](./components/youtube)
+:::
+::::
+
+## NavBar
+
+## Tracking
+
 
 * Easily distributable default config sets and shared navbar items
 * Additional `containers` to help spruce up your Markdown
@@ -17,7 +37,6 @@ This extends the [default VuePress 2 theme](https://v2.vuepress.vuejs.org/refere
 * Automatically generated and customizable _Previous Versions_ page
 * Automatically generated and customizable _Contributorz_ page
 * Additional `Guide` page type
-* Additional global components for `YouTube`,  `MailChimp`, `Jobs` and `Sponsors`
 * A top-of-page alert banner
 * `robots.txt` and `sitemap.xml` generation
 * Customizable `columns` for `Navbar` subitems
