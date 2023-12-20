@@ -1,19 +1,17 @@
 import './styles/vars.scss';
 import './styles/styles.scss';
 
-import {h} from 'vue';
 import {VPBTheme} from '@jcamp/vitepress-blog-theme';
 import {enhanceAppWithTabs} from 'vitepress-plugin-tabs/client';
 
+// layouts
+import Layout from './components/VPLLayout.vue';
 
 // global components
 import VPLJobs from './components/VPLJobs.vue';
 import VPLMailChimp from './components/VPLMailChimp.vue';
 import VPLSponsors from './components/VPLSponsors.vue';
 import VPLYouTube from './components/VPLYouTube.vue';
-
-// layout
-// import Layout from './Layout.vue'
 
 // components
 // export { default as VPImage } from './components/VPImage.vue'
@@ -33,11 +31,7 @@ import VPLYouTube from './components/VPLYouTube.vue';
 const theme = {
   ...VPBTheme,
   extends: VPBTheme,
-  Layout: () => {
-    return h(VPBTheme.Layout, null, {
-    // https://vitepress.dev/guide/extending-default-theme#layout-slots
-    });
-  },
+  Layout,
   enhanceApp({app, router, siteData}) {
     // call the base themes enhanceApp
 

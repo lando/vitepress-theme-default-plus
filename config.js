@@ -14,6 +14,7 @@ import {defineConfig as parentDefineConfig} from '@jcamp/vitepress-blog-theme/co
 import {tabsMarkdownPlugin} from 'vitepress-plugin-tabs';
 
 const defaults = (config = {}) => ({
+  alert: false,
   containers: {
     'brand': {defaultTitle: 'BRAND'},
     'box': {},
@@ -33,7 +34,9 @@ const defaults = (config = {}) => ({
     'third': {},
     'thumbnail': {},
   },
+  jobs: false,
   markdown: {},
+  sponsors: false,
 });
 
 const parseTabsParams = input => {

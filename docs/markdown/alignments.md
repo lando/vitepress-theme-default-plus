@@ -1,5 +1,7 @@
 ---
 description: Learn about custom alignment markdown containers in VitePress Default Theme +
+jobs: false
+sponsors: false
 ---
 
 # Alignment Containers

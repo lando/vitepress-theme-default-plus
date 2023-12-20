@@ -72,7 +72,6 @@ const props = defineProps({
     },
   },
   title: {
-    required: true,
     type: [String, Boolean],
     default: 'SPONSORS',
   },

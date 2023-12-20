@@ -1,13 +1,19 @@
 html.alert {
-  --alert-height: 40px;
-  .navbar {
-    top: var(--alert-height);
+  --vpl-alert-height: 40px;
+  .alert-content {
+    a {
+      font-weight: 700;
+      text-decoration: underline;;
+    }
   }
-  .sidebar {
-    top: calc(var(--navbar-height) + var(--alert-height));
+
+  .VPNav, .VPLocalNav, .VPSidebar, .VPContent  {
+    top: var(--vpl-alert-height);
   }
-  .page-wrapper-outer {
-    padding-top: calc(var(--navbar-height) + var(--alert-height) + 50px);
+  .VPContent .container {
+    .content, aside {
+      margin-top: var(--vpl-alert-height);
+    }
   }
 }
 
@@ -458,6 +464,14 @@ form.netlify {
   &.custom-block {
     margin: 0;
   }
+}
+
+.VPDocAsideOutline.has-outline {
+  margin-bottom: 16px;
+}
+
+.VPSocialLink:hover {
+  color: var(--vp-c-brand-1) !important;
 }
 
 @media (max-width: 767px) {

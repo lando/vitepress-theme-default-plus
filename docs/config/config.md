@@ -25,100 +25,7 @@ export default defineUserConfig({
 
 And here is our special config:
 
-## Generic Config
-
-#### alias
-
-* Type: `Object`
-
-* Default: `{}`
-
-* Details:
-
-  This allows the user to override any downstream components with their own. [See this](https://v2.vuepress.vuejs.org/advanced/cookbook/making-a-theme-extendable.html#component-aliases).
-
-* Example:
-
-  ```js
-  alias: {
-    '@theme/Home.vue': './Home.vue'),
-  },
-  ```
-
-#### baseUrl
-
-* Type: `String`
-
-* Default: `null`
-
-* Example: `baseUrl: "https://docs.lando.dev"`
-
-* Details:
-
-  This allows external links to the specified `baseUrl` to be experentially treated like internal links. This is useful if you have multiple VuePress sites that are all tied together into a single domain experient a la Netlify's rewrite functionality.
-
-  If you don't understand what that is or you only have a single docs site then its best to just ignore this one.
-
-#### contributorsExclude
-
-* Type: `Array`
-
-* Default: `[]`
-
-* Example:
-
-  ```js
-  contributorsExclude: [
-    'Mike Pirog',
-    'dependabot[bot]',
-  ]
-  ```
-
-* Details:
-
-  This allows you to filter out some contributors from where contributors show up eg `CustomPageMeta` and `GuideHeader`. Note that unlike `contributorsPage.exclude` this is **NOT NECCESARILY** a GitHub username so take care to get the contributor name right.
-
-#### defaults
-
-* Type: `Object`
-
-* Default: [Here](https://github.com/lando/vuepress-theme-default-plus/blob/main/config/defaults.js)
-
-* Example:
-
-  ```js
-  defaults: {
-    ga: {
-      id: 'SOME ID',
-    },
-  }
-  ````
-
-* Details:
-
-  This allows you to easily extend this theme with defaults that make more sense for you. This lets you distribute common config to all the things that use it like Google Analytics IDs, shared navbar items, etc.
-
-#### sharedNavbar
-
-* Type: `Array`
-
-* Default: `[]`
-
-* Example:
-
-  ```js
-  sharedNavbar: [
-    {text: 'GitHub2', link: 'https://github.com/lando/vuepress-theme-default-plus/'},
-  ],
-  ```
-
-* Details:
-
-  This prepends a bunch of entries to the usual `navbar` and follows the same format. It is usually used in combination with `baseUrl` to bring its "treat like internal link" functionality to the `navbar`. It also is useful if you want to extend this theme deploy a shared navbar
-
 ## Alert
-
-#### alert
 
 * Type: `Object || Boolean`
 
@@ -129,21 +36,22 @@ And here is our special config:
   ```js
   alert: {
     content: 'Are you looking for the 3.x docs? You can go to them <a href="/3.x">here</a>.',
-    scheme: 'neutral',
+    type: 'tip',
     closeable: true,
   },
   ```
 
 * Details:
 
-  This will print an alert at the top of the page. You can pass in HTML content allow "dangerous things" will be stripped.
+  This will print an alert at the top of the page. You can pass in `<HTML>` content but _dangerous things_ will be stripped.
 
   Setting `closeable` to false will persist the alert and not let the user dismiss it.
 
-  You can set a `scheme` for the alert which will append the `alert-scheme-SCHEME` class to the alert container eg `alert-scheme-success`. We have provided the following schemes by default: `danger|warning|tip|neutral|success`. If you
-  specify a different scheme you will want to make sure to provide the `alert-scheme-MYSCHEME` class.
+  You can set a `type` for the alert which will append the `alert-TYPE` class to the alert container eg `alert-success`. We have provided the following types by default: `brand|danger|tip|info|success|warning`.
 
-  You can also configure the `alert` height with the `--alert-height` pallette variable.
+  If you specify a different type you will want to make sure to provide the `alert-TYPE` class.
+
+  You can also configure the `alert` height with the `--vpl-alert-height` css variable.
 
 ## Autometa
 
@@ -165,27 +73,6 @@ And here is our special config:
 * Details:
 
   Set this if you care about the theme automatically generating common metatags.
-
-## Carbon Ads
-
-#### carbonAds
-
-* Type: `Object || Boolean`
-
-* Default:
-
-  ```js
-  carbonAds: false
-  ```
-
-* Example:
-
-  ```js
-  carbonAds: {
-    placement: 'landodev',
-    serve: 'CE7DCKJU',
-  },
-  ```
 
 ## Contributors Page
 
@@ -424,41 +311,6 @@ To use the `policies` option, make sure both `disallowAll` and `allowAll` are se
 
 You can specify `host` and `sitemap` directly. If you omit them the theme will attempt to set them if it can and it makes sense.
 
-## Search
-
-#### search
-
-* Type: `Object || Boolean`
-
-* Default:
-
-  ```js
-  search: false
-  ```
-
-* Example:
-
-  `Docsearch`
-  ```js
-  search: {
-    appId: 'BH4D9OD16A',
-    apiKey: '15e332feefe9ec96929f44c62f6c88',
-    indexName: 'lando',
-    searchBase: 'https://docs.lando.dev',
-  },
-  ```
-
-  `default search`
-  ```js
-  search: true
-  ```
-
-* Details:
-
-Set to `true` to turn on the default search functionality. If you wish to leverage [Docsearch](https://docsearch.algolia.com/) then you also need to pass in an `appId, `apiKey` and `indexName`.
-
-Note that if you want to search across many sites that operate under a single domain then you will also need to set the `searchBase`. If you have not set `searchBase` it will use `baseUrl` instead.
-
 ## Sidebar Header
 
 #### sidebarHeader
@@ -542,43 +394,6 @@ sitemap:
   priority: 1.0
 ---
 ```
-
-## Social
-
-#### social
-
-* Type: `Object || Boolean`
-
-* Default:
-
-  ```js
-  social: false
-  ```
-
-* Example:
-
-  ```js
-  social: {
-    enabled: true,
-    owner: '@devwithlando',
-    icons: [{
-      title: 'Twitter',
-      svg: {
-        attributes: {
-          'viewBox': '0 0 24 24',
-          'fill': 'none',
-          'stroke-width': 2,
-          'stroke-linecap': 'round',
-          'stroke-linejoin': 'round',
-        },
-        path: {
-          d: 'M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z',
-        },
-      },
-      link: 'https://twitter.com/devwithlando',
-    },
-  },
-  ```
 
 ## Sponsors
 
@@ -711,3 +526,95 @@ sitemap:
   `trimLatest` will pop off the most recent version. `showEdge` can be either a URL or `true`.
 
   You can also specify `satisfies` which is a [semver](https://github.com/npm/node-semver) comparision string. This will only show the satisfied subset of `data.name` versions.
+
+
+## Generic Config
+
+#### alias
+
+* Type: `Object`
+
+* Default: `{}`
+
+* Details:
+
+  This allows the user to override any downstream components with their own. [See this](https://v2.vuepress.vuejs.org/advanced/cookbook/making-a-theme-extendable.html#component-aliases).
+
+* Example:
+
+  ```js
+  alias: {
+    '@theme/Home.vue': './Home.vue'),
+  },
+  ```
+
+#### baseUrl
+
+* Type: `String`
+
+* Default: `null`
+
+* Example: `baseUrl: "https://docs.lando.dev"`
+
+* Details:
+
+  This allows external links to the specified `baseUrl` to be experentially treated like internal links. This is useful if you have multiple VuePress sites that are all tied together into a single domain experient a la Netlify's rewrite functionality.
+
+  If you don't understand what that is or you only have a single docs site then its best to just ignore this one.
+
+#### contributorsExclude
+
+* Type: `Array`
+
+* Default: `[]`
+
+* Example:
+
+  ```js
+  contributorsExclude: [
+    'Mike Pirog',
+    'dependabot[bot]',
+  ]
+  ```
+
+* Details:
+
+  This allows you to filter out some contributors from where contributors show up eg `CustomPageMeta` and `GuideHeader`. Note that unlike `contributorsPage.exclude` this is **NOT NECCESARILY** a GitHub username so take care to get the contributor name right.
+
+#### defaults
+
+* Type: `Object`
+
+* Default: [Here](https://github.com/lando/vuepress-theme-default-plus/blob/main/config/defaults.js)
+
+* Example:
+
+  ```js
+  defaults: {
+    ga: {
+      id: 'SOME ID',
+    },
+  }
+  ````
+
+* Details:
+
+  This allows you to easily extend this theme with defaults that make more sense for you. This lets you distribute common config to all the things that use it like Google Analytics IDs, shared navbar items, etc.
+
+#### sharedNavbar
+
+* Type: `Array`
+
+* Default: `[]`
+
+* Example:
+
+  ```js
+  sharedNavbar: [
+    {text: 'GitHub2', link: 'https://github.com/lando/vuepress-theme-default-plus/'},
+  ],
+  ```
+
+* Details:
+
+  This prepends a bunch of entries to the usual `navbar` and follows the same format. It is usually used in combination with `baseUrl` to bring its "treat like internal link" functionality to the `navbar`. It also is useful if you want to extend this theme deploy a shared navbar

@@ -2,20 +2,31 @@
 :root {
   --vp-c-pink-1: #dd3f8f;
   --vp-c-pink-2: #dd3f8f;
-  --vp-c-pink-3: #dd3f8f;
+  --vp-c-pink-3: #db2777;
   --vp-c-pink-soft: rgba(221, 63, 143, 0.14);
   --vp-c-pink-hard: rgba(calc(221 * .66), calc(63 * .66), calc(143 * .66), 1);
 
   --vp-c-sponsor: #db2777;
 }
 
+// soft and hexy
+// we need this mostly for alerts because they cannot be transparent
+:root {
+  --vp-c-gray-soft-hex: #eff0f3;
+  --vp-c-green-soft-hex: #ddf5ed;
+  --vp-c-indigo-soft-hex: #e9eaff;
+  --vp-c-pink-soft-hex: #fae4ef;
+  --vp-c-red-soft-hex: #fde4e8;
+  --vp-c-yellow-soft-hex: #fcf4dc;
+}
+
 // hard colors
 :root {
   --vp-c-gray-hard: rgba(calc(142 * .66), calc(150 * .66), calc(170 * .66), 1);
-  --vp-c-indigo-hard: rgba(calc(100 * .66), calc(108 * .66), calc(255 * .66), 1);
   --vp-c-green-hard: rgba(calc(16 * .66), calc(185 * .66), calc(129 * .66), 1);
-  --vp-c-yellow-hard: rgba(calc(234 * .66), calc(179 * .66), calc(8 * .66), 1);
+  --vp-c-indigo-hard: rgba(calc(100 * .66), calc(108 * .66), calc(255 * .66), 1);
   --vp-c-red-hard: rgba(calc(244 * .66), calc(63 * .66), calc(94 * .66), 1);
+  --vp-c-yellow-hard: rgba(calc(234 * .66), calc(179 * .66), calc(8 * .66), 1);
 }
 
 .dark {
@@ -25,12 +36,19 @@
   --vp-c-yellow-hard: rgba(calc(234 * .95), calc(179 * .95), calc(8 * .95), 1);
   --vp-c-red-hard: rgba(calc(244 * .95), calc(63 * .95), calc(94 * .95), 1);
   --vp-c-pink-hard: rgba(calc(221 * .95), calc(63 * .95), calc(143 * .95), 1);
+  --vp-c-gray-soft-hex: #272a2f;
+  --vp-c-green-soft-hex: #19352f;
+  --vp-c-indigo-soft-hex: #282843;
+  --vp-c-pink-soft-hex: #36202f;
+  --vp-c-red-soft-hex: #3e2029;
+  --vp-c-yellow-soft-hex: #3d341f;
+
 }
 
 // colors
 :root {
   --vp-c-default-hard: var(--vp-c-gray-hard);
-  --vp-c-brand-hard: var(--vp-c-indigo-hard);
+  --vp-c-brand-hard: var(--vp-c-pink-hard);
   --vp-c-tip-hard: var(--vp-c-brand-hard);
   --vp-c-warning-hard: var(--vp-c-yellow-hard);
   --vp-c-danger-hard: var(--vp-c-red-hard);
@@ -40,6 +58,7 @@
   --vp-c-brand-3: var(--vp-c-pink-3) !important;
   --vp-c-brand-soft: var(--vp-c-pink-soft) !important;
   --vp-c-brand-hard: var(--vp-c-pink-hard) !important;
+  --vp-c-brand-soft-hex: var(--vp-c-pink-soft-hex) !important;
 
   /* DEPRECATED: Use `--vp-c-brand-1` instead. */
   --vp-c-brand: var(--vp-c-brand-1) !important;

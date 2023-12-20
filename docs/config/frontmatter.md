@@ -6,6 +6,29 @@ description: Learn the frontmatter options for VuePress2 Default Theme Plus.
 
 Note that the below are _in addition_ to the [options](https://vitepress.dev/reference/frontmatter-config) from the default theme.
 
+## alert
+
+* Type: `Boolean || Object`
+
+* Default:
+
+  ```yaml
+  alert: false
+  ```
+
+* Details:
+
+  Configure the visibility or content of the `<Alert>` component on a given page.
+
+* Example
+
+  ```yaml
+  alert:
+    content: VIBES RISING
+    type: 'success'
+    closeable: false
+  ```
+
 ## jobs
 
 * Type: `Boolean ||  Array[Object]`
@@ -106,18 +129,6 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
   ```
 
   Sets the given tags for the page. Each tag will also get it's own page that lists all the content tagged with the given tag. You can also set `tags: false` but usually its best to just omit `tags` altogether.
-
-## toc
-
-* Type: `Boolean`
-
-* Default:
-
-  ```yaml
-  toc: true
-  ```
-
-  Configure the visibility of the table of contents on a given page.
 
 ## Guides
 

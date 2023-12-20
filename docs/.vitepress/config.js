@@ -1,7 +1,7 @@
 import {resolve, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {readFileSync} from 'node:fs';
-import {load} from 'js-yaml';
+// import {readFileSync} from 'node:fs';
+// import {load} from 'js-yaml';
 
 import {defineConfig} from '../../config';
 
@@ -28,47 +28,74 @@ export default defineConfig({
     },
   },
   themeConfig: {
-    // dev
-    jobs: [
-      {
-        title: 'Lando Developer',
-        logo: 'https://docs.lando.dev/images/icon.svg',
-        link: 'https://docs.google.com/forms/d/e/1FAIpQLSc2vkesq59BblKo8ZX-R1hKTrHphh1kmsg4FgWV1WH5BKEjHQ/viewform',
-        company: 'Lando System Inc',
-        aux: 'DC, Remote',
-      },
-    ],
-    // Sponsors
-    sponsors: {
-      text: 'your logo?',
-      link: 'https://lando.dev/sponsor',
-      data: load(readFileSync(resolve(__dirname, '..', '..', 'sponsors.yml'), 'utf8')),
-    },
+    // blog: {
+    //   title: 'My AI Written Blog',
+    //   description: 'All these articles were written by AI!',
+    //   defaultAuthor: 'AI Writer',
+    //   categoryIcons: {
+    //     article: 'i-[heroicons-outline/book-open]',
+    //     tutorial: 'i-[heroicons-outline/academic-cap]',
+    //     document: 'i-[heroicons-outline/annotation]',
+    //   },
+    //   tagIcons: {
+    //     github: 'i-[carbon/logo-github]',
+    //     vue: 'i-[carbon/logo-vue]',
+    //   },
+    // },
 
-    // site
+    // core
     logo: {src: '/images/vitepress-lando-logo-icon.png', width: 24, height: 24},
-    editLink: {
-      pattern: 'https://github.com/lando/vitepress-theme-default-plus/edit/main/docs/:path',
-    },
+    editLink: {pattern: 'https://github.com/lando/vitepress-theme-default-plus/edit/main/docs/:path'},
 
-    blog: {
-      title: 'My AI Written Blog',
-      description: 'All these articles were written by AI!',
-      defaultAuthor: 'AI Writer',
-      categoryIcons: {
-        article: 'i-[heroicons-outline/book-open]',
-        tutorial: 'i-[heroicons-outline/academic-cap]',
-        document: 'i-[heroicons-outline/annotation]',
-      },
-      tagIcons: {
-        github: 'i-[carbon/logo-github]',
-        vue: 'i-[carbon/logo-vue]',
-      },
+    // extended
+    // alert: {
+    //   content: 'Are you looking for the 3.x docs? You can go to them <a href="https://google.com/3.x">here</a>.',
+    //   type: 'warning',
+    //   closeable: true,
+    // },
+    carbonAds: {
+      code: 'CE7DCKJU',
+      placement: 'landodev',
     },
+    // jobs: [
+    //   {
+    //     title: 'Lando Developer',
+    //     logo: 'https://docs.lando.dev/images/icon.svg',
+    //     link: 'https://docs.google.com/forms/d/e/1FAIpQLSc2vkesq59BblKo8ZX-R1hKTrHphh1kmsg4FgWV1WH5BKEjHQ/viewform',
+    //     company: 'Lando System Inc',
+    //     aux: 'DC, Remote',
+    //   },
+    // ],
     search: {
       provider: 'local',
     },
-    // https://vitepress.dev/reference/default-theme-config
+    socialLinks: [
+      {
+        icon: 'github',
+        link: 'https://github.com/lando/vitepress-theme-default-plus',
+      },
+      {
+        icon: 'twitter',
+        link: 'https://twitter.com/@devwithlando',
+      },
+      {
+        icon: 'youtube',
+        link: 'https://www.youtube.com/channel/UCl_QBNuGJNoo7yH-n18K7Kg',
+      },
+      {
+        icon: {
+          svg: '<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Dribbble</title><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+        },
+        link: 'https://lando.dev/sponsor',
+      },
+    ],
+    // sponsors: {
+    //   text: 'your logo?',
+    //   link: 'https://lando.dev/sponsor',
+    //   data: load(readFileSync(resolve(__dirname, '..', '..', 'sponsors.yml'), 'utf8')),
+    // },
+
+    // NAV
     nav: [
       {
         text: 'Getting Started',
@@ -151,13 +178,6 @@ export default defineConfig({
         {text: 'Release Notes', link: 'https://github.com/lando/vuepress-theme-default-plus/releases'},
       ],
     },
-
-    socialLinks: [
-      {
-        icon: 'github',
-        link: 'https://github.com/jcamp-code/vitepress-blog-theme',
-      },
-    ],
   },
 });
 
