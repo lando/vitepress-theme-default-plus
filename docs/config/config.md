@@ -167,15 +167,7 @@ And here is our special config:
 
 ## Navbar
 
-#### navbar
-
-* Type: `Object`
-
-* Default:
-
-  ```js
-  columns: 3
-  ```
+* Type: `Array[Object]`
 
 * Example:
 
@@ -184,11 +176,11 @@ And here is our special config:
     ...
     {
       text: 'Recipes',
-      children: [
+      items: [
         {
           text: 'Hosting Integrations',
           columns: 2,
-          children: [
+          items: [
             {
               text: 'Acquia',
               link: 'https://docs.lando.dev/acquia',
@@ -215,7 +207,7 @@ And here is our special config:
         },
         {
           text: 'PHP Frameworks',
-          children: [
+          items: [
             {
               text: 'Backdrop',
               link: 'https://docs.lando.dev/backdrop',
@@ -229,7 +221,7 @@ And here is our special config:
 
 * Details:
 
-  Note that `columns` currently only works with "subitems" eg children that are expressed in "sections" as in the example above.
+  Note that `columns` currently only works with "items" eg children that are expressed in "sections" as in the example above.
 
   You can add the optional `alert` to any child item. This will add a stylized and expiring badge before the link with text of your choosing. If you make `alert` a `string` it will use that as the badge text. If you make `alert` an `object` you can also customize the style and the expiration date of the alert.
 

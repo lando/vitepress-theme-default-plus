@@ -90,6 +90,14 @@ export function defineConfig(userConfig = {}) {
   });
   debug('replaced vitepress/theme VPMenuGroup.vue with %o', customVPMG);
 
+  // swap out VPMenuGroup for higer vibes
+  const customVPNBMG = fileURLToPath(new URL('./components/VPLNavBarMenuGroup.vue', import.meta.url));
+  config.vite.resolve.alias.push({
+    find: /^.*\/VPNavBarMenuGroup\.vue$/,
+    replacement: customVPNBMG,
+  });
+  debug('replaced vitepress/theme VPNavBarMenuGroup.vue with %o', customVPNBMG);
+
   // if we have internalDomains then patch VPLink.vue so it also considers a list of domains as "internal"
   if (Array.isArray(themeConfig.internalDomains) && themeConfig.internalDomains.length > 0) {
     config.vite.plugins.push({
