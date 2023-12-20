@@ -64,8 +64,13 @@ export function defineConfig(userConfig = {}) {
   if (typeof themeConfig.internalDomains === 'string') themeConfig.internalDomains = [themeConfig.internalDomains];
   themeConfig.internalDomains = [...themeConfig.internalDomain, ...themeConfig.internalDomains];
 
+  // allow our stuff to use default theme stuff
+  config.vite.resolve.alias.push({
+    find: '@default-theme',
+    replacement: fileURLToPath(new URL('./node_modules/vitepress/dist/client/theme-default', import.meta.url)),
+  });
+
   // patch VPMenu to handle columns
-  debug('patching VPMenu.vue so VPMenuGroup.vue can handle columns');
   config.vite.plugins.push({
     name: 'vpmenugroup-columns',
     enforce: 'pre',
@@ -75,22 +80,18 @@ export function defineConfig(userConfig = {}) {
       }
     },
   });
+  debug('patched vitepress/theme VPMenu.vue so VPMenuGroup.vue can handle columns');
 
   // swap out VPMenuGroup for higer vibes
-  config.vite.resolve.alias.push(
-    {
-      find: '@default-theme',
-      replacement: fileURLToPath(new URL('./node_modules/vitepress/dist/client/theme-default', import.meta.url)),
-    },
-    {
-      find: /^.*\/VPMenuGroup\.vue$/,
-      replacement: fileURLToPath(new URL('./components/VPLMenuGroup.vue', import.meta.url)),
-    },
-  );
+  const customVPMG = fileURLToPath(new URL('./components/VPLMenuGroup.vue', import.meta.url));
+  config.vite.resolve.alias.push({
+    find: /^.*\/VPMenuGroup\.vue$/,
+    replacement: customVPMG,
+  });
+  debug('replaced vitepress/theme VPMenuGroup.vue with %o', customVPMG);
 
   // if we have internalDomains then patch VPLink.vue so it also considers a list of domains as "internal"
   if (Array.isArray(themeConfig.internalDomains) && themeConfig.internalDomains.length > 0) {
-    debug('patching VPLink.vue to whitelist %o', themeConfig.internalDomains);
     config.vite.plugins.push({
       name: 'make-all-internal',
       enforce: 'pre',
@@ -102,13 +103,8 @@ export function defineConfig(userConfig = {}) {
         }
       },
     });
+    debug('patched vitepress/theme VPLink.vue to whitelist %o', themeConfig.internalDomains);
   }
-
-  // debug here so we dont get duplicates
-  for (const [name, opts] of Object.entries(themeConfig.containers)) {
-    debug('adding custom markdown container %o with config %o', name, opts);
-  }
-  debug('adding custom markdown container %o with config %o', 'vitepress-plugin-tabs');
 
   // markdown
   config.markdown.config = md => {
@@ -137,6 +133,12 @@ export function defineConfig(userConfig = {}) {
       },
     });
   };
+
+  // debug here so we dont get duplicates
+  for (const [name, opts] of Object.entries(themeConfig.containers)) {
+    debug('added custom markdown container %o with config %o', name, opts);
+  }
+  debug('added custom markdown container %o with config %o', 'vitepress-plugin-tabs');
 
   return defineConfigWithTheme(config);
 }
