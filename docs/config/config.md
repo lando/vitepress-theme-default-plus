@@ -119,9 +119,29 @@ And here is our special config:
 
   If you do not set `repo`, `docsBranch` and `docsDir` explicitly the theme will use `repo`, `docsBranch`, `docsDir` instead.
 
-## Jobs
+## Internal Domains
 
-#### jobs
+* Type: `String || Array[String]`
+
+* Default: `[]`
+
+* Example:
+
+  ```js
+  internalDomains:
+    - 'http://docs.lando.dev'
+    - 'https://docs.lando.dev'
+  ```
+
+* Details:
+
+  This allows external links _starting with_ the specified `internalDomains` to be experentially treated like internal links.
+
+  This is useful if you have multiple VitePress sites that are all tied together into a single domain experience a la Netlify's rewrite functionality.
+
+  If you don't understand what that is or you only have a single docs site then its best to just ignore this one.
+
+## Jobs
 
 * Type: `Object || Boolean`
 
@@ -547,20 +567,6 @@ sitemap:
     '@theme/Home.vue': './Home.vue'),
   },
   ```
-
-#### baseUrl
-
-* Type: `String`
-
-* Default: `null`
-
-* Example: `baseUrl: "https://docs.lando.dev"`
-
-* Details:
-
-  This allows external links to the specified `baseUrl` to be experentially treated like internal links. This is useful if you have multiple VuePress sites that are all tied together into a single domain experient a la Netlify's rewrite functionality.
-
-  If you don't understand what that is or you only have a single docs site then its best to just ignore this one.
 
 #### contributorsExclude
 

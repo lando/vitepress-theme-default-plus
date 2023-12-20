@@ -6,6 +6,7 @@ import Debug from 'debug';
 
 import {defineConfigWithTheme} from 'vitepress';
 import {default as createContainer} from './utils/create-container';
+import {fileURLToPath} from 'node:url';
 
 // parents
 import {defineConfig as parentDefineConfig} from '@jcamp/vitepress-blog-theme/config';
@@ -14,29 +15,37 @@ import {defineConfig as parentDefineConfig} from '@jcamp/vitepress-blog-theme/co
 import {tabsMarkdownPlugin} from 'vitepress-plugin-tabs';
 
 const defaults = (config = {}) => ({
-  alert: false,
-  containers: {
-    'brand': {defaultTitle: 'BRAND'},
-    'box': {},
-    'box-blue': {},
-    'box-brand': {},
-    'box-green': {},
-    'box-red': {},
-    'box-yellow': {},
-    'caption': {},
-    'card': {},
-    'center': {},
-    'half': {},
-    'highlight': {},
-    'left': {},
-    'right': {},
-    'success': {defaultTitle: 'SUCCESS'},
-    'third': {},
-    'thumbnail': {},
+  themeConfig: {
+    alert: false,
+    containers: {
+      'brand': {defaultTitle: 'BRAND'},
+      'box': {},
+      'box-blue': {},
+      'box-brand': {},
+      'box-green': {},
+      'box-red': {},
+      'box-yellow': {},
+      'caption': {},
+      'card': {},
+      'center': {},
+      'half': {},
+      'highlight': {},
+      'left': {},
+      'right': {},
+      'success': {defaultTitle: 'SUCCESS'},
+      'third': {},
+      'thumbnail': {},
+    },
+    internalDomain: [],
+    internalDomains: [],
+    jobs: false,
+    sponsors: false,
   },
-  jobs: false,
   markdown: {},
-  sponsors: false,
+  vite: {
+    resolve: {alias: []},
+    plugins: [],
+  },
 });
 
 const parseTabsParams = input => {
@@ -47,10 +56,56 @@ const parseTabsParams = input => {
 export function defineConfig(userConfig = {}) {
   const debug = Debug('@lando/vpltheme'); // eslint-disable-line
   const config = merge({}, defaults(), parentDefineConfig(), userConfig);
+  const {themeConfig} = config;
   debug('initial vitepress configuration %O', config);
 
+  // normalize things
+  if (typeof themeConfig.internalDomain === 'string') themeConfig.internalDomain = [themeConfig.internalDomain];
+  if (typeof themeConfig.internalDomains === 'string') themeConfig.internalDomains = [themeConfig.internalDomains];
+  themeConfig.internalDomains = [...themeConfig.internalDomain, ...themeConfig.internalDomains];
+
+  // patch VPMenu to handle columns
+  debug('patching VPMenu.vue so VPMenuGroup.vue can handle columns');
+  config.vite.plugins.push({
+    name: 'vpmenugroup-columns',
+    enforce: 'pre',
+    transform: (code, id) => {
+      if (id.endsWith('VPMenu.vue')) {
+        return code.replace(':items="item.items"', ':items="item.items" :columns="item.columns"');
+      }
+    },
+  });
+
+  // swap out VPMenuGroup for higer vibes
+  config.vite.resolve.alias.push(
+    {
+      find: '@default-theme',
+      replacement: fileURLToPath(new URL('./node_modules/vitepress/dist/client/theme-default', import.meta.url)),
+    },
+    {
+      find: /^.*\/VPMenuGroup\.vue$/,
+      replacement: fileURLToPath(new URL('./components/VPLMenuGroup.vue', import.meta.url)),
+    },
+  );
+
+  // if we have internalDomains then patch VPLink.vue so it also considers a list of domains as "internal"
+  if (Array.isArray(themeConfig.internalDomains) && themeConfig.internalDomains.length > 0) {
+    debug('patching VPLink.vue to whitelist %o', themeConfig.internalDomains);
+    config.vite.plugins.push({
+      name: 'make-all-internal',
+      enforce: 'pre',
+      transform: (code, id) => {
+        if (id.endsWith('VPLink.vue')) {
+          const replacee = 'EXTERNAL_URL_RE.test(props.href)';
+          const okdomains = themeConfig.internalDomains.map(domain => `!props.href.startsWith('${domain}')`);
+          return code.replace(replacee, `(${replacee} && ${okdomains.join(' && ')})`);
+        }
+      },
+    });
+  }
+
   // debug here so we dont get duplicates
-  for (const [name, opts] of Object.entries(config.containers)) {
+  for (const [name, opts] of Object.entries(themeConfig.containers)) {
     debug('adding custom markdown container %o with config %o', name, opts);
   }
   debug('adding custom markdown container %o with config %o', 'vitepress-plugin-tabs');
@@ -58,7 +113,7 @@ export function defineConfig(userConfig = {}) {
   // markdown
   config.markdown.config = md => {
     // add custom markdown containers, including tabs
-    for (const [name, opts] of Object.entries(config.containers)) {
+    for (const [name, opts] of Object.entries(themeConfig.containers)) {
       md.use(...createContainer(name, opts, md));
     }
 
