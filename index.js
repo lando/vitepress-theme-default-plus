@@ -14,19 +14,13 @@ import VPLSponsors from './components/VPLSponsors.vue';
 import VPLYouTube from './components/VPLYouTube.vue';
 
 // components
-// export { default as VPImage } from './components/VPImage.vue'
-// export { default as VPButton } from './components/VPButton.vue'
-// export { default as VPHomeHero } from './components/VPHomeHero.vue'
-// export { default as VPHomeFeatures } from './components/VPHomeFeatures.vue'
-// export { default as VPHomeSponsors } from './components/VPHomeSponsors.vue'
-// export { default as VPDocAsideSponsors } from './components/VPDocAsideSponsors.vue'
-// export { default as VPSponsors } from './components/VPSponsors.vue'
-// export { default as VPTeamPage } from './components/VPTeamPage.vue'
-// export { default as VPTeamPageTitle } from './components/VPTeamPageTitle.vue'
-// export { default as VPTeamPageSection } from './components/VPTeamPageSection.vue'
-// export { default as VPTeamMembers } from './components/VPTeamMembers.vue'
+export {default as VPLAlert} from './components/VPLAlert.vue';
+export {default as VPLMenuGroup} from './components/VPLMenuGroup.vue';
+export {default as VPLMenuLink} from './components/VPLMenuLink.vue';
+export {default as VPLNavBarMenuGroup} from './components/VPLNavBarMenuGroup.vue';
 
-// export { useSidebar } from './composables/sidebar'
+// composables
+export {default as isActive} from './utils/is-active';
 
 const theme = {
   ...VPBTheme,

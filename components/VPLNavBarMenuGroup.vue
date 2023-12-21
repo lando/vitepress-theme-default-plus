@@ -24,10 +24,8 @@
 import {computed, toRefs} from 'vue';
 import {useData} from 'vitepress';
 import VPFlyout from '@default-theme/components/VPFlyout.vue';
+import {isActive} from '@lando/vitepress-theme-default-plus';
 
-const EXT_RE = /(index)?\.(md|html)$/;
-const HASH_RE = /#.*$/;
-const inBrowser = typeof document !== 'undefined';
 const {page} = useData();
 
 const props = defineProps({
@@ -38,23 +36,6 @@ const props = defineProps({
 });
 
 const {item} = toRefs(props);
-
-const normalize = path => decodeURI(path).replace(HASH_RE, '').replace(EXT_RE, '');
-
-const isActive = (currentPath, matchPath, asRegex) => {
-  if (matchPath === undefined) return false;
-
-  currentPath = normalize(`/${currentPath}`);
-
-  if (asRegex) return new RegExp(matchPath).test(currentPath);
-  if (normalize(matchPath) !== currentPath) return false;
-
-  const hashMatch = matchPath.match(HASH_RE);
-
-  if (hashMatch) return (inBrowser ? location.hash : '') === hashMatch[0];
-
-  return true;
-};
 
 const flattenTree = (data, collect = []) => {
   // break up children and items

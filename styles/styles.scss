@@ -466,6 +466,29 @@ form.netlify {
   }
 }
 
+.VPBadge {
+  &.success, &.new, &.updated {
+    background-color: var(--vp-c-box-green-soft);
+    color: var(--vp-c-box-green-1);
+  }
+  &.eol, &.danger {
+    background-color: var(--vp-c-box-red-soft);
+    color: var(--vp-c-box-red-1);
+  }
+  &.deprecated, &.warning {
+    background-color: var(--vp-c-box-yellow-soft);
+    color: var(--vp-c-box-yellow-1);
+  }
+  &.brand {
+    background-color: var(--vp-c-box-brand-soft);
+    color: var(--vp-c-box-brand-1);
+  }
+  &.tip {
+    background-color: var(--vp-c-box-indigo-soft);
+    color: var(--vp-c-box-indigo-1);
+  }
+}
+
 .VPDocAsideOutline.has-outline {
   margin-bottom: 16px;
 }

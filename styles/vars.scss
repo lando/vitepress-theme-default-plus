@@ -68,6 +68,18 @@
   --vp-c-success-3: var(--vp-c-green-3);
   --vp-c-success-soft: var(--vp-c-green-soft);
   --vp-c-success-hard: var(--vp-c-green-hard);
+
+  --vp-badge-brand-border: transparent;
+  --vp-badge-brand-text: var(--vp-c-brand-1) !important;
+  --vp-badge-brand-bg: var(--vp-c-brand-soft) !important;
+
+  --vp-badge-tip-border: transparent;
+  --vp-badge-tip-text: var(--vp-c-indigo-1) !important;
+  --vp-badge-tip-bg: var(--vp-c-indigo-soft) !important;
+
+  --vp-badge-success-border: transparent;
+  --vp-badge-success-text: var(--vp-c-green-1) !important;
+  --vp-badge-success-bg: var(--vp-c-green-soft) !important;
 }
 
 // containers

@@ -9,7 +9,7 @@
 
     <div class="VPMenuGroup-flex-wrapper">
       <template v-for="item in props.items">
-        <VPMenuLink
+        <VPLMenuLink
           v-if="'link' in item"
           :key="item.href"
           :item="item"
@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import VPMenuLink from '@default-theme/components/VPMenuLink.vue';
+import {VPLMenuLink} from '@lando/vitepress-theme-default-plus';
 
 const props = defineProps({
   columns: {
@@ -73,19 +73,19 @@ const getItemColumnsClass = columns => {
 }
 
 .VPMenuGroup-columns-full .VPMenuLink {
-  width: 100%;
+  min-width: 100%;
 }
 
 .VPMenuGroup-columns-half .VPMenuLink {
-  width: 50%;
+  min-width: 50%;
 }
 
 .VPMenuGroup-columns-third .VPMenuLink {
-  width: 33%;
+  min-width: 33%;
 }
 
 .VPMenuGroup-columns-quarter .VPMenuLink {
-  width: 25%;
+  min-width: 25%;
 }
 
 .VPMenuGroup:first-child {

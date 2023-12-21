@@ -116,6 +116,20 @@ export default defineConfig({
         text: 'Core',
         items: [
           {
+            text: 'Configuration',
+            link: '/config/config',
+            activeMatch: '/config/|/components/|/markdown',
+          },
+        ],
+      },
+      {
+        text: 'CLI',
+        link: 'https://docs.lando.dev/cli/',
+      },
+      {
+        text: 'Core',
+        items: [
+          {
             text: 'Landofile',
             columns: 3,
             items: [
@@ -139,7 +153,7 @@ export default defineConfig({
                 link: 'https://docs.lando.dev/core/v3/orchestrator.html',
                 alert: {
                   expires: 11697299993000,
-                  type: 'new',
+                  type: 'info',
                   text: 'NEW!',
                 },
               },
@@ -181,6 +195,42 @@ export default defineConfig({
                   text: 'NEW!',
                 },
               },
+            ],
+          },
+        ],
+      },
+      {
+        text: 'Recipes',
+        items: [
+          {
+            text: 'Hosting Integrations',
+            columns: 2,
+            items: [
+              {text: 'Acquia', link: 'https://docs.lando.dev/acquia'},
+              {text: 'Lagoon (beta)', link: 'https://docs.lando.dev/lagoon'},
+              {text: 'Pantheon', link: 'https://docs.lando.dev/pantheon'},
+              {text: 'Platform.sh (beta)', link: 'https://docs.lando.dev/platformsh'},
+            ],
+          },
+          {
+            text: 'PHP Frameworks',
+            columns: 3,
+            items: [
+              {text: 'Backdrop', link: 'https://docs.lando.dev/backdrop'},
+              {text: 'Drupal', link: 'https://docs.lando.dev/drupal'},
+              {text: 'Joomla', link: 'https://docs.lando.dev/joomla'},
+              {text: 'Laravel', link: 'https://docs.lando.dev/laravel'},
+              {text: 'Symfony', link: 'https://docs.lando.dev/symfony'},
+              {text: 'WordPress', link: 'https://docs.lando.dev/wordpress'},
+            ],
+          },
+          {
+            text: 'Stacks',
+            columns: 3,
+            items: [
+              {text: 'LAMP', link: 'https://docs.lando.dev/lamp'},
+              {text: 'LEMP', link: 'https://docs.lando.dev/lemp'},
+              {text: 'MEAN', link: 'https://docs.lando.dev/mean'},
             ],
           },
         ],
@@ -275,7 +325,7 @@ export default defineConfig({
                 link: 'https://docs.lando.dev/compose',
                 alert: {
                   expires: 11697299993000,
-                  type: 'deprecated',
+                  type: 'tip',
                   text: 'DEPRECATED!',
                 },
               },
