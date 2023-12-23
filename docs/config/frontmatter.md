@@ -29,6 +29,29 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
     closeable: false
   ```
 
+## contributors
+
+* Type: `Boolean || Object`
+
+* Default:
+
+  ```yaml
+  contributors: true
+  ```
+
+* Example
+
+  ```yaml
+  contributors: false
+  ```
+
+* Details:
+
+  Configure the visibility or content of the `<Contributors>` component on a given page.
+
+  This thing has a lot of options so check out [this](./config.md#contributors) for more info.
+
+
 ## jobs
 
 * Type: `Boolean ||  Array[Object]`
@@ -38,10 +61,6 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
   ```yaml
   jobs: true
   ```
-
-* Details:
-
-  Configure the visibility or content of the `<Jobs>` component on a given page.
 
 * Example
 
@@ -53,6 +72,11 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
       company: Wayne Enterprises
       aux: Gotham, Remote
   ```
+
+* Details:
+
+  Configure the visibility or content of the `<Jobs>` component on a given page.
+
 
 ## rightbar
 
@@ -93,10 +117,6 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
   sponsors: true
   ```
 
-* Details:
-
-  Configure the visibility or content of the `<Sponsors>` component on a given page.
-
 * Example
 
   ```yaml
@@ -115,6 +135,10 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
         logo: https://upload.wikimedia.org/wikipedia/commons/3/32/Wayne_Enterprises_%28DC_Comics_fictional_logo%29.png
         type: half
   ```
+
+* Details:
+
+  Configure the visibility or content of the `<Sponsors>` component on a given page.
 
 ## tags
 

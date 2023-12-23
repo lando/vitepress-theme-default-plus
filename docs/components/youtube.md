@@ -1,5 +1,13 @@
 ---
 description: Learn about the VitePress Default Theme + global YouTube components.
+contributors:
+  merge: name
+  debotify: true
+  exclude:
+    - John Ouellet <john@thinktandem.io>
+    - name: Bob
+      email: frank@frank.com
+
 ---
 
 # YouTube

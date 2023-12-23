@@ -55,8 +55,6 @@ And here is our special config:
 
 ## Autometa
 
-#### autometa
-
 * Type: `Object || Boolean`
 
 * Default: `false`
@@ -74,9 +72,67 @@ And here is our special config:
 
   Set this if you care about the theme automatically generating common metatags.
 
-## Contributors Page
+## Contributors
 
-#### contributorsPage
+* Type: `Object || Boolean`
+
+* Default: `true`
+
+* Example:
+
+  ```js
+  contributors: {
+    merge: 'name',
+    debotify: true,
+    exclude: [
+      'Mike Pirog <mike@kalamuna.com>',
+      {
+        name: 'Mike Pirog',
+        email: 'mike@kalamuna.com',
+      }
+    ],
+
+    //
+    include: [
+      // include alec with 1 commit
+      'Alec Reynolds <alec@lando.dev>'
+      // include alec with 17 commits
+      '17 Alec Reynolds <alec@lando.dev>',
+      // include alec with ALL AVAILABLE metadata
+      {
+        avatar: 'https://avatars.githubusercontent.com/u/1153738',
+        name: 'Alec Reynolds',
+        commits: 9999,
+        email: 'alec@lando.dev',
+        title: 'Maintainer',
+        org: 'Lando',
+        orgLink: 'https://lando.dev',
+        desc: 'A chill dude',
+        links: [
+          {icon: 'github', link: 'https://github.com/reynoldsalec'},
+          {icon: 'twitter', link: 'https://twitter.com/reynoldsalec'},
+        ],
+        sponsor: 'https://lando.dev/sponsor',
+      },
+    ]
+  },
+  ```
+
+* Details:
+
+  This will add `git log` author information to each page and will also serve as the default `members` property in `<VPLTeamMembers>`.
+
+  You can set to `false` to disable or `true` to use the defaults. You can expand into an object to customize the behavior as in example above.
+
+  You can attempt to dedupe/merge/combine with either `merge: name` or `merge: email` or disable with `merge: false`.
+
+  If you `debotify` it will remove any author that contains `[bot]` in their name or email.
+
+  You can `exclude` with contributors by matching _both_ their `name` and `email` using either a `string` or `object`.
+
+  You can use `include` to either _add_ new contributors or _augment_ existing ones. If you want to add additional data to a contributor pulled from the `git log` you will need to specify an `email` for it to match against.
+
+## Contributors Page
 
 * Type: `Object || Boolean`
 

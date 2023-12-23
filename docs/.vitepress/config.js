@@ -42,6 +42,13 @@ export default defineConfig({
     //     vue: 'i-[carbon/logo-vue]',
     //   },
     // },
+    contributors: {
+      merge: true,
+      debotify: true,
+      exclude: [
+        'Mike Pirog <mike@lando.dev>',
+      ],
+    },
 
     internalDomain: [
       'http://docs.lando.dev',
@@ -333,7 +340,6 @@ export default defineConfig({
           },
         ],
       },
-
 
       // {
       //   text: 'Examples',

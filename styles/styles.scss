@@ -497,6 +497,16 @@ form.netlify {
   color: var(--vp-c-brand-1) !important;
 }
 
+@media (min-width: 640px) {
+  .VPDocFooter {
+    .edit-info {
+      align-items: flex-end !important;
+      padding-bottom: 14px;
+      flex-direction: column-reverse;
+    }
+  }
+}
+
 @media (max-width: 767px) {
   .half, .third {
     &.custom-block {
