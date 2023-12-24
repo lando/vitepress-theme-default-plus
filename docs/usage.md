@@ -49,4 +49,4 @@ export default defineUserConfig({
 });
 ```
 
-Check out the [configuration page](./config.html) for the complete set of config options.
+Check out the [configuration page](./config/config) for the complete set of config options.

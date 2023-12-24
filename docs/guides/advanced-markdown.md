@@ -4,7 +4,7 @@ description: Learn how to combine custom containers for all the magic.
 guide: true
 ---
 
-This theme provides a bunch of [custom markdown containers](./config.html#custom-containers) that can be used on their own. They can also be combined and wrapped together. Here is some content that demonstrates that.
+This theme provides a bunch of [custom markdown containers](./../markdown//admonitions.md) that can be used on their own. They can also be combined and wrapped together. Here is some content that demonstrates that.
 
 ## Triple cards
 

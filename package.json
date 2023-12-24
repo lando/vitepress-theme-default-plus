@@ -22,6 +22,7 @@
     "build": "vitepress build docs",
     "dev": "vitepress dev docs",
     "lint": "eslint . --ext .js,.vue",
+    "preview": "vitepress preview docs",
     "test": "npm run lint"
   },
   "devDependencies": {

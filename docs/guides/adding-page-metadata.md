@@ -6,7 +6,7 @@ guide: true
 
 VuePress 2 Default Theme + will automatically add commonly used metatags to your page based on the pages frontmatter, site information and theme configuration.
 
-If you care about this then we recommend  you _at the very least_ set the `canonicalUrl` in the [theme config](./config.html) and set a `description` in the pages frontmatter.
+If you care about this then we recommend  you _at the very least_ set the `canonicalUrl` in the [theme config](./../config/config.md) and set a `description` in the pages frontmatter.
 
 For this page we have the following canoncial theme config and front matter:
 

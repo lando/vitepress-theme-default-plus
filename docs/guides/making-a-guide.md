@@ -13,7 +13,7 @@ seek to answer a single question such as "How do I create a guide using this the
 
 ## Autopopulating data from GitHub
 
-To automatically grab relevant authorship and data information make sure you set `repo` to a publically accessible GitHub repo and also set `autoPopulate` to `true` in the [theme config](./config.html).
+To automatically grab relevant authorship and data information make sure you set `repo` to a publically accessible GitHub repo and also set `autoPopulate` to `true` in the [theme config](./../config/config).
 
 Once you have done that then you can make a guide by adding the following frontmatter to your markdown file.
 

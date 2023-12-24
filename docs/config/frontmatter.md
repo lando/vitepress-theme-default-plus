@@ -92,7 +92,7 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
 
   Configure the visibility of the rightbar on a given page.
 
-* See [Disabling the rightbar](./disabling-rightbar.html)
+* See [Disabling the rightbar](./../guides/disabling-rightbar.md)
 
 
 ## readMode
@@ -156,14 +156,14 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
 
 ## Guides
 
-* See [Making a guide 1](./making-a-guide.html)
-* See [Making a guide 2](./making-a-guide-2.html)
+* See [Making a guide 1](./../guides/making-a-guide)
+* See [Making a guide 2](./../guides/making-a-guide-2)
 
 
 ## Blog Posts
 
-* See [Making a blog post](./making-a-blog-post.html)
+* See [Making a blog post](./../guides/making-a-blog-post)
 
 ## Metadata
 
-* See [Adding page metadata](./adding-page-metadata.html)
+* See [Adding page metadata](./../guides/adding-page-metadata)

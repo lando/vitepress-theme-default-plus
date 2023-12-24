@@ -17,7 +17,10 @@ export default defineConfig({
     ['meta', {name: 'og:type', content: 'website'}],
     ['meta', {name: 'og:locale', content: 'en'}],
     ['meta', {name: 'og:site_name', content: 'VitePress Default Theme Plus!'}],
-    ['meta', {name: 'og:image', content: 'https://vitepress-default-theme-plus.lando.dev/images/hero.png'}],
+    ['meta', {name: 'og:image', content: 'https://vitepress-theme-default-plus.lando.dev/images/hero.png'}],
+    ['meta', {name: 'twitter:card', content: 'summary'}],
+    ['meta', {name: 'twitter:title', content: 'VitePress Theme +'}],
+    ['meta', {name: 'twitter:description', content: 'The VitePress default theme with some MOARPOWAH!'}],
   ],
   vite: {
     resolve: {
@@ -28,6 +31,12 @@ export default defineConfig({
     },
   },
   themeConfig: {
+    autometa: {
+      canonicalUrl: 'https://vitepress-theme-default-plus.lando.dev/',
+      image: 'https://vitepress-theme-default-plus.lando.dev/images/hero.png',
+      x: '@devwithlando',
+    },
+
     // blog: {
     //   title: 'My AI Written Blog',
     //   description: 'All these articles were written by AI!',
@@ -49,6 +58,9 @@ export default defineConfig({
         'Mike Pirog <mike@lando.dev>',
       ],
     },
+
+    ga: {id: 'G-ZSK3T9FTQ9'},
+    hubspot: {id: '6478338'},
 
     internalDomain: [
       'http://docs.lando.dev',
@@ -450,8 +462,6 @@ function configSideBar() {
         {text: 'Advanced', link: '/guides/advanced-markdown'},
       ],
     },
-
-
     {text: 'Devlopment', link: '/development'},
     {text: 'Examples', link: 'https://github.com/lando/vuepress-theme-default-plus'},
     {text: 'Release Notes', link: 'https://github.com/lando/vuepress-theme-default-plus/releases'},

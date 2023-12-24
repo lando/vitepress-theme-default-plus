@@ -7,6 +7,7 @@ import Debug from 'debug';
 
 import {defineConfigWithTheme} from 'vitepress';
 
+// utils
 import {default as createContainer} from './utils/create-container';
 import {default as getContributors} from './utils/get-contributors';
 import {default as resolveGitPaths} from './utils/resolve-git-paths';
@@ -21,51 +22,8 @@ import {default as patchVPMenuColumnsPlugin} from './vite/patch-vp-menu-columns-
 import {tabsMarkdownPlugin} from 'vitepress-plugin-tabs';
 import {default as tabsMarkdownOverridePlugin} from './markdown/tabs-override-plugin';
 
-const defaults = (config = {}) => ({
-  themeConfig: {
-    alert: false,
-    containers: {
-      'brand': {defaultTitle: 'BRAND'},
-      'box': {},
-      'box-blue': {},
-      'box-brand': {},
-      'box-green': {},
-      'box-red': {},
-      'box-yellow': {},
-      'caption': {},
-      'card': {},
-      'center': {},
-      'half': {},
-      'highlight': {},
-      'left': {},
-      'right': {},
-      'success': {defaultTitle: 'SUCCESS'},
-      'third': {},
-      'thumbnail': {},
-    },
-    contributors: {
-      merge: 'name',
-      debotify: true,
-      exclude: [],
-      include: [],
-    },
-    internalDomain: [],
-    internalDomains: [],
-    jobs: false,
-    lastUpdated: {
-      text: 'Updated',
-      formatOptions: {
-        dateStyle: 'timeago',
-      },
-    },
-    sponsors: false,
-  },
-  markdown: {},
-  vite: {
-    resolve: {alias: []},
-    plugins: [],
-  },
-});
+// base config
+import {default as baseConfig} from './config/defaults';
 
 export function defineConfig(userConfig = {}) {
   const debug = Debug('@lando/vpltheme'); // eslint-disable-line
@@ -79,7 +37,7 @@ export function defineConfig(userConfig = {}) {
   const gitDir = dirname(resolve(fileURLToPath(import.meta.url)));
 
   // merge config sources
-  const config = merge({}, defaults(), parentDefineConfig(), userConfig);
+  const config = merge({}, baseConfig, parentDefineConfig(), userConfig);
   const {markdown, themeConfig} = config;
   debug('initial vitepress configuration %O', config);
 
@@ -90,10 +48,13 @@ export function defineConfig(userConfig = {}) {
   if (themeConfig.contributors === true) themeConfig.contributors = defaults().themeConfig.contributors;
 
   // extract
-  const {containers, internalDomains} = themeConfig;
+  const {autometa, containers, ga, hubspot, internalDomains} = themeConfig;
+  debug('autometa rolling with %O', autometa);
   debug('containers rolling with %O', containers);
   debug('contributors rolling with %O', config.contributors);
   debug('internalDomains rolling with %O', internalDomains);
+  debug('google analytics rolling with %o', ga);
+  debug('hubspot rolling with %o', hubspot);
 
   // allow our stuff to use default theme stuff
   config.vite.resolve.alias.push({find: '@default-theme', replacement: themeDefaultPath});
@@ -137,12 +98,46 @@ export function defineConfig(userConfig = {}) {
   debug('added custom markdown container %o with config %o', 'vitepress-plugin-tabs');
   debug('added custom markdown link_open rule with config %o', internalDomains);
 
+  // add google analytics
+  if (ga !== false && ga.id) {
+    config.head.push(
+      ['script', {async: true, src: `https://www.googletagmanager.com/gtag/js?id=${ga.id}`}],
+      ['script', {}, [
+        'window.dataLayer = window.dataLayer || [];',
+        'function gtag(){dataLayer.push(arguments);}',
+        `gtag('js', new Date());`,
+        `gtag('config', '${ga.id}');`,
+      ].join('\n'),
+    ]);
+  }
+
+  // add hubspot
+  if (hubspot !== false && hubspot.id) {
+    config.head.push(
+      ['script', {
+        async: true,
+        defer: true,
+        id: 'hs-script-loader',
+        src: `//js.hs-scripts.com/${hubspot.id}.js`,
+      }],
+      ['script', {}, [
+        'window.dataLayer = window.dataLayer || [];',
+        'window.hubspot = function(){dataLayer.push(arguments);}',
+        `hubspot('js', new Date());`,
+        `hubspot('config', '${hubspot.id}');`,
+      ].join('\n'),
+    ]);
+  }
+
   // augment pages with additional data
   config.transformPageData = async (pageData, {siteConfig}) => {
-    const {frontmatter, relativePath} = pageData;
+    const {frontmatter, lastUpdated, relativePath} = pageData;
+    const {site} = siteConfig;
 
     // prefer frontmatter if we have it
     const contributors = frontmatter.contributors ?? config.contributors;
+    // ensure frontmatter head is an array
+    if (!Array.isArray(frontmatter.head)) frontmatter.head = [];
 
     // add contributor information
     if (contributors !== false) {
@@ -154,6 +149,48 @@ export function defineConfig(userConfig = {}) {
       } catch (error) {
         debug('could not get contributor information, considering this not-fatal but you should investigate and resolve');
         console.error(error);
+      }
+    }
+
+    // if we have autometa
+    if (autometa !== false) {
+      const {canonicalUrl, image, twitter, x} = autometa;
+      const title = frontmatter.title ?? pageData.title ?? site.title;
+      const description = frontmatter.description ?? frontmatter.summary ?? site.description;
+      const i = frontmatter.image ?? image ?? site?.logo?.src;
+      const xandle = x ?? twitter;
+
+      // generics
+      frontmatter.head.push(
+        ['meta', {name: 'twitter:card', content: 'summary'}],
+        ['meta', {name: 'twitter:title', content: title}],
+        ['meta', {name: 'twitter:description', content: description}],
+        ['meta', {name: 'twitter:image', content: i}],
+        ['meta', {name: 'twitter:image:alt', content: title}],
+        ['meta', {property: 'og:type', content: 'article'}],
+        ['meta', {property: 'og:title', content: title}],
+        ['meta', {property: 'og:description', content: description}],
+        ['meta', {property: 'og:site_name', content: site.title}],
+        ['meta', {name: 'og:image', content: i}],
+        ['meta', {name: 'og:image:alt', content: title}],
+        ['meta', {property: 'article:published_time', content: new Date(lastUpdated)}],
+        ['meta', {itemprop: 'name', content: title}],
+        ['meta', {itemprop: 'description', content: description}],
+      );
+
+      // twitter/x
+      if (xandle) frontmatter.head.push(['meta', {name: 'twitter:site', content: xandle}]);
+
+      // canonical stuff
+      if (canonicalUrl) {
+        const pathname = relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, site.cleanUrls ? '' : '.html');
+        const url = new URL(resolve(site.base, pathname), canonicalUrl);
+        const {href} = url;
+        frontmatter.head.unshift(
+          ['meta', {name: 'twitter:url', content: href}],
+          ['meta', {property: 'og:url', content: href}],
+          ['link', {rel: 'canonical', href: href}],
+        );
       }
     }
   };
