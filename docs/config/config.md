@@ -63,14 +63,20 @@ And here is our special config:
 
   ```js
   autometa: {
-    twitter: '@devwithlando',
     canonicalUrl: 'https://vuepress-theme-default-plus.lando.dev/',
+    image: 'https://docs.lando.dev/images/logo.svg',
+    twitter: '@devwithlando',
+    x: '@devwithlando',
   },
   ```
 
 * Details:
 
   Set this if you care about the theme automatically generating common metatags.
+
+  You can use `twitter` instead of `x` if you prefer although `x` will be preferred if you set both.`
+
+  `image` will set a global image for all meta and you can set `frontmatter.image` to customize on a per page basis.
 
 ## Contributors
 
@@ -287,32 +293,33 @@ And here is our special config:
 
   If a top level menu item contains any children with `alerts` of type `new` then an alert circle will appear in front of that menu item as a circle colored with the theme's primary color.
 
-## Page Types
+## Layouts
 
-#### pageTypes
-
-* Type: `Array || Boolean`
+* Type: `Object`
 
 * Default:
 
   ```js
-  pageTypes: [{
-    name: 'Guide',
-    key: 'guide',
-    path: path.resolve(__dirname, '..', 'components', 'Guide.vue'),
-  }, {
-    name: 'Blog',
-    key: 'blog',
-    path: path.resolve(__dirname, '..', 'components', 'BlogPost.vue'),
-  }],
+  layouts: {}
+  ```
+
+* Example:
+
+  ```js
+  layouts: {
+    cats: '/path/to/cats/layout',
+  },
   ```
 
 * Details:
 
-  `pageType` allows you to easily add additional "custom page components". You can then use those page components by setting the `key` of any of the types to `true` in your frontmatter.
+  `layouts` allows you to easily add additional [Custom Layouts](https://vitepress.dev/reference/default-theme-layout#custom-layout). You can then use those layouts in frontmatter like this one using the example from above.
 
-  More concretely and using the example above, which is the default, you can set `blog: true` or `guide: true` in your frontmatter to use either the `Guide` or `BlogPost` components instead of the default `Page` component.
-
+  ```md
+  ---
+  layout: cats
+  ---
+  ```
 
 ## Reading Mode
 
@@ -381,93 +388,7 @@ To use the `policies` option, make sure both `disallowAll` and `allowAll` are se
 
 You can specify `host` and `sitemap` directly. If you omit them the theme will attempt to set them if it can and it makes sense.
 
-## Sidebar Header
-
-#### sidebarHeader
-
-* Type: `Object || Boolean`
-
-* Default: `false`
-
-* Full Example:
-
-  ```js
-  sidebarHeader: {
-    auto: true,
-    repo: 'lando/vuepress-theme-default-plus',
-    icon: './icon.png',
-    title: 'Current Version',
-    version: null,
-    link: null,
-    satisifies: undefined,
-    type: 'tip',
-  }
-  ```
-
-* Details:
-
-  `sidebarHeader` allows you to give greater context and organization around the secondary sidebar menu. This is particularly useful if you have a single site that combines the docs of many projects together.
-
-  If you set `auto` to `true` and `repo` is a public GitHub repo then the theme will attempt to populate the other values for you. However, if you manually set a value then the theme will prefer that. So in the above Full Example the theme will set `version` and `link` automatically but will use `Current Version` for the title.
-
-  If you are using `auto` you can also specify `satisfies` which is a [semver](https://github.com/npm/node-semver) comparision string. This will use the first entry from the resulting subset of releases. Note that this also assumes the `name` of your GitHub release is a semver compatible string.
-
-  You can specify `type` and it will wrap the version badge in `badge TYPE`. By default it is `badge tip`. If you modify this you will need to define the `badge TYPE` style eg if you set `type: hot` then you will need to define `badge hot` in CSS.
-
-  If you do not set `repo` explicitly the theme will try to use `repo` instead.
-
-  `icon` is optional and puts the specificed icon to the left of the title.
-
-## Sitemap.xml
-
-#### Sitemap.xml
-
-* Type: `Object`
-
-* Default:
-
-  ```js
-  sitemap: true
-  ```
-
-* Example:
-
-  ```js
-  sitemap: {
-    baseUrl: 'https://stuffandthings.com',
-    changefreq: 'daily',
-    priority: 0.5,
-    urls: [
-      'stuff.html',
-      'things.html,
-    ],
-    exclude: [
-      'badstuff.html'
-    ],
-  },
-  ```
-* Details:
-
-If the `baseUrl` above is not specified then the theme will try to use [autometa.canonicalurl](#canonicalurl) and then the [generic.baseUrl](#generic-config). You can also globally set the `changefreq` and `priority` for all pages that do not have them defined in their frontmatter.
-
-You can also add additional urls that may not get picked up in the pages object via `urls`. You can also choose to exclude certain urls via the `exclude` option array as well.
-
-* Frontmatter
-
-You can override the global config for the following options via the frontmatter of any page:
-
-```yaml
----
-sitemap:
-  exclude: false
-  changefreq: hourly
-  priority: 1.0
----
-```
-
 ## Sponsors
-
-#### sponsors
 
 * Type: `Object || Boolean`
 
@@ -494,18 +415,6 @@ sitemap:
     ],
   },
   ```
-
-## Tagging
-
-#### tags
-
-* Type: `Boolean`
-
-* Default: `true`
-
-* Details:
-
-  Tagging is currently not very configurable but you can disable it by setting `tags: false`.
 
 ## Tracking
 
@@ -617,25 +526,6 @@ sitemap:
     '@theme/Home.vue': './Home.vue'),
   },
   ```
-
-#### contributorsExclude
-
-* Type: `Array`
-
-* Default: `[]`
-
-* Example:
-
-  ```js
-  contributorsExclude: [
-    'Mike Pirog',
-    'dependabot[bot]',
-  ]
-  ```
-
-* Details:
-
-  This allows you to filter out some contributors from where contributors show up eg `CustomPageMeta` and `GuideHeader`. Note that unlike `contributorsPage.exclude` this is **NOT NECCESARILY** a GitHub username so take care to get the contributor name right.
 
 #### defaults
 

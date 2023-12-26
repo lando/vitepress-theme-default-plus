@@ -3,6 +3,7 @@ import './styles/styles.scss';
 
 import {VPBTheme} from '@jcamp/vitepress-blog-theme';
 import {enhanceAppWithTabs} from 'vitepress-plugin-tabs/client';
+import {defineAsyncComponent} from 'vue';
 
 // layouts
 import Layout from './components/VPLLayout.vue';
@@ -27,13 +28,19 @@ const theme = {
   extends: VPBTheme,
   Layout,
   enhanceApp({app, router, siteData}) {
-    // call the base themes enhanceApp
+    // get site config
+    const {themeConfig} = siteData.value;
 
     // register global components
     app.component('Jobs', VPLJobs);
     app.component('MailChimp', VPLMailChimp);
     app.component('Sponsors', VPLSponsors);
     app.component('YouTube', VPLYouTube);
+
+    // register any custom layouts
+    for (const [name, layout] of Object.entries(themeConfig.layouts)) {
+      app.component(name, defineAsyncComponent(() => import(layout)));
+    }
 
     // enhance app for tabbin
     enhanceAppWithTabs(app);

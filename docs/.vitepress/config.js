@@ -37,6 +37,10 @@ export default defineConfig({
       x: '@devwithlando',
     },
 
+    layouts: {
+      cats: resolve(__dirname, '..', '..', 'components', 'VPLLayoutWCats.vue'),
+    },
+
     // blog: {
     //   title: 'My AI Written Blog',
     //   description: 'All these articles were written by AI!',
@@ -54,9 +58,9 @@ export default defineConfig({
     contributors: {
       merge: true,
       debotify: true,
-      exclude: [
-        'Mike Pirog <mike@lando.dev>',
-      ],
+      // exclude: [
+      //   'Mike Pirog <mike@lando.dev>',
+      // ],
     },
 
     ga: {id: 'G-ZSK3T9FTQ9'},

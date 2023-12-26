@@ -1,3 +1,4 @@
+
 export default {
   base: '/',
   lang: 'en-US',
@@ -41,15 +42,7 @@ export default {
         dateStyle: 'timeago',
       },
     },
-    layouts: [{
-      name: 'Guide',
-      key: 'guide',
-      path: '@theme/Guide.vue',
-    }, {
-      name: 'Blog',
-      key: 'blog',
-      path: '@theme/BlogPost.vue',
-    }],
+    layouts: {},
     nav: [],
     robots: {
       allowAll: true,

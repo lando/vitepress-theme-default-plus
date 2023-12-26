@@ -45,13 +45,13 @@ export function defineConfig(userConfig = {}) {
   if (typeof themeConfig.internalDomain === 'string') themeConfig.internalDomain = [themeConfig.internalDomain];
   if (typeof themeConfig.internalDomains === 'string') themeConfig.internalDomains = [themeConfig.internalDomains];
   themeConfig.internalDomains = [...themeConfig.internalDomain, ...themeConfig.internalDomains];
-  if (themeConfig.contributors === true) themeConfig.contributors = defaults().themeConfig.contributors;
+  if (themeConfig.contributors === true) themeConfig.contributors = baseConfig.themeConfig.contributors;
 
   // extract
   const {autometa, containers, ga, hubspot, internalDomains} = themeConfig;
   debug('autometa rolling with %O', autometa);
   debug('containers rolling with %O', containers);
-  debug('contributors rolling with %O', config.contributors);
+  debug('contributors rolling with %O', themeConfig.contributors);
   debug('internalDomains rolling with %O', internalDomains);
   debug('google analytics rolling with %o', ga);
   debug('hubspot rolling with %o', hubspot);
@@ -135,7 +135,7 @@ export function defineConfig(userConfig = {}) {
     const {site} = siteConfig;
 
     // prefer frontmatter if we have it
-    const contributors = frontmatter.contributors ?? config.contributors;
+    const contributors = frontmatter.contributors ?? themeConfig.contributors;
     // ensure frontmatter head is an array
     if (!Array.isArray(frontmatter.head)) frontmatter.head = [];
 
