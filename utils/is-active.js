@@ -1,4 +1,3 @@
-
 const EXT_RE = /(index)?\.(md|html)$/;
 const HASH_RE = /#.*$/;
 const inBrowser = typeof document !== 'undefined';

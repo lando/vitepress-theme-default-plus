@@ -1,4 +1,3 @@
-
 export default {
   base: '/',
   lang: 'en-US',
@@ -48,6 +47,7 @@ export default {
       allowAll: true,
     },
     sidebar: {},
+    sitemap: false,
     sponsors: false,
   },
   vite: {

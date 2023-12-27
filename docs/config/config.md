@@ -307,7 +307,7 @@ And here is our special config:
 
   ```js
   layouts: {
-    cats: '/path/to/cats/layout',
+    cats: VPLLayoutWCats,
   },
   ```
 

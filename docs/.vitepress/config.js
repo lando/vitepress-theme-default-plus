@@ -2,7 +2,6 @@ import {resolve, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 // import {readFileSync} from 'node:fs';
 // import {load} from 'js-yaml';
-
 import {defineConfig} from '../../config';
 
 const __dirname = dirname(resolve(fileURLToPath(import.meta.url)));
@@ -25,8 +24,8 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: [
-        {find: '@lando/vitepress-theme-default-plus', replacement: resolve(__dirname, '../../index.js')},
-        {find: '@lando/vitepress-theme-default-plus/config', replacement: resolve(__dirname, '../../config.js')},
+        {find: '@lando/vitepress-theme-default-plus', replacement: resolve(__dirname, '../..')},
+        {find: '@lando/vitepress-theme-default-plus/config', replacement: resolve(__dirname, '../../config')},
       ],
     },
   },
@@ -38,7 +37,8 @@ export default defineConfig({
     },
 
     layouts: {
-      cats: resolve(__dirname, '..', '..', 'components', 'VPLLayoutWCats.vue'),
+      cats: './components/VPLCats.vue',
+      dogs: './components/VPLDogs.vue',
     },
 
     // blog: {

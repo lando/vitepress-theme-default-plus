@@ -10,12 +10,14 @@ import {defineConfigWithTheme} from 'vitepress';
 // utils
 import {default as createContainer} from './utils/create-container';
 import {default as getContributors} from './utils/get-contributors';
+import {default as parseLayouts} from './utils/parse-layouts';
 import {default as resolveGitPaths} from './utils/resolve-git-paths';
 
 // parents
 import {defineConfig as parentDefineConfig} from '@jcamp/vitepress-blog-theme/config';
 
 // plugins
+import {default as addLayoutsPlugin} from './vite/add-layout-components-plugin';
 import {default as allowInternalPlugin} from './vite/allow-internal-plugin';
 import {default as linkOverridePlugin} from './markdown/link-override-plugin';
 import {default as patchVPMenuColumnsPlugin} from './vite/patch-vp-menu-columns-plugin';
@@ -28,6 +30,11 @@ import {default as baseConfig} from './config/defaults';
 export function defineConfig(userConfig = {}) {
   const debug = Debug('@lando/vpltheme'); // eslint-disable-line
 
+  // merge config sources
+  const config = merge({}, baseConfig, parentDefineConfig(), userConfig);
+  const {markdown, themeConfig, vite} = config;
+  debug('initial vitepress configuration %O', config);
+
   // resolve paths
   const themeDefaultPath = fileURLToPath(new URL('./node_modules/vitepress/dist/client/theme-default', import.meta.url));
   const customVPDFLU = fileURLToPath(new URL('./components/VPLDocFooterLastUpdated.vue', import.meta.url));
@@ -36,48 +43,50 @@ export function defineConfig(userConfig = {}) {
   const customVPTMI = fileURLToPath(new URL('./components/VPLTeamMembersItem.vue', import.meta.url));
   const gitDir = dirname(resolve(fileURLToPath(import.meta.url)));
 
-  // merge config sources
-  const config = merge({}, baseConfig, parentDefineConfig(), userConfig);
-  const {markdown, themeConfig} = config;
-  debug('initial vitepress configuration %O', config);
-
   // normalize things
+  // id
   if (typeof themeConfig.internalDomain === 'string') themeConfig.internalDomain = [themeConfig.internalDomain];
   if (typeof themeConfig.internalDomains === 'string') themeConfig.internalDomains = [themeConfig.internalDomains];
   themeConfig.internalDomains = [...themeConfig.internalDomain, ...themeConfig.internalDomains];
+  // contribs
   if (themeConfig.contributors === true) themeConfig.contributors = baseConfig.themeConfig.contributors;
+  // layouts
+  if (Object.keys(themeConfig.layouts).length > 0) themeConfig.layouts = parseLayouts(themeConfig.layouts);
 
-  // extract
-  const {autometa, containers, ga, hubspot, internalDomains} = themeConfig;
+  // extract and debug
+  const {autometa, containers, ga, hubspot, internalDomains, layouts} = themeConfig;
   debug('autometa rolling with %O', autometa);
   debug('containers rolling with %O', containers);
   debug('contributors rolling with %O', themeConfig.contributors);
-  debug('internalDomains rolling with %O', internalDomains);
   debug('google analytics rolling with %o', ga);
   debug('hubspot rolling with %o', hubspot);
+  debug('internalDomains rolling with %O', internalDomains);
+  debug('layouts rolling with %O', layouts);
 
   // allow our stuff to use default theme stuff
-  config.vite.resolve.alias.push({find: '@default-theme', replacement: themeDefaultPath});
-
-  // patch VPMenu to handle columns
-  config.vite.plugins.push(patchVPMenuColumnsPlugin);
-  debug('patched vitepress/theme VPMenu.vue so VPMenuGroup.vue can handle columns');
-  // patch VPLink.vue so it also considers a list of domains as "internal"
-  config.vite.plugins.push(allowInternalPlugin(internalDomains));
-  debug('patched vitepress/theme VPLink.vue to whitelist %o', internalDomains);
-
+  vite.resolve.alias.push({find: '@default-theme', replacement: themeDefaultPath});
   // swap out VPDocFooterLastUpdated for higer vibes
-  config.vite.resolve.alias.push({find: /^.*\/VPDocFooterLastUpdated\.vue$/, replacement: customVPDFLU});
+  vite.resolve.alias.push({find: /^.*\/VPDocFooterLastUpdated\.vue$/, replacement: customVPDFLU});
   debug('replaced vitepress/theme VPDocFooterLastUpdated.vue with %o', customVPDFLU);
   // swap out VPMenuGroup for higer vibes
-  config.vite.resolve.alias.push({find: /^.*\/VPMenuGroup\.vue$/, replacement: customVPMG});
+  vite.resolve.alias.push({find: /^.*\/VPMenuGroup\.vue$/, replacement: customVPMG});
   debug('replaced vitepress/theme VPMenuGroup.vue with %o', customVPMG);
   // swap out VPNavBarMenuGroup for higer vibes
-  config.vite.resolve.alias.push({find: /^.*\/VPNavBarMenuGroup\.vue$/, replacement: customVPNBMG});
+  vite.resolve.alias.push({find: /^.*\/VPNavBarMenuGroup\.vue$/, replacement: customVPNBMG});
   debug('replaced vitepress/theme VPNavBarMenuGroup.vue with %o', customVPNBMG);
   // swap out VPTeamMembersItem for higer vibes
-  config.vite.resolve.alias.push({find: /^.*\/VPTeamMembersItem\.vue$/, replacement: customVPTMI});
+  vite.resolve.alias.push({find: /^.*\/VPTeamMembersItem\.vue$/, replacement: customVPTMI});
   debug('replaced vitepress/theme VPTeamMembersItem.vue with %o', customVPTMI);
+
+  // patch VPMenu to handle columns
+  vite.plugins.push(patchVPMenuColumnsPlugin);
+  debug('patched vitepress/theme VPMenu.vue so VPMenuGroup.vue can handle columns');
+  // patch VPLink.vue so it also considers a list of domains as "internal"
+  vite.plugins.push(allowInternalPlugin(internalDomains));
+  debug('patched vitepress/theme VPLink.vue to whitelist %o', internalDomains);
+  // dynamically inject static layouts into our theme
+  vite.plugins.push(addLayoutsPlugin(layouts));
+  debug('patched enhance-app-with-layouts.js to app.component %o', layouts.map(layout => layout.from));
 
   // markdown
   markdown.config = md => {

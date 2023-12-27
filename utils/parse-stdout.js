@@ -1,5 +1,3 @@
-'use strict';
-
 import {execSync} from 'node:child_process';
 
 export default function(cmd, options) {

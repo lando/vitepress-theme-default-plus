@@ -16,7 +16,12 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "main": "index.js",
+  "main": "vitepress-theme-default-plus.js",
+  "exports": {
+    ".": "./vitepress-theme-default-plus.js",
+    "./config": "./config.js",
+    "./package.json": "./package.json"
+  },
   "type": "module",
   "scripts": {
     "build": "vitepress build docs",

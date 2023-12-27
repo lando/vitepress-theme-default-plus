@@ -1,4 +1,3 @@
-'use strict';
 import {join} from 'node:path';
 
 export default function(page, base, extras = []) {
