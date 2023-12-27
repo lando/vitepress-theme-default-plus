@@ -1,3 +1,4 @@
+import Debug from 'debug';
 import {URL} from 'url';
 
 const indexRE = /(^|.*\/)index.md(#?.*)$/i;
@@ -11,7 +12,49 @@ function isExternal(path) {
   return EXTERNAL_URL_RE.test(path);
 }
 
-export default function(md, externalAttrs, base, domains) {
+function normalizeHref(hrefAttr, env) {
+  let url = hrefAttr[1];
+
+  const indexMatch = url.match(indexRE);
+  if (indexMatch) {
+    const [, path, hash] = indexMatch;
+    url = path + hash;
+  } else {
+    let cleanUrl = url.replace(/[?#].*$/, '');
+    // transform foo.md -> foo[.html]
+    if (cleanUrl.endsWith('.md')) {
+      cleanUrl = cleanUrl.replace(/\.md$/, env.cleanUrls ? '' : '.html');
+    }
+    // transform ./foo -> ./foo[.html]
+    if (
+      !env.cleanUrls &&
+      !cleanUrl.endsWith('.html') &&
+      !cleanUrl.endsWith('/')
+    ) {
+      cleanUrl += '.html';
+    }
+    const parsed = new URL(url, 'http://a.com');
+    url = cleanUrl + parsed.search + parsed.hash;
+  }
+
+  // ensure leading . for relative paths
+  if (!url.startsWith('/') && !/^\.\//.test(url)) {
+    url = './' + url;
+  }
+
+  // export it for existence check
+  pushLink(url.replace(/\.html$/, ''), env);
+
+  // markdown-it encodes the uri
+  hrefAttr[1] = decodeURI(url);
+}
+
+function pushLink(link, env) {
+  const links = env.links || (env.links = []);
+  links.push(link);
+}
+
+export default function(md, externalAttrs, base, domains, debug = Debug('@lando/markdown-plugin')) { // eslint-disable-line
   md.renderer.rules.link_open = (
     tokens,
     idx,
@@ -65,46 +108,5 @@ export default function(md, externalAttrs, base, domains) {
     }
     return self.renderToken(tokens, idx, options);
   };
-
-  function normalizeHref(hrefAttr, env) {
-    let url = hrefAttr[1];
-
-    const indexMatch = url.match(indexRE);
-    if (indexMatch) {
-      const [, path, hash] = indexMatch;
-      url = path + hash;
-    } else {
-      let cleanUrl = url.replace(/[?#].*$/, '');
-      // transform foo.md -> foo[.html]
-      if (cleanUrl.endsWith('.md')) {
-        cleanUrl = cleanUrl.replace(/\.md$/, env.cleanUrls ? '' : '.html');
-      }
-      // transform ./foo -> ./foo[.html]
-      if (
-        !env.cleanUrls &&
-        !cleanUrl.endsWith('.html') &&
-        !cleanUrl.endsWith('/')
-      ) {
-        cleanUrl += '.html';
-      }
-      const parsed = new URL(url, 'http://a.com');
-      url = cleanUrl + parsed.search + parsed.hash;
-    }
-
-    // ensure leading . for relative paths
-    if (!url.startsWith('/') && !/^\.\//.test(url)) {
-      url = './' + url;
-    }
-
-    // export it for existence check
-    pushLink(url.replace(/\.html$/, ''), env);
-
-    // markdown-it encodes the uri
-    hrefAttr[1] = decodeURI(url);
-  }
-
-  function pushLink(link, env) {
-    const links = env.links || (env.links = []);
-    links.push(link);
-  }
+  debug('added custom markdown link_open rule with config %o', base, domains);
 };

@@ -21,6 +21,29 @@ export default defineConfig({
     ['meta', {name: 'twitter:title', content: 'VitePress Theme +'}],
     ['meta', {name: 'twitter:description', content: 'The VitePress default theme with some MOARPOWAH!'}],
   ],
+  robots: {
+    host: 'https://vite-theme-default-plus.lando.dev/',
+    sitemap: 'https://vite-theme-default-plus.lando.dev/sitemap.xml',
+    disallowAll: false,
+    allowAll: false,
+    policies: [
+      {
+        userAgent: '*',
+        disallow: [
+          '/user/',
+          '/login',
+        ],
+        allow: [
+          '*.js',
+          '*.png',
+        ],
+      },
+    ],
+  },
+
+  // sitemap: {
+  //   hostname: 'https://vitepress-theme-default-plus.lando.dev',
+  // },
   vite: {
     resolve: {
       alias: [

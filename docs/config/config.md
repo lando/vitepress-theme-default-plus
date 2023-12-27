@@ -360,8 +360,8 @@ And here is our special config:
 
   ```js
   robots: {
-    host: 'https://vuepress-theme-default-plus.lando.dev/',
-    sitemap: 'https://vuepress-theme-default-plus.lando.dev/sitemap.xml,
+    host: 'https://vite-theme-default-plus.lando.dev/',
+    sitemap: 'https://vite-theme-default-plus.lando.dev/sitemap.xml',
     disallowAll: false,
     allowAll: false,
     policies: [
@@ -369,14 +369,14 @@ And here is our special config:
         userAgent: '*',
         disallow: [
           '/user/',
-          '/login'
+          '/login',
         ],
         allow: [
           '*.js',
-          '*.png'
-        ]
-      }
-    ]
+          '*.png',
+        ],
+      },
+    ],
   },
   ```
 

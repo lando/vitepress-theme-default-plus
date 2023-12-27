@@ -47,8 +47,17 @@ export default {
       allowAll: true,
     },
     sidebar: {},
-    sitemap: false,
     sponsors: false,
+  },
+  sitemap: {
+    lastmodDateOnly: false,
+    transformItems: items => {
+      for (const item of items) {
+        item.priority = 0.5;
+        item.changefreq = 'daily';
+      }
+      return items;
+    },
   },
   vite: {
     resolve: {alias: []},

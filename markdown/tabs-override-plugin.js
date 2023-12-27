@@ -1,11 +1,12 @@
 import container from 'markdown-it-container';
+import Debug from 'debug';
 
 const parseTabsParams = input => {
   const match = input.match(/key:(\S+)/);
   return {shareStateKey: match?.[1]};
 };
 
-export default function(md) {
+export default function(md, {debug = Debug('@lando/vite-plugin')}) { // eslint-disable-line
   md.use(container, 'tabs', {
     render(tokens, index, _options, env) {
       const token = tokens[index];
@@ -22,4 +23,5 @@ export default function(md) {
       }
     },
   });
+  debug('override custom markdown container %o with styling support', 'vitepress-plugin-tabs');
 };

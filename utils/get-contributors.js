@@ -25,7 +25,7 @@ export default function async(
     exclude = [],
   } = {},
   {
-    debug = Debug('get-contributors'), // eslint-disable-line
+    debug = Debug('@lando/get-contributors'), // eslint-disable-line
     paths = [],
   } = {},
   ) {
