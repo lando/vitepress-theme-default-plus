@@ -16,16 +16,17 @@ import {default as parseLayouts} from './utils/parse-layouts';
 import {defineConfig as parentDefineConfig} from '@jcamp/vitepress-blog-theme/config';
 
 // plugins
-import {default as addContributorsPlugin} from './node/add-contributors';
+import {default as addContributorsPlugin} from './node/add-contributors-plugin';
 import {default as addLayoutsPlugin} from './vite/add-layout-components-plugin';
-import {default as addMetadataPlugin} from './node/add-metadata';
+import {default as addMetadataPlugin} from './node/add-metadata-plugin';
 import {default as allowInternalPlugin} from './vite/allow-internal-plugin';
+import {genFeed as generateFeedPlugin} from '@jcamp/vitepress-blog-theme/config';
+import {default as generateRobotsTxtPlugin} from './node/generate-robots-plugin';
 import {default as linkOverridePlugin} from './markdown/link-override-plugin';
 import {default as patchVPMenuColumnsPlugin} from './vite/patch-vp-menu-columns-plugin';
 import {tabsMarkdownPlugin} from 'vitepress-plugin-tabs';
 import {default as tabsMarkdownOverridePlugin} from './markdown/tabs-override-plugin';
 import {processData as setupBlogPlugin} from '@jcamp/vitepress-blog-theme/config';
-import {genFeed as generatedFeedPlugin} from '@jcamp/vitepress-blog-theme/config';
 
 // base config
 import {default as baseConfig} from './config/defaults';
@@ -103,7 +104,9 @@ export function defineConfig(userConfig = {}) {
   // build robots.txt and rssfeed
   config.buildEnd = async siteConfig => {
     // generate rss feed
-    await generatedFeedPlugin(siteConfig);
+    await generateFeedPlugin(siteConfig);
+    // generate robots txt
+    await generateRobotsTxtPlugin(siteConfig, {debug});
   };
 
   // augment pages with additional data

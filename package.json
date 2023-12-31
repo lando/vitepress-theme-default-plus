@@ -38,6 +38,7 @@
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.9.1",
     "eslint-plugin-vue": "^8.0.3",
+    "generate-robotstxt": "^8.0.3",
     "gravatar-url": "^4.0.1",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",

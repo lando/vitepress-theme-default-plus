@@ -24,21 +24,21 @@ export default defineConfig({
   robots: {
     host: 'https://vite-theme-default-plus.lando.dev/',
     sitemap: 'https://vite-theme-default-plus.lando.dev/sitemap.xml',
-    disallowAll: false,
-    allowAll: false,
-    policies: [
-      {
-        userAgent: '*',
-        disallow: [
-          '/user/',
-          '/login',
-        ],
-        allow: [
-          '*.js',
-          '*.png',
-        ],
-      },
-    ],
+    // disallowAll: false,
+    // allowAll: false,
+    // policy: [
+    //   {
+    //     userAgent: '*',
+    //     disallow: [
+    //       '/user/',
+    //       '/login',
+    //     ],
+    //     allow: [
+    //       '*.js',
+    //       '*.png',
+    //     ],
+    //   },
+    // ],
   },
 
   // sitemap: {
