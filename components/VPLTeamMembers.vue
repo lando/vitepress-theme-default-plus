@@ -1,112 +1,26 @@
 <template>
-  <article
-    class="VPTeamMembersItem"
-    :class="[size]"
-  >
-    <div class="profile">
-      <div
-        v-if="member.commits && size !== 'icon'"
-        class="commits"
-      >
-        {{ member.commits }}
-      </div>
-      <figure class="avatar">
-        <img
-          class="avatar-img"
-          :src="avatar"
-          :alt="`Picture of ${member.name}`"
-          :title="`${member.name} <${member.email}> - ${Number.parseInt(member.commits, 10)} commits`"
-        >
-      </figure>
-      <div class="data">
-        <h1 class="name">
-          {{ member.name }}
-        </h1>
-        <p
-          v-if="member.title || member.org"
-          class="affiliation"
-        >
-          <span
-            v-if="member.title"
-            class="title"
-          >
-            {{ member.title }}
-          </span>
-          <span
-            v-if="member.title && member.org"
-            class="at"
-          >
-            @
-          </span>
-          <VPLink
-            v-if="member.org"
-            class="org"
-            :class="{ link: member.orgLink }"
-            :href="member.orgLink"
-            no-icon
-          >
-            {{ member.org }}
-          </VPLink>
-        </p>
-        <p
-          v-if="member.desc"
-          class="desc"
-          v-html="member.desc"
-        />
-        <div
-          v-if="member.links"
-          class="links"
-        >
-          <VPSocialLinks :links="member.links" />
-        </div>
-      </div>
-    </div>
-    <div
-      v-if="member.sponsor"
-      class="sp"
-    >
-      <VPLink
-        class="sp-link"
-        :href="member.sponsor"
-        no-icon
-      >
-        <VPIconHeart class="sp-icon" /> Sponsor
-      </VPLink>
-    </div>
-  </article>
+  <VPTeamMembers
+    :size="size"
+    :members="members"
+  />
 </template>
 
 <script setup>
-import {computed} from 'vue';
-import VPIconHeart from '@default-theme/components/icons/VPIconHeart.vue';
-import VPLink from '@default-theme/components/VPLink.vue';
-import VPSocialLinks from '@default-theme/components/VPSocialLinks.vue';
+import {useData} from 'vitepress';
+import {VPTeamMembers} from 'vitepress/theme';
 
-const {member, size} = defineProps({
+const {members, size} = defineProps({
   size: {
     type: String,
     default: 'medium',
   },
-  member: {
+  members: {
     type: Object,
-    default: () => ({}),
+    default: () => {
+      const {theme} = useData();
+      return theme.value.team ?? [];
+    },
   },
-});
-
-// compute avatar url with correct size
-const avatar = computed(() => {
-  switch (size) {
-    case 'icon':
-      return `${member.avatar}?size=24`;
-    case 'small':
-      return `${member.avatar}?size=64`;
-    case 'medium':
-      return `${member.avatar}?size=120`;
-    case 'large':
-      return `${member.avatar}?size=256`;
-    default:
-      return member.avatar;
-  };
 });
 
 </script>
@@ -137,10 +51,6 @@ const avatar = computed(() => {
   background-color: transparent;
 }
 
-.VPTeamMembersItem.icon .commits {
-  display: none;
-}
-
 .VPTeamMembersItem.icon .data {
   display: none;
 }
@@ -149,10 +59,6 @@ const avatar = computed(() => {
   width: 24px;
   height: 24px;
   box-shadow: none;
-}
-
-.VPTeamMembersItem.icon .sp {
-  display: none;
 }
 
 .VPTeamMembersItem.small .profile {
@@ -176,18 +82,13 @@ const avatar = computed(() => {
 .VPTeamMembersItem.small .affiliation {
   padding-top: 4px;
   line-height: 20px;
-  font-size: 12px;
-}
-
-.VPTeamMembersItem.small .commits {
-  top: -30px;
+  font-size: 14px;
 }
 
 .VPTeamMembersItem.small .desc {
   padding-top: 12px;
   line-height: 20px;
   font-size: 14px;
-  display: none;
 }
 
 .VPTeamMembersItem.small .links {
@@ -217,7 +118,7 @@ const avatar = computed(() => {
 
 .VPTeamMembersItem.medium .affiliation {
   padding-top: 4px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .VPTeamMembersItem.medium .desc {
@@ -266,29 +167,12 @@ const avatar = computed(() => {
 
 .affiliation {
   margin: 0;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--vp-c-text-3);
-}
-
-.at {
+  font-weight: 500;
   color: var(--vp-c-text-2);
 }
 
-.commits {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  color: var(--vp-c-text-3);
-  position: relative;
-  top: -45px;
-  right: -25px;
-  font-size: 10px
-}
-
 .org.link {
-  color: var(--vp-c-text-3);
+  color: var(--vp-c-text-2);
   transition: color 0.25s;
 }
 

@@ -1,6 +1,5 @@
 ---
 description: Learn how to help develop and contribute to VuePress 2 Default Theme Plus.
-activeMatch: '/basics/'
 ---
 
 # Development

@@ -25,6 +25,13 @@ export {default as VPLMenuGroup} from './components/VPLMenuGroup.vue';
 export {default as VPLMenuLink} from './components/VPLMenuLink.vue';
 export {default as VPLNavBarMenuGroup} from './components/VPLNavBarMenuGroup.vue';
 
+// contrib page
+export {default as VPLTeamMembersItem} from './components/VPLTeamMembersItem.vue';
+export {default as VPLTeamMembers} from './components/VPLTeamMembers.vue';
+export {VPTeamPage as VPLTeamPage} from 'vitepress/theme';
+export {VPTeamPageTitle as VPLTeamPageTitle} from 'vitepress/theme';
+export {VPTeamPageSection as VPLTeamPageSection} from 'vitepress/theme';
+
 const theme = {
   ...VPBTheme,
   extends: VPBTheme,

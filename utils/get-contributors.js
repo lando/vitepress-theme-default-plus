@@ -7,7 +7,6 @@ import Debug from 'debug';
 
 const parseStringInclude = data => {
   const parts = data.trim().split(' ');
-
   // add a single commit if we dont have any commits
   if (!Number.isInteger(parseInt(parts[0]))) parts[0] = 1;
   // mod part 0 so it is parsed correclty downstream
@@ -57,7 +56,7 @@ export default function async(
       commits: Number.parseInt(commits, 10),
       email,
       name: name.trim(),
-      avatar: gravatarUrl(email, {size: 60}),
+      avatar: gravatarUrl(email),
       title: undefined,
       org: undefined,
       links: [],
@@ -66,12 +65,12 @@ export default function async(
   // add in any include objects
   if (includeObjects.length > 0) {
     for (const contributor of includeObjects) {
-      // if the member already exists then update it
+      // try to see if we already have this contrib
       const existing = data.find(member => member.email === contributor.email);
+      // if we do then update it
       if (existing) Object.assign(existing, contributor);
-
-      // otherwise treat it as a new contrib
-      else data.push({name: '', email: '', ...contributor});
+      // otherwise treat it as a new contrib only merge only is true
+      else if (!existing && contributor.mergeOnly !== true) data.push({name: '', email: '', ...contributor});
     }
   };
 

@@ -1,4 +1,5 @@
 // mods
+import {dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 import merge from 'lodash/merge';
@@ -8,6 +9,7 @@ import {defineConfigWithTheme} from 'vitepress';
 
 // utils
 import {default as createContainer} from './utils/create-container';
+import {default as getContributors} from './utils/get-contributors';
 import {default as getGaHeaders} from './utils/get-ga-headers';
 import {default as getHubspotHeaders} from './utils/get-hubspot-headers';
 import {default as parseLayouts} from './utils/parse-layouts';
@@ -31,13 +33,16 @@ import {processData as setupBlogPlugin} from '@jcamp/vitepress-blog-theme/config
 // base config
 import {default as baseConfig} from './config/defaults';
 
-export function defineConfig(userConfig = {}) {
+export async function defineConfig(userConfig = {}) {
   const debug = Debug('@lando/vpltheme'); // eslint-disable-line
 
   // merge config sources
   const config = merge({}, baseConfig, parentDefineConfig(), userConfig);
   const {markdown, themeConfig, sitemap, vite} = config;
   debug('incoming vitepress configuration %O', config);
+
+  // get plugin root
+  const root = dirname(fileURLToPath(import.meta.url));
 
   // normalize id
   if (typeof themeConfig.internalDomain === 'string') themeConfig.internalDomain = [themeConfig.internalDomain];
@@ -54,7 +59,7 @@ export function defineConfig(userConfig = {}) {
   if (!sitemap.hostname && themeConfig?.autometa?.canonicalUrl) sitemap.hostname = themeConfig.autometa.canonicalUrl;
 
   // extract
-  const {containers, ga, hubspot, internalDomains, layouts} = themeConfig;
+  const {containers, contributors, ga, hubspot, internalDomains, layouts} = themeConfig;
 
   // replacements
   const aliases = [
@@ -95,11 +100,16 @@ export function defineConfig(userConfig = {}) {
     config.head.push(...getGaHeaders(ga.id));
     debug('added google analytics/gtm tracking with %o', ga);
   }
+
   // add hubspot
   if (hubspot !== false && hubspot.id) {
     config.head.push(...getHubspotHeaders(hubspot.id));
     debug('added hubspot tracking with %o', hubspot);
   }
+
+  // site contributors
+  themeConfig.team = await getContributors(root, contributors, {debug, paths: []});
+  debug('added site contributors from git log %o with config %o', config.team, contributors);
 
   // build robots.txt and rssfeed
   config.buildEnd = async siteConfig => {

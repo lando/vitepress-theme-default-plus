@@ -48,6 +48,7 @@ export default {
     },
     sidebar: {},
     sponsors: false,
+    team: [],
   },
   sitemap: {
     lastmodDateOnly: false,
