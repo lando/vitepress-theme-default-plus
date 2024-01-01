@@ -32,8 +32,8 @@ export default {
 
   // Shows the CarbonAds in the top sidebar
   carbonAds: {
+    code: 'CE7DCKJU',
     placement: 'landodev',
-    serve: 'CE7DCKJU',
   },
 
   // Contributors pages
@@ -321,9 +321,12 @@ export default {
     satisfies: '<4',
   },
   search: {
-    appId: '9S3BH0SKWT',
-    apiKey: 'd3db589efd595b115848fc6a654d3263',
-    indexName: 'lando',
+    provider: 'algolia',
+    options: {
+      appId: '9S3BH0SKWT',
+      apiKey: 'd3db589efd595b115848fc6a654d3263',
+      indexName: 'lando',
+    },
   },
   social: [{
     title: 'Twitter',

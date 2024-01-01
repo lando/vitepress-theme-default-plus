@@ -1,9 +1,9 @@
-name: vuepress-theme-default-plus
+name: vitepress-theme-default-plus
 services:
   node:
-    type: node:14
+    type: node:18
     build:
-      - yarn install
+      - npm install
     scanner: false
     ssl: false
     sslExpose: false
@@ -13,10 +13,10 @@ services:
 tooling:
   node:
     service: node
-  yarn:
+  npm:
     service: node
   dev:
     service: node
-    cmd: yarn dev --port 8071
+    cmd: npm run dev --port 8071
     env:
       DEBUG: "@lando/*"
