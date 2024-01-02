@@ -64,20 +64,21 @@ export default defineConfig({
       dogs: './components/VPLDogs.vue',
     },
 
-    // blog: {
-    //   title: 'My AI Written Blog',
-    //   description: 'All these articles were written by AI!',
-    //   defaultAuthor: 'AI Writer',
-    //   categoryIcons: {
-    //     article: 'i-[heroicons-outline/book-open]',
-    //     tutorial: 'i-[heroicons-outline/academic-cap]',
-    //     document: 'i-[heroicons-outline/annotation]',
-    //   },
-    //   tagIcons: {
-    //     github: 'i-[carbon/logo-github]',
-    //     vue: 'i-[carbon/logo-vue]',
-    //   },
-    // },
+    blog: {
+      path: '/path',
+      title: 'My AI Written Blog',
+      description: 'All these articles were written by AI!',
+      defaultAuthor: 'AI Writer',
+      categoryIcons: {
+        article: 'i-[heroicons-outline/book-open]',
+        tutorial: 'i-[heroicons-outline/academic-cap]',
+        document: 'i-[heroicons-outline/annotation]',
+      },
+      tagIcons: {
+        github: 'i-[carbon/logo-github]',
+        vue: 'i-[carbon/logo-vue]',
+      },
+    },
     contributors: {
       merge: 'name',
       debotify: true,

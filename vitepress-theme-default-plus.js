@@ -5,9 +5,9 @@ import './styles/styles.scss';
 // client stuff
 import {default as enhanceAppWithLayouts} from './client/enhance-app-with-layouts';
 import {enhanceAppWithTabs} from 'vitepress-plugin-tabs/client';
-import {VPBTheme} from '@jcamp/vitepress-blog-theme';
 
 // layouts
+import DefaultTheme from 'vitepress/theme';
 import Layout from './components/VPLLayout.vue';
 
 // global components
@@ -33,8 +33,8 @@ export {VPTeamPageTitle as VPLTeamPageTitle} from 'vitepress/theme';
 export {VPTeamPageSection as VPLTeamPageSection} from 'vitepress/theme';
 
 const theme = {
-  ...VPBTheme,
-  extends: VPBTheme,
+  ...DefaultTheme,
+  extends: DefaultTheme,
   Layout,
   enhanceApp({app, router, siteData}) {
     // register global components
@@ -45,7 +45,7 @@ const theme = {
 
     // enhance app for tabbin
     enhanceAppWithTabs(app);
-    // enhance app with tabs
+    // enhance app with layouts
     enhanceAppWithLayouts(app);
   },
 };

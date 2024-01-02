@@ -14,21 +14,16 @@ import {default as getGaHeaders} from './utils/get-ga-headers';
 import {default as getHubspotHeaders} from './utils/get-hubspot-headers';
 import {default as parseLayouts} from './utils/parse-layouts';
 
-// parent config
-import {defineConfig as parentDefineConfig} from '@jcamp/vitepress-blog-theme/config';
-
 // plugins
 import {default as addContributorsPlugin} from './node/add-contributors-plugin';
 import {default as addLayoutsPlugin} from './vite/add-layout-components-plugin';
 import {default as addMetadataPlugin} from './node/add-metadata-plugin';
 import {default as allowInternalPlugin} from './vite/allow-internal-plugin';
-import {genFeed as generateFeedPlugin} from '@jcamp/vitepress-blog-theme/config';
 import {default as generateRobotsTxtPlugin} from './node/generate-robots-plugin';
 import {default as linkOverridePlugin} from './markdown/link-override-plugin';
 import {default as patchVPMenuColumnsPlugin} from './vite/patch-vp-menu-columns-plugin';
 import {tabsMarkdownPlugin} from 'vitepress-plugin-tabs';
 import {default as tabsMarkdownOverridePlugin} from './markdown/tabs-override-plugin';
-import {processData as setupBlogPlugin} from '@jcamp/vitepress-blog-theme/config';
 
 // base config
 import {default as baseConfig} from './config/defaults';
@@ -37,7 +32,7 @@ export async function defineConfig(userConfig = {}) {
   const debug = Debug('@lando/vpltheme'); // eslint-disable-line
 
   // merge config sources
-  const config = merge({}, baseConfig, parentDefineConfig(), userConfig);
+  const config = merge({}, baseConfig, userConfig);
   const {markdown, themeConfig, sitemap, vite} = config;
   debug('incoming vitepress configuration %O', config);
 
@@ -114,7 +109,7 @@ export async function defineConfig(userConfig = {}) {
   // build robots.txt and rssfeed
   config.buildEnd = async siteConfig => {
     // generate rss feed
-    await generateFeedPlugin(siteConfig);
+    // await generateFeedPlugin(siteConfig);
     // generate robots txt
     await generateRobotsTxtPlugin(siteConfig, {debug});
   };
@@ -122,7 +117,7 @@ export async function defineConfig(userConfig = {}) {
   // augment pages with additional data
   config.transformPageData = async (pageData, ctx) => {
     // setup blog stuff
-    await setupBlogPlugin(pageData, ctx);
+    // await setupBlogPlugin(pageData, ctx);
     // add contributor information
     await addContributorsPlugin(pageData, {...ctx, debug});
     // add metadata information
