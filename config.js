@@ -18,6 +18,7 @@ import {default as parseLayouts} from './utils/parse-layouts';
 import {default as addContributorsPlugin} from './node/add-contributors-plugin';
 import {default as addLayoutsPlugin} from './vite/add-layout-components-plugin';
 import {default as addMetadataPlugin} from './node/add-metadata-plugin';
+import {default as blogifyPlugin} from './node/blogify-plugin';
 import {default as allowInternalPlugin} from './vite/allow-internal-plugin';
 import {default as generateRobotsTxtPlugin} from './node/generate-robots-plugin';
 import {default as linkOverridePlugin} from './markdown/link-override-plugin';
@@ -43,13 +44,10 @@ export async function defineConfig(userConfig = {}) {
   if (typeof themeConfig.internalDomain === 'string') themeConfig.internalDomain = [themeConfig.internalDomain];
   if (typeof themeConfig.internalDomains === 'string') themeConfig.internalDomains = [themeConfig.internalDomains];
   themeConfig.internalDomains = [...themeConfig.internalDomain, ...themeConfig.internalDomains];
-
   // normalize contribs
   if (themeConfig.contributors === true) themeConfig.contributors = baseConfig.themeConfig.contributors;
-
   // normalize layouts
   if (Object.keys(themeConfig.layouts).length > 0) themeConfig.layouts = parseLayouts(themeConfig.layouts);
-
   // normalize sitemap
   if (!sitemap.hostname && themeConfig?.autometa?.canonicalUrl) sitemap.hostname = themeConfig.autometa.canonicalUrl;
 
@@ -117,7 +115,7 @@ export async function defineConfig(userConfig = {}) {
   // augment pages with additional data
   config.transformPageData = async (pageData, ctx) => {
     // setup blog stuff
-    // await setupBlogPlugin(pageData, ctx);
+    await blogifyPlugin(pageData, ctx);
     // add contributor information
     await addContributorsPlugin(pageData, {...ctx, debug});
     // add metadata information

@@ -1,7 +1,7 @@
 ---
 title: Adding page metadata
 description: Learn how to add social metatags to your content
-blog: post
+guide: true
 ---
 
 VuePress 2 Default Theme + will automatically add commonly used metatags to your page based on the pages frontmatter, site information and theme configuration.

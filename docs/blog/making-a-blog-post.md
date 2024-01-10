@@ -18,6 +18,8 @@ tags:
   - this is a test tag
 ---
 
+# Making a blog post
+
 Blog posts are free form articles that may or may not be techincal in nature. They differ slightly from guides primarily in their presentation and authorship.
 
 Specifically, they make use of a `byline` and can only have a single, manually entered, author. They can be thought of more like "traditional" news media articles. Like guides you can create them in two ways:

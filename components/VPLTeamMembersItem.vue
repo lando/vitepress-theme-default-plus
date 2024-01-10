@@ -11,12 +11,17 @@
         {{ member.commits }}
       </div>
       <figure class="avatar">
-        <img
-          class="avatar-img"
-          :src="avatar"
-          :alt="`Picture of ${member.name}`"
-          :title="`${member.name} <${member.email}> - ${Number.parseInt(member.commits, 10)} commits`"
+        <VPLink
+          :href="getLink(member)"
+          no-icon
         >
+          <img
+            class="avatar-img"
+            :src="avatar"
+            :alt="`Picture of ${member.name}`"
+            :title="`${member.name} <${member.email}> - ${Number.parseInt(member.commits, 10)} commits`"
+          >
+        </VPLink>
       </figure>
       <div class="data">
         <h1 class="name">
@@ -95,19 +100,26 @@ const {member, size} = defineProps({
 
 // compute avatar url with correct size
 const avatar = computed(() => {
+  const src = member.avatar ?? member.pic;
   switch (size) {
     case 'icon':
-      return `${member.avatar}?size=24`;
+      return `${src}?size=24`;
     case 'small':
-      return `${member.avatar}?size=64`;
+      return `${src}?size=64`;
     case 'medium':
-      return `${member.avatar}?size=120`;
+      return `${src}?size=120`;
     case 'large':
-      return `${member.avatar}?size=256`;
+      return `${src}?size=256`;
     default:
-      return member.avatar;
+      return src;
   };
 });
+
+const getLink = member => {
+  if (member.link) return member.link;
+  else if (Array.isArray(member?.links) && member.links[0]) return member.links[0].link;
+  else if (member.email) return `mailto:${member.email}`;
+};
 
 </script>
 
