@@ -4,7 +4,7 @@ import merge from 'lodash/merge';
 import Debug from 'debug';
 
 export default async function(pageData, {
-  debug = Debug('@lando/blogify'),  // eslint-disable-line
+  debug = Debug('@lando/collections'),  // eslint-disable-line
   siteConfig,
 } = {}) {
   // get stuff
@@ -22,6 +22,7 @@ export default async function(pageData, {
     const pages = await fg.glob(config.patterns ?? [], {dot: true, cwd: siteConfig.srcDir, onlyFiles: true});
     if (pages.includes(relativePath) || frontmatter.collection === collection) {
       pageData.frontmatter = merge({}, config.frontmatter, frontmatter);
+      debug('added %o to the %o collection with merged frontmatter %O', relativePath, frontmatter.collection, pageData.frontmatter);
     }
   }
 };

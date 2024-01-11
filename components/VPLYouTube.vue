@@ -43,7 +43,6 @@ const url = computed(() => `https://www.youtube.com/embed/${props.id}`);
   }
 }
 
-
 @media (max-width: 767px) {
   .video-responsive {
     padding-left: 0;

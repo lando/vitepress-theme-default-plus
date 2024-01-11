@@ -108,5 +108,5 @@ export default function(md, externalAttrs, base, domains, debug = Debug('@lando/
     }
     return self.renderToken(tokens, idx, options);
   };
-  debug('added custom markdown link_open rule with config %o', base, domains);
+  debug('added custom markdown %o rule with config %o', 'link_open', {base, domains});
 };

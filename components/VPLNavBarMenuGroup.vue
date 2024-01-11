@@ -95,18 +95,16 @@ const childrenActive = computed(() => isChildActive(props.item));
 </script>
 
 <style scoped>
-  .maybe {
-    display: flex;
-    align-items: center;
-  }
-  .alert-circle {
-    height: 8px;
-    width: 8px;
-    background-color: var(--vp-c-brand-1);
-    border-radius: 50%;
-    margin-right: -7px;
-    margin-left: 8px;
-  }
-
-
+.maybe {
+  display: flex;
+  align-items: center;
+}
+.alert-circle {
+  height: 8px;
+  width: 8px;
+  background-color: var(--vp-c-brand-1);
+  border-radius: 50%;
+  margin-right: -7px;
+  margin-left: 8px;
+}
 </style>

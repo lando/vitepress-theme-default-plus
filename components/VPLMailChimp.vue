@@ -96,23 +96,22 @@ const props = defineProps({
 const email = ref(null);
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .newsletter {
   text-align: center;
-  width: 100%;
-  font-size: 1rem;
   color: var(--vp-c-text-1);
+  margin: 16px 0;
 }
 .newsletter__wrap {
+  padding: 32px 32px;
   border-radius: var(--vpl-c-border-radius);
-  margin: 16px 0;
-  padding: 1.8rem 2.3rem;
   box-sizing: border-box;
   width: auto;
+  font-size: 14px;
   input[type=email], input[type=text], textarea {
     border: 0 solid #f8f8f8;
     box-sizing: border-box;
-    font-size: 1em;
+    font-size: 0.9em;
     height: 50px;
     width: 100%;
     padding: 1em;
@@ -123,12 +122,17 @@ const email = ref(null);
   }
 }
 .newsletter__title {
-  font-size: 1.7rem;
+  h3 {
+    margin: 0;
+    color: var(--vp-custom-block-brand-title);
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: uppercase;
+  }
 }
 .newsletter__content {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-  line-height: 1.7rem;
+  margin: 16px 0;
+  line-height: 28px;
 }
 .post-subscribe {
   .subscribe {

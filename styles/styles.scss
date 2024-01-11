@@ -283,6 +283,13 @@ form.netlify {
       }
     }
   }
+  .edit-info {
+    border-top: 1px solid var(--vp-c-divider);
+    padding-top: 16px;
+  }
+  .VPLastUpdated {
+    font-size: .75em !important;
+  }
 }
 
 .danger {

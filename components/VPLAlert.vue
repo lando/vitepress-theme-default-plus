@@ -4,15 +4,31 @@
     :class="`alert-banner alert-${props.type}`"
   >
     <div class="alert-content">
-      <span v-html="props.content" />
-      <span v-if="props.closeable">
-        <button
-          class="alert-dismiss-button"
-          @click="dismissAlert"
+      <button
+        aria-label="Close"
+        v-if="props.closeable"
+        class="alert-dismiss-button"
+        @click="dismissAlert"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
         >
-          <small>&nbsp;&nbsp;[x] dismiss</small>
-        </button>
-      </span>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18 18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+      <div
+        class="content"
+        v-html="props.content"
+      />
     </div>
   </div>
 </template>
@@ -42,17 +58,14 @@ const showAlert = ref(isAlertMode.value);
 const update = (value = isAlertMode.value) => {
   const htmlEl = window.document.querySelector('html');
   htmlEl.classList.toggle('alert', value);
+  showAlert.value = value;
 };
 
-const dismissAlert = () => {
-  update(false);
-  showAlert.value = false;
-};
+const dismissAlert = () => update(false);
 
-onMounted(() => {
-  watch(isAlertMode, update, {immediate: true});
-});
-onUnmounted(() => update());
+onMounted(() => watch(isAlertMode, update, {immediate: true}));
+onUnmounted(() => update(false));
+
 </script>
 
 <style lang="scss" scoped>
@@ -72,7 +85,12 @@ onUnmounted(() => update());
   z-index: 9999;
 
   .alert-content {
-    span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1px;
+
+    .content {
       font-size: 0.95rem;
       font-weight: 500;
     }
@@ -84,6 +102,7 @@ onUnmounted(() => update());
     background-color: transparent;
     border: 0;
     font-weight: 700;
+    width: 13px;
   }
 
   &.alert-brand {

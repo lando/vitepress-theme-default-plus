@@ -18,8 +18,8 @@ import {default as parseLayouts} from './utils/parse-layouts';
 import {default as addContributorsPlugin} from './node/add-contributors-plugin';
 import {default as addLayoutsPlugin} from './vite/add-layout-components-plugin';
 import {default as addMetadataPlugin} from './node/add-metadata-plugin';
-import {default as blogifyPlugin} from './node/blogify-plugin';
 import {default as allowInternalPlugin} from './vite/allow-internal-plugin';
+import {default as collectionsPlugin} from './node/collections-plugin';
 import {default as generateRobotsTxtPlugin} from './node/generate-robots-plugin';
 import {default as linkOverridePlugin} from './markdown/link-override-plugin';
 import {default as patchVPMenuColumnsPlugin} from './vite/patch-vp-menu-columns-plugin';
@@ -115,7 +115,7 @@ export async function defineConfig(userConfig = {}) {
   // augment pages with additional data
   config.transformPageData = async (pageData, ctx) => {
     // setup blog stuff
-    await blogifyPlugin(pageData, ctx);
+    await collectionsPlugin(pageData, {...ctx, debug});
     // add contributor information
     await addContributorsPlugin(pageData, {...ctx, debug});
     // add metadata information

@@ -26,6 +26,12 @@
     </template>
 
     <template #doc-footer-before>
+      <div
+        v-if="mailchimp"
+        class="newsletter-wrapper"
+      >
+        <MailChimp v-bind="mailchimp" />
+      </div>
       <div class="contributors">
         <div class="contributors-flex">
           <Contributor
@@ -43,11 +49,12 @@
 <script setup>
 import DefaultTheme from 'vitepress/theme';
 import {useData} from 'vitepress';
-import {computed, ref, watch} from 'vue';
+import {computed, ref} from 'vue';
 
 import {default as Alert} from '../components/VPLAlert.vue';
 import {default as Contributor} from '../components/VPLTeamMembersItem.vue';
 import {default as CollectionHeader} from '../components/VPLCollectionHeader.vue';
+import {default as MailChimp} from '../components/VPLMailchimp.vue';
 import {default as PostHeader} from '../components/VPLPostHeader.vue';
 
 const {Layout} = DefaultTheme;
@@ -57,34 +64,44 @@ const jobsKey = ref(0);
 const sponsorsKey = ref(0);
 const {frontmatter, page, theme} = useData();
 
-const getAlert = () => frontmatter.value.alert ?? theme.value.alert;
-let alert = getAlert();
-
+const alert = computed(() => frontmatter.value.alert ?? theme.value.alert ?? false);
 const contributors = computed(() => page.value.contributors);
 const header = computed(() => frontmatter.value.collection || '');
 const headerClass = computed(() => frontmatter.value.collection ? `collection-${frontmatter.value.collection}` : '');
+const mailchimp = computed(() => frontmatter.value?.mailchimp?.action ? frontmatter.value.mailchimp : false);
 
-watch(() => page.value.relativePath, () => {
-  alert = getAlert();
-  alertKey.value += 1;
-  jobsKey.value += 1;
-  sponsorsKey.value += 1;
-});
 </script>
 
 <style lang="scss" scoped>
+.contributors {
+  float: left;
+  max-width: 420px;
+  overflow: hidden;
+  max-height: 70px;
+}
+.contributors-flex {
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.newsletter-wrapper {
+  border-top: 1px solid var(--vp-c-divider);
+  padding: 16px 0 ;
+}
+
+@media (max-width: 767px) {
   .contributors {
-    float: left;
-    max-width: 70%;
-    overflow: hidden;
-    max-height: 70px;
+    max-width: 300px;
   }
-  .contributors-flex {
-    height: 65px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+}
+
+@media (max-width: 640px) {
+  .contributors {
+    display: none;
   }
+}
 </style>
 

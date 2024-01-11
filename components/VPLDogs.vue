@@ -43,18 +43,18 @@ import Page from '@default-theme/components/VPDoc.vue';
 </script>
 
 <style lang="scss" scoped>
-  .contributors {
-    float: left;
-    max-width: 70%;
-    overflow: hidden;
-    max-height: 70px;
-  }
-  .contributors-flex {
-    height: 65px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
+.contributors {
+  float: left;
+  max-width: 70%;
+  overflow: hidden;
+  max-height: 70px;
+}
+.contributors-flex {
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
 </style>
 

@@ -38,21 +38,20 @@ const {title, icon, link} = defineProps({
 </script>
 
 <style lang="scss" scoped>
-  .collection-icon {
-    gap: 2px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    text-align: center;
-    font-weight: 700;
-    text-transform: capitalize;
-    color: var(--vp-c-text-2);
-    &:hover {
-      color: var(--vp-c-brand-1);
-    }
-    .icon {
-      width: 16px;
-    }
-
+.collection-icon {
+  gap: 2px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: var(--vp-c-text-2);
+  &:hover {
+    color: var(--vp-c-brand-1);
   }
+  .icon {
+    width: 16px;
+  }
+}
 </style>
