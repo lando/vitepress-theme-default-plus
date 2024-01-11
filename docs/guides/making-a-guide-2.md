@@ -17,13 +17,15 @@ tags:
   - this is a test tag
 ---
 
-# Stuff
+# Stuff and other High Vibes that Vibe the Vibe out of Vibes
 
 Guides are _how tos_ or _tutorials_ that fit somewhere in between technical documentation and blog posts. They generally
 seek to answer a single question such as "How do I create a guide using this theme?" and are heavy on code snippets. In this case there are actually two ways to create a guide:
 
 * Manually entering data
 * [Autopopulating data from GitHub](./making-a-guide.html)
+
+[hi](./making-a-guide.md)
 
 ## Manually entering data
 

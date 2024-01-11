@@ -1,5 +1,5 @@
 <template>
-  <div class="collection-type">
+  <div class="collection-icon">
     <VPLink
       :href="link"
       class="icon"
@@ -38,17 +38,13 @@ const {title, icon, link} = defineProps({
 </script>
 
 <style lang="scss" scoped>
-  .collection-type {
+  .collection-icon {
     gap: 2px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     text-align: center;
-    line-height: 18px;
-    font-size: 12px;
     font-weight: 700;
-    margin-top: -16px;
-    max-height: 16px;
     text-transform: capitalize;
     color: var(--vp-c-text-2);
     &:hover {

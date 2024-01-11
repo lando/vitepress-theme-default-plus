@@ -11,13 +11,12 @@
     </template>
 
     <template #doc-before>
-      <CollectionIcon
-        v-if="collection !== false"
-        v-bind="collection"
-      />
-      <div class="doc-header">
-        <GuideHeader v-if="header === 'guide'" />
-        <PostHeader v-else-if="header === 'post'" />
+      <div
+        v-if="header !== ''"
+        class="collection-header"
+      >
+        <PostHeader v-if="header === 'post'" />
+        <CollectionHeader v-else />
       </div>
     </template>
 
@@ -47,9 +46,8 @@ import {useData} from 'vitepress';
 import {computed, ref, watch} from 'vue';
 
 import {default as Alert} from '../components/VPLAlert.vue';
-import {default as CollectionIcon} from '../components/VPLCollectionIcon.vue';
 import {default as Contributor} from '../components/VPLTeamMembersItem.vue';
-import {default as GuideHeader} from '../components/VPLGuideHeader.vue';
+import {default as CollectionHeader} from '../components/VPLCollectionHeader.vue';
 import {default as PostHeader} from '../components/VPLPostHeader.vue';
 
 const {Layout} = DefaultTheme;
@@ -61,20 +59,6 @@ const {frontmatter, page, theme} = useData();
 
 const getAlert = () => frontmatter.value.alert ?? theme.value.alert;
 let alert = getAlert();
-
-const collection = computed(() => {
-  // if there is no collection info then return false or whatever
-  if (frontmatter.value.collection === undefined) return false;
-  // if frontmatter collection is a string then return the matching theme collection data if we have one
-  if (typeof frontmatter.value.collection === 'string') {
-    if (theme.value?.collections[frontmatter.value.collection]) {
-      const {link, icon} = theme.value?.collections[frontmatter.value.collection];
-      return {icon, link, title: frontmatter.value.collection};
-    }
-  }
-  // otherwise assume collection is an object and just return that
-  return frontmatter.value.collection;
-});
 
 const contributors = computed(() => page.value.contributors);
 const header = computed(() => frontmatter.value.collection || '');

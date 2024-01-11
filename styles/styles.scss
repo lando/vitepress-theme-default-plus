@@ -262,11 +262,25 @@ form.netlify {
   }
 }
 
-.collection-guide, .collection-post {
+.collection-post {
   .vp-doc {
-    top: -50px;
     h1 {
-      margin-bottom: 60px;
+      color: var(--vp-c-brand-1);
+      font-size: 3.6em;
+      font-weight: 900;
+      line-height: 1;
+      padding-bottom: 32px;
+      .header-anchor {
+        font-weight: 900;
+      }
+    }
+    h2, h3, h4, h5 {
+      color: color-mix(in srgb, var(--vp-c-brand-1) 90%, white);
+      font-weight: 700;
+      font-size: 2em;
+      .header-anchor {
+        font-weight: 700;
+      }
     }
   }
 }

@@ -1,38 +1,30 @@
 <template>
-  <div class="post-header">
-    <Icon
-      v-if="collection !== false"
-      v-bind="collection"
-    />
-    by
-    <Author
-      v-for="author in authors"
-      :key="author.name"
-      size="icon"
-      :member="author"
-    />
-    <VPLink
-      v-for="(author, index) in authors"
-      :key="author.name"
-      :href="getLink(author)"
-      no-icon
-    >
-      <span class="underline">{{ author.name }}</span><span class="separator">{{ getSeparator(index, authors.length) }}</span>
-    </VPLink>
-    <span v-if="hlocation">from</span>
-    <span
-      v-if="hlocation"
-      class="location"
-    >
-      {{ hlocation }}
-    </span>
-    on
-    <time
-      class="date"
-      :datetime="datetime"
-    >
-      {{ hdate }}
-    </time>
+  <div class="collection-header">
+    <div class="collection-type">
+      <Icon
+        v-if="collection !== false"
+        v-bind="collection"
+      />
+    </div>
+    <div class="collection-avatars">
+      <div class="label">
+        By
+        <VPLink
+          v-for="(author, index) in authors"
+          :key="author.name"
+          :href="getLink(author)"
+          no-icon
+        >
+          <span class="underline">{{ author.name }}</span><span class="separator">{{ getSeparator(index, authors.length) }}</span>
+        </VPLink>
+      </div>
+      <Author
+        v-for="author in authors"
+        :key="author.name"
+        size="icon"
+        :member="author"
+      />
+    </div>
   </div>
 </template>
 
@@ -45,8 +37,7 @@ import {default as Icon} from '../components/VPLCollectionIcon.vue';
 import VPLink from '@default-theme/components/VPLink.vue';
 
 const {frontmatter, page, theme} = useData();
-const {contributors, lastUpdated} = page.value;
-const {date, author, location} = frontmatter.value;
+const {contributors} = page.value;
 
 const getContributor = id => contributors.find(contributor => contributor.email === id)
   ?? contributors.find(contributor => contributor.name === id);
@@ -86,32 +77,17 @@ const collection = computed(() => {
   return frontmatter.value.collection;
 });
 
-const datetime = computed(() => {
-  return new Date(date ?? lastUpdated).toJSON();
-});
-
-const hdate = computed(() => {
-  return new Date(date ?? lastUpdated).toLocaleDateString(undefined, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-});
-
-const hlocation = computed(() => {
-  return location ?? author?.location ?? false;
-});
-
 </script>
 
 <style lang="scss" scoped>
-.post-header {
+.collection-header {
+  margin-bottom: 24px;
+  font-size: .75em;
   align-items: flex-start;
   z-index: 1;
+  position: relative;
   display: flex;
-  gap: 5px;
-  font-size: .75em;
-  margin-bottom: 24px;
+  justify-content: space-between;
 
   a {
     font-weight: 500;
@@ -126,9 +102,24 @@ const hlocation = computed(() => {
     }
   }
 
-  .location, .date {
-    font-weight: 700;
+  .collection-type {
+    display: flex;
+    gap: 3px;
+    align-items: center;
     color: var(--vp-c-text-2);
+  }
+
+  .collection-avatars {
+    display: flex;
+    justify-content: flex-end;
+
+    .label {
+      margin-right: 14px;
+    }
+    .VPTeamMembersItem.icon {
+      overflow: visible;
+      margin-left: -14px;
+    }
   }
 }
 </style>

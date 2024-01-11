@@ -2,11 +2,12 @@
 title: "Making A Blog Post: It's sort of like a guide but it's sort of not like a guide"
 byline: Blog posts are free form articles that may or may not be techincal in nature. They differ slightly from guides primarily in their presentation and authorship.
 blog: true
+date: January 11, 2024
+location: Washington, DC
 author:
   name: Mike Pirog
   link: mailto:mike@lando.dev
   pic: https://gravatar.com/avatar/dc1322b3ddd0ef682862d7f281c821bb
-  location: Washington, DC
 image: https://external-preview.redd.it/mj-2SFKKXAMK3tXrlo1smwLCSIantySqxSgfgMoJH2U.jpg?width=640&crop=smart&auto=webp&s=4f983b744fba16877e80218131a917b92904af26
 
 mailchimp:
@@ -18,9 +19,7 @@ tags:
   - this is a test tag
 ---
 
-# Making a blog post
-
-Blog posts are free form articles that may or may not be techincal in nature. They differ slightly from guides primarily in their presentation and authorship.
+# Making a blog post and other stuff like that
 
 Specifically, they make use of a `byline` and can only have a single, manually entered, author. They can be thought of more like "traditional" news media articles. Like guides you can create them in two ways:
 
