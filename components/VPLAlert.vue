@@ -5,8 +5,8 @@
   >
     <div class="alert-content">
       <button
-        aria-label="Close"
         v-if="props.closeable"
+        aria-label="Close"
         class="alert-dismiss-button"
         @click="dismissAlert"
       >

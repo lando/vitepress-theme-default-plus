@@ -8,7 +8,10 @@
         :title="collection"
       />
     </div>
-    <div class="collection-avatars">
+    <div
+      v-if="authors.length > 0"
+      class="collection-avatars"
+    >
       <div class="label">
         By
         <VPLink
@@ -73,7 +76,7 @@ const getSeparator = (index, end = 0) => {
 
   .collection-type {
     display: flex;
-    gap: 3px;
+    gap: 4px;
     align-items: center;
     color: var(--vp-c-text-2);
   }

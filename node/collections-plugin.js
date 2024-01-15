@@ -63,7 +63,7 @@ export default async function(pageData, {
   }
 
   // prefer authors instead of author
-  if (!frontmatter.authors && frontmatter.author) {
+  if (frontmatter.authors === undefined && frontmatter.author !== undefined) {
     pageData.frontmatter.authors = frontmatter.author;
     if (!Array.isArray(pageData.frontmatter.authors)) pageData.frontmatter.authors = [pageData.frontmatter.authors];
     delete pageData.frontmatter.author;
@@ -80,7 +80,7 @@ export default async function(pageData, {
     // if this is a match then do the collection stuff we need to do
     if (pages.includes(relativePath) || frontmatter.collection === collection) {
       // if no author is set then we need to discover the author with git information
-      if (!frontmatter.authors && contributors) {
+      if (frontmatter.authors === undefined && contributors) {
         const gitDir = dirname(resolve(fileURLToPath(import.meta.url), '..'));
         const gitPaths = resolveGitPaths(relativePath, siteConfig.srcDir.replace(`${gitDir}/`, ''), frontmatter['git-include']);
         frontmatter.authors = await getContributors(gitDir, contributors, {debug, paths: gitPaths});

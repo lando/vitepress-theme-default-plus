@@ -43,6 +43,7 @@
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "markdown-it-container": "^4.0.0",
+    "node-html-parser": "^6.1.12",
     "timeago.js": "^4.0.2",
     "vitepress": "^1.0.0-rc.32",
     "vitepress-plugin-tabs": "^0.5.0",

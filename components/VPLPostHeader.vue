@@ -6,8 +6,11 @@
       :link="iconLink"
       :title="collection"
     />
-    by
-    <div class="post-avatars">
+    <span v-if="authors.length > 0">by</span>
+    <div
+      v-if="authors.length > 0"
+      class="post-avatars"
+    >
       <Author
         v-for="author in authors"
         :key="author.name"
@@ -76,7 +79,7 @@ const hlocation = computed(() => {
   align-items: flex-start;
   z-index: 1;
   display: flex;
-  gap: 5px;
+  gap: 4px;
   font-size: .75em;
   margin-bottom: 24px;
 

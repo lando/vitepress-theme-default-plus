@@ -2,6 +2,7 @@ import {join, relative} from 'node:path';
 
 import {normalizePath} from 'vite';
 import {createContentLoader} from 'vitepress';
+import {parse} from 'node-html-parser';
 
 import Debug from 'debug';
 
@@ -23,44 +24,35 @@ const getRelativePath = url => normalizePath(relative(srcDir, join(srcDir, url))
   .replace(/\.html$/, cleanUrls ? '' : '.md');
 
 export default createContentLoader(patterns, {
-  excerpt: false,
+  excerpt: true,
   async transform(raw) {
-    return await Promise.all(raw.map(async data => {
+    const pages = await Promise.all(raw.map(async data => {
       // recompute this because we need it for the next step
       data.relativePath = getRelativePath(data.url);
       // in order to get a complete and consistent set of data we should run this through the collections plugin
       await collectionsPlugin(data, {siteConfig, debug});
 
-      // attempt to set things from frontmatter as we can
-      // data.title = frontmatter.title;
-      // data.authors = frontmatter.authors;
+      // get stuff
+      const {frontmatter, collection} = data;
+      // if there is no frontmatter.title attempt to set it with the excerpt
+      if (!frontmatter.title) {
+        frontmatter.title = parse(data.excerpt).getElementsByTagName('h1')[0]?.text ?? frontmatter.title;
+      }
 
-      console.log('hello there');
-      console.log(data);
-
-      return data;
-
-      // if we dont have the things we expect then we need to try to get it another way
+      // munge it all 2getha and return
+      return {
+        title: frontmatter.title,
+        summary: frontmatter.summary ?? frontmatter.byline ?? frontmatter.description,
+        date: frontmatter.date ?? data.timestamp ?? data.datetime,
+        timestamp: data.timestamp ?? Date.now(),
+        authors: frontmatter.authors,
+        type: frontmatter.collection,
+        icon: collection.icon,
+        iconLink: collection.iconLink,
+      };
     }));
 
-    siteConfig.pirog = true;
-
-    // console.log(data);
-
-      // map date, updated.timestamp, frontmatter.lastUpdated, calc last updated
-
-
-    return raw
-      .map(({url, frontmatter, excerpt}) => ({
-        title: frontmatter.title,
-        // author: frontmatter.author ?? blogConfig?.defaultAuthor ?? 'Unknown',
-        url,
-        excerpt,
-        // tags: formatTags(frontmatter.tags),
-        // category:
-        //   frontmatter.category ?? blogConfig?.defaultCategory ?? 'Article',
-        // date: formatDate(frontmatter.date),
-      }));
-      // .sort((a, b) => b.date.time - a.date.time);
+    // sort and return
+    return pages.sort((a, b) => b.timestamp - a.timestamp);
   },
 });

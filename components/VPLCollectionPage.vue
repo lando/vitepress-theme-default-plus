@@ -7,7 +7,7 @@
 <script setup>
 import {useCollection} from '../utils/use-collection';
 
-console.log(useCollection('blog'));
+console.log(useCollection('guide'));
 
 </script>
 

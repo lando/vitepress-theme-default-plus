@@ -2,21 +2,24 @@ import {computed} from 'vue';
 import {useRoute} from 'vitepress';
 import {data as collections} from './collections.data';
 
-export function useCollection() {
-  console.log(collections);
-  const route = useRoute()
-
-  const path = route.path
+export function useCollection(type = undefined) {
+  const route = useRoute();
+  const path = route.path;
 
   function findCurrentIndex() {
-    const result = posts.findIndex((p) => p.url === route.path)
-    if (result === -1) console.error(`blog post missing: ${route.path}`)
-    return result
+    const result = pages.findIndex(p => p.url === route.path);
+    if (result === -1) console.error(`blog post missing: ${route.path}`);
+    return result;
   }
 
-  const post = computed(() => posts[findCurrentIndex()])
-  const nextPost = computed(() => posts[findCurrentIndex() - 1])
-  const prevPost = computed(() => posts[findCurrentIndex() + 1])
+  // filter pages if needed
+  const pages = type === undefined ? collections : collections.filter(page => page.type === type);
+  console.log(type, pages);
 
-  return { posts, post, nextPost, prevPost, path }
+
+  const page = computed(() => pages[findCurrentIndex()]);
+  const nextPage = computed(() => pages[findCurrentIndex() - 1]);
+  const prevPage = computed(() => pages[findCurrentIndex() + 1]);
+
+  return {pages, page, nextPage, prevPage, path};
 }
