@@ -162,7 +162,7 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
 
 ## Blog Posts
 
-* See [Making a blog post](./../guides/making-a-blog-post)
+* See [Making a blog post](./../blog/making-a-blog-post)
 
 ## Metadata
 

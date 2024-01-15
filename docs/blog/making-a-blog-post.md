@@ -4,12 +4,6 @@ byline: Blog posts are free form articles that may or may not be techincal in na
 blog: true
 date: January 11, 2024
 location: Washington, DC
-author:
-  name: Mike Pirog
-  link: mailto:mike@lando.dev
-  pic: https://gravatar.com/avatar/dc1322b3ddd0ef682862d7f281c821bb
-image: https://external-preview.redd.it/mj-2SFKKXAMK3tXrlo1smwLCSIantySqxSgfgMoJH2U.jpg?width=640&crop=smart&auto=webp&s=4f983b744fba16877e80218131a917b92904af26
-
 mailchimp:
   action: https://dev.us12.list-manage.com/subscribe/post?u=59874b4d6910fa65e724a4648&amp;id=613837077f
   title: Want more Pirog themed content?
@@ -41,7 +35,7 @@ blog: true
 Note that because of how the underlying components are layered and called you must set the title in the frontmatter. This will populate the `h1` on the page. You can and should then omit the `h1` in the markdown content itself.
 :::
 
-You can check out the full markdown file that generated this page [here](https://github.com/lando/vuepress-theme-default-plus/blob/main/docs/making-a-guide.html). If you are interested in manually setting the `authors`, `date` and edit link then check out [Making a Guide 2](./making-a-guide-2.html)
+You can check out the full markdown file that generated this page [here](https://github.com/lando/vuepress-theme-default-plus/blob/main/docs/making-a-guide.html). If you are interested in manually setting the `authors`, `date` and edit link then check out [Making a Guide 2](../guides/making-a-guide-2.html)
 
 ## Authorship
 

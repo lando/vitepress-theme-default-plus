@@ -185,15 +185,23 @@ export default defineConfig({
       {
         text: 'Getting Started',
         link: '/index',
-        activeMatch: '^(?!.*(?:config|components|markdown|pages)).+',
+        activeMatch: '^(?!.*(?:config|components|markdown|pages|guides|blog)).+',
       },
       {
         text: 'Configuration',
         link: '/config/config',
         activeMatch: '/config/|/components/|/markdown|/pages',
       },
-
-
+      {
+        text: 'Guides',
+        link: '/guides',
+        activeMatch: '/guides',
+      },
+      {
+        text: 'Blog',
+        link: '/blog',
+        activeMatch: '/blog',
+      },
       // {
       //   text: 'Examples',
       //   items: [
@@ -270,7 +278,8 @@ export default defineConfig({
           ],
         },
         {text: 'Configuration', link: '/config/config'},
-        {text: 'Blog & Guides', link: '/guides'},
+        {text: 'Blog', link: '/blog'},
+        {text: 'Guides', link: '/guides'},
       ],
     },
   },

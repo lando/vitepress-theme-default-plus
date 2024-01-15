@@ -25,12 +25,19 @@ export {default as VPLMenuGroup} from './components/VPLMenuGroup.vue';
 export {default as VPLMenuLink} from './components/VPLMenuLink.vue';
 export {default as VPLNavBarMenuGroup} from './components/VPLNavBarMenuGroup.vue';
 
-// contrib page
+// team page
 export {default as VPLTeamMembersItem} from './components/VPLTeamMembersItem.vue';
 export {default as VPLTeamMembers} from './components/VPLTeamMembers.vue';
 export {VPTeamPage as VPLTeamPage} from 'vitepress/theme';
 export {VPTeamPageTitle as VPLTeamPageTitle} from 'vitepress/theme';
 export {VPTeamPageSection as VPLTeamPageSection} from 'vitepress/theme';
+
+// collection page
+export {default as VPLCollectionItem} from './components/VPLCollectionItem.vue';
+export {default as VPLCollectionItems} from './components/VPLCollectionItems.vue';
+export {default as VPLCollectionPage} from './components/VPLCollectionPage.vue';
+export {default as VPLCollectionPageTitle} from './components/VPLCollectionPageTitle.vue';
+export {default as VPLCollectionPageSection} from './components/VPLCollectionPageSection.vue';
 
 const theme = {
   ...DefaultTheme,

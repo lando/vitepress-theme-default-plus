@@ -101,8 +101,10 @@ export async function defineConfig(userConfig = {}) {
   }
 
   // site contributors
-  themeConfig.team = await getContributors(root, contributors, {debug, paths: []});
-  debug('added site contributors from git log %o with config %o', config.team, contributors);
+  if (contributors !== false) {
+    themeConfig.team = await getContributors(root, contributors, {debug, paths: []});
+    debug('added site contributors from git log %o with config %o', config.team, contributors);
+  }
 
   // build robots.txt and rssfeed
   config.buildEnd = async siteConfig => {
