@@ -82,4 +82,13 @@ const adder = () => {
   margin: 24px 0;
   padding: 24px;
 }
+
+@media (max-width: 767px) {
+  .collection-articles {
+    article {
+      max-width: 100%;
+    }
+  }
+}
+
 </style>

@@ -5,8 +5,8 @@ title: Guides
 ---
 
 <script setup>
-import {VPLCollectionPage, VPLCollectionPageTitle, VPLCollectionItems} from '@lando/vitepress-theme-default-plus'
-import {useCollection} from '../utils/use-collection';
+import {VPLCollectionPage, VPLCollectionPageTitle, VPLCollectionItems} from '@lando/vitepress-theme-default-plus';
+import {useCollection} from '@lando/vitepress-theme-default-plus';
 
 const {pages} = useCollection('guide');
 

@@ -6,7 +6,7 @@ title: Guides
 
 <script setup>
 import {VPLCollectionPage, VPLCollectionPageTitle, VPLCollectionItems} from '@lando/vitepress-theme-default-plus'
-import {useCollection} from '../utils/use-collection';
+import {useCollection} from '@lando/vitepress-theme-default-plus';
 
 const {pages} = useCollection('post');
 </script>

@@ -99,7 +99,7 @@ export default defineConfig({
         {
           name: 'John Ouelett',
           email: 'john@thinktandem.io',
-          title: 'Robot',
+          title: 'Robot From Future',
           mergeOnly: true,
         },
         {
