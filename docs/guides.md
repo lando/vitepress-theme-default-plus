@@ -5,11 +5,11 @@ title: Guides
 ---
 
 <script setup>
-import {
-  VPLCollectionPage,
-  VPLCollectionPageTitle,
-  VPLCollectionItems
-} from '@lando/vitepress-theme-default-plus'
+import {VPLCollectionPage, VPLCollectionPageTitle, VPLCollectionItems} from '@lando/vitepress-theme-default-plus'
+import {useCollection} from '../utils/use-collection';
+
+const {pages} = useCollection('guide');
+
 </script>
 
 <VPLCollectionPage>
@@ -22,5 +22,5 @@ import {
       oj pgojseg
     </template>
   </VPLCollectionPageTitle>
-  <VPLCollectionItems size="small"/>
+  <VPLCollectionItems :items="pages"/>
 </VPLCollectionPage>

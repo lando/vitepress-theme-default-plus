@@ -44,9 +44,9 @@ const {title, icon, link} = defineProps({
   justify-content: flex-end;
   align-items: center;
   text-align: center;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: capitalize;
-  color: var(--vp-c-text-2);
+  color: var(--vp-c-text-3);
   &:hover {
     color: var(--vp-c-brand-1);
   }

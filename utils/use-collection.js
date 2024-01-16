@@ -14,9 +14,6 @@ export function useCollection(type = undefined) {
 
   // filter pages if needed
   const pages = type === undefined ? collections : collections.filter(page => page.type === type);
-  console.log(type, pages);
-
-
   const page = computed(() => pages[findCurrentIndex()]);
   const nextPage = computed(() => pages[findCurrentIndex() - 1]);
   const prevPage = computed(() => pages[findCurrentIndex() + 1]);

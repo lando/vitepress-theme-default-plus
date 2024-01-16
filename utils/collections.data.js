@@ -33,7 +33,7 @@ export default createContentLoader(patterns, {
       await collectionsPlugin(data, {siteConfig, debug});
 
       // get stuff
-      const {frontmatter, collection} = data;
+      const {frontmatter, collection, url} = data;
       // if there is no frontmatter.title attempt to set it with the excerpt
       if (!frontmatter.title) {
         frontmatter.title = parse(data.excerpt).getElementsByTagName('h1')[0]?.text ?? frontmatter.title;
@@ -43,12 +43,15 @@ export default createContentLoader(patterns, {
       return {
         title: frontmatter.title,
         summary: frontmatter.summary ?? frontmatter.byline ?? frontmatter.description,
-        date: frontmatter.date ?? data.timestamp ?? data.datetime,
-        timestamp: data.timestamp ?? Date.now(),
         authors: frontmatter.authors,
-        type: frontmatter.collection,
+        date: frontmatter.date ?? data.timestamp ?? data.datetime,
+        datetime: data.datetime ?? Date.now().toJSON(),
         icon: collection.icon,
         iconLink: collection.iconLink,
+        relativePath: data.relativePath,
+        timestamp: data.timestamp ?? Date.now(),
+        type: frontmatter.collection,
+        url,
       };
     }));
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="VPTeamPageTitle">
+  <div class="collection-page-title">
     <h1
       v-if="$slots.title"
       class="title"
@@ -16,19 +16,19 @@
 </template>
 
 <style scoped>
-.VPTeamPageTitle {
+.collection-page-title {
   padding: 48px 32px;
   text-align: center;
 }
 
 @media (min-width: 768px) {
-  .VPTeamPageTitle {
+  .collection-page-title {
     padding: 64px 48px 48px;
   }
 }
 
 @media (min-width: 960px) {
-  .VPTeamPageTitle {
+  .collection-page-title {
     padding: 80px 64px 48px;
   }
 }

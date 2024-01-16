@@ -1,5 +1,5 @@
 <template>
-  <section class="VPTeamPageSection">
+  <section class="collection-page-section">
     <div class="title">
       <div class="title-line" />
       <h2
@@ -25,18 +25,18 @@
 </template>
 
 <style scoped>
-.VPTeamPageSection {
+.collection-page-section {
   padding: 0 32px;
 }
 
 @media (min-width: 768px) {
-  .VPTeamPageSection {
+  .collection-page-section {
     padding: 0 48px;
   }
 }
 
 @media (min-width: 960px) {
-  .VPTeamPageSection {
+  .collection-page-section {
     padding: 0 64px;
   }
 }
