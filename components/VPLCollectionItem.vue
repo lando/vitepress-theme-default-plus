@@ -110,7 +110,7 @@ const getSeparator = (index, end = 0) => {
     color: var(--vp-c-brand-1);
     margin-top: -18px;
     line-height: 24px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
     max-width: 80%;
   }
@@ -138,7 +138,7 @@ const getSeparator = (index, end = 0) => {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     color: var(--vp-c-text-3);
 
@@ -159,7 +159,7 @@ const getSeparator = (index, end = 0) => {
       color: var(--vp-c-text-3);
     }
     .read-more {
-      color: var(--vp-c-brand-1);
+      color: var(--vp-c-brand-3);
     }
   }
 }

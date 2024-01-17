@@ -21,5 +21,5 @@ const {pages} = useCollection('post');
       oj pgojseg
     </template>
   </VPLCollectionPageTitle>
-  <VPLCollectionItems :pager="2" :items="pages" more="date"/>
+  <VPLCollectionItems :items="pages" more="date"/>
 </VPLCollectionPage>

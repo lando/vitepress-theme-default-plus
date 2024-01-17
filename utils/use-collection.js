@@ -14,9 +14,28 @@ export default function useCollection(type = undefined) {
 
   // filter pages if needed
   const pages = type === undefined ? collections : collections.filter(page => page.type === type);
-  const page = computed(() => pages[findCurrentIndex()]);
-  const nextPage = computed(() => pages[findCurrentIndex() - 1]);
-  const prevPage = computed(() => pages[findCurrentIndex() + 1]);
 
-  return {pages, page, nextPage, prevPage, path};
+  // current
+  const page = computed(() => pages[findCurrentIndex()]);
+
+  // prev page or loop back to end unless the end is me
+  const prevPage = computed(() => {
+    const prev = pages[findCurrentIndex() - 1] ?? pages[pages.length - 1];
+    return prev.id !== page.value.id ? prev : undefined;
+  });
+  // next page or loop back to beginning unless the beginning is me
+  const nextPage = computed(() => {
+    const next = pages[findCurrentIndex() + 1] ?? pages[0];
+    return next.id !== page.value.id ? next : undefined;
+  });
+
+  // these are meant to replace the core next|prev nav links
+  const prev = computed(() => {
+    return prevPage.value ? {text: prevPage.value.title, link: prevPage.value.url} : undefined;
+  });
+  const next = computed(() => {
+    return nextPage.value ? {text: nextPage.value.title, link: nextPage.value.url} : undefined;
+  });
+
+  return {pages, page, next, nextPage, prev, prevPage, path};
 }

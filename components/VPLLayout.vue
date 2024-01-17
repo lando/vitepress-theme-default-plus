@@ -32,16 +32,6 @@
       >
         <MailChimp v-bind="mailchimp" />
       </div>
-      <div class="contributors">
-        <div class="contributors-flex">
-          <Contributor
-            v-for="contributor in contributors"
-            :key="contributor.key"
-            size="icon"
-            :member="contributor"
-          />
-        </div>
-      </div>
     </template>
   </Layout>
 </template>
@@ -52,7 +42,6 @@ import {useData} from 'vitepress';
 import {computed, ref} from 'vue';
 
 import {default as Alert} from '../components/VPLAlert.vue';
-import {default as Contributor} from '../components/VPLTeamMembersItem.vue';
 import {default as CollectionHeader} from '../components/VPLCollectionHeader.vue';
 import {default as MailChimp} from '../components/VPLMailchimp.vue';
 import {default as PostHeader} from '../components/VPLPostHeader.vue';
@@ -62,10 +51,9 @@ const {Layout} = DefaultTheme;
 const alertKey = ref(0);
 const jobsKey = ref(0);
 const sponsorsKey = ref(0);
-const {frontmatter, page, theme} = useData();
+const {frontmatter, theme} = useData();
 
 const alert = computed(() => frontmatter.value.alert ?? theme.value.alert ?? false);
-const contributors = computed(() => page.value.contributors);
 const header = computed(() => frontmatter.value.collection || '');
 const headerClass = computed(() => frontmatter.value.collection ? `collection-${frontmatter.value.collection}` : '');
 const mailchimp = computed(() => frontmatter.value?.mailchimp?.action ? frontmatter.value.mailchimp : false);
@@ -73,35 +61,9 @@ const mailchimp = computed(() => frontmatter.value?.mailchimp?.action ? frontmat
 </script>
 
 <style lang="scss" scoped>
-.contributors {
-  float: left;
-  max-width: 420px;
-  overflow: hidden;
-  max-height: 70px;
-}
-.contributors-flex {
-  height: 65px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
 .newsletter-wrapper {
   border-top: 1px solid var(--vp-c-divider);
   padding: 16px 0 ;
-}
-
-@media (max-width: 767px) {
-  .contributors {
-    max-width: 300px;
-  }
-}
-
-@media (max-width: 640px) {
-  .contributors {
-    display: none;
-  }
 }
 </style>
 

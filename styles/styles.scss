@@ -263,6 +263,13 @@ form.netlify {
 }
 
 .collection-post {
+  .collection-icon {
+    color: var(--vp-c-text-1) !important;
+  }
+  .edit-info {
+    border-top: 1px solid var(--vp-c-divider);
+    padding-top: 16px;
+  }
   .vp-doc {
     h1 {
       color: var(--vp-c-brand-1);
@@ -282,10 +289,6 @@ form.netlify {
         font-weight: 700;
       }
     }
-  }
-  .edit-info {
-    border-top: 1px solid var(--vp-c-divider);
-    padding-top: 16px;
   }
   .VPLastUpdated {
     font-size: .75em !important;

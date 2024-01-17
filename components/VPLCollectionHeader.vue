@@ -60,7 +60,6 @@ const getSeparator = (index, end = 0) => {
   position: relative;
   display: flex;
   justify-content: space-between;
-
   a {
     font-weight: 500;
     color: color-mix(in srgb, var(--vp-c-brand-1) 90%, white);
@@ -73,18 +72,15 @@ const getSeparator = (index, end = 0) => {
       text-decoration: none;
     }
   }
-
   .collection-type {
     display: flex;
     gap: 4px;
     align-items: center;
     color: var(--vp-c-text-2);
   }
-
   .collection-avatars {
     display: flex;
     justify-content: flex-end;
-
     .label {
       margin-right: 14px;
     }

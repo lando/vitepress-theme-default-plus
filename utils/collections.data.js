@@ -1,7 +1,8 @@
 import {join, relative} from 'node:path';
 
-import {normalizePath} from 'vite';
 import {createContentLoader} from 'vitepress';
+import {nanoid} from 'nanoid';
+import {normalizePath} from 'vite';
 import {parse} from 'node-html-parser';
 
 import Debug from 'debug';
@@ -41,6 +42,7 @@ export default createContentLoader(patterns, {
 
       // munge it all 2getha and return
       return {
+        id: nanoid(),
         title: frontmatter.title,
         summary: frontmatter.summary ?? frontmatter.byline ?? frontmatter.description,
         authors: frontmatter.authors,

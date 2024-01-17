@@ -57,7 +57,7 @@ export async function defineConfig(userConfig = {}) {
   // replacements
   const aliases = [
     {find: '@default-theme', replacement: fileURLToPath(new URL('./node_modules/vitepress/dist/client/theme-default', import.meta.url))},
-    {find: /^.*\/VPDocFooterLastUpdated\.vue$/, replacement: fileURLToPath(new URL('./components/VPLDocFooterLastUpdated.vue', import.meta.url))},
+    {find: /^.*\/VPDocFooter\.vue$/, replacement: fileURLToPath(new URL('./components/VPLDocFooter.vue', import.meta.url))},
     {find: /^.*\/VPMenuGroup\.vue$/, replacement: fileURLToPath(new URL('./components/VPLMenuGroup.vue', import.meta.url))},
     {find: /^.*\/VPNavBarMenuGroup\.vue$/, replacement: fileURLToPath(new URL('./components/VPLNavBarMenuGroup.vue', import.meta.url))},
     {find: /^.*\/VPTeamMembersItem\.vue$/, replacement: fileURLToPath(new URL('./components/VPLTeamMembersItem.vue', import.meta.url))},

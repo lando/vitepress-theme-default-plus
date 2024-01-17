@@ -24,7 +24,6 @@ export default async function(pageData, {
   if (contributors !== false) {
     try {
       pageData.contributors = await getContributors(gitDir, contributors, {debug, paths: gitPaths});
-      // pageData.contributors = await getContributors('/Users/pirog/work/cli', contributors, {debug, paths: []});
       debug('page %o set contributors %o', relativePath, pageData.contributors);
     } catch (error) {
       debug('could not get contributor information, considering this not-fatal but you should investigate and resolve');

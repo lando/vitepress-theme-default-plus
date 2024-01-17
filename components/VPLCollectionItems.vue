@@ -1,14 +1,18 @@
 <template>
   <div>
     <div class="collection-articles">
-      <Article
-        v-for="page in pagination()"
+      <div
+        v-for="(page, index) in pagination()"
         :key="page.key"
-        :page="page"
-        :size="size"
-        :more="more"
-        class="collection-page-article"
-      />
+        :class="{'collection-article': true, grower: getGrower(index)}"
+      >
+        <Article
+          :page="page"
+          :size="size"
+          :more="more"
+          class="collection-page-article"
+        />
+      </div>
     </div>
     <VPButton
       v-if="pages.length > amount"
@@ -59,12 +63,17 @@ const pages = computed(() => {
   const datePages = items.map(item => Object.assign(item, {timestamp: item.date ? item.date : item.timestamp}));
   return datePages.sort((a, b) => a.timestamp < b.timestamp ? 1 : -1);
 });
-const pagination = (t = 1) => {
-  return pages.value.slice(0, amount.value);
-};
+
 const adder = () => {
   amount.value += pager;
 };
+
+const pagination = () => {
+  return pages.value.slice(0, amount.value);
+};
+
+const getGrower = i => pagination()[i + 1] === undefined && (i + 1) % 2 !== 0;
+
 </script>
 
 <style scoped>
@@ -72,21 +81,36 @@ const adder = () => {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 24px;
-  article {
-    max-width: 48%;
+  justify-content: space-between;
+
+  .collection-article {
+    max-width: 50%;
+    display: flex;
+    flex-grow: 1;
+    padding: 6px;
+    &.grower {
+      max-width: 100%;
+    }
   }
 }
 
 .load-more-button {
-  margin: 24px 0;
+  margin: 24px 6px;
   padding: 24px;
 }
 
 @media (max-width: 767px) {
   .collection-articles {
-    article {
+    .collection-article {
       max-width: 100%;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .collection-articles {
+    .collection-article {
+      padding: 6px 0;
     }
   }
 }
