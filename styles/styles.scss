@@ -267,7 +267,6 @@ form.netlify {
     color: var(--vp-c-text-1) !important;
   }
   .edit-info {
-    border-top: 1px solid var(--vp-c-divider);
     padding-top: 16px;
   }
   .vp-doc {
@@ -534,7 +533,6 @@ form.netlify {
   .VPDocFooter {
     .edit-info {
       align-items: flex-end !important;
-      padding-bottom: 14px;
       flex-direction: column-reverse;
     }
   }

@@ -11,6 +11,10 @@ export default {
         frontmatter: {
           collection: 'post',
           contributors: false,
+          backLink: {
+            text: '<- Back to blog',
+            link: '/blog',
+          },
           aside: false,
           sidebar: false,
           prev: false,

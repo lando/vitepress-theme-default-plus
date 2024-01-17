@@ -3,6 +3,7 @@ byline: Blog posts are free form articles that may or may not be techincal in na
 blog: true
 date: January 11, 2024
 location: Washington, DC
+contributors: false
 mailchimp:
   action: https://dev.us12.list-manage.com/subscribe/post?u=59874b4d6910fa65e724a4648&amp;id=613837077f
   title: Want more Pirog themed content?

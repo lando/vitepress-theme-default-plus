@@ -4,44 +4,59 @@
     class="VPDocFooter"
   >
     <slot name="doc-footer-before" />
-
-    <div class="contributors">
-      <div class="contributors-flex">
-        <Contributor
-          v-for="contributor in contributors"
-          :key="contributor.key"
-          size="icon"
-          :member="contributor"
-        />
-      </div>
-    </div>
-
-    <div
-      v-if="hasEditLink || hasLastUpdated"
-      class="edit-info"
-    >
+    <div class="footer-box">
       <div
-        v-if="hasEditLink"
-        class="edit-link"
+        v-if="hasBackLink"
+        class="back-link"
       >
-        <VPLink
-          class="edit-link-button"
-          :href="editLink.url"
-          :no-icon="true"
-        >
-          <VPIconEdit
-            class="edit-link-icon"
-            aria-label="edit icon"
-          />
-          {{ editLink.text }}
+        <VPLink :href="backLink.link">
+          {{ backLink.text ?? '<- Back' }}
         </VPLink>
       </div>
 
       <div
-        v-if="hasLastUpdated"
-        class="last-updated"
+        v-if="hasContributors"
+        class="contributors"
       >
-        <VPLDocFooterLastUpdated />
+        <div class="contributors-flex">
+          <Contributor
+            v-for="contributor in contributors"
+            :key="contributor.key"
+            size="icon"
+            :member="contributor"
+          />
+        </div>
+      </div>
+
+      <div class="empty" />
+
+      <div
+        v-if="hasEditLink || hasLastUpdated"
+        class="edit-info"
+      >
+        <div
+          v-if="hasEditLink"
+          class="edit-link"
+        >
+          <VPLink
+            class="edit-link-button"
+            :href="editLink.url"
+            :no-icon="true"
+          >
+            <VPIconEdit
+              class="edit-link-icon"
+              aria-label="edit icon"
+            />
+            {{ editLink.text }}
+          </VPLink>
+        </div>
+
+        <div
+          v-if="hasLastUpdated"
+          class="last-updated"
+        >
+          <VPLDocFooterLastUpdated />
+        </div>
       </div>
     </div>
 
@@ -100,6 +115,14 @@ import VPLDocFooterLastUpdated from './VPLDocFooterLastUpdated.vue';
 import {default as Contributor} from './VPLTeamMembersItem.vue';
 
 
+const useBackLink = () => {
+  // if its a string then assume its the link
+  if (typeof frontmatter.value?.backLink === 'string') {
+    return computed(() => ({link: frontmatter.value.backLink}));
+  }
+  return computed(() => frontmatter.value.backLink);
+};
+
 const {theme, page, frontmatter} = useData();
 const {collection, next, prev} = frontmatter.value;
 
@@ -111,9 +134,17 @@ const control = computed(() => ({
   next: next ? prevnext.value.next : cprevnext.value.next,
 }));
 
-const contributors = computed(() => page.value.contributors);
-
+const backLink = useBackLink();
+const contributors = computed(() => frontmatter.value.contributors ?? page.value.contributors);
 const editLink = useEditLink();
+
+const hasBackLink = computed(() => {
+  return frontmatter.value?.backLink?.link;
+});
+
+const hasContributors = computed(() => {
+  return contributors.value && contributors.value.length > 0;
+});
 
 const hasEditLink = computed(() => {
   return theme.value.editLink && frontmatter.value.editLink !== false;
@@ -134,8 +165,18 @@ const showFooter = computed(() => {
   margin-top: 64px;
 }
 
+.back-link {
+  display: flex;
+  align-items: flex-end;
+  border: 0;
+  line-height: 32px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--vp-c-brand-1);
+  transition: color 0.25s;
+}
+
 .contributors {
-  float: left;
   max-width: 420px;
   overflow: hidden;
   max-height: 70px;
@@ -147,30 +188,12 @@ const showFooter = computed(() => {
   flex-wrap: wrap;
   justify-content: flex-end;
 }
-
-.edit-info {
-  padding-bottom: 18px;
-}
-
-@media (max-width: 767px) {
-  .contributors {
-    max-width: 300px;
-  }
-}
-
-@media (max-width: 640px) {
-  .contributors {
-    display: none;
-  }
-}
-
-@media (min-width: 640px) {
-  .edit-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 14px;
-  }
+.desc {
+  display: block;
+  line-height: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--vp-c-text-2);
 }
 
 .edit-link-button {
@@ -195,18 +218,17 @@ const showFooter = computed(() => {
   fill: currentColor;
 }
 
+.footer-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
 .prev-next {
   border-top: 1px solid var(--vp-c-divider);
   padding-top: 24px;
   display: grid;
   grid-row-gap: 8px;
-}
-
-@media (min-width: 640px) {
-  .prev-next {
-    grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 16px;
-  }
 }
 
 .pager-link {
@@ -228,14 +250,6 @@ const showFooter = computed(() => {
   text-align: right;
 }
 
-.desc {
-  display: block;
-  line-height: 20px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--vp-c-text-2);
-}
-
 .title {
   display: block;
   line-height: 20px;
@@ -243,5 +257,31 @@ const showFooter = computed(() => {
   font-weight: 500;
   color: var(--vp-c-brand-1);
   transition: color 0.25s;
+}
+
+@media (max-width: 767px) {
+  .contributors {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 640px) {
+  .contributors {
+    display: none;
+  }
+}
+
+@media (min-width: 640px) {
+  .edit-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+@media (min-width: 640px) {
+  .prev-next {
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 16px;
+  }
 }
 </style>
