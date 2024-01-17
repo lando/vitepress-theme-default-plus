@@ -30,12 +30,10 @@ export default function useCollection(type = undefined) {
   });
 
   // these are meant to replace the core next|prev nav links
-  const prev = computed(() => {
-    return prevPage.value ? {text: prevPage.value.title, link: prevPage.value.url} : undefined;
-  });
-  const next = computed(() => {
-    return nextPage.value ? {text: nextPage.value.title, link: nextPage.value.url} : undefined;
-  });
+  const prevnext = computed(() => ({
+    prev: prevPage.value ? {text: prevPage.value.title, link: prevPage.value.url} : undefined,
+    next: nextPage.value ? {text: nextPage.value.title, link: nextPage.value.url} : undefined,
+  }));
 
-  return {pages, page, next, nextPage, prev, prevPage, path};
+  return {pages, page, nextPage, prevnext, prevPage, path};
 }

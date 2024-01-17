@@ -104,11 +104,11 @@ const {theme, page, frontmatter} = useData();
 const {collection, next, prev} = frontmatter.value;
 
 const prevnext = usePrevNext();
-const cprevnext = collection ? useCollection(collection) : usePrevNext();
+const cprevnext = collection ? useCollection(collection).prevnext : usePrevNext();
 
 const control = computed(() => ({
-  prev: prev ? prevnext.value.prev : cprevnext.prev.value,
-  next: next ? prevnext.value.next : cprevnext.next.value,
+  prev: prev ? prevnext.value.prev : cprevnext.value.prev,
+  next: next ? prevnext.value.next : cprevnext.value.next,
 }));
 
 const contributors = computed(() => page.value.contributors);
