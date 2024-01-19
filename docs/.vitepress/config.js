@@ -21,6 +21,7 @@ export default defineConfig({
     ['meta', {name: 'twitter:title', content: 'VitePress Theme +'}],
     ['meta', {name: 'twitter:description', content: 'The VitePress default theme with some MOARPOWAH!'}],
   ],
+
   robots: {
     host: 'https://vite-theme-default-plus.lando.dev/',
     sitemap: 'https://vite-theme-default-plus.lando.dev/sitemap.xml',
@@ -118,6 +119,10 @@ export default defineConfig({
           mergeOnly: true,
         },
       ],
+    },
+
+    feed: {
+      collections: ['post, guide'],
     },
 
     ga: {id: 'G-ZSK3T9FTQ9'},

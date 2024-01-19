@@ -11,6 +11,7 @@ export default async function(pageData, {
   debug = Debug('@lando/add-contributors'),  // eslint-disable-line
   siteConfig,
 } = {}) {
+  debug = debug.extend(`${pageData.relativePath}`);
   // get path
   const {frontmatter, relativePath} = pageData;
   // compute git things
@@ -24,10 +25,9 @@ export default async function(pageData, {
   if (contributors !== false) {
     try {
       pageData.contributors = await getContributors(gitDir, contributors, {debug, paths: gitPaths});
-      pageData.contributors = await getContributors('/Users/pirog/work/cli', contributors, {debug, paths: []});
-      debug('page %o set contributors %o', relativePath, pageData.contributors);
+      debug('set contributors %o', pageData.contributors);
     } catch (error) {
-      debug('could not get contributor information, considering this not-fatal but you should investigate and resolve');
+      debug('could not get contributor information, considering this non-fatal but you should investigate and resolve');
       console.error(error);
     }
   }

@@ -14,13 +14,18 @@ import {default as getGaHeaders} from './utils/get-ga-headers';
 import {default as getHubspotHeaders} from './utils/get-hubspot-headers';
 import {default as parseLayouts} from './utils/parse-layouts';
 
-// plugins
-import {default as addContributorsPlugin} from './node/add-contributors-plugin';
+// node/plugins
+import {default as addContributors} from './node/add-contributors';
 import {default as addLayoutsPlugin} from './vite/add-layout-components-plugin';
-import {default as addMetadataPlugin} from './node/add-metadata-plugin';
+import {default as addMetadata} from './node/add-metadata';
+import {default as augmentAuthors} from './node/augment-authors';
 import {default as allowInternalPlugin} from './vite/allow-internal-plugin';
-import {default as collectionsPlugin} from './node/collections-plugin';
-import {default as generateRobotsTxtPlugin} from './node/generate-robots-plugin';
+import {default as buildCollections} from './node/build-collections';
+import {default as normalizeFrontmatter} from './node/normalize-frontmatter';
+import {default as normalizeLegacyFrontmatter} from './node/normalize-legacy-frontmatter';
+import {default as parseCollections} from './node/parse-collections';
+import {default as generateFeeds} from './node/generate-feeds';
+import {default as generateRobotsTxt} from './node/generate-robots';
 import {default as linkOverridePlugin} from './markdown/link-override-plugin';
 import {default as patchVPMenuColumnsPlugin} from './vite/patch-vp-menu-columns-plugin';
 import {tabsMarkdownPlugin} from 'vitepress-plugin-tabs';
@@ -31,14 +36,14 @@ import {default as baseConfig} from './config/defaults';
 
 export async function defineConfig(userConfig = {}) {
   const debug = Debug('@lando/vpltheme'); // eslint-disable-line
-
   // merge config sources
   const config = merge({}, baseConfig, userConfig);
-  const {markdown, themeConfig, sitemap, vite} = config;
+  // set srcRoot
   debug('incoming vitepress configuration %O', config);
 
   // get plugin root
-  const root = dirname(fileURLToPath(import.meta.url));
+  config.gitRoot = dirname(fileURLToPath(import.meta.url));
+  const {markdown, themeConfig, sitemap, vite} = config;
 
   // normalize id
   if (typeof themeConfig.internalDomain === 'string') themeConfig.internalDomain = [themeConfig.internalDomain];
@@ -51,8 +56,16 @@ export async function defineConfig(userConfig = {}) {
   // normalize sitemap
   if (!sitemap.hostname && themeConfig?.autometa?.canonicalUrl) sitemap.hostname = themeConfig.autometa.canonicalUrl;
 
+  // attempt to set a baseurl
+  config.baseUrl = themeConfig?.autometa?.canonicalUrl ?? sitemap.hostname;
+
   // extract
   const {containers, contributors, ga, hubspot, internalDomains, layouts} = themeConfig;
+
+  // debug here so it doesnt print like 10 times
+  for (const [name, opts] of Object.entries(containers)) {
+    debug('added custom markdown container %o with config %o', name, opts);
+  }
 
   // replacements
   const aliases = [
@@ -66,26 +79,32 @@ export async function defineConfig(userConfig = {}) {
   debug('added vite resolver aliases %O', aliases);
 
   // vite plugins
-  const plugins = [
-    addLayoutsPlugin(layouts, {debug}),
-    allowInternalPlugin(internalDomains, {debug}),
-    patchVPMenuColumnsPlugin({debug}),
-  ];
-  vite.plugins.push(...plugins);
+  vite.plugins.push(...[
+    addLayoutsPlugin(layouts, {debug: debug.extend('vite-plugin')}),
+    allowInternalPlugin(internalDomains, {debug: debug.extend('vite-plugin')}),
+    patchVPMenuColumnsPlugin({debug: debug.extend('vite-plugin')}),
+  ]);
 
   // markdown plugins
   markdown.config = md => {
     // add custom markdown containers, including tabs
     for (const [name, opts] of Object.entries(containers)) {
       md.use(...createContainer(name, opts, md));
-      debug('added custom markdown container %o with config %o', name, opts);
     }
     // add tabs plugin
     md.use(tabsMarkdownPlugin);
     // override the tabs container so we can inject styling
-    md.use(tabsMarkdownOverridePlugin, {debug});
+    md.use(tabsMarkdownOverridePlugin, {debug: debug.extend('markdown-plugin')});
     // override the link plugin so it can handle internal domains
-    md.use(linkOverridePlugin, {target: '_blank', rel: 'noreferrer', ...markdown.externalLinks}, config.base, internalDomains, debug);
+    md.use(linkOverridePlugin, {
+        target: '_blank',
+        rel: 'noreferrer',
+        ...markdown.externalLinks,
+      },
+      config.base,
+      internalDomains,
+      debug.extend('markdown-plugin'),
+    );
   };
 
   // add google analytics
@@ -100,28 +119,35 @@ export async function defineConfig(userConfig = {}) {
     debug('added hubspot tracking with %o', hubspot);
   }
 
-  // site contributors
-  if (contributors !== false) {
-    themeConfig.team = await getContributors(root, contributors, {debug, paths: []});
-    debug('added site contributors from git log %o with config %o', config.team, contributors);
-  }
+  // get full team info
+  const opts = {debug: debug.extend('get-contribs'), paths: []};
+  const team = contributors !== false ? await getContributors(config.gitRoot, contributors, opts) : [];
+  debug('discovered full team info %o', team);
 
   // build robots.txt and rssfeed
   config.buildEnd = async siteConfig => {
-    // generate rss feed
-    // await generateFeedPlugin(siteConfig);
     // generate robots txt
-    await generateRobotsTxtPlugin(siteConfig, {debug});
+    await generateRobotsTxt(siteConfig, {debug: debug.extend('generate-robots')});
+    // generate rss feeds
+    await generateFeeds(siteConfig, {debug: debug.extend('generate-feeds')});
   };
 
   // augment pages with additional data
-  config.transformPageData = async (pageData, ctx) => {
-    // setup blog stuff
-    await collectionsPlugin(pageData, {...ctx, debug});
+  config.transformPageData = async (pageData, {siteConfig}) => {
+    // make sure siteConfig.collections exists and is populated
+    await buildCollections(siteConfig, {debug: debug.extend('build-collections')});
+    // normalize legacy frontmatter
+    await normalizeLegacyFrontmatter(pageData, {siteConfig, debug: debug.extend('page-data')});
+    // normalize frontmatter
+    await normalizeFrontmatter(pageData, {siteConfig, debug: debug.extend('page-data')});
     // add contributor information
-    await addContributorsPlugin(pageData, {...ctx, debug});
+    await addContributors(pageData, {siteConfig, debug: debug.extend('page-data')});
     // add metadata information
-    await addMetadataPlugin(pageData, {...ctx, debug});
+    await addMetadata(pageData, {siteConfig, debug: debug.extend('page-data')});
+    // parse collections
+    await parseCollections(pageData, {siteConfig, debug: debug.extend('page-data')});
+    // normalize authors
+    await augmentAuthors(pageData, {team, debug: debug.extend('page-data')});
   };
 
   return defineConfigWithTheme(config);

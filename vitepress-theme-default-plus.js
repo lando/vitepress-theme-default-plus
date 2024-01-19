@@ -17,8 +17,8 @@ import VPLSponsors from './components/VPLSponsors.vue';
 import VPLYouTube from './components/VPLYouTube.vue';
 
 // composables
-export {default as isActive} from './utils/is-active';
-export {default as useCollection} from './utils/use-collection';
+export {default as isActive} from './client/is-active';
+export {default as useCollection} from './client/use-collection';
 
 // components
 export {default as VPLAlert} from './components/VPLAlert.vue';

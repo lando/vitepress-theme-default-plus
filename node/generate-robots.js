@@ -26,7 +26,7 @@ const allowAllPolicy = {
 
 export default async function({userConfig, outDir}, {debug = Debug('@lando/generate-robots')} = {}) { // eslint-disable-line
   // get robots config or defaults
-  const robots = merge({}, defaults, userConfig.robots ?? userConfig?.themeConfig?.robots);
+  const robots = merge({}, defaults, userConfig.robots || userConfig?.themeConfig?.robots);
 
   // if no polices and disallowAll=false then assume allowAll
   if (Array.isArray(robots.policy) && robots.policy.length === 0 && !robots.disallowAll) robots.allowAll = true;

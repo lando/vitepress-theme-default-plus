@@ -6,6 +6,7 @@ export default async function(pageData, {
   debug = Debug('@lando/add-metadata'),  // eslint-disable-line
   siteConfig,
 } = {}) {
+  debug = debug.extend(`${pageData.relativePath}`);
   // get stuff
   const {frontmatter, lastUpdated, relativePath} = pageData;
   const {site} = siteConfig;
@@ -40,12 +41,12 @@ export default async function(pageData, {
       ['meta', {itemprop: 'name', content: title}],
       ['meta', {itemprop: 'description', content: description}],
     );
-    debug('page %o set metadata %o', relativePath, {title, description, i, published});
+    debug('set metadata %o', {title, description, i, published});
 
     // twitter/x
     if (xandle) {
       frontmatter.head.push(['meta', {name: 'twitter:site', content: xandle}]);
-      debug('page %o set xandle to %o', relativePath, xandle);
+      debug('set xandle to %o', xandle);
     }
 
     // canonical stuff
@@ -58,7 +59,7 @@ export default async function(pageData, {
         ['meta', {property: 'og:url', content: href}],
         ['link', {rel: 'canonical', href: href}],
       );
-      debug('page %o set canonical url to %o', relativePath, href);
+      debug('set canonical url to %o', href);
     }
   }
 };

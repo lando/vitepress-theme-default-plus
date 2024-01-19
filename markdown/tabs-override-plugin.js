@@ -6,7 +6,7 @@ const parseTabsParams = input => {
   return {shareStateKey: match?.[1]};
 };
 
-export default function(md, {debug = Debug('@lando/vite-plugin')}) { // eslint-disable-line
+export default function(md, {debug = Debug('@lando/markdown-plugin')}) { // eslint-disable-line
   md.use(container, 'tabs', {
     render(tokens, index, _options, env) {
       const token = tokens[index];

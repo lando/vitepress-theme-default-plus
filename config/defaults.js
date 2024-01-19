@@ -1,6 +1,7 @@
 export default {
   base: '/',
   collections: {},
+  feeds: false,
   lang: 'en-US',
   markdown: {},
   themeConfig: {
@@ -75,12 +76,12 @@ export default {
     },
     layouts: {},
     nav: [],
-    robots: {
-      allowAll: true,
-    },
     sidebar: {},
     sponsors: false,
     team: [],
+  },
+  robots: {
+    allowAll: true,
   },
   sitemap: {
     lastmodDateOnly: false,
