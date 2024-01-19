@@ -1,6 +1,6 @@
 
 import {writeFileSync} from 'node:fs';
-import {normalize, resolve} from 'node:path';
+import {join} from 'node:path';
 
 import {default as createContentLoader} from '../utils/create-content-loader';
 
@@ -10,19 +10,13 @@ import {Feed} from 'feed';
 // helper to normalize things
 const normalizeConfig = (config = {}, feed = 'feed') => {
   // pluralize
-  if (!config.collections && config.collection) {
-    config.collections = config.collections;
-  }
   if (!config.patterns && config.pattern) {
     config.patterns = config.pattern;
+    delete config.pattern;
   }
 
   // arrayize
-  for (const item of ['collections', 'patterns']) {
-    if (typeof config[item] === 'string') {
-      config[item] = [config[item]];
-    }
-  };
+  if (typeof config.patterns === 'string') config.patterns = [config.patterns];
 
   // set filename if it isnt set
   if (!config.file) config.file = `/${feed}.rss`;
@@ -32,6 +26,9 @@ const normalizeConfig = (config = {}, feed = 'feed') => {
 
   return config;
 };
+
+const sort = items => items.sort((a, b) => a.timestamp < b.timestamp ? 1 : -1);
+
 
 export default async function(siteConfig, {debug = Debug('@lando/generate-feeds')} = {}) { // eslint-disable-line
   const {userConfig, site, outDir} = siteConfig;
@@ -46,90 +43,51 @@ export default async function(siteConfig, {debug = Debug('@lando/generate-feeds'
   if (!config) return;
 
   // if feeds has only one top level feed then bump it down
-  const feeds = (config.patterns || config.pattern || config.collections || config.collection) ? {feed: config} : config;
+  const feeds = (config.patterns || config.pattern) ? {feed: config} : config;
 
   // loop through and generate feedzzz
   await Promise.all(Object.entries(feeds).map(async ([name, config]) => {
     config = normalizeConfig(config, name);
+    const baseUrl = config.baseUrl ?? userConfig.baseUrl;
+
     const feed = new Feed({
       title: config.title ?? site.title ?? '',
       description: config.description ?? config.description ?? '',
-      id: config.id ?? userConfig.baseUrl,
-      link: config.link ?? userConfig.baseUrl,
+      id: config.id ?? baseUrl,
+      link: config.link ?? baseUrl,
       language: config.language ?? 'en',
       image: config.image ?? '',
-      favicon: config.favicon ?? `${userConfig.baseUrl}/favicon.ico`,
+      favicon: config.favicon ?? `${baseUrl}/favicon.ico`,
       copyright: config.copyright ?? '',
     });
 
-    const posts = await createContentLoader(['*/**/*.md'], siteConfig, {debug}).load();
-    console.log('hello')
-    process.exit(1)
+    // get items
+    const items = await createContentLoader(config.patterns, {excerpt: true, render: true, siteConfig}, {debug}).load();
 
+    // and loop theough them to add
+    for (const item of sort(items)) {
+      const {authors, timestamp, excerpt, html, summary, title, url} = item;
 
-    // loop through collections and add them to the feed
-    // for (const collection of config.collections ?? []) {
-    //   console.log(collection);
-    //   console.log(useCollection(collection))
-    // };
+      // initial payload
+      const data = {
+        title,
+        id: `${baseUrl}${url}`,
+        link: `${baseUrl}${url}`,
+        description: excerpt !== '' ? excerpt : summary,
+        content: html,
+        date: new Date(timestamp),
+      };
 
+      // add authors if we have them
+      if (authors && Array.isArray(authors)) data.authors = authors.map(({name, link}) => ({name, link}));
+
+      // SHE ALWAYS NEEDS TO FEED
+      feed.addItem(data);
+    }
+
+    // write feed
+    const dest = join(outDir, config.file);
+    writeFileSync(dest, feed.rss2());
+    debug('generated rss feed %o', dest);
   }));
-
-  process.exit(1)
-
-
-  // write file
-  try {
-    const dest = resolve(outDir, robots.file);
-    const content = await robotstxt(options);
-    writeFileSync(dest, content);
-    debug('generated %o with content %O', dest, content);
-  } catch (error) {
-    throw error;
-  }
-};
-
-/*
-export async function genFeed(
-  siteConfig: SiteConfig<VPBThemeConfig>
-): Promise<void> {
-  const blogConfig = siteConfig.site.themeConfig.blog ?? {}
-  const feedConfig = blogConfig.feed ?? {}
-  const baseUrl = feedConfig.baseUrl ?? 'localhost/blog'
-
-  const pattern = `${blogConfig?.postsPath ?? '/blog/posts'}/**//*.md`
-  const output = feedConfig.outputPath ?? '/feed.rss'
-
-  const posts = await createContentLoader(pattern, {
-    excerpt: true,
-    render: true,
-  }).load()
-
-  posts.sort(
-    (a, b) =>
-      +new Date(b.frontmatter.date as string) -
-      +new Date(a.frontmatter.date as string)
-  )
-
-  for (const { url, excerpt, frontmatter, html } of posts) {
-    feed.addItem({
-      title: frontmatter.title,
-      id: `${baseUrl}${url}`,
-      link: `${baseUrl}${url}`,
-      description: excerpt,
-      content: html,
-      author: [
-        {
-          name: frontmatter.author,
-          link: frontmatter.twitter
-            ? `https://twitter.com/${frontmatter.twitter}`
-            : undefined,
-        },
-      ],
-      date: frontmatter.date,
-    })
-  }
-
-  writeFileSync(path.join(siteConfig.outDir, output), feed.rss2())
 }
-*/

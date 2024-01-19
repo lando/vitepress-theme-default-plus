@@ -19,6 +19,7 @@ import VPLYouTube from './components/VPLYouTube.vue';
 // composables
 export {default as isActive} from './client/is-active';
 export {default as useCollection} from './client/use-collection';
+export {default as useTeam} from './client/use-team';
 
 // components
 export {default as VPLAlert} from './components/VPLAlert.vue';

@@ -122,7 +122,12 @@ export default defineConfig({
     },
 
     feed: {
-      collections: ['post, guide'],
+      blog: {
+        patterns: 'blog/**/*.md',
+      },
+      guides: {
+        patterns: 'guides/**/*.md',
+      },
     },
 
     ga: {id: 'G-ZSK3T9FTQ9'},

@@ -13,4 +13,4 @@ const patterns = Object.entries(config)
 
 debug('loading collections data with patterns config %o', patterns);
 
-export default createContentLoader(patterns, siteConfig, {debug});
+export default createContentLoader(patterns, {siteConfig}, {debug});

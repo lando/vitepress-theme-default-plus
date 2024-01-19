@@ -22,7 +22,14 @@ const getRelativePath = (url, {srcDir, cleanUrls = false} = {}) => {
     .replace(/\.html$/, cleanUrls ? '' : '.md');
 };
 
-export default function(patterns = [], siteConfig, {debug = Debug('@lando/create-content-loader')} = {}) { // eslint-disable-line
+export default function(patterns = [], {
+    siteConfig,
+    excerpt = false,
+    render = false,
+  } = {},
+  {
+    debug = Debug('@lando/create-content-loader'), // eslint-disable-line
+  } = {}) {
   return createContentLoader(patterns, {
     render: true,
     excerpt: true,
@@ -64,6 +71,8 @@ export default function(patterns = [], siteConfig, {debug = Debug('@lando/create
           authors: frontmatter.authors,
           date: frontmatter.date ?? data.timestamp ?? data.datetime,
           datetime: data.datetime,
+          excerpt: excerpt ? data.excerpt : '',
+          html: render ? data.html : '',
           icon: collection?.icon,
           iconLink: collection?.iconLink,
           relativePath: data.relativePath,

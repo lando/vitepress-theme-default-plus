@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import {useData} from 'vitepress';
+import {useTeam} from '@lando/vitepress-theme-default-plus';
 import {VPTeamMembers} from 'vitepress/theme';
 
 const {members, size} = defineProps({
@@ -17,8 +17,7 @@ const {members, size} = defineProps({
   members: {
     type: Object,
     default: () => {
-      const {theme} = useData();
-      return theme.value.team ?? [];
+      return useTeam() ?? [];
     },
   },
 });
