@@ -1,10 +1,13 @@
+import {createRequire} from 'module';
 import {resolve, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
-// import {readFileSync} from 'node:fs';
-// import {load} from 'js-yaml';
+
 import {defineConfig} from '../../config';
 
+const require = createRequire(import.meta.url);
+
 const __dirname = dirname(resolve(fileURLToPath(import.meta.url)));
+const {version} = require('../../package.json');
 
 export default defineConfig({
   title: 'VitePress Theme +',
@@ -21,30 +24,13 @@ export default defineConfig({
     ['meta', {name: 'twitter:title', content: 'VitePress Theme +'}],
     ['meta', {name: 'twitter:description', content: 'The VitePress default theme with some MOARPOWAH!'}],
   ],
-
   robots: {
     host: 'https://vite-theme-default-plus.lando.dev/',
     sitemap: 'https://vite-theme-default-plus.lando.dev/sitemap.xml',
-    // disallowAll: false,
-    // allowAll: false,
-    // policy: [
-    //   {
-    //     userAgent: '*',
-    //     disallow: [
-    //       '/user/',
-    //       '/login',
-    //     ],
-    //     allow: [
-    //       '*.js',
-    //       '*.png',
-    //     ],
-    //   },
-    // ],
   },
-
-  // sitemap: {
-  //   hostname: 'https://vitepress-theme-default-plus.lando.dev',
-  // },
+  sitemap: {
+    hostname: 'https://vitepress-theme-default-plus.lando.dev',
+  },
   vite: {
     resolve: {
       alias: [
@@ -59,26 +45,10 @@ export default defineConfig({
       image: 'https://vitepress-theme-default-plus.lando.dev/images/hero.png',
       x: '@devwithlando',
     },
-
-    layouts: {
-      cats: './components/VPLCats.vue',
-      dogs: './components/VPLDogs.vue',
+    carbonAds: {
+      code: 'CE7DCKJU',
+      placement: 'landodev',
     },
-    // blog: {
-    //   path: '/path',
-    //   title: 'My AI Written Blog',
-    //   description: 'All these articles were written by AI!',
-    //   defaultAuthor: 'AI Writer',
-    //   categoryIcons: {
-    //     article: 'i-[heroicons-outline/book-open]',
-    //     tutorial: 'i-[heroicons-outline/academic-cap]',
-    //     document: 'i-[heroicons-outline/annotation]',
-    //   },
-    //   tagIcons: {
-    //     github: 'i-[carbon/logo-github]',
-    //     vue: 'i-[carbon/logo-vue]',
-    //   },
-    // },
     contributors: {
       merge: 'name',
       debotify: true,
@@ -120,47 +90,21 @@ export default defineConfig({
         },
       ],
     },
-
+    editLink: {pattern: 'https://github.com/lando/vitepress-theme-default-plus/edit/main/docs/:path'},
     feed: {
-      blog: {
-        patterns: 'blog/**/*.md',
-      },
-      guides: {
-        patterns: 'guides/**/*.md',
-      },
+      patterns: '*/**/*.md',
     },
-
     ga: {id: 'G-ZSK3T9FTQ9'},
     hubspot: {id: '6478338'},
-
     internalDomain: [
       'http://docs.lando.dev',
       'https://docs.lando.dev',
     ],
-
-    // core
-    logo: {src: '/images/vitepress-lando-logo-icon.png', width: 24, height: 24},
-    editLink: {pattern: 'https://github.com/lando/vitepress-theme-default-plus/edit/main/docs/:path'},
-
-    // extended
-    // alert: {
-    //   content: 'Are you looking for the 3.x docs? You can go to them <a href="https://google.com/3.x">here</a>.',
-    //   type: 'warning',
-    //   closeable: true,
-    // },
-    carbonAds: {
-      code: 'CE7DCKJU',
-      placement: 'landodev',
+    layouts: {
+      cats: './components/VPLCats.vue',
+      dogs: './components/VPLDogs.vue',
     },
-    // jobs: [
-    //   {
-    //     title: 'Lando Developer',
-    //     logo: 'https://docs.lando.dev/images/icon.svg',
-    //     link: 'https://docs.google.com/forms/d/e/1FAIpQLSc2vkesq59BblKo8ZX-R1hKTrHphh1kmsg4FgWV1WH5BKEjHQ/viewform',
-    //     company: 'Lando System Inc',
-    //     aux: 'DC, Remote',
-    //   },
-    // ],
+    logo: {src: '/images/vitepress-lando-logo-icon.png', width: 24, height: 24},
     search: {
       provider: 'local',
     },
@@ -184,13 +128,6 @@ export default defineConfig({
         link: 'https://lando.dev/sponsor',
       },
     ],
-    // sponsors: {
-    //   text: 'your logo?',
-    //   link: 'https://lando.dev/sponsor',
-    //   data: load(readFileSync(resolve(__dirname, '..', '..', 'sponsors.yml'), 'utf8')),
-    // },
-
-    // NAV
     nav: [
       {
         text: 'Getting Started',
@@ -212,57 +149,93 @@ export default defineConfig({
         link: '/blog',
         activeMatch: '/blog',
       },
-      // {
-      //   text: 'Examples',
-      //   items: [
-      //     {
-      //       text: 'Markdown',
-      //       link: '/markdown-examples',
-      //     },
-      //     {
-      //       text: 'Theme Test',
-      //       link: '/theme-test',
-      //     },
-      //   ],
-      // },
-      // {
-      //   text: 'Blog',
-      //   activeMatch: '/blog/',
-      //   items: [
-      //     {
-      //       text: 'Blog Home',
-      //       link: '/blog/',
-      //       activeMatch: '/blog/$',
-      //     },
-      //     {
-      //       text: 'Tags',
-      //       link: '/blog/tags',
-      //       activeMatch: '/blog/tags',
-      //     },
-      //     {
-      //       text: 'Archives',
-      //       link: '/blog/archives',
-      //       activeMatch: '/blog/archives',
-      //     },
-      //     // {
-      //     //   text: 'RSS Feed',
-      //     //   link: '/blog/feed.rss',
-      //     // },
-      //   ],
-      // },
-      // {
-      //   text: '1.0.0',
-      //   items: [
-      //     {
-      //       text: 'Changelog',
-      //       link: 'https://github.com/jcamp-code/vitepress-blog-theme/blob/main/CHANGELOG.md',
-      //     },
-      //     {
-      //       text: 'Contributing',
-      //       link: 'https://github.com/jcamp-code/vitepress-blog-theme/blob/main/.github/contributing.md',
-      //     },
-      //   ],
-      // },
+      {
+        text: 'Core',
+        items: [
+          {
+            text: 'Landofile',
+            columns: 3,
+            items: [
+              {text: 'Basics', link: 'https://docs.lando.dev/core/v3/index.html'},
+              {text: 'Services', link: 'https://docs.lando.dev/core/v3/services.html'},
+              {text: 'Recipes', link: 'https://docs.lando.dev/core/v3/recipes.html'},
+              {text: 'Tooling', link: 'https://docs.lando.dev/core/v3/tooling.html'},
+              {text: 'Proxy', link: 'https://docs.lando.dev/core/v3/proxy.html'},
+              {text: 'Events', link: 'https://docs.lando.dev/core/v3/events.html'},
+            ],
+          },
+          {
+            text: 'Configuration',
+            columns: 2,
+            items: [
+              {text: 'Global', link: 'https://docs.lando.dev/core/v3/index.html'},
+              {text: 'Environment', link: 'https://docs.lando.dev/core/v3/env.html'},
+              {text: 'Experimental', link: 'https://docs.lando.dev/core/v3/experimental.html'},
+              {
+                text: 'Orchestrator',
+                link: 'https://docs.lando.dev/core/v3/orchestrator.html',
+                alert: {
+                  expires: 16972999930005,
+                  type: 'new',
+                  text: 'NEW!',
+                },
+              },
+              {text: 'Performance', link: 'https://docs.lando.dev/core/v3/performance.html'},
+              {text: 'Plugins', link: 'https://docs.lando.dev/core/v3/plugins.html'},
+              {text: 'Releases', link: 'https://docs.lando.dev/core/v3/releases.html'},
+              {text: 'Security', link: 'https://docs.lando.dev/core/v3/security.html'},
+              {text: 'SSH', link: 'https://docs.lando.dev/core/v3/ssh.html'},
+              {text: 'Shared Files', link: 'https://docs.lando.dev/core/v3/files.html'},
+            ],
+          },
+          {
+            text: 'Plugins',
+            columns: 2,
+            items: [
+              {
+                text: 'Healthcheck',
+                link: 'https://docs.lando.dev/core/v3/healthcheck.html',
+                alert: {
+                  expires: 16972999930005,
+                  type: 'new',
+                  text: 'NEW!',
+                },
+              },
+              {text: 'Networking', link: 'https://docs.lando.dev/core/v3/networking.html'},
+              {text: 'Scanner', link: 'https://docs.lando.dev/core/v3/scanner.html'},
+            ],
+          },
+          {
+            text: 'Services',
+            columns: 2,
+            items: [
+              {
+                text: 'Lando',
+                link: 'https://docs.lando.dev/core/v3/lando-service.html',
+                alert: {
+                  expires: 16972999930005,
+                  type: 'new',
+                  text: 'NEW!',
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        text: version,
+        class: 'version',
+        items: [
+          {
+            text: 'Changelog',
+            link: 'https://github.com/jcamp-code/vitepress-blog-theme/blob/main/CHANGELOG.md',
+          },
+          {
+            text: 'Contributing',
+            link: 'https://github.com/jcamp-code/vitepress-blog-theme/blob/main/.github/contributing.md',
+          },
+        ],
+      },
     ],
     sidebar: {
       '/config': configSideBar(),

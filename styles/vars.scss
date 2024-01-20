@@ -79,6 +79,11 @@
   --vp-badge-success-border: transparent;
   --vp-badge-success-text: var(--vp-c-green-1) !important;
   --vp-badge-success-bg: var(--vp-c-green-soft) !important;
+
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, var(--vp-c-indigo-1) 30%, var(--vp-c-brand)) !important;
+  --vp-home-hero-image-background-image: linear-gradient(-45deg, var(--vp-c-brand-1) 50%,var(--vp-c-indigo-1) 50%) !important;
+  --vp-home-hero-name-color: -webkit-linear-gradient(120deg, var(--vp-c-indigo-1) 30%, var(--vp-c-brand)) !important;;
+  --vp-home-hero-image-filter: opacity(60%) blur(68px) !important;
 }
 
 // containers

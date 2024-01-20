@@ -525,6 +525,15 @@ form.netlify {
   margin-bottom: 16px;
 }
 
+.VPNavBarMenuGroup {
+  &.version {
+    .text {
+      color: var(--vp-c-green-1);
+      font-weight: 700;
+    }
+  }
+}
+
 .VPSocialLink:hover {
   color: var(--vp-c-brand-1) !important;
 }

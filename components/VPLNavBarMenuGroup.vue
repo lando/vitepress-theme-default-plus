@@ -5,15 +5,7 @@
       class="alert-circle"
     />
     <VPFlyout
-      :class="{
-        VPNavBarMenuGroup: true,
-        test: treeHasNewAlerts,
-        active: isActive(
-          page.relativePath,
-          item.activeMatch,
-          !!item.activeMatch
-        ) || childrenActive
-      }"
+      :class="styles"
       :button="item.text"
       :items="item.items"
     />
@@ -37,6 +29,23 @@ const props = defineProps({
 
 const {item} = toRefs(props);
 
+const getAlert = alert => {
+  if (typeof alert === 'string') alert = {text: alert};
+  return {type: 'success', expires: 2000000000000, ...alert};
+};
+
+const isChildActive = navItem => {
+  if ('link' in navItem) {
+    return isActive(
+      page.value.relativePath,
+      navItem.link,
+      !!props.item.activeMatch,
+    );
+  } else {
+    return navItem.items.some(isChildActive);
+  }
+};
+
 const flattenTree = (data, collect = []) => {
   // break up children and items
   const {items, ...item} = data;
@@ -51,6 +60,16 @@ const flattenTree = (data, collect = []) => {
 
   // faltten and return
   return collect.flat(Infinity);
+};
+
+const getClasses = item => {
+  const list = item.value.classes ?? item.value.class;
+
+  // if list is nully then
+  if (!list || list === null) return [];
+
+  // return
+  return Array.isArray(list) ? list : [list];
 };
 
 const hasAlert = item => {
@@ -74,24 +93,17 @@ const treeHasNewAlerts = computed(() => {
   return activeAlerts.length > 0;
 });
 
-const getAlert = alert => {
-  if (typeof alert === 'string') alert = {text: alert};
-  return {type: 'success', expires: 2000000000000, ...alert};
-};
+const styles = computed(() => {
+  // get active status
+  const active = isActive(page.relativePath, item.activeMatch, !!item.activeMatch) || isChildActive(props.item);
+  // build class list
+  const classes = {active, VPNavBarMenuGroup: true, test: treeHasNewAlerts};
+  // handle custom classes
+  for (const style of getClasses(item)) classes[style] = true;
 
-const isChildActive = navItem => {
-  if ('link' in navItem) {
-    return isActive(
-      page.value.relativePath,
-      navItem.link,
-      !!props.item.activeMatch,
-    );
-  } else {
-    return navItem.items.some(isChildActive);
-  }
-};
+  return classes;
+});
 
-const childrenActive = computed(() => isChildActive(props.item));
 </script>
 
 <style scoped>
