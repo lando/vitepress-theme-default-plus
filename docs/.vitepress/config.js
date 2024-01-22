@@ -49,6 +49,9 @@ export default defineConfig({
       code: 'CE7DCKJU',
       placement: 'landodev',
     },
+    containers: {
+      special: {},
+    },
     contributors: {
       merge: 'name',
       debotify: true,
@@ -131,13 +134,13 @@ export default defineConfig({
     nav: [
       {
         text: 'Getting Started',
-        link: '/index',
-        activeMatch: '^(?!.*(?:config|components|markdown|pages|guides|blog)).+',
+        link: '/overview',
+        activeMatch: '/install|/overview|/usage|/development|/team|/support',
       },
       {
         text: 'Configuration',
         link: '/config/config',
-        activeMatch: '/config/|/components/|/markdown|/pages',
+        activeMatch: '/config/|/components/|/composables|/markdown|/pages',
       },
       {
         text: 'Guides',
@@ -150,89 +153,22 @@ export default defineConfig({
         activeMatch: '/blog',
       },
       {
-        text: 'Core',
-        items: [
-          {
-            text: 'Landofile',
-            columns: 3,
-            items: [
-              {text: 'Basics', link: 'https://docs.lando.dev/core/v3/index.html'},
-              {text: 'Services', link: 'https://docs.lando.dev/core/v3/services.html'},
-              {text: 'Recipes', link: 'https://docs.lando.dev/core/v3/recipes.html'},
-              {text: 'Tooling', link: 'https://docs.lando.dev/core/v3/tooling.html'},
-              {text: 'Proxy', link: 'https://docs.lando.dev/core/v3/proxy.html'},
-              {text: 'Events', link: 'https://docs.lando.dev/core/v3/events.html'},
-            ],
-          },
-          {
-            text: 'Configuration',
-            columns: 2,
-            items: [
-              {text: 'Global', link: 'https://docs.lando.dev/core/v3/index.html'},
-              {text: 'Environment', link: 'https://docs.lando.dev/core/v3/env.html'},
-              {text: 'Experimental', link: 'https://docs.lando.dev/core/v3/experimental.html'},
-              {
-                text: 'Orchestrator',
-                link: 'https://docs.lando.dev/core/v3/orchestrator.html',
-                alert: {
-                  expires: 16972999930005,
-                  type: 'new',
-                  text: 'NEW!',
-                },
-              },
-              {text: 'Performance', link: 'https://docs.lando.dev/core/v3/performance.html'},
-              {text: 'Plugins', link: 'https://docs.lando.dev/core/v3/plugins.html'},
-              {text: 'Releases', link: 'https://docs.lando.dev/core/v3/releases.html'},
-              {text: 'Security', link: 'https://docs.lando.dev/core/v3/security.html'},
-              {text: 'SSH', link: 'https://docs.lando.dev/core/v3/ssh.html'},
-              {text: 'Shared Files', link: 'https://docs.lando.dev/core/v3/files.html'},
-            ],
-          },
-          {
-            text: 'Plugins',
-            columns: 2,
-            items: [
-              {
-                text: 'Healthcheck',
-                link: 'https://docs.lando.dev/core/v3/healthcheck.html',
-                alert: {
-                  expires: 16972999930005,
-                  type: 'new',
-                  text: 'NEW!',
-                },
-              },
-              {text: 'Networking', link: 'https://docs.lando.dev/core/v3/networking.html'},
-              {text: 'Scanner', link: 'https://docs.lando.dev/core/v3/scanner.html'},
-            ],
-          },
-          {
-            text: 'Services',
-            columns: 2,
-            items: [
-              {
-                text: 'Lando',
-                link: 'https://docs.lando.dev/core/v3/lando-service.html',
-                alert: {
-                  expires: 16972999930005,
-                  type: 'new',
-                  text: 'NEW!',
-                },
-              },
-            ],
-          },
-        ],
-      },
-      {
         text: version,
         class: 'version',
         items: [
           {
-            text: 'Changelog',
-            link: 'https://github.com/jcamp-code/vitepress-blog-theme/blob/main/CHANGELOG.md',
+            items: [{
+              text: 'Release Notes',
+              link: `https://github.com/lando/vitepress-theme-default-plus/releases/tag/v${version}`,
+            }],
           },
           {
-            text: 'Contributing',
-            link: 'https://github.com/jcamp-code/vitepress-blog-theme/blob/main/.github/contributing.md',
+            text: 'Older Versions',
+            link: 'https://github.com/lando/vitepress-theme-default-plus/releases',
+          },
+          {
+            text: 'Examples',
+            link: 'https://github.com/lando/vitepress-theme-default-plus/docs',
           },
         ],
       },
@@ -240,6 +176,8 @@ export default defineConfig({
     sidebar: {
       '/config': configSideBar(),
       '/components': configSideBar(),
+      '/composables': configSideBar(),
+      '/guides': configSideBar(),
       '/markdown': configSideBar(),
       '/pages': configSideBar(),
       '/': [
@@ -247,7 +185,7 @@ export default defineConfig({
           text: 'Introduction',
           collapsed: false,
           items: [
-            {text: 'Overview', link: '/'},
+            {text: 'Overview', link: '/overview'},
             {text: 'Installation', link: '/install'},
             {text: 'Usage', link: '/usage'},
           ],
@@ -258,6 +196,15 @@ export default defineConfig({
           items: [
             {text: 'Development', link: '/development'},
             {text: 'Team', link: '/team'},
+          ],
+        },
+        {
+          text: 'Help & Support',
+          collapsed: false,
+          items: [
+            {text: 'GitHub', link: 'https://github.com/lando/vitepress-theme-default-plus.lando.dev/issues/new/choose'},
+            {text: 'Slack', link: 'https://launchpass.com/devwithlando'},
+            {text: 'Contact Us', link: '/support'},
           ],
         },
         {text: 'Configuration', link: '/config/config'},
@@ -276,6 +223,8 @@ function configSideBar() {
       items: [
         {text: 'Configuration', link: '/config/config'},
         {text: 'Frontmatter', link: '/config/frontmatter'},
+        {text: 'useCollection()', link: '/composables/use-collection'},
+        {text: 'useTeam()', link: '/composables/use-team'},
       ],
     },
     {
@@ -289,7 +238,7 @@ function configSideBar() {
       ],
     },
     {
-      text: 'Markdown',
+      text: 'Markdown Containers',
       collapsed: false,
       items: [
         {text: 'Admonitions', link: '/markdown/admonitions'},
@@ -303,8 +252,7 @@ function configSideBar() {
         {text: 'Advanced', link: '/guides/advanced-markdown'},
       ],
     },
-    {text: 'Devlopment', link: '/development'},
-    {text: 'Examples', link: 'https://github.com/lando/vuepress-theme-default-plus'},
-    {text: 'Release Notes', link: 'https://github.com/lando/vuepress-theme-default-plus/releases'},
+    {text: 'Blog', link: '/blog'},
+    {text: 'Guides', link: '/guides'},
   ];
 }

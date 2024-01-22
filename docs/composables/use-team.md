@@ -1,9 +1,18 @@
 ---
-description: Learn about the team that made VitePress Default Theme Plus.
-layout: page
-title: Team
+description: Learn about the VitePress Default Theme + useTeam composable.
 ---
 
+# useTeam
+
+You can `import` the `useTeam()` composable from `@lando/vitepress-theme-default-plus` and use it to create a team or contributors page.
+
+```js
+const members = useTeam();
+```
+
+Here is how we generate our `/team` page:
+
+```html
 <VPLTeamPage>
   <VPLTeamPageTitle>
     <template #title>
@@ -23,3 +32,4 @@ import {useTeam} from '@lando/vitepress-theme-default-plus';
 const members = useTeam();
 
 </script>
+```

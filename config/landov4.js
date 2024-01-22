@@ -4,7 +4,7 @@ import yaml from 'js-yaml';
 const __dirname = getDirname(import.meta.url);
 
 export default {
-  // @vuepress/theme-default default config overrides
+  // @vitepress/theme-default default config overrides
   colorMode: 'auto',
   colorModeSwitch: true,
   contributors: true,
@@ -17,7 +17,7 @@ export default {
   sidebar: [],
   sidebarDepth: 0,
 
-  // @lando/vuepress-theme-default-plus config
+  // @lando/vitepress-theme-default-plus config
   alert: false,
   alias: {},
 

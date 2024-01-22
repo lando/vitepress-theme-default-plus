@@ -13,7 +13,7 @@ tags:
   - this is a test tag
 ---
 
-# HI Bob
+# Making a post 2
 
 Specifically, they make use of a `byline` and can only have a single, manually entered, author. They can be thought of more like "traditional" news media articles. Like guides you can create them in two ways:
 

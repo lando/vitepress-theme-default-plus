@@ -1,5 +1,5 @@
 ---
-description: Learn the frontmatter options for VuePress2 Default Theme Plus.
+description: Learn the frontmatter options for VitePress Default Theme Plus.
 ---
 
 # Frontmatter
@@ -16,10 +16,6 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
   alert: false
   ```
 
-* Details:
-
-  Configure the visibility or content of the `<Alert>` component on a given page.
-
 * Example
 
   ```yaml
@@ -28,6 +24,30 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
     type: 'success'
     closeable: false
   ```
+
+* Details:
+
+  Configure the visibility or content of the `<Alert>` component on a given page.
+
+  You can also configure this globally with [config](./config.md#alert).
+
+## backLink
+
+* Type: `Boolean || Object`
+
+* Default: `false`
+
+* Example
+
+  ```yaml
+  backLink:
+    text: '<- Back to blog'
+    link: '/blog'
+  ```
+
+* Details:
+
+  Sets a `backLink` in the document footer.
 
 ## contributors
 
@@ -49,8 +69,7 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
 
   Configure the visibility or content of the `<Contributors>` component on a given page.
 
-  This thing has a lot of options so check out [this](./config.md#contributors) for more info.
-
+  This thing has a lot of options so check out [this](./config.md#contributors) for more info or to just set global contributors.
 
 ## jobs
 
@@ -77,35 +96,11 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
 
   Configure the visibility or content of the `<Jobs>` component on a given page.
 
+  You can also configure this globally with [config](./config.md#jobs).
 
-## rightbar
+## mailchimp
 
-* Type: `Boolean`
-
-* Default:
-
-  ```yaml
-  rightbar: true
-  ```
-
-* Details:
-
-  Configure the visibility of the rightbar on a given page.
-
-* See [Disabling the rightbar](./../guides/disabling-rightbar.md)
-
-
-## readMode
-
-* Type: `Boolean`
-
-* Default:
-
-  ```yaml
-  readMode: true
-  ```
-
-  Configure the visibility of the read mode link on a given page.
+* See [Adding page metadata](./../guides/guide-signup)
 
 ## sponsors
 
@@ -140,19 +135,7 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
 
   Configure the visibility or content of the `<Sponsors>` component on a given page.
 
-## tags
-
-* Type: `Array`
-
-* Default:
-
-  ```yaml
-  tags:
-    - awesomeness
-    - some other tag
-  ```
-
-  Sets the given tags for the page. Each tag will also get it's own page that lists all the content tagged with the given tag. You can also set `tags: false` but usually its best to just omit `tags` altogether.
+  You can also configure this globally with [config](./config.md#sponsors).
 
 ## Guides
 

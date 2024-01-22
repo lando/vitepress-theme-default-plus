@@ -39,7 +39,7 @@
 <script setup>
 import DefaultTheme from 'vitepress/theme';
 import {useData} from 'vitepress';
-import {computed, ref} from 'vue';
+import {computed, ref, watch} from 'vue';
 
 import {default as Alert} from '../components/VPLAlert.vue';
 import {default as CollectionHeader} from '../components/VPLCollectionHeader.vue';
@@ -48,15 +48,21 @@ import {default as PostHeader} from '../components/VPLPostHeader.vue';
 
 const {Layout} = DefaultTheme;
 
-const alertKey = ref(0);
-const jobsKey = ref(0);
-const sponsorsKey = ref(0);
-const {frontmatter, theme} = useData();
+let alertKey = ref(0);
+let jobsKey = ref(0);
+let sponsorsKey = ref(0);
+const {frontmatter, page, theme} = useData();
 
 const alert = computed(() => frontmatter.value.alert ?? theme.value.alert ?? false);
 const header = computed(() => frontmatter.value.collection || '');
 const headerClass = computed(() => frontmatter.value.collection ? `collection-${frontmatter.value.collection}` : '');
 const mailchimp = computed(() => frontmatter.value?.mailchimp?.action ? frontmatter.value.mailchimp : false);
+
+watch(() => page.value.relativePath, () => {
+  alertKey = page.value.relativePath;
+  jobsKey = page.value.relativePath;
+  sponsorsKey = page.value.relativePath;
+});
 
 </script>
 

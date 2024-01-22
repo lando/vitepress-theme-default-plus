@@ -20,55 +20,69 @@ html.alert {
 blockquote {
   border-left-width: 0.5rem;
   border-left-style: solid;
-  border-color: var(--c-brand-light);
-  color: var(--c-brand);
-  padding: 1.27em;
+  border-color: var(--vp-c-brand-soft) !important;
+  color: var(--vp-c-brand-1) !important;
+  padding: 12px;
   font-style: italic;
 }
 
 // very basic form stylings
 form.netlify {
-  background-color: var(--c-brand-bg);
-  padding: 2em 3em;
+  padding: 12px 32px;
+  border-radius: var(--vpl-c-border-radius);
+  background-color: var(--vp-c-indigo-soft);
+  box-sizing: border-box;
+  width: auto;
+  font-size: 14px;
+
+  button[type=submit] {
+    background-color: var(--vp-button-brand-bg);
+    border-color: var(--vp-button-brand-border);
+    border-radius: 24px;
+    color: var(--vp-button-brand-text);
+    font-size: 16px;
+    line-height: 46px;
+    padding: 0 24px;
+    display: inline-block;
+    border: 1px solid transparent;
+    text-align: center;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: color 0.25s, border-color 0.25s, background-color 0.25s;
+    &:hover {
+      background-color: var(--vp-c-brand-1);
+    }
+  }
+
   input[type=email], input[type=text], textarea {
     border: 0 solid #f8f8f8;
-    border-radius: 3px;
     box-sizing: border-box;
-    font-size: 1em;
     height: 50px;
     width: 100%;
     padding: 1em;
+    background-color: #fff;
+    font-size: inherit;
+    width: 100%;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    border-radius: var(--vpl-c-border-radius);
+    outline: none;
+    height: auto;
+    margin: 2px 0;
     &:focus {
-      outline: 1px solid var(--c-brand-light);
+      outline: 1px solid var(--vp-c-brand-soft);
       outline-offset: 2px;
     }
   }
+
+  label {
+    color: var(--vp-c-text-1);
+    font-weight: 500;
+  }
+
   textarea {
     height: 200px;
     font-family: var(--font-family);
-  }
-  button[type=submit] {
-    width: 25%;
-    margin: auto;
-    box-sizing: border-box;
-    font-size: 16px;
-    display: inline-block;
-    font-size: 1.2rem;
-    padding: 0.8rem 1.6rem;
-    background-color: transparent;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 4px;
-    border-color: var(--c-brand);
-    color: var(--c-brand);
-    transition: background-color var(--c-brand-light);
-    box-sizing: border-box;
-    cursor: pointer;
-    &:hover {
-      background-color: var(--c-brand-light);
-      color: #ffffff;
-      transition: all 0.2s;
-    }
   }
 }
 
@@ -490,6 +504,10 @@ form.netlify {
   &.custom-block .custom-block-title {
     color: var(--vp-custom-block-warning-title);
   }
+}
+
+.vp-doc blockquote > p {
+  color: var(--vp-c-brand-hard) !important;
 }
 
 .vp-doc .left, .vp-doc .right {

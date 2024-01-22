@@ -1,8 +1,9 @@
 ---
 title: Advanced markdown
 description: Learn how to combine custom containers for all the magic.
-guide: true
 ---
+
+# Advanced Markdown
 
 This theme provides a bunch of [custom markdown containers](./../markdown//admonitions.md) that can be used on their own. They can also be combined and wrapped together. Here is some content that demonstrates that.
 

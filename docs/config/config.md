@@ -1,29 +1,14 @@
 ---
-summary: Learn the configuration options for VuePress2 Default Theme Plus.
+summary: Learn the configuration options for VitePress Default Theme Plus.
 ---
 
 # Configuration
 
-This theme _extends_ the [VuePress2 Default Theme](https://v2.vuepress.vuejs.org/reference/default-theme/config.html#basic-config) but sets [slightly different defaults](https://github.com/lando/vuepress-theme-default-plus/blob/main/config). _Theoretically_ all the options supported in the default theme should also be available in this one.
+This theme _extends_ the [VitePress Default Theme](https://vitepress.dev/) but sets [slightly different defaults](https://github.com/lando/vitepress-theme-default-plus/blob/main/config). _Theoretically_ all the options supported in the default theme should also be available in this one.
 
-Before you get started its _**HEAVILY RECOMMENDED**_ that you set the following parent config before proceeding. Here is what we set for the repo that generates these docs:
+Before you get started its _**HEAVILY RECOMMENDED**_ that you use our parent [config wrapper](../usage.html#vitepress-config-js).
 
-```js
-import {defineUserConfig} from '@vuepress/cli';
-import {defaultThemePlus} from '@lando/vuepress-theme-default-plus';
-
-export default defineUserConfig({
-  ...
-  theme: defaultThemePlus({
-    docsDir: 'docs',
-    docsBranch: 'main',
-    repo: 'lando/vuepress-theme-default-plus',
-  }),
-  ...
-});
-```
-
-And here is our special config:
+Once you have you should be able to use all the things below.
 
 ## Alert
 
@@ -53,6 +38,8 @@ And here is our special config:
 
   You can also configure the `alert` height with the `--vpl-alert-height` css variable.
 
+  You can also configure this on a page to page basis with [frontmatter](./frontmatter.md#alert).
+
 ## Autometa
 
 * Type: `Object || Boolean`
@@ -77,6 +64,105 @@ And here is our special config:
   You can use `twitter` instead of `x` if you prefer although `x` will be preferred if you set both.`
 
   `image` will set a global image for all meta and you can set `frontmatter.image` to customize on a per page basis.
+
+## Containers
+
+* Type: `Object || Boolean`
+
+* Default:
+
+  ```js
+  containers: {
+    'brand': {defaultTitle: 'BRAND'},
+    'box': {},
+    'box-blue': {},
+    'box-brand': {},
+    'box-green': {},
+    'box-red': {},
+    'box-yellow': {},
+    'caption': {},
+    'card': {},
+    'center': {},
+    'half': {},
+    'highlight': {},
+    'left': {},
+    'right': {},
+    'success': {defaultTitle: 'SUCCESS'},
+    'third': {},
+    'thumbnail': {},
+  },
+  ```
+
+* Example:
+
+  ```js
+  containers: {
+    brand: {defaultTitle: 'ACME BRAND'},
+    special: {},
+  },
+  ```
+
+* Details:
+
+  If you want to override one of the default containers or add additional ones, you can.
+
+  Note that it is up to you to define any relevant `css` needed for new containers but you should be able to use your
+  new containers in markdown. Here is how you would use the `special` container added above:
+
+  **MARKDOWN**
+  ```md
+  ::: special EVERYTHING MUST GO!
+  99% OFF!
+  :::
+  ```
+
+  **HTML**
+  ::: special EVERYTHING MUST GO!
+  99% OFF!
+  :::
+
+## Collections
+
+* Type: `Object || Boolean`
+
+* Default:
+
+  ```js
+  collections: {
+    post: {
+      frontmatter: {
+        collection: 'post',
+        contributors: false,
+        backLink: {
+          text: '<- Back to blog',
+          link: '/blog',
+        },
+        aside: false,
+        sidebar: false,
+        prev: false,
+        next: false,
+        editLink: false,
+      },
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"/></svg>',
+      iconLink: '/blog',
+      patterns: ['blog/**/*.md'],
+    },
+    guide: {
+      frontmatter: {
+        collection: 'guide',
+      },
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" /></svg>',
+      iconLink: '/guides',
+      patterns: ['guides/**/*.md'],
+    },
+  },
+  ```
+
+* Details:
+
+  Collections allow you to groups different docs together. The main piece of this is being able to set default `frontmatter` for all docs that fit the given `patterns`.
+
+  You can optionally set an `icon` and its `iconLink`.
 
 ## Contributors
 
@@ -111,6 +197,7 @@ And here is our special config:
         commits: 9999,
         email: 'alec@lando.dev',
         title: 'Maintainer',
+        mergeOnly: true,
         org: 'Lando',
         orgLink: 'https://lando.dev',
         desc: 'A chill dude',
@@ -138,48 +225,52 @@ And here is our special config:
 
   You can use `include` to either _add_ new contributors or _augment_ existing ones. If you want to add additional data to a contributor pulled from the `git log` you will need to specify an `email` for it to match against.
 
-## Contributors Page
+  Finally, `mergeOnly` can be set if you only want to provide augmented data for a contributor that already exists in the `git log`.
+
+  You can also configure this on a page to page basis with [frontmatter](./frontmatter.md#contributors).
+
+## Feeds
 
 * Type: `Object || Boolean`
 
-* Default:
+* Default: `false`
+
+* Example:
 
   ```js
-  contributorsPage: {
-    auto: true,
+  feed: {
+    patterns: '*/**/*.md',
   },
   ```
 
 * Full Example:
 
   ```js
-  contributorsPage: {
-    auto: true,
-    repo: 'lando/vuepress-theme-default-plus',
-    content: fs.readFileSync(path.resolve(__dirname, 'contributors.md')),
-    exclude: [
-      'dependabot[bot]',
-    ],
-    data: [{
-      name: 'pirog',
-      img: 'https://me.pic',
-      link: 'pirog.dev',
-      score: 100,
-    }],
-    docsBranch: 'main',
-    docsDir: '',
-    link: '/contributors.html',
-    title: 'Contributorz',
+  feeds: {
+    feed: {
+      patterns: ['/docs/*.md'],
+    },
+    blog: {
+      baseUrl: 'https://vitepress-theme-default-plus.lando.dev/',
+      copyright: '© 2024 Lando'
+      description: 'Do you have a need to feed?',
+      file: 'bloggy.rss',
+      image: 'https://sm.ign.com/ign_za/photo/3/31-best-lo/31-best-lord-of-the-rings-quotes_z4n9.jpg',
+      language: 'en',
+      favicon: 'https://vitepress-theme-default-plus.lando.dev/favicon.ico',
+      patterns: ['/blog/**/*.md', '/posts/**/*.md'],
+      title: 'FEED ME BLOG!',
+    }
   },
   ```
 
 * Details:
 
-  This will automatically generate a page of contributors based on the `data`.
+  You can specify a single `feed` or many `feeds` and their `patterns` or `pattern`. If you use both the plural will be used over the singular.
 
-  If you set `auto` to `true` and `repo` is a public GitHub repo then the theme will attempt to populate the data for you. However, if you manually set a value then the theme will prefer that. So in the above Full Example the theme will just use `data` instead of what is on GitHub.
+  If you do not specify a `file` then the key of the `feed` will be used eg `feed.rss` in the Full Example above.
 
-  If you do not set `repo`, `docsBranch` and `docsDir` explicitly the theme will use `repo`, `docsBranch`, `docsDir` instead.
+  We will attempt to compute the `baseUrl` using other configuration but it's probably best if you just explicitly set it for each feed.
 
 ## Internal Domains
 
@@ -226,6 +317,9 @@ And here is our special config:
     },
   ],
   ```
+* Details:
+
+  * You can also configure this on a page to page basis with [frontmatter](./frontmatter.md#jobs).
 
 ## Navbar
 
@@ -307,7 +401,7 @@ And here is our special config:
 
   ```js
   layouts: {
-    cats: VPLLayoutWCats,
+    cats: './components/VPLCats.vue',
   },
   ```
 
@@ -315,36 +409,15 @@ And here is our special config:
 
   `layouts` allows you to easily add additional [Custom Layouts](https://vitepress.dev/reference/default-theme-layout#custom-layout). You can then use those layouts in frontmatter like this one using the example from above.
 
+  Note that if you specify a relative path it is relative from the theme root.
+
   ```md
   ---
   layout: cats
   ---
   ```
 
-## Reading Mode
-
-#### readMode
-
-* Type: `Object || Boolean`
-
-* Default: `true`
-
-* Example:
-
-  ```js
-  readMode: {
-    focusName: 'MAKE READING EASIER',
-    distractName: 'MAKE READING HARDER',
-  },
-  ```
-
-* Details:
-
-  Configure the way "Reading Mode" is set up or disable it completely with `false`.
-
 ## Robots.txt
-
-#### Robots.txt
 
 * Type: `Object`
 
@@ -416,6 +489,10 @@ You can specify `host` and `sitemap` directly. If you omit them the theme will a
   },
   ```
 
+* Details
+
+  You can also configure this on a page to page basis with [frontmatter](./frontmatter.md#sponsors).
+
 ## Tracking
 
 #### ga
@@ -453,114 +530,3 @@ You can specify `host` and `sitemap` directly. If you omit them the theme will a
 * Details:
 
   Set if you want to hookup Hubspot tracking codes. `id` needs to be the `id` in ` //js.hs-scripts.com/${ID}.js`.
-
-## Versions Page
-
-#### versionsPage
-
-* Type: `Object || Boolean`
-
-* Default:
-
-  ```js
-  versionsPage: {
-    auto: true,
-    trimLatest: true,
-    satisfies: null,
-    showEdge: true,
-  },
-  ```
-
-* Full Example:
-
-  ```js
-  versionsPage: {
-    auto: true,
-    repo: 'lando/vuepress-theme-default-plus',
-    content: fs.readFileSync(path.resolve(__dirname, 'versions.md')),
-    data: [{
-      name: '3.1.4',
-      href: `https://github.com/pi/pi/tree/3.1.4`,
-      target: '_blank',
-      rel: 'noopener noreferrer',
-    }],
-    docsBranch: 'main',
-    docsDir: '',
-    link: '/versions.html',
-    satisfies: '>0.9',
-    showEdge: false,
-    title: 'Previous Versions',
-    trimLatest: true,
-  },
-  ```
-
-* Details:
-
-  This will automatically generate a page of previous versions based on the `data`.
-
-  If you set `auto` to `true` and `repo` is a public GitHub repo then the theme will attempt to populate the data for you. However, if you manually set a value then the theme will prefer that. So in the above Full Example the theme will just use `data` instead of what is on GitHub.
-
-  If you do not set `repo`, `docsBranch` and `docsDir` explicitly the theme will use `repo`, `docsBranch`, `docsDir` instead.
-
-  `trimLatest` will pop off the most recent version. `showEdge` can be either a URL or `true`.
-
-  You can also specify `satisfies` which is a [semver](https://github.com/npm/node-semver) comparision string. This will only show the satisfied subset of `data.name` versions.
-
-
-## Generic Config
-
-#### alias
-
-* Type: `Object`
-
-* Default: `{}`
-
-* Details:
-
-  This allows the user to override any downstream components with their own. [See this](https://v2.vuepress.vuejs.org/advanced/cookbook/making-a-theme-extendable.html#component-aliases).
-
-* Example:
-
-  ```js
-  alias: {
-    '@theme/Home.vue': './Home.vue'),
-  },
-  ```
-
-#### defaults
-
-* Type: `Object`
-
-* Default: [Here](https://github.com/lando/vuepress-theme-default-plus/blob/main/config/defaults.js)
-
-* Example:
-
-  ```js
-  defaults: {
-    ga: {
-      id: 'SOME ID',
-    },
-  }
-  ````
-
-* Details:
-
-  This allows you to easily extend this theme with defaults that make more sense for you. This lets you distribute common config to all the things that use it like Google Analytics IDs, shared navbar items, etc.
-
-#### sharedNavbar
-
-* Type: `Array`
-
-* Default: `[]`
-
-* Example:
-
-  ```js
-  sharedNavbar: [
-    {text: 'GitHub2', link: 'https://github.com/lando/vuepress-theme-default-plus/'},
-  ],
-  ```
-
-* Details:
-
-  This prepends a bunch of entries to the usual `navbar` and follows the same format. It is usually used in combination with `baseUrl` to bring its "treat like internal link" functionality to the `navbar`. It also is useful if you want to extend this theme deploy a shared navbar

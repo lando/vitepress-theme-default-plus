@@ -9,6 +9,8 @@ mailchimp:
   button: Sign me up!
 ---
 
+# Adding a guide signup
+
 While you can leverage the global [MailChimp](./../components/mailchimp) component to add a newsletter signup to any page we've added a way to invoke it through `frontmatter` for convenience.
 
 **Note that this _only_ works for Guide content.**

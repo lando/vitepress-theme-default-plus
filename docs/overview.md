@@ -1,5 +1,5 @@
 ---
-description: VuePress 2 Default Theme Plus extends the VuePress2 default theme with some extra power and features.
+description: VitePress Default Theme Plus extends the VitePress default theme with some extra power and features.
 ---
 
 # VitePress Theme +

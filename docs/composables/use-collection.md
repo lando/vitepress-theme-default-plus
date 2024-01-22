@@ -1,10 +1,23 @@
 ---
-description: Home helpful guides for the VitePress Default Theme Plus.
-layout: page
-title: Blog
-sidebar: false
+description: Learn about the VitePress Default Theme + useCollection composable.
 ---
 
+# useCollection
+
+You can `import` the `useCollection()` composable from `@lando/vitepress-theme-default-plus` and use it to create things like index pages, prev|next links, and more.
+
+```js
+const {pages, page, nextPage, prevnext, prevPage, path} = useCollection();
+```
+
+Or target a specific collection:
+
+```js
+const data = useCollection('post');
+```
+Here is how we generate our `/blog` index page:
+
+```html
 <VPLCollectionPage>
   <VPLCollectionPageTitle>
     <template #title>
@@ -23,3 +36,4 @@ import {useCollection} from '@lando/vitepress-theme-default-plus';
 
 const {pages} = useCollection('post');
 </script>
+```

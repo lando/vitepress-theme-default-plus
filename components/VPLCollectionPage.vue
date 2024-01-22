@@ -63,8 +63,9 @@
 @media (min-width: 1280px) {
   .collection-page {
     order: 1;
-    margin: 0;
     min-width: 640px;
+    max-width: 1200px;
+    margin: auto;
   }
 }
 

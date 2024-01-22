@@ -2,6 +2,7 @@
 description: Home helpful guides for the VitePress Default Theme Plus.
 layout: page
 title: Guides
+sidebar: false
 ---
 
 <script setup>

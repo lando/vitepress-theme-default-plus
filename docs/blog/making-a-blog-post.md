@@ -1,5 +1,4 @@
 ---
-title: "Making A Blog Post: It's sort of like a guide but it's sort of not like a guide"
 byline: Blog posts are free form articles that may or may not be techincal in nature. They differ slightly from guides primarily in their presentation and authorship.
 blog: true
 date: January 11, 2024
