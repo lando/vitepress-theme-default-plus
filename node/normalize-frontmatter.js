@@ -2,7 +2,7 @@ import {resolve} from 'node:path';
 
 import Debug from 'debug';
 
-import {default as getTimestamp} from '../utils/get-timestamp';
+import {default as getTimestamp} from '../utils/get-timestamp.js';
 
 export default async function(pageData, {
   siteConfig,

@@ -2,37 +2,37 @@
 import {dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
-import merge from 'lodash/merge';
+import merge from 'lodash/merge.js';
 import Debug from 'debug';
 
 import {defineConfigWithTheme} from 'vitepress';
 
 // utils
-import {default as createContainer} from './utils/create-container';
-import {default as getContributors} from './utils/get-contributors';
-import {default as getGaHeaders} from './utils/get-ga-headers';
-import {default as getHubspotHeaders} from './utils/get-hubspot-headers';
-import {default as parseLayouts} from './utils/parse-layouts';
+import {default as createContainer} from './utils/create-container.js';
+import {default as getContributors} from './utils/get-contributors.js';
+import {default as getGaHeaders} from './utils/get-ga-headers.js';
+import {default as getHubspotHeaders} from './utils/get-hubspot-headers.js';
+import {default as parseLayouts} from './utils/parse-layouts.js';
 
 // node/plugins
-import {default as addContributors} from './node/add-contributors';
-import {default as addLayoutsPlugin} from './vite/add-layout-components-plugin';
-import {default as addMetadata} from './node/add-metadata';
-import {default as augmentAuthors} from './node/augment-authors';
-import {default as allowInternalPlugin} from './vite/allow-internal-plugin';
-import {default as buildCollections} from './node/build-collections';
-import {default as normalizeFrontmatter} from './node/normalize-frontmatter';
-import {default as normalizeLegacyFrontmatter} from './node/normalize-legacy-frontmatter';
-import {default as parseCollections} from './node/parse-collections';
-import {default as generateFeeds} from './node/generate-feeds';
-import {default as generateRobotsTxt} from './node/generate-robots';
-import {default as linkOverridePlugin} from './markdown/link-override-plugin';
-import {default as patchVPMenuColumnsPlugin} from './vite/patch-vp-menu-columns-plugin';
+import {default as addContributors} from './node/add-contributors.js';
+import {default as addLayoutsPlugin} from './vite/add-layout-components-plugin.js';
+import {default as addMetadata} from './node/add-metadata.js';
+import {default as augmentAuthors} from './node/augment-authors.js';
+import {default as allowInternalPlugin} from './vite/allow-internal-plugin.js';
+import {default as buildCollections} from './node/build-collections.js';
+import {default as normalizeFrontmatter} from './node/normalize-frontmatter.js';
+import {default as normalizeLegacyFrontmatter} from './node/normalize-legacy-frontmatter.js';
+import {default as parseCollections} from './node/parse-collections.js';
+import {default as generateFeeds} from './node/generate-feeds.js';
+import {default as generateRobotsTxt} from './node/generate-robots.js';
+import {default as linkOverridePlugin} from './markdown/link-override-plugin.js';
+import {default as patchVPMenuColumnsPlugin} from './vite/patch-vp-menu-columns-plugin.js';
 import {tabsMarkdownPlugin} from 'vitepress-plugin-tabs';
-import {default as tabsMarkdownOverridePlugin} from './markdown/tabs-override-plugin';
+import {default as tabsMarkdownOverridePlugin} from './markdown/tabs-override-plugin.js';
 
 // base config
-import {default as baseConfig} from './config/defaults';
+import {default as baseConfig} from './config/defaults.js';
 
 export async function defineConfig(userConfig = {}) {
   const debug = Debug('@lando/vpltheme'); // eslint-disable-line

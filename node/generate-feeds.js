@@ -2,7 +2,7 @@
 import {writeFileSync} from 'node:fs';
 import {join} from 'node:path';
 
-import {default as createContentLoader} from '../utils/create-content-loader';
+import {default as createContentLoader} from '../utils/create-content-loader.js';
 
 import Debug from 'debug';
 import {Feed} from 'feed';

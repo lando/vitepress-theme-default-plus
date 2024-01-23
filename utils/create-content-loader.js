@@ -7,14 +7,14 @@ import {parse} from 'node-html-parser';
 
 import Debug from 'debug';
 
-import {default as addContributors} from '../node/add-contributors';
-import {default as addMetadata} from '../node/add-metadata';
-import {default as augmentAuthors} from '../node/augment-authors';
-import {default as buildCollections} from '../node/build-collections';
-import {default as getContributors} from '../utils/get-contributors';
-import {default as normalizeFrontmatter} from '../node/normalize-frontmatter';
-import {default as normalizeLegacyFrontmatter} from '../node/normalize-legacy-frontmatter';
-import {default as parseCollections} from '../node/parse-collections';
+import {default as addContributors} from '../node/add-contributors.js';
+import {default as addMetadata} from '../node/add-metadata.js';
+import {default as augmentAuthors} from '../node/augment-authors.js';
+import {default as buildCollections} from '../node/build-collections.js';
+import {default as getContributors} from '../utils/get-contributors.js';
+import {default as normalizeFrontmatter} from '../node/normalize-frontmatter.js';
+import {default as normalizeLegacyFrontmatter} from '../node/normalize-legacy-frontmatter.js';
+import {default as parseCollections} from '../node/parse-collections.js';
 
 const getRelativePath = (url, {srcDir, cleanUrls = false} = {}) => {
   return normalizePath(relative(srcDir, join(srcDir, url)))
