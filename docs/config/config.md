@@ -417,6 +417,8 @@ Once you have you should be able to use all the things below.
   ---
   ```
 
+  Here is [an example](/cats) of a page using our `cats` layout.
+
 ## Robots.txt
 
 * Type: `Object`
