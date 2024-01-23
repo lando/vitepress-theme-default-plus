@@ -19,8 +19,7 @@ const {pages} = useCollection('guide');
       Guides
     </template>
     <template #lead>
-      stuyff adn thiangsoejp
-      oj pgojseg
+      Helpful tutorial-like content!
     </template>
   </VPLCollectionPageTitle>
   <VPLCollectionItems :items="pages"/>
