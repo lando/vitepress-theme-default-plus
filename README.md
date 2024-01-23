@@ -3,7 +3,9 @@
 This extends the [default VitePress theme](https://vitepress.dev/) with some extra power and features such as:
 
 <div align="center">
+
 ![features](./docs/public/images/features.png)
+
 </div>
 
 Or just go to the [docs](https://vitepress-theme-default-plus.lando.dev) for the docs to learn more.
