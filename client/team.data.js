@@ -1,7 +1,7 @@
 
 import Debug from 'debug';
 
-import {default as getContributors} from '../utils/get-contributors';
+import {default as getContributors} from '../utils/get-contributors.js';
 
 const debug = Debug('@lando/team.data.js'); // eslint-disable-line
 const siteConfig = globalThis.VITEPRESS_CONFIG;

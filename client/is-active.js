@@ -3,7 +3,7 @@ const HASH_RE = /#.*$/;
 const inBrowser = typeof document !== 'undefined';
 const normalize = path => decodeURI(path).replace(HASH_RE, '').replace(EXT_RE, '');
 
-export default function(currentPath, matchPath, asRegex) {
+export default function isActive(currentPath, matchPath, asRegex) {
   if (matchPath === undefined) return false;
 
   currentPath = normalize(`/${currentPath}`);

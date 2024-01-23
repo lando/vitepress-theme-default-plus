@@ -1,7 +1,7 @@
 
 import Debug from 'debug';
 
-import {default as createContentLoader} from '../utils/create-content-loader';
+import {default as createContentLoader} from '../utils/create-content-loader.js';
 
 const config = globalThis.VITEPRESS_CONFIG?.site?.themeConfig?.collections ?? {};
 const debug = Debug('@lando/collections.data.js'); // eslint-disable-line

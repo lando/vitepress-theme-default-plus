@@ -1,6 +1,6 @@
 import {computed} from 'vue';
 import {useRoute} from 'vitepress';
-import {data as collections} from './collections.data';
+import {data as collections} from './collections.data.js';
 
 export default function useCollection(type = undefined) {
   const route = useRoute();

@@ -6,8 +6,8 @@
 </template>
 
 <script setup>
-import {useTeam} from '@lando/vitepress-theme-default-plus';
 import {VPTeamMembers} from 'vitepress/theme';
+import useTeam from '../client/use-team.js';
 
 const {members, size} = defineProps({
   size: {

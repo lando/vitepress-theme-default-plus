@@ -4,8 +4,8 @@ import {fileURLToPath} from 'node:url';
 
 import Debug from 'debug';
 
-import {default as resolveGitPaths} from '../utils/resolve-git-paths';
-import {default as getContributors} from '../utils/get-contributors';
+import {default as resolveGitPaths} from '../utils/resolve-git-paths.js';
+import {default as getContributors} from '../utils/get-contributors.js';
 
 export default async function(pageData, {
   debug = Debug('@lando/add-contributors'),  // eslint-disable-line
