@@ -1,96 +1,45 @@
 ---
-description: Learn how to help develop and contribute to VuePress 2 Default Theme Plus.
+description: Learn how to help develop and contribute to VitePress Default Theme Plus.
 ---
 
 # Development
 
 ## Requirements
 
-([Lando](https://lando.dev/)) **OR** ([Node 14+](https://nodejs.org/en/download/) and [Yarn](https://classic.yarnpkg.com/lang/en/docs/install))
+* [Node.js](https://nodejs.org/) version 18 or higher.
+* Terminal for accessing VitePress via its command line interface (CLI).
+* Text Editor with [Markdown](https://en.wikipedia.org/wiki/Markdown) syntax support.
+  * [VSCode](https://code.visualstudio.com/) is recommended, along with the [official Vue extension](https://marketplace.visualstudio.com/items?itemName=Vue.volar).
 
-:::tip Yarn is optional
-`yarn` is technically optional but is preferred and is assumed in the docs below. That said you can probably use `npm` as a drop in replacement for `yarn` below and end up in the same place.
-:::
+VitePress can be used on its own, or be installed into an existing project. In both cases, you can install it with:
 
-:::: code-group
-::: code-group-item LANDO
+## Up and Running
 
-```bash:no-line-numbers
-# clone repo
-git clone https://github.com/lando/vuepress-theme-default-plus.git &&
-  \ cd vuepress-theme-default-plus
+```sh
+# clone repo and install deps
+git clone https://github.com/lando/vitepress-theme-default-plus.git &&
+  \ cd vitepress-theme-default-plus &&
+  \ npm install
 
-# start up app
-lando start
-
-# launch dev server
-lando dev
+# start dev server
+npm run dev
 ```
-
-:::
-::: code-group-item YARN
-
-```bash:no-line-numbers
-# clone repo
-git clone https://github.com/lando/vuepress-theme-default-plus.git &&
-  \ cd vuepress-theme-default-plus
-
-# install deps
-yarn
-
-# launch dev server
-yarn dev
-
-# launch dev server in debug mode
-DEBUG="@lando/*" yarn dev
-```
-
-:::
-::::
 
 ## Testing
 
-:::: code-group
-::: code-group-item LANDO
-
-```bash:no-line-numbers
-# lint the code
-lando yarn test
+```sh
+npm run test
 ```
-
-:::
-::: code-group-item YARN
-
-```bash:no-line-numbers
-# lint the code
-yarn test
-```
-
-:::
-::::
 
 ## Building
 
-Here are some helpful commands to build an artifact
+```sh
+# build the static site
+npm run build
 
-:::: code-group
-::: code-group-item LANDO
-
-```bash:no-line-numbers
-# build the site
-lando yarn build
+# preview the static site
+npm run preview
 ```
-
-:::
-::: code-group-item YARN
-
-```bash:no-line-numbers
-# build the site
-yarn build
-```
-
-:::
-::::
 
 ## Releasing
 

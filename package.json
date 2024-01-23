@@ -1,63 +1,34 @@
 {
-  "name": "@lando/vuepress-theme-default-plus",
-  "description": "A VuePress 2 Theme that extends the default theme with some more power.",
-  "version": "1.0.0-beta.49",
+  "name": "@lando/vitepress-theme-default-plus",
+  "description": "A VitePress Theme that extends the default theme with some more power.",
+  "version": "1.0.0-beta.1",
   "author": "Mike Pirog @pirog",
   "license": "GPL-3.0",
-  "repository": "github:lando/vuepress-theme-default-plus",
-  "bugs": "https://github.com/lando/vuepress-theme-default-plus/issues/new/choose/",
-  "homepage": "https://github.com/lando/vuepress-theme-default-plus",
+  "repository": "github:lando/vitepress-theme-default-plus",
+  "bugs": "https://github.com/lando/vitepress-theme-default-plus/issues/new/choose/",
+  "homepage": "https://github.com/lando/vitepress-theme-default-plus",
   "keywords": [
     "lando",
-    "vuepress",
-    "vuepress2",
-    "vuepress2-theme",
-    "vuepress2-plugin"
+    "vitepress",
+    "vitepress-theme",
+    "vitepress-plugin"
   ],
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
   },
-  "main": "index.js",
+  "main": "vitepress-theme-default-plus.js",
+  "exports": {
+    ".": "./vitepress-theme-default-plus.js",
+    "./config": "./config.js",
+    "./package.json": "./package.json"
+  },
   "type": "module",
   "scripts": {
-    "build": "vuepress build docs",
-    "dev": "vuepress dev docs --clean-cache --clean-temp",
-    "lint": "eslint . docs/.vuepress --ext .js,.vue",
-    "test": "yarn lint"
-  },
-  "dependencies": {
-    "@octokit/core": "^3.5.1",
-    "@octokit/plugin-paginate-rest": "^2.17.0",
-    "@vuepress/client": "2.0.0-beta.53",
-    "@vuepress/core": "2.0.0-beta.53",
-    "@vuepress/plugin-active-header-links": "2.0.0-beta.53",
-    "@vuepress/plugin-back-to-top": "2.0.0-beta.53",
-    "@vuepress/plugin-container": "2.0.0-beta.53",
-    "@vuepress/plugin-docsearch": "2.0.0-beta.53",
-    "@vuepress/plugin-git": "2.0.0-beta.53",
-    "@vuepress/plugin-google-analytics": "2.0.0-beta.53",
-    "@vuepress/plugin-medium-zoom": "2.0.0-beta.53",
-    "@vuepress/plugin-nprogress": "2.0.0-beta.53",
-    "@vuepress/plugin-palette": "2.0.0-beta.53",
-    "@vuepress/plugin-prismjs": "2.0.0-beta.53",
-    "@vuepress/plugin-register-components": "2.0.0-beta.53",
-    "@vuepress/plugin-search": "2.0.0-beta.53",
-    "@vuepress/plugin-theme-data": "2.0.0-beta.53",
-    "@vuepress/shared": "2.0.0-beta.53",
-    "@vuepress/theme-default": "2.0.0-beta.53",
-    "@vuepress/utils": "2.0.0-beta.53",
-    "@vueuse/core": "^9.6.0",
-    "generate-robotstxt": "^8.0.3",
-    "gravatar-url": "^4.0.1",
-    "js-yaml": "^4.1.0",
-    "lodash": "^4.17.21",
-    "sass": "^1.47.0",
-    "sass-loader": "^12.4.0",
-    "semver": "^7.3.8",
-    "sitemap": "^7.1.1",
-    "timeago.js": "^4.0.2",
-    "vue": "^3.2.20",
-    "vue-router": "^4.0.12"
+    "build": "vitepress build docs",
+    "dev": "vitepress dev docs",
+    "lint": "eslint . --ext .js,.vue",
+    "preview": "vitepress preview docs",
+    "test": "npm run lint"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.0",
@@ -66,6 +37,20 @@
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.9.1",
     "eslint-plugin-vue": "^8.0.3",
-    "vuepress": "2.0.0-beta.53"
+    "fast-glob": "^3.3.2",
+    "feed": "^4.2.2",
+    "generate-robotstxt": "^8.0.3",
+    "gravatar-url": "^4.0.1",
+    "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21",
+    "markdown-it-container": "^4.0.0",
+    "nanoid": "^5.0.4",
+    "node-html-parser": "^6.1.12",
+    "sass": "^1.69.7",
+    "timeago.js": "^4.0.2",
+    "vitepress": "^1.0.0-rc.32",
+    "vitepress-plugin-tabs": "^0.5.0",
+    "vue": "^3.3.12",
+    "vue-eslint-parser": "^9.3.2"
   }
 }
