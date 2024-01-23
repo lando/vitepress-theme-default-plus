@@ -1,3 +1,3 @@
-import {VPLTheme} from '@lando/vitepress-theme-default-plus';
+import VPLTheme from '@lando/vitepress-theme-default-plus';
 
 export default VPLTheme;

@@ -19,7 +19,7 @@
   import VPLink from '@default-theme/components/VPLink.vue';
   import {toRefs} from 'vue';
   import {useData} from 'vitepress';
-  import {isActive} from '@lando/vitepress-theme-default-plus';
+  import isActive from '../client/is-active.js';
 
   const props = defineProps({
     item: {

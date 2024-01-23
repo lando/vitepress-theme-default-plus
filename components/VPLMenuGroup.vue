@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import {VPLMenuLink} from '@lando/vitepress-theme-default-plus';
+import VPLMenuLink from '../components/VPLMenuLink.vue';
 
 const props = defineProps({
   columns: {

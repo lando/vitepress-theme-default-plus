@@ -12,21 +12,19 @@ description: Learn how to install and get started with VitePress Default Theme P
 VitePress can be used on its own, or be installed into an existing project. In both cases, you can install it with:
 
 ::: code-group
-
 ```sh [npm]
-$ npm add -D @lando/vitepress-theme-default-plus
+$ npm add -D vitepress @lando/vitepress-theme-default-plus
 ```
 
 ```sh [pnpm]
-$ pnpm add -D @lando/vitepress-theme-default-plus
+$ pnpm add -D vitepress @lando/vitepress-theme-default-plus
 ```
 
 ```sh [yarn]
-$ yarn add -D @lando/vitepress-theme-default-plus
+$ yarn add -D vitepress @lando/vitepress-theme-default-plus
 ```
 
 ```sh [bun]
-$ bun add -D @lando/vitepress-theme-default-plus
+$ bun add -D vitepress @lando/vitepress-theme-default-plus
 ```
-
 :::

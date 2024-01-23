@@ -59,4 +59,4 @@ const theme = {
   },
 };
 
-export {theme as VPLTheme};
+export default theme;

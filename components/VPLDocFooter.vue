@@ -110,10 +110,9 @@ import {usePrevNext} from '@default-theme/composables/prev-next';
 import VPIconEdit from '@default-theme/components/icons/VPIconEdit.vue';
 import VPLink from '@default-theme/components/VPLink.vue';
 
-import {useCollection} from '@lando/vitepress-theme-default-plus';
+import useCollection from '../client/use-collection.js';
 import VPLDocFooterLastUpdated from './VPLDocFooterLastUpdated.vue';
 import {default as Contributor} from './VPLTeamMembersItem.vue';
-
 
 const useBackLink = () => {
   // if its a string then assume its the link
