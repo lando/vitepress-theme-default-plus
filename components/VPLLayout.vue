@@ -41,10 +41,10 @@ import DefaultTheme from 'vitepress/theme';
 import {useData} from 'vitepress';
 import {computed, ref, watch} from 'vue';
 
-import {default as Alert} from '../components/VPLAlert.vue';
-import {default as CollectionHeader} from '../components/VPLCollectionHeader.vue';
-import {default as MailChimp} from '../components/VPLMailchimp.vue';
-import {default as PostHeader} from '../components/VPLPostHeader.vue';
+import {default as Alert} from './VPLAlert.vue';
+import {default as CollectionHeader} from './VPLCollectionHeader.vue';
+import {default as MailChimp} from './VPLMailChimp.vue';
+import {default as PostHeader} from './VPLPostHeader.vue';
 
 const {Layout} = DefaultTheme;
 
