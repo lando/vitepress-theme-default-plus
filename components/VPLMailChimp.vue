@@ -111,7 +111,6 @@ const email = ref(null);
   input[type=email], input[type=text], textarea {
     border: 0 solid #f8f8f8;
     box-sizing: border-box;
-    font-size: 0.9em;
     height: 50px;
     width: 100%;
     padding: 1em;
@@ -140,9 +139,9 @@ const email = ref(null);
     padding: 0;
   }
   .subscribe-input {
-    background-color: #fff;
+    background-color: var(--vp-c-bg);
     font-size: inherit;
-    border: 1px solid #ddd;
+    border: 1px solid var(--vp-c-bg-alt);
     width: 100%;
     padding: 0.6rem 1.2rem;
     box-sizing: border-box;

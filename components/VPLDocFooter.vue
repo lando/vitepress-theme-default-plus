@@ -124,14 +124,17 @@ const useBackLink = () => {
 };
 
 const {theme, page, frontmatter} = useData();
-const {collection, next, prev} = frontmatter.value;
+const collection = computed(() => frontmatter.value?.collection ?? false);
 
 const prevnext = usePrevNext();
-const cprevnext = collection ? useCollection(collection).prevnext : usePrevNext();
+const cprevnext = computed(() => {
+  const links = frontmatter.value?.collection ? useCollection(collection.value).prevnext : usePrevNext();
+  return links.value;
+});
 
 const control = computed(() => ({
-  prev: prev ? prevnext.value.prev : cprevnext.value.prev,
-  next: next ? prevnext.value.next : cprevnext.value.next,
+  prev: frontmatter.value?.prev ? prevnext.value.prev : cprevnext.value.prev,
+  next: frontmatter.value?.next ? prevnext.value.next : cprevnext.value.next,
 }));
 
 const backLink = useBackLink();

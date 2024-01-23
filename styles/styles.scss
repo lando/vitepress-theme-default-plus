@@ -64,7 +64,8 @@ form.netlify {
     height: 50px;
     width: 100%;
     padding: 1em;
-    background-color: #fff;
+    background-color: var(--vp-c-bg);
+    color: var(--vp-c-text-1);
     font-size: inherit;
     width: 100%;
     padding: 8px 12px;

@@ -208,7 +208,7 @@ export default defineConfig({
           text: 'Help & Support',
           collapsed: false,
           items: [
-            {text: 'GitHub', link: 'https://github.com/lando/vitepress-theme-default-plus.lando.dev/issues/new/choose'},
+            {text: 'GitHub', link: 'https://github.com/lando/vitepress-theme-default-plus/issues/new/choose'},
             {text: 'Slack', link: 'https://launchpass.com/devwithlando'},
             {text: 'Contact Us', link: '/support'},
           ],
