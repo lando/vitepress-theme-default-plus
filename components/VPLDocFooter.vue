@@ -136,7 +136,7 @@ const control = computed(() => ({
 
 const backLink = useBackLink();
 const contributors = computed(() => frontmatter.value.contributors ?? page.value.contributors);
-const editLink = useEditLink();
+const editLink = frontmatter.value?.editLink ? computed(() => frontmatter.value?.editLink) : useEditLink();
 
 const hasBackLink = computed(() => {
   return frontmatter.value?.backLink?.link;

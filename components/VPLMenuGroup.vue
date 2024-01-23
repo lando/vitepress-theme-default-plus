@@ -1,14 +1,14 @@
 <template>
-  <div :class="`VPMenuGroup ${getItemColumnsClass(columns)}`">
+  <div :class="`VPMenuGroup ${getItemColumnsClass(props.columns)}`">
     <p
-      v-if="text"
+      v-if="props.text"
       class="title"
     >
-      {{ text }}
+      {{ props.text }}
     </p>
 
-    <div :class="{'VPMenuGroup-flex-wrapper': columns > 1}">
-      <template v-for="item in items">
+    <div :class="{'VPMenuGroup-flex-wrapper': props.columns > 1}">
+      <template v-for="item in props.items">
         <VPLMenuLink
           v-if="'link' in item"
           :key="item.href"
@@ -22,7 +22,7 @@
 <script setup>
 import {VPLMenuLink} from '@lando/vitepress-theme-default-plus';
 
-const {columns, items, text} = defineProps({
+const props = defineProps({
   columns: {
     type: Number,
     default: 1,
@@ -78,15 +78,18 @@ const getItemColumnsClass = columns => {
 }
 
 .VPMenuGroup-columns-half .VPMenuLink {
-  min-width: 50%;
+  min-width: 49%;
+  max-width: 50%;
 }
 
 .VPMenuGroup-columns-third .VPMenuLink {
-  min-width: 33%;
+  min-width: 32%;
+  max-width: 33%;
 }
 
 .VPMenuGroup-columns-quarter .VPMenuLink {
-  min-width: 25%;
+  min-width: 24%;
+  max-width: 25%;
 }
 
 .VPMenuGroup:first-child {

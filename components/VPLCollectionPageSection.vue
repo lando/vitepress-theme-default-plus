@@ -16,10 +16,10 @@
       <slot name="lead" />
     </p>
     <div
-      v-if="$slots.members"
-      class="members"
+      v-if="$slots.items"
+      class="items"
     >
-      <slot name="members" />
+      <slot name="items" />
     </div>
   </section>
 </template>
@@ -80,7 +80,7 @@
   color: var(--vp-c-text-2);
 }
 
-.members {
+.items {
   padding-top: 40px;
 }
 </style>

@@ -54,6 +54,10 @@ form.netlify {
     }
   }
 
+  .sponsor-heart {
+    fill: blue;
+  }
+
   input[type=email], input[type=text], textarea {
     border: 0 solid #f8f8f8;
     box-sizing: border-box;
@@ -356,6 +360,12 @@ form.netlify {
   &.box {
     @extend .box, .custom-block;
     padding: 0;
+    a {
+      color: var(--vp-c-brand-1);
+      &:hover {
+        color: var(--vp-c-brand-3);
+      }
+    }
   }
   &.box-blue {
     @extend .box-blue, .custom-block;
@@ -552,8 +562,38 @@ form.netlify {
   }
 }
 
+.VPSocialLink {
+  svg {
+    &.shake {
+      animation-name: shake;
+      animation-duration: 20s;
+      animation-delay: 3s;
+      animation-iteration-count: 5;
+      animation-timing-function: linear;
+    }
+  }
+}
+
 .VPSocialLink:hover {
   color: var(--vp-c-brand-1) !important;
+  svg {
+    fill: var(--vp-c-brand-1) !important;
+    path {
+      fill: var(--vp-c-brand-1) !important;
+    }
+  }
+}
+
+@keyframes shake {
+  1% { transform: translate(0, 0) rotate(0deg); }
+  2% { transform: translate(1px, 1px) rotate(5deg); }
+  3% { transform: translate(0, 0) rotate(0deg); }
+  4% { transform: translate(-1px, 1px) rotate(-5deg); }
+  5% { transform: translate(0, 0) rotate(0deg); }
+  6% { transform: translate(1px, 1px) rotate(5deg); }
+  7% { transform: translate(0, 0) rotate(0deg); }
+  8% { transform: translate(-1px, 1px) rotate(-5deg); }
+  9% { transform: translate(0, 0) rotate(0deg); }
 }
 
 @media (min-width: 640px) {

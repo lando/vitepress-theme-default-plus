@@ -6,29 +6,15 @@ image: https://external-preview.redd.it/mj-2SFKKXAMK3tXrlo1smwLCSIantySqxSgfgMoJ
 # Making a guide
 
 Guides are _how tos_ or _tutorials_ that fit somewhere in between technical documentation and blog posts. They generally
-seek to answer a single question such as "How do I create a guide using this theme?" and are heavy on code snippets. In this case there are actually two ways to create a guide:
+seek to answer a single question such as "How do I create a guide using this theme?" and are heavy on code snippets.
 
-* Autopopulating data from GitHub
+In this case there are actually two ways to create a guide:
+
+* Autopopulating data from the `git log`.
 * [Manually entering data](./making-a-guide-2.html)
 
-[hi](./making-a-guide-2.md)
+## Autopopulating data from `git log`
 
+You don't really have to do anything. Just make a commit to this page and you will show up like `Mike Pirog` does for this one. If you want to augment the `git log` data you should check out [this](../config/config#contributors).
 
-## Autopopulating data from GitHub
-
-To automatically grab relevant authorship and data information make sure you set `repo` to a publically accessible GitHub repo and also set `autoPopulate` to `true` in the [theme config](./../config/config).
-
-Once you have done that then you can make a guide by adding the following frontmatter to your markdown file.
-
-::: warning You must set the title!
-Note that because of how the underlying components are layered and called you must set the title in the frontmatter. This will populate the `h1` on the page. You can and should then omit the `h1` in the markdown content itself.
-:::
-
-```md
----
-title: Making A Guide 1
-guide: true
----
-```
-
-You can check out the full markdown file that generated this page [here](https://github.com/lando/vuepress-theme-default-plus/blob/main/docs/making-a-guide.html). If you are interested in manually setting the `authors`, `date` and edit link then check out [Making a Guide 2](./making-a-guide-2.html)
+If you are interested in manually setting the `authors`, `date` and edit link then check out [Making a Guide 2](./making-a-guide-2.html)

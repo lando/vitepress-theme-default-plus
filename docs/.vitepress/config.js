@@ -126,7 +126,13 @@ export default defineConfig({
       },
       {
         icon: {
-          svg: '<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Dribbble</title><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+          svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path fill-rule="evenodd" d="M3.75 4.5a.75.75 0 0 1 .75-.75h.75c8.284 0 15 6.716 15 15v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75C18 11.708 12.292 6 5.25 6H4.5a.75.75 0 0 1-.75-.75V4.5Zm0 6.75a.75.75 0 0 1 .75-.75h.75a8.25 8.25 0 0 1 8.25 8.25v.75a.75.75 0 0 1-.75.75H12a.75.75 0 0 1-.75-.75v-.75a6 6 0 0 0-6-6H4.5a.75.75 0 0 1-.75-.75v-.75Zm0 7.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" clip-rule="evenodd" /></svg>',
+        },
+        link: '/feed.rss',
+      },
+      {
+        icon: {
+          svg: '<svg class="shake" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="red" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
         },
         link: 'https://lando.dev/sponsor',
       },
@@ -228,6 +234,14 @@ function configSideBar() {
       ],
     },
     {
+      text: 'Pages',
+      collapsed: false,
+      items: [
+        {text: 'Collections', link: '/pages/collections'},
+        {text: 'Teams', link: '/pages/teams'},
+      ],
+    },
+    {
       text: 'Global Components',
       collapsed: false,
       items: [
@@ -247,7 +261,7 @@ function configSideBar() {
         {text: 'Cards', link: '/markdown/cards'},
         {text: 'Columns', link: '/markdown/columns'},
         {text: 'Highlights', link: '/markdown/highlights'},
-        {text: 'Tabs', link: '/markdown/Tabs'},
+        {text: 'Tabs', link: '/markdown/tabs'},
         {text: 'Thumbnails', link: '/markdown/thumbnails'},
         {text: 'Advanced', link: '/guides/advanced-markdown'},
       ],

@@ -34,6 +34,7 @@
 </template>
 
 <script setup>
+import {computed} from 'vue';
 import {useData} from 'vitepress';
 
 import {default as Author} from './VPLTeamMembersItem.vue';
@@ -42,8 +43,10 @@ import VPLink from '@default-theme/components/VPLink.vue';
 
 const {frontmatter, page} = useData();
 
-const {authors, collection} = frontmatter.value;
-const {icon, iconLink} = page.value.collection;
+const authors = computed(() => frontmatter.value?.authors ?? false);
+const collection = computed(() => frontmatter.value?.collection ?? false);
+const icon = computed(() => page.value?.collection?.icon ?? false);
+const iconLink = computed(() => page.value?.collection?.iconLink ?? false);
 
 const getSeparator = (index, end = 0) => {
   return index + 1 === end ? '' : ', ';

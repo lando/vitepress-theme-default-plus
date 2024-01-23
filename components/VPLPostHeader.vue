@@ -52,16 +52,19 @@ import {default as Icon} from '../components/VPLCollectionIcon.vue';
 import VPLink from '@default-theme/components/VPLink.vue';
 
 const {frontmatter, page} = useData();
-const {datetime, lastUpdated, timestamp} = page.value;
-const {collection, date, authors, location} = frontmatter.value;
-const {icon, iconLink} = page.value.collection;
+
+const authors = computed(() => frontmatter.value?.authors ?? false);
+const collection = computed(() => frontmatter.value?.collection ?? false);
+const datetime = computed(() => page.value?.datetime ?? false);
+const icon = computed(() => page.value?.collection?.icon ?? false);
+const iconLink = computed(() => page.value?.collection?.iconLink ?? false);
 
 const getSeparator = (index, end = 0) => {
   return index + 1 === end ? '' : ', ';
 };
 
 const hdate = computed(() => {
-  return new Date(date ?? lastUpdated ?? timestamp).toLocaleDateString(undefined, {
+  return new Date(frontmatter.value?.date ?? page.value?.lastUpdated ?? page.value?.timestamp).toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -69,7 +72,7 @@ const hdate = computed(() => {
 });
 
 const hlocation = computed(() => {
-  return location ?? author?.location ?? false;
+  return frontmatter.value?.location ?? author?.location ?? false;
 });
 
 </script>
