@@ -1,7 +1,3 @@
-
-import {dirname, resolve} from 'node:path';
-import {fileURLToPath} from 'node:url';
-
 import Debug from 'debug';
 
 import {default as resolveGitPaths} from '../utils/resolve-git-paths.js';
