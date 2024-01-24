@@ -1,4 +1,5 @@
 // mods
+import {existsSync} from 'node:fs';
 import {dirname, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
@@ -37,18 +38,22 @@ import {default as baseConfig} from './config/defaults.js';
 
 export async function defineConfig(userConfig = {}) {
   const debug = Debug('@lando/vpltheme'); // eslint-disable-line
-  userConfig.themeRoot = dirname(fileURLToPath(import.meta.url));
 
+  // theme root
+  userConfig.themeRoot = dirname(fileURLToPath(import.meta.url));
   // merge config sources
   const config = merge({}, baseConfig, userConfig);
-
-  // set srcRoot
+  // log
   debug('incoming vitepress configuration %O', config);
 
-  console.log(traverseUp(['.git'], resolve(config.themeRoot, '..')));
-
   // get git root if its not defined
-  config.gitRoot = dirname(fileURLToPath(import.meta.url));
+  if (!config.gitRoot) {
+    const gitDir = traverseUp(['.git'], resolve(config.themeRoot, '..')).find(dir => existsSync(dir));
+    config.gitRoot = gitDir ? resolve(gitDir, '..') : config.themeRoot;
+    debug('automatically set gitRoot to %o', config.gitRoot);
+  }
+
+  // explode
   const {markdown, themeConfig, sitemap, vite} = config;
 
   // normalize id
