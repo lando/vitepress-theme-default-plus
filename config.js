@@ -1,5 +1,5 @@
 // mods
-import {dirname} from 'node:path';
+import {dirname, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 import merge from 'lodash/merge.js';
@@ -13,6 +13,7 @@ import {default as getContributors} from './utils/get-contributors.js';
 import {default as getGaHeaders} from './utils/get-ga-headers.js';
 import {default as getHubspotHeaders} from './utils/get-hubspot-headers.js';
 import {default as parseLayouts} from './utils/parse-layouts.js';
+import {default as traverseUp} from './utils/traverse-up.js';
 
 // node/plugins
 import {default as addContributors} from './node/add-contributors.js';
@@ -36,12 +37,17 @@ import {default as baseConfig} from './config/defaults.js';
 
 export async function defineConfig(userConfig = {}) {
   const debug = Debug('@lando/vpltheme'); // eslint-disable-line
+  userConfig.themeRoot = dirname(fileURLToPath(import.meta.url));
+
   // merge config sources
   const config = merge({}, baseConfig, userConfig);
+
   // set srcRoot
   debug('incoming vitepress configuration %O', config);
 
-  // get plugin root
+  console.log(traverseUp(['.git'], resolve(config.themeRoot, '..')));
+
+  // get git root if its not defined
   config.gitRoot = dirname(fileURLToPath(import.meta.url));
   const {markdown, themeConfig, sitemap, vite} = config;
 
