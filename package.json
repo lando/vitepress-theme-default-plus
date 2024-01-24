@@ -30,13 +30,8 @@
     "preview": "vitepress preview docs",
     "test": "npm run lint"
   },
-  "devDependencies": {
-    "@babel/eslint-parser": "^7.16.0",
-    "babel-eslint": "^10.1.0",
+  "dependencies": {
     "debug": "^4.3.2",
-    "eslint": "^7.32.0",
-    "eslint-config-google": "^0.9.1",
-    "eslint-plugin-vue": "^8.0.3",
     "fast-glob": "^3.3.2",
     "feed": "^4.2.2",
     "generate-robotstxt": "^8.0.3",
@@ -47,12 +42,17 @@
     "nanoid": "^5.0.4",
     "node-html-parser": "^6.1.12",
     "sass": "^1.69.7",
+    "vitepress-plugin-tabs": "^0.5.0"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.16.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-google": "^0.9.1",
+    "eslint-plugin-vue": "^8.0.3",
     "timeago.js": "^4.0.2",
     "vitepress": "^1.0.0-rc.32",
     "vue": "^3.3.12",
     "vue-eslint-parser": "^9.3.2"
-  },
-  "dependencies": {
-    "vitepress-plugin-tabs": "^0.5.0"
   }
 }

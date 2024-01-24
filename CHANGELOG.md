@@ -1,6 +1,10 @@
+## v1.0.0-beta.8 - [January 24, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.8)
+
+* Fixed `dependency` resolution
+
 ## v1.0.0-beta.7 - [January 24, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.7)
 
-* Fix `dependency` resolution
+* Fixed `dependency` resolution
 
 ## v1.0.0-beta.6 - [January 24, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.6)
 
