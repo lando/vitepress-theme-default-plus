@@ -1,3 +1,9 @@
+## v1.0.0-beta.6 - [January 24, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.6)
+
+* Fixed automatic `gitRoot` discovery when used outside itself
+* Improved `base` usage
+* Migrated `lando` config sets to VitePress
+
 ## v1.0.0-beta.5 - [January 23, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.5)
 
 * Fixed internal `import` resolutions so theme can be used externally
