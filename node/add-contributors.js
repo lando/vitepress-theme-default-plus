@@ -15,7 +15,7 @@ export default async function(pageData, {
   // get path
   const {frontmatter, relativePath} = pageData;
   // compute git things
-  const gitDir = dirname(resolve(fileURLToPath(import.meta.url), '..'));
+  const gitDir = siteConfig?.userConfig?.gitRoot;
   const gitPaths = resolveGitPaths(relativePath, siteConfig.srcDir.replace(`${gitDir}/`, ''), frontmatter['git-include']);
 
   // get contributors
