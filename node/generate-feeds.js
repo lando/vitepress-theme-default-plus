@@ -29,7 +29,6 @@ const normalizeConfig = (config = {}, feed = 'feed') => {
 
 const sort = items => items.sort((a, b) => a.timestamp < b.timestamp ? 1 : -1);
 
-
 export default async function(siteConfig, {debug = Debug('@lando/generate-feeds')} = {}) { // eslint-disable-line
   const {userConfig, site, outDir} = siteConfig;
 
@@ -48,16 +47,16 @@ export default async function(siteConfig, {debug = Debug('@lando/generate-feeds'
   // loop through and generate feedzzz
   await Promise.all(Object.entries(feeds).map(async ([name, config]) => {
     config = normalizeConfig(config, name);
-    const baseUrl = config.baseUrl ?? userConfig.baseUrl;
+    const {href} = new URL(site.base ?? '/', config.baseUrl ?? userConfig.baseUrl);
 
     const feed = new Feed({
       title: config.title ?? site.title ?? '',
       description: config.description ?? config.description ?? '',
-      id: config.id ?? baseUrl,
-      link: config.link ?? baseUrl,
+      id: config.id ?? href,
+      link: config.link ?? href,
       language: config.language ?? 'en',
       image: config.image ?? '',
-      favicon: config.favicon ?? `${baseUrl}/favicon.ico`,
+      favicon: config.favicon ?? `${href}/favicon.ico`,
       copyright: config.copyright ?? '',
     });
 
@@ -71,8 +70,8 @@ export default async function(siteConfig, {debug = Debug('@lando/generate-feeds'
       // initial payload
       const data = {
         title,
-        id: `${baseUrl}${url}`,
-        link: `${baseUrl}${url}`,
+        id: `${href}${url}`,
+        link: `${href}${url}`,
         description: excerpt !== '' ? excerpt : summary,
         content: html,
         date: new Date(timestamp),

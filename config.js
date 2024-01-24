@@ -3,6 +3,7 @@ import {existsSync} from 'node:fs';
 import {dirname, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
+import isEmpty from 'lodash/isEmpty.js';
 import merge from 'lodash/merge.js';
 import Debug from 'debug';
 
@@ -33,16 +34,37 @@ import {default as patchVPMenuColumnsPlugin} from './vite/patch-vp-menu-columns-
 import {tabsMarkdownPlugin} from 'vitepress-plugin-tabs';
 import {default as tabsMarkdownOverridePlugin} from './markdown/tabs-override-plugin.js';
 
-// base config
+// configsets
 import {default as baseConfig} from './config/defaults.js';
+import {default as lando3BaseConfig} from './config/landov3.js';
+import {default as lando4BaseConfig} from './config/landov4.js';
 
-export async function defineConfig(userConfig = {}) {
+export async function defineConfig(userConfig = {}, defaults = {}) {
   const debug = Debug('@lando/vpltheme'); // eslint-disable-line
 
   // theme root
   userConfig.themeRoot = dirname(fileURLToPath(import.meta.url));
+
+  // prefer landov4 if defaults not set
+  if (isEmpty(userConfig.defaults) && userConfig.landoDocs === 4) {
+    debug('no user defaults set, using lando v4 defaults');
+    defaults = lando4BaseConfig(userConfig);
+  // ditto but for lando v3
+  } else if (isEmpty(userConfig.defaults) && userConfig.landoDocs === 3) {
+    debug('no user defaults set, using lando v3 defaults');
+    defaults = lando3BaseConfig(userConfig);
+  // Same as above but for legacy things
+  } else if (isEmpty(userConfig.defaults) && (userConfig.landoDocs || userConfig.lando)) {
+    debug('no user defaults set, using lando v3 defaults');
+    defaults = lando3BaseConfig(userConfig);
+  // Otherwise if we are empty then just set to defaults
+  } else if (isEmpty(userConfig.defaults)) {
+    debug('no user defaults set, using theme defaults');
+    defaults = baseConfig(userConfig);
+  }
+
   // merge config sources
-  const config = merge({}, baseConfig, userConfig);
+  const config = merge({}, defaults, userConfig);
   // log
   debug('incoming vitepress configuration %O', config);
 
@@ -51,6 +73,12 @@ export async function defineConfig(userConfig = {}) {
     const gitDir = traverseUp(['.git'], resolve(config.themeRoot, '..')).find(dir => existsSync(dir));
     config.gitRoot = gitDir ? resolve(gitDir, '..') : config.themeRoot;
     debug('automatically set gitRoot to %o', config.gitRoot);
+  }
+
+  // If we want to show the shared navbar then lets add it to the begining of the navbar
+  if (Array.isArray(config?.themeConfig?.sharedNav)) {
+    config.themeConfig.nav = config.themeConfig.sharedNav.concat(config.themeConfig.nav);
+    debug('prepended shared navbar to user specified navbar with %o', config.themeConfig.sharedNav);
   }
 
   // explode
