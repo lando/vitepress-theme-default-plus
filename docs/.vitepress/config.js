@@ -25,8 +25,8 @@ export default defineConfig({
     ['meta', {name: 'twitter:description', content: 'The VitePress default theme with some MOARPOWAH!'}],
   ],
   robots: {
-    host: 'https://vite-theme-default-plus.lando.dev/',
-    sitemap: 'https://vite-theme-default-plus.lando.dev/sitemap.xml',
+    host: 'https://vitepress-theme-default-plus.lando.dev/',
+    sitemap: 'https://vitepress-theme-default-plus.lando.dev/sitemap.xml',
   },
   sitemap: {
     hostname: 'https://vitepress-theme-default-plus.lando.dev',
