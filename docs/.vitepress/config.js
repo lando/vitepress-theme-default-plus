@@ -65,7 +65,7 @@ export default defineConfig({
           desc: 'SLAVE4U',
           links: [
             {icon: 'github', link: 'https://github.com/pirog'},
-            {icon: 'twitter', link: 'https://twitter.com/pirogcommamike'},
+            {icon: 'x', link: 'https://x.com/pirogcommamike'},
           ],
           sponsor: 'https://lando.dev/sponsor',
           mergeOnly: true,
@@ -86,7 +86,7 @@ export default defineConfig({
           desc: 'A chill dude',
           links: [
             {icon: 'github', link: 'https://github.com/reynoldsalec'},
-            {icon: 'twitter', link: 'https://twitter.com/reynoldsalec'},
+            {icon: 'x', link: 'https://x.com/reynoldsalec'},
           ],
           sponsor: 'https://lando.dev/sponsor',
           mergeOnly: true,
@@ -117,8 +117,8 @@ export default defineConfig({
         link: 'https://github.com/lando/vitepress-theme-default-plus',
       },
       {
-        icon: 'twitter',
-        link: 'https://twitter.com/@devwithlando',
+        icon: 'x',
+        link: 'https://x.com/@devwithlando',
       },
       {
         icon: 'youtube',
