@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import VPLink from '@default-theme/components/VPLink.vue';
+import VPLink from 'vitepress/dist/client/theme-default/components/VPLink.vue';
 
 const {title, icon, link} = defineProps({
   icon: {

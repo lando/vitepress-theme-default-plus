@@ -49,7 +49,7 @@ import {useData} from 'vitepress';
 
 import {default as Author} from './VPLTeamMembersItem.vue';
 import {default as Icon} from '../components/VPLCollectionIcon.vue';
-import VPLink from '@default-theme/components/VPLink.vue';
+import VPLink from 'vitepress/dist/client/theme-default/components/VPLink.vue';
 
 const {frontmatter, page} = useData();
 

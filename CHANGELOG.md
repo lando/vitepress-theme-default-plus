@@ -1,3 +1,7 @@
+## v1.0.0-beta.17 - [January 25, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.17)
+
+* Dealias all `vitepress` components for better portability
+
 ## v1.0.0-beta.16 - [January 25, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.16)
 
 * Updated to latest `vitepress` take 2

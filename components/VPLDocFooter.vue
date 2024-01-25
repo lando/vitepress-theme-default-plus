@@ -105,10 +105,10 @@
 import {computed} from 'vue';
 import {useData} from 'vitepress';
 
-import {useEditLink} from '@default-theme/composables/edit-link';
-import {usePrevNext} from '@default-theme/composables/prev-next';
-import VPIconEdit from '@default-theme/components/icons/VPIconEdit.vue';
-import VPLink from '@default-theme/components/VPLink.vue';
+import {useEditLink} from 'vitepress/dist/client/theme-default/composables/edit-link';
+import {usePrevNext} from 'vitepress/dist/client/theme-default/composables/prev-next';
+import VPIconEdit from 'vitepress/dist/client/theme-default/components/icons/VPIconEdit.vue';
+import VPLink from 'vitepress/dist/client/theme-default/components/VPLink.vue';
 
 import useCollection from '../client/use-collection.js';
 import VPLDocFooterLastUpdated from './VPLDocFooterLastUpdated.vue';

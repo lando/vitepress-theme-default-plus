@@ -52,7 +52,7 @@
 import DefaultTheme from 'vitepress/theme';
 import {useData} from 'vitepress';
 import {computed, ref, watch} from 'vue';
-import VPSideBarItem from '@default-theme/components/VPSidebarItem.vue';
+import VPSideBarItem from 'vitepress/dist/client/theme-default/components/VPSidebarItem.vue';
 import {default as Alert} from './VPLAlert.vue';
 import {default as CollectionHeader} from './VPLCollectionHeader.vue';
 import {default as MailChimp} from './VPLMailChimp.vue';
