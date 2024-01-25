@@ -1,3 +1,7 @@
+## v1.0.0-beta.11 - [January 24, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.11)
+
+* Casing matters
+
 ## v1.0.0-beta.10 - [January 24, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.10)
 
 * Added ability to append a *single* menu item to the end of the sidebar with the `sidebarEnder` config key
