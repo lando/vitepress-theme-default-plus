@@ -1,3 +1,7 @@
+## v1.0.0-beta.15 - [January 25, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.15)
+
+* Updated to latest `vitepress`
+
 ## v1.0.0-beta.14 - [January 25, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.14)
 
 * Fixed more extension chaos
