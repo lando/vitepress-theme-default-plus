@@ -106,22 +106,24 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
     debug('added custom markdown container %o with config %o', name, opts);
   }
 
-  // replacements
-  const aliases = [
+  // vite aliases
+  vite.resolve.alias.push(...[
     {find: /^.*\/VPDocFooter\.vue$/, replacement: fileURLToPath(new URL('./components/VPLDocFooter.vue', import.meta.url))},
     {find: /^.*\/VPMenuGroup\.vue$/, replacement: fileURLToPath(new URL('./components/VPLMenuGroup.vue', import.meta.url))},
     {find: /^.*\/VPNavBarMenuGroup\.vue$/, replacement: fileURLToPath(new URL('./components/VPLNavBarMenuGroup.vue', import.meta.url))},
     {find: /^.*\/VPTeamMembersItem\.vue$/, replacement: fileURLToPath(new URL('./components/VPLTeamMembersItem.vue', import.meta.url))},
-  ];
-  vite.resolve.alias.push(...aliases);
-  debug('added vite resolver aliases %O', aliases);
-
+  ]);
   // vite plugins
   vite.plugins.push(...[
     addLayoutsPlugin(layouts, {debug: debug.extend('vite-plugin')}),
     allowInternalPlugin(internalDomains, {debug: debug.extend('vite-plugin')}),
     patchVPMenuColumnsPlugin({debug: debug.extend('vite-plugin')}),
   ]);
+  // vite optimizedeps
+  vite.optimizeDeps.exclude.push('fsevents', '@lando/vitepress-theme-default-plus');
+  debug('added vite resolver config %O', vite.resolve);
+  debug('added vite plugins %O', vite.plugins);
+  debug('added vite optimizeDeps config %O', vite.optimizeDeps);
 
   // markdown plugins
   markdown.config = md => {
