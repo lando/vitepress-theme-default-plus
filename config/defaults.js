@@ -101,6 +101,7 @@ export default function({base}) {
       optimizeDeps: {exclude: []},
       plugins: [],
       resolve: {alias: []},
+      ssr: {noExternal: []},
     },
   };
 };

@@ -210,6 +210,7 @@ export default function({landoPlugin, version}) {
       optimizeDeps: {exclude: []},
       plugins: [],
       resolve: {alias: []},
+      ssr: {noExternal: []},
     },
   };
 };
