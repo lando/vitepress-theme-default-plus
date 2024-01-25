@@ -93,6 +93,7 @@ export default function({base}) {
       layouts: {},
       nav: [],
       sidebar: {},
+      sidebarEnder: false,
       sponsors: false,
       team: [],
     },

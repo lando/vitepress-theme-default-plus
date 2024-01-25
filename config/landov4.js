@@ -162,6 +162,7 @@ export default function({landoPlugin}) {
       logo: {src: '/images/icon.svg', width: 24, height: 24},
       nav: [],
       sidebar: {},
+      sidebarEnder: false,
       search: {
         provider: 'algolia',
         options: {

@@ -158,26 +158,6 @@ export default defineConfig({
         link: '/blog',
         activeMatch: '/blog',
       },
-      {
-        text: version,
-        class: 'version',
-        items: [
-          {
-            items: [{
-              text: 'Release Notes',
-              link: `https://github.com/lando/vitepress-theme-default-plus/releases/tag/v${version}`,
-            }],
-          },
-          {
-            text: 'Older Versions',
-            link: 'https://github.com/lando/vitepress-theme-default-plus/releases',
-          },
-          {
-            text: 'Examples',
-            link: 'https://github.com/lando/vitepress-theme-default-plus/docs',
-          },
-        ],
-      },
     ],
     sidebar: {
       '/config': configSideBar(),
@@ -216,6 +196,14 @@ export default defineConfig({
         {text: 'Configuration', link: '/config/config'},
         {text: 'Blog', link: '/blog'},
         {text: 'Guides', link: '/guides'},
+      ],
+    },
+    sidebarEnder: {
+      text: `v${version}`,
+      collapsed: true,
+      items: [
+        {text: 'Release Notes', link: `https://github.com/lando/vitepress-theme-default-plus/releases/tag/v${version}`},
+        {text: 'Older Versions', link: 'https://github.com/lando/vitepress-theme-default-plus/releases'},
       ],
     },
   },

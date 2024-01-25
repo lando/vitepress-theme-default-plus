@@ -463,6 +463,35 @@ To use the `policies` option, make sure both `disallowAll` and `allowAll` are se
 
 You can specify `host` and `sitemap` directly. If you omit them the theme will attempt to set them if it can and it makes sense.
 
+## Sidebar Ender
+
+* Type: `Object || Boolean`
+
+* Default:
+
+  ```js
+  sidebarEnder: false
+  ```
+
+* Example:
+
+  ```js
+  sidebarEnder: {
+    text: 'v1.0.0',
+    collapsed: true,
+    items: [
+      {text: 'Release Notes', link: 'https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0'},
+      {text: 'Older Versions', link: 'https://github.com/lando/vitepress-theme-default-plus/releases'},
+    ],
+  },
+  ```
+
+* Details
+
+  This takes a *single* sidebar menu item and renders it at the bottom of the sidebar.
+
+
+
 ## Sponsors
 
 * Type: `Object || Boolean`

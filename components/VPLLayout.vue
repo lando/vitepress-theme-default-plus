@@ -10,6 +10,18 @@
       />
     </template>
 
+    <template #sidebar-nav-after>
+      <div
+        v-if="sidebarEnder !== false"
+        class="sidebar-end"
+      >
+        <VPSideBarItem
+          :depth="0"
+          :item="sidebarEnder"
+        />
+      </div>
+    </template>
+
     <template #doc-before>
       <div
         v-if="header !== ''"
@@ -41,6 +53,7 @@ import DefaultTheme from 'vitepress/theme';
 import {useData} from 'vitepress';
 import {computed, ref, watch} from 'vue';
 
+import VPSideBarItem from '@default-theme/components/VPSideBarItem.vue';
 import {default as Alert} from './VPLAlert.vue';
 import {default as CollectionHeader} from './VPLCollectionHeader.vue';
 import {default as MailChimp} from './VPLMailChimp.vue';
@@ -57,6 +70,7 @@ const alert = computed(() => frontmatter.value.alert ?? theme.value.alert ?? fal
 const header = computed(() => frontmatter.value.collection || '');
 const headerClass = computed(() => frontmatter.value.collection ? `collection-${frontmatter.value.collection}` : '');
 const mailchimp = computed(() => frontmatter.value?.mailchimp?.action ? frontmatter.value.mailchimp : false);
+const sidebarEnder = computed(() => theme.value.sidebarEnder ?? false);
 
 watch(() => page.value.relativePath, () => {
   alertKey = page.value.relativePath;

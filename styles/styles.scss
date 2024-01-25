@@ -91,6 +91,12 @@ form.netlify {
   }
 }
 
+nav#VPSidebarNav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .ad-header {
   color: var(--vp-c-text-1);
   display: block;
@@ -462,6 +468,19 @@ form.netlify {
   }
 }
 
+.sidebar-end {
+  section {
+    padding-top: 10px;
+    width: 100%;
+    h2 {
+      color: var(--vp-c-green-1) !important;
+    }
+    svg {
+      color: var(--vp-c-green-3) !important;
+    }
+  }
+}
+
 .success {
   &.custom-block {
     border-color: var(--vp-custom-block-success-border);
@@ -617,6 +636,18 @@ form.netlify {
         width: 100%
       }
     }
+  }
+}
+
+@media (min-width: 400px) {
+  .sidebar-end {
+    flex: auto;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 16px;
+  }
+  .VPSidebar {
+    padding-bottom: 0px !important;
   }
 }
 
