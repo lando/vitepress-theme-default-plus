@@ -98,8 +98,9 @@ export default function({base}) {
       team: [],
     },
     vite: {
-      resolve: {alias: []},
+      optimizeDeps: {exclude: []},
       plugins: [],
+      resolve: {alias: []},
     },
   };
 };

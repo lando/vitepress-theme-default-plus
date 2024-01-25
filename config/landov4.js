@@ -207,8 +207,9 @@ export default function({landoPlugin, version}) {
       team: [],
     },
     vite: {
-      resolve: {alias: []},
+      optimizeDeps: {exclude: []},
       plugins: [],
+      resolve: {alias: []},
     },
   };
 };
