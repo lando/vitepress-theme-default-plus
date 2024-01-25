@@ -1,3 +1,7 @@
+## v1.0.0-beta.12 - [January 24, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.11)
+
+* Fixed `<Jobs>` and `<Sponsors>` dark mode background color to be more consistent with `<CarbonAds>`
+
 ## v1.0.0-beta.11 - [January 24, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.11)
 
 * Casing matters

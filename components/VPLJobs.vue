@@ -57,7 +57,7 @@ const hasJobs = computed(() => jobs !== false && jobs.length > 0);
 
 <style lang="scss" scoped>
 .job {
-  background-color: var(--vp-c-bg-alt);
+  background-color: var(--vp-carbon-ads-bg-color);
   padding: 10px;
   border-radius: var(--vpl-c-border-radius);
   font-weight: 400;

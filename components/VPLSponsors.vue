@@ -103,7 +103,7 @@ const hasSponsors = computed(() => sponsors !== false && sponsors && sponsors.da
   cursor: pointer;
   border-radius: var(--vpl-c-border-radius);
   .sponsor-inner {
-    background-color: var(--vp-c-bg-alt);
+    background-color: var(--vp-carbon-ads-bg-color);
     width: 100%;
     height: 100%;
     margin-left: 1px;
@@ -138,7 +138,7 @@ const hasSponsors = computed(() => sponsors !== false && sponsors && sponsors.da
     justify-content: space-around;
     align-items: center;
     width: auto;
-    background-color: var(--vp-c-bg-alt);
+    background-color: var(--vp-carbon-ads-bg-color);
     width: 100%;
     height: 50px;
     margin-left: 1px;
