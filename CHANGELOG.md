@@ -1,3 +1,7 @@
+## v1.0.0-beta.19 - [January 25, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.19)
+
+* Improved `vite` configuration for better portability part 2
+
 ## v1.0.0-beta.18 - [January 25, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.18)
 
 * Improved `vite` configuration for better portability
