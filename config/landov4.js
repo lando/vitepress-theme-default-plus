@@ -5,7 +5,7 @@ import yaml from 'js-yaml';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-export default function({landoPlugin}) {
+export default function({landoPlugin, version}) {
   const baseUrl = landoPlugin ? `https://docs.lando.dev/${landoPlugin}` : 'https://docs.lando.dev';
   const repo = landoPlugin ? `https://github.com/lando/${landoPlugin}` : 'https://github.com/lando';
   const base = `/${landoPlugin}/` ?? '/';
@@ -162,7 +162,14 @@ export default function({landoPlugin}) {
       logo: {src: '/images/icon.svg', width: 24, height: 24},
       nav: [],
       sidebar: {},
-      sidebarEnder: false,
+      sidebarEnder: {
+        text: `${landoPlugin}@v${version}`,
+        collapsed: true,
+        items: [
+          {text: 'Release Notes', link: `${repo}/releases/tag/v${version}`},
+          {text: 'Older Versions', link: `${repo}/releases`},
+        ],
+      },
       search: {
         provider: 'algolia',
         options: {
