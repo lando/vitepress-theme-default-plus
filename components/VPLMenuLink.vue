@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-  import VPLink from '@default-theme/components/VPLink.vue';
+  import VPLink from 'vitepress/dist/client/theme-default/components/VPLink.vue';
   import {toRefs} from 'vue';
   import {useData} from 'vitepress';
   import isActive from '../client/is-active.js';

@@ -64,7 +64,7 @@
 
 <script setup>
 import {computed} from 'vue';
-import VPLink from '@default-theme/components/VPLink.vue';
+import VPLink from 'vitepress/dist/client/theme-default/components/VPLink.vue';
 import {default as Author} from './VPLTeamMembersItem.vue';
 import {default as Icon} from '../components/VPLCollectionIcon.vue';
 

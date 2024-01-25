@@ -15,7 +15,7 @@
 <script setup>
 import {computed, toRefs} from 'vue';
 import {useData} from 'vitepress';
-import VPFlyout from '@default-theme/components/VPFlyout.vue';
+import VPFlyout from 'vitepress/dist/client/theme-default/components/VPFlyout.vue';
 import isActive from '../client/is-active.js';
 
 const {page} = useData();

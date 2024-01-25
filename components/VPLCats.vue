@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import Page from '@default-theme/components/VPDoc.vue';
+import Page from 'vitepress/dist/client/theme-default/components/VPDoc.vue';
 </script>
 
 <style lang="scss" scoped>
