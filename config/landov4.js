@@ -8,7 +8,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export default function({landoPlugin, version}) {
   const baseUrl = landoPlugin ? `https://docs.lando.dev/${landoPlugin}` : 'https://docs.lando.dev';
   const repo = landoPlugin ? `https://github.com/lando/${landoPlugin}` : 'https://github.com/lando';
-  const base = `/${landoPlugin}/` ?? '/';
+  const base = landoPlugin ? `/${landoPlugin}/` : '/';
 
   return {
     base,
@@ -185,8 +185,8 @@ export default function({landoPlugin, version}) {
           link: repo,
         },
         {
-          icon: 'twitter',
-          link: 'https://twitter.com/@devwithlando',
+          icon: 'x',
+          link: 'https://x.com/@devwithlando',
         },
         {
           icon: 'youtube',

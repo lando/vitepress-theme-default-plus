@@ -1,3 +1,8 @@
+## v1.0.0-beta.20 - [January 25, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.20)
+
+* Fixed broken `base` in Lando config sets
+* Updated `twitter` to `x`
+
 ## v1.0.0-beta.19 - [January 25, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.19)
 
 * Improved `vite` configuration for better portability part 2
