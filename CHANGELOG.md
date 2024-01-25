@@ -1,4 +1,4 @@
-## v1.0.0-beta.12 - [January 25, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.13)
+## v1.0.0-beta.13 - [January 25, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.13)
 
 * Fixed `Cannot find module` on `enhance-app-with-layouts`
 
