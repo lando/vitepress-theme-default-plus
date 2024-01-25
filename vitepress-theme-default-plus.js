@@ -3,7 +3,7 @@ import './styles/vars.scss';
 import './styles/styles.scss';
 
 // client stuff
-import {default as enhanceAppWithLayouts} from './client/enhance-app-with-layouts';
+import {default as enhanceAppWithLayouts} from './client/enhance-app-with-layouts.js';
 import {enhanceAppWithTabs} from 'vitepress-plugin-tabs/client';
 
 // layouts
