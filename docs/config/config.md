@@ -4,9 +4,9 @@ summary: Learn the configuration options for VitePress Default Theme Plus.
 
 # Configuration
 
-This theme _extends_ the [VitePress Default Theme](https://vitepress.dev/) but sets [slightly different defaults](https://github.com/lando/vitepress-theme-default-plus/blob/main/config). _Theoretically_ all the options supported in the default theme should also be available in this one.
+This theme _extends_ the [VitePress Default Theme](https://vitepress.dev/) but sets [slightly different defaults](https://github.com/lando/vitepress-theme-default-plus/blob/main/config/defaults.js). _Theoretically_ all the options supported in the default theme should also be available in this one.
 
-Before you get started its _**HEAVILY RECOMMENDED**_ that you use our parent [config wrapper](../usage.html#vitepress-config-js).
+Before you get started its _**HEAVILY RECOMMENDED**_ that you use our parent [config wrapper](../usage.html#vitepress-config-mjs).
 
 Once you have you should be able to use all the things below.
 

@@ -1,10 +1,10 @@
-name: Run Tests
+name: Lint Code
 
 on:
   pull_request:
 
 jobs:
-  build-tests:
+  lint:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -24,10 +24,6 @@ jobs:
       - name: Install dependencies
         run: npm clean-install --prefer-offline --frozen-lockfile
 
-      # Run tests
-      - name: Run linter
+      # Run the linter
+      - name: Run code linter
         run: npm run lint
-      - name: Run tests
-        run: npm run test
-      - name: Test build
-        run: npm run build

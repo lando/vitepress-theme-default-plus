@@ -80,11 +80,11 @@ Various Markdown, global and page creation components including this nice tabbed
 * [Containers](/config/config#containers)
 * [Contributors](/config/config#contributors)
 * [Feeds](/config/config#feeds)
-* [Internal Domains](/config/config#interal-domains)
+* [Internal Domains](/config/config#internal-domains)
 * [Jobs](/config/config#jobs)
 * [Sponsors](/config/config#sponsors)
 * [Layouts](/config/config#layouts)
-* [Robots](/config/config#robots)
+* [Robots](/config/config#robots-txt)
 * [Sponsors](/config/config#sponsors)
 * [Tracking](/config/config#tracking)
 
