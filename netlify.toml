@@ -32,5 +32,5 @@
 [[plugins]]
   package = "netlify-plugin-checklinks"
   [plugins.inputs]
-    skipPatterns = ["*.rss"]
+    skipPatterns = [ ".rss", ".gif", ".jpg" ]
     checkExternal = true
