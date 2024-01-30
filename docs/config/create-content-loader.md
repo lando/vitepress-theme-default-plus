@@ -15,3 +15,5 @@ const siteConfig = globalThis.VITEPRESS_CONFIG;
 
 export default createContentLoader('posts/*.md', {siteConfig});
 ```
+
+[busted link](https://thisshouldnotwork.com)
