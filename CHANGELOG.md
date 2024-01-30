@@ -2,6 +2,7 @@
 
 * Added an `export` for our `createContentLoader`
 * Removed reliance on `vite/normalizePath`
+* TOMLize netlify plugin settings
 
 ## v1.0.0-beta.20 - [January 25, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.20)
 
