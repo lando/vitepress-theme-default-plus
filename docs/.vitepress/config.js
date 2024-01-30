@@ -118,7 +118,7 @@ export default defineConfig({
       },
       {
         icon: 'x',
-        link: 'https://x.com/@devwithlando',
+        link: 'https://x.com/devwithlando',
       },
       {
         icon: 'youtube',
@@ -189,7 +189,7 @@ export default defineConfig({
           collapsed: false,
           items: [
             {text: 'GitHub', link: 'https://github.com/lando/vitepress-theme-default-plus/issues/new/choose'},
-            {text: 'Slack', link: 'https://launchpass.com/devwithlando'},
+            {text: 'Slack', link: 'https://www.launchpass.com/devwithlando'},
             {text: 'Contact Us', link: '/support'},
           ],
         },
