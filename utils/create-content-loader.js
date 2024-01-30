@@ -1,7 +1,7 @@
-import {join, relative} from 'node:path';
+import {join, relative, posix} from 'node:path';
+import {platform} from 'node:os';
 
-import {normalizePath} from 'vite';
-import {createContentLoader} from 'vitepress';
+import {createContentLoader as ccl} from 'vitepress';
 import {nanoid} from 'nanoid';
 import {parse} from 'node-html-parser';
 
@@ -16,13 +16,19 @@ import {default as normalizeFrontmatter} from '../node/normalize-frontmatter.js'
 import {default as normalizeLegacyFrontmatter} from '../node/normalize-legacy-frontmatter.js';
 import {default as parseCollections} from '../node/parse-collections.js';
 
+const windowsSlashRE = /\\/g;
+const slash = p => p.replace(windowsSlashRE, '/');
+const isWindows = platform() === 'win32';
+
+const normalizePath = id => posix.normalize(isWindows ? slash(id) : id);
+
 const getRelativePath = (url, {srcDir, cleanUrls = false} = {}) => {
   return normalizePath(relative(srcDir, join(srcDir, url)))
     .replace(/(^|\/)index\.html$/, '$1')
     .replace(/\.html$/, cleanUrls ? '' : '.md');
 };
 
-export default function(patterns = [], {
+export default function createContentLoader(patterns = [], {
     siteConfig,
     excerpt = false,
     render = false,
@@ -30,7 +36,7 @@ export default function(patterns = [], {
   {
     debug = Debug('@lando/create-content-loader'), // eslint-disable-line
   } = {}) {
-  return createContentLoader(patterns, {
+  return ccl(patterns, {
     render: true,
     excerpt: true,
     async transform(raw) {
