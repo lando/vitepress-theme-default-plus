@@ -2,7 +2,7 @@
 description: Learn about the VitePress Default Theme + global Sponsors components.
 sponsors:
   text: your logo?
-  link: http://lando.dev/sponsor
+  link: https://lando.dev/sponsor
   data:
     - name: stark
       id: stark
@@ -47,14 +47,14 @@ You can also customize or disable the sponsors on a per-page basis with [frontma
 <Sponsors
   title="MASSIVE PROPS TO"
   text="Can HaZ ProPs 2?"
-  link="http://lando.dev/sponsor"
+  link="https://lando.dev/sponsor"
 />
 ```
 
 <Sponsors
   title="MASSIVE PROPS TO"
   text="Can HaZ ProPs 2?"
-  link="http://lando.dev/sponsor"
+  link="https://lando.dev/sponsor"
 />
 
 ### Example - Sponsors Only

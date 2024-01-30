@@ -117,7 +117,7 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
   ```yaml
   sponsors:
     text: your logo?
-    link: http://lando.dev/sponsor
+    link: https://lando.dev/sponsor
     data:
       - name: stark
         id: stark
