@@ -19,6 +19,7 @@
   "main": "vitepress-theme-default-plus.js",
   "exports": {
     ".": "./vitepress-theme-default-plus.js",
+    "./ccl": "./utils/create-content-loader.js",
     "./config": "./config.js",
     "./package.json": "./package.json"
   },

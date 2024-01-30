@@ -217,6 +217,7 @@ function configSideBar() {
       items: [
         {text: 'Configuration', link: '/config/config'},
         {text: 'Frontmatter', link: '/config/frontmatter'},
+        {text: 'createContentLoader()', link: '/config/create-content-loader'},
         {text: 'useCollection()', link: '/composables/use-collection'},
         {text: 'useTeam()', link: '/composables/use-team'},
       ],

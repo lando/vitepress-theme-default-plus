@@ -1,6 +1,4 @@
-
 import Debug from 'debug';
-
 import {default as createContentLoader} from '../utils/create-content-loader.js';
 
 const config = globalThis.VITEPRESS_CONFIG?.site?.themeConfig?.collections ?? {};
@@ -14,3 +12,4 @@ const patterns = Object.entries(config)
 debug('loading collections data with patterns config %o', patterns);
 
 export default createContentLoader(patterns, {siteConfig}, {debug});
+
