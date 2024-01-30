@@ -66,20 +66,14 @@ typings/
 .env
 .env.test
 
-# parcel-bundler cache (https://parceljs.org/)
+# docs
+.temp
 .cache
-
-# Gatsby files
-.cache/
-# Comment in the public line in if your project uses Gatsby and *not* Next.js
-# https://nextjs.org/blog/next-9-1#public-directory-support
-# public
-
-# legacy vitepress build output and temp dirs
 _site
+dist
+cache
+temp
+config.*.timestamp-*-*.*
 
-# vitepress thangs
-docs/.vitepress/.temp
-docs/.vitepress/cache
-docs/.vitepress/dist
-docs/.vitepress/config.js.timestamp-*-*.mjs
+# YARN
+yarn.lock
