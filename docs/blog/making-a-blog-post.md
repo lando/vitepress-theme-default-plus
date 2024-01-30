@@ -34,7 +34,7 @@ blog: true
 Note that because of how the underlying components are layered and called you must set the title in the frontmatter. This will populate the `h1` on the page. You can and should then omit the `h1` in the markdown content itself.
 :::
 
-You can check out the full markdown file that generated this page [here](https://github.com/lando/vuepress-theme-default-plus/blob/main/docs/making-a-guide.html). If you are interested in manually setting the `authors`, `date` and edit link then check out [Making a Guide 2](../guides/making-a-guide-2.html)
+You can check out the full markdown file that generated this page [here](https://github.com/lando/vitepress-theme-default-plus/blob/main/docs/guides/making-a-guide.md). If you are interested in manually setting the `authors`, `date` and edit link then check out [Making a Guide 2](../guides/making-a-guide-2.html)
 
 ## Authorship
 
