@@ -1,3 +1,7 @@
+## v1.0.0-beta.22 - [January 31, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.22)
+
+* Fixed default `sidebarEnder` for `lando` config sets
+
 ## v1.0.0-beta.21 - [January 30, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.21)
 
 * Added an `export` for our `createContentLoader`
