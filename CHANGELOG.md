@@ -1,3 +1,7 @@
+## v1.0.0-beta.23 - [February 1, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.23)
+
+* Fixed collection `WSOD` in some `undefined` id situations
+
 ## v1.0.0-beta.22 - [January 31, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.22)
 
 * Fixed default `sidebarEnder` for `lando` config sets
