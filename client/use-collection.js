@@ -21,12 +21,12 @@ export default function useCollection(type = undefined) {
   // prev page or loop back to end unless the end is me
   const prevPage = computed(() => {
     const prev = pages[findCurrentIndex() - 1] ?? pages[pages.length - 1];
-    return prev.id !== page.value.id ? prev : undefined;
+    return prev.id !== page?.value?.id ? prev : undefined;
   });
   // next page or loop back to beginning unless the beginning is me
   const nextPage = computed(() => {
     const next = pages[findCurrentIndex() + 1] ?? pages[0];
-    return next.id !== page.value.id ? next : undefined;
+    return next.id !== page?.value?.id ? next : undefined;
   });
 
   // these are meant to replace the core next|prev nav links
