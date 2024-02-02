@@ -14,7 +14,6 @@ export default defineConfig({
   description: 'The VitePress default theme with some MOARPOWAH!',
   base: '/',
   lang: 'en-US',
-  landoDocs: 3,
   head: [
     ['link', {rel: 'icon', type: 'image/png', href: '/images/vitepress-lando-logo-mini.png'}],
     ['meta', {name: 'og:type', content: 'website'}],
