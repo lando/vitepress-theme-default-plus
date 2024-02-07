@@ -1,3 +1,8 @@
+## v1.0.0-beta.25 - [February 7, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.25)
+
+* Updated to `vitepress@1.0.0-rc.42`
+* Guard `prev.id` and `next.id` in `useCollection` like it's nobodies biznizz
+
 ## v1.0.0-beta.24 - [February 2, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.24)
 
 * Updated to `vitepress@1.0.0-rc.41`
