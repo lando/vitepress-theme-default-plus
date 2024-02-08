@@ -4,7 +4,10 @@
       :href="link"
       rel="noopener"
     >
-      <span class="icon" v-html="icon"></span>{{ title }}
+      <span
+        class="icon"
+        v-html="icon"
+      />{{ title }}
     </VPLink>
   </div>
 </template>
