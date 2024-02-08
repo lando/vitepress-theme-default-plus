@@ -6,15 +6,15 @@
 
 - name: Acro Media
   tier: ally
-  url: https://www.acromedia.com
+  url: https://www.acrocommerce.com/
   logo: https://lando.dev/images/acromedia_logo.png
 - name: BairesDev
   tier: ally
-  url: https://www.bairesdev.com/sponsoring-open-source-projects
+  url: https://www.bairesdev.com/sponsoring-open-source-projects/
   logo: https://lando.dev/images/bairesdev_logo.png
 - name: Capellic
   tier: ally
-  url: http://capellic.com/
+  url: https://capellic.com/
   logo: https://lando.dev/images/capellic_logo.png
 - name: OpenUp Media
   tier: ally
@@ -26,11 +26,11 @@
   logo: https://images.opencollective.com/principal/431e690/logo/256.png?height=256
 - name: Sagetree
   tier: ally
-  url: https://www.sagetree.com
+  url: https://www.sagetree.com/
   logo: https://lando.dev/images/sagetree_logo.png
 - name: Sitecrafting
   tier: ally
-  url: https://www.sitecrafting.com
+  url: https://www.sitecrafting.com/
   logo: https://lando.dev/images/sitecrafting_logo.png
 
 - name: AaronFeledy
