@@ -2,15 +2,9 @@
   <div class="collection-icon">
     <VPLink
       :href="link"
-      class="icon"
-      rel="noopener"
-      v-html="icon"
-    />
-    <VPLink
-      :href="link"
       rel="noopener"
     >
-      {{ title }}
+      <span class="icon" v-html="icon"></span>{{ title }}
     </VPLink>
   </div>
 </template>
@@ -47,6 +41,11 @@ const {title, icon, link} = defineProps({
   font-weight: 500;
   text-transform: capitalize;
   color: var(--vp-c-text-3);
+  a.VPLink.link {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
   &:hover {
     color: var(--vp-c-brand-1);
   }

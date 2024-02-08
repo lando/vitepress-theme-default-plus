@@ -1,3 +1,8 @@
+## v1.0.0-beta.27 - [February 7, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.27)
+
+* Fixed bug causing `vitepress build` failures on non-file `git log` locations
+* Fixed bug causing `VPLCollectionIcon.vue` to not render correctly on a hard refresh
+
 ## v1.0.0-beta.26 - [February 7, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.26)
 
 * Updated to `vitepress@1.0.0-rc.42`

@@ -1,3 +1,4 @@
+import {existsSync, lstatSync} from 'node:fs';
 import {resolve} from 'node:path';
 
 import Debug from 'debug';
@@ -15,7 +16,12 @@ export default async function(pageData, {
   if (!frontmatter.date && Number.isInteger(pageData.lastUpdated)) frontmatter.date = pageData.lastUpdated;
 
   // if we still dont have a date then we need to discover with git
-  if (!frontmatter.date) frontmatter.date = await getTimestamp(resolve(siteConfig.srcDir, relativePath), {debug});
+  if (!frontmatter.date
+    && existsSync(resolve(siteConfig.srcDir, relativePath))
+    && lstatSync(resolve(siteConfig.srcDir, relativePath)).isFile()
+    ) {
+    frontmatter.date = await getTimestamp(resolve(siteConfig.srcDir, relativePath), {debug});
+  }
 
   // standardize some date info
   const date = new Date(frontmatter.date);

@@ -8,7 +8,7 @@ export default function useCollection(type = undefined) {
 
   function findCurrentIndex() {
     const result = pages.findIndex(p => p.url === route.path);
-    if (result === -1) console.error(`blog post missing: ${route.path}`);
+    if (result === -1) console.error(`content missing: ${route.path}`);
     return result;
   }
 
