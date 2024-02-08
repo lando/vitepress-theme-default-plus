@@ -1,3 +1,7 @@
+## v1.0.0-beta.28 - [February 7, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.28)
+
+* Update sponsor linx
+
 ## v1.0.0-beta.27 - [February 7, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.27)
 
 * Fixed bug causing `vitepress build` failures on non-file `git log` locations
