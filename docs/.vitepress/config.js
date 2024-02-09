@@ -136,7 +136,7 @@ export default defineConfig({
     nav: [
       {
         text: 'Getting Started',
-        link: '/overview/',
+        link: '/overview',
         activeMatch: '/install|/overview|/usage|/development|/team|/support',
       },
       {
