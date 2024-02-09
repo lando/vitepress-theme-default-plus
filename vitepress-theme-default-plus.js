@@ -40,6 +40,7 @@ export {default as VPLCollectionItems} from './components/VPLCollectionItems.vue
 export {default as VPLCollectionPage} from './components/VPLCollectionPage.vue';
 export {default as VPLCollectionPageTitle} from './components/VPLCollectionPageTitle.vue';
 export {default as VPLCollectionPageSection} from './components/VPLCollectionPageSection.vue';
+export {default as VPLCollectionTags} from './components/VPLCollectionTags.vue';
 
 const theme = {
   ...DefaultTheme,

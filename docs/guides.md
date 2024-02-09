@@ -6,13 +6,18 @@ sidebar: false
 ---
 
 <script setup>
+import {onMounted} from 'vue';
 import {VPLCollectionPage, VPLCollectionPageTitle, VPLCollectionItems} from '@lando/vitepress-theme-default-plus';
 import {useCollection} from '@lando/vitepress-theme-default-plus';
 
-const {pages} = useCollection('guide');
+const {pages, pagesBySelectedTags, tags, tagCounts, selectedTags} = useCollection('guide');
+
+
+onMounted(() => {
+  // selectedTags['tag 1'] = true;
+})
 
 </script>
-
 <VPLCollectionPage>
   <VPLCollectionPageTitle>
     <template #title>
@@ -22,5 +27,5 @@ const {pages} = useCollection('guide');
       Helpful tutorial-like content!
     </template>
   </VPLCollectionPageTitle>
-  <VPLCollectionItems :items="pages"/>
+  <VPLCollectionItems :items="pages" :tags="selectedTags"/>
 </VPLCollectionPage>

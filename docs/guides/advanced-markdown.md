@@ -1,6 +1,8 @@
 ---
 title: Advanced markdown
 description: Learn how to combine custom containers for all the magic.
+tags:
+  - tag 1
 ---
 
 # Advanced Markdown

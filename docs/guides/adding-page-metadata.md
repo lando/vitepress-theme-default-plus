@@ -1,5 +1,7 @@
 ---
 description: Learn how to add social metatags to your content
+tags:
+  - obscure
 head:
   - - meta
     - name: things:not-to-do

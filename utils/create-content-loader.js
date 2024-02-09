@@ -82,6 +82,7 @@ export default function createContentLoader(patterns = [], {
           icon: collection?.icon,
           iconLink: collection?.iconLink,
           relativePath: data.relativePath,
+          tags: frontmatter.tags ?? [],
           timestamp: data.timestamp ?? Date.now(),
           type: frontmatter.collection,
           url,

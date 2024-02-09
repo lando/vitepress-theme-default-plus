@@ -1,6 +1,7 @@
 ---
 description: Learn how to automatically populate guide content using the VitePress Default Theme Plus.
 image: https://external-preview.redd.it/mj-2SFKKXAMK3tXrlo1smwLCSIantySqxSgfgMoJH2U.jpg?width=640&crop=smart&auto=webp&s=4f983b744fba16877e80218131a917b92904af26
+tag: tag 2
 ---
 
 # Making a guide

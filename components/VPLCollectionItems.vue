@@ -36,7 +36,7 @@ const Article = defineAsyncComponent({
   loader: async () => VPLCollectionItem,
 });
 
-const {items, pager, more, size} = defineProps({
+const {items, pager, more, size, tags} = defineProps({
   items: {
     type: Array,
     required: true,
@@ -53,6 +53,10 @@ const {items, pager, more, size} = defineProps({
     type: String,
     default: 'medium',
   },
+  tags: {
+    type: Array,
+    default: () => ([]),
+  },
 });
 
 // Hardcoded pager value for now
@@ -60,7 +64,18 @@ const amount = ref(pager);
 
 // normalize data and sort
 const pages = computed(() => {
-  const datePages = items.map(item => Object.assign(item, {timestamp: item.date ? item.date : item.timestamp}));
+  const tagList = Object.entries(tags)
+    .filter(pair => pair[1] === true)
+    .map(pair => pair[0]);
+
+  const datePages = items
+    .map(item => Object.assign(item, {timestamp: item.date ? item.date : item.timestamp}))
+    .filter(item => {
+      return tagList.every(tag => {
+        return item.tags.indexOf(tag) !== -1;
+      });
+    });
+
   return datePages.sort((a, b) => a.timestamp < b.timestamp ? 1 : -1);
 });
 
