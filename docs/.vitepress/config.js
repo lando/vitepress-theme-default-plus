@@ -99,10 +99,6 @@ export default defineConfig({
     },
     ga: {id: 'G-ZSK3T9FTQ9'},
     hubspot: {id: '6478338'},
-    internalDomain: [
-      'http://docs.lando.dev',
-      'https://docs.lando.dev',
-    ],
     layouts: {
       cats: './components/VPLCats.vue',
       dogs: './components/VPLDogs.vue',
@@ -140,7 +136,7 @@ export default defineConfig({
     nav: [
       {
         text: 'Getting Started',
-        link: '/overview',
+        link: '/overview/',
         activeMatch: '/install|/overview|/usage|/development|/team|/support',
       },
       {

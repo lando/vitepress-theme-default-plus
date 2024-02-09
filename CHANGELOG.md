@@ -1,3 +1,7 @@
+## v1.0.0-beta.29 - [February 8, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.29)
+
+* Fixed broken `internalDomains` handling to force `target=_self`
+
 ## v1.0.0-beta.28 - [February 7, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.28)
 
 * Update sponsor linx

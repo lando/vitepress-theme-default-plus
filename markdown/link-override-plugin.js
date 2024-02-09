@@ -73,7 +73,11 @@ export default function(md, externalAttrs, base, domains, debug = Debug('@lando/
           Object.entries(externalAttrs).forEach(([key, val]) => {
             token.attrSet(key, val);
           });
+        // we need to for _self for fauxinternals
+        } else {
+          token.attrSet('target', '_self');
         }
+
         // catch localhost links as dead link
         if (url.replace(EXTERNAL_URL_RE, '').startsWith('//localhost:')) {
           pushLink(url, env);

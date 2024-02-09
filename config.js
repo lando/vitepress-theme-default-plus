@@ -22,7 +22,6 @@ import {default as addContributors} from './node/add-contributors.js';
 import {default as addLayoutsPlugin} from './vite/add-layout-components-plugin.js';
 import {default as addMetadata} from './node/add-metadata.js';
 import {default as augmentAuthors} from './node/augment-authors.js';
-import {default as allowInternalPlugin} from './vite/allow-internal-plugin.js';
 import {default as buildCollections} from './node/build-collections.js';
 import {default as normalizeFrontmatter} from './node/normalize-frontmatter.js';
 import {default as normalizeLegacyFrontmatter} from './node/normalize-legacy-frontmatter.js';
@@ -109,13 +108,13 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   // vite
   vite.resolve.alias.push(...[
     {find: /^.*\/VPDocFooter\.vue$/, replacement: fileURLToPath(new URL('./components/VPLDocFooter.vue', import.meta.url))},
+    {find: /^.*\/VPLink\.vue$/, replacement: fileURLToPath(new URL('./components/VPLLink.vue', import.meta.url))},
     {find: /^.*\/VPMenuGroup\.vue$/, replacement: fileURLToPath(new URL('./components/VPLMenuGroup.vue', import.meta.url))},
     {find: /^.*\/VPNavBarMenuGroup\.vue$/, replacement: fileURLToPath(new URL('./components/VPLNavBarMenuGroup.vue', import.meta.url))},
     {find: /^.*\/VPTeamMembersItem\.vue$/, replacement: fileURLToPath(new URL('./components/VPLTeamMembersItem.vue', import.meta.url))},
   ]);
   vite.plugins.push(...[
     addLayoutsPlugin(layouts, {debug: debug.extend('vite-plugin')}),
-    allowInternalPlugin(internalDomains, {debug: debug.extend('vite-plugin')}),
     patchVPMenuColumnsPlugin({debug: debug.extend('vite-plugin')}),
   ]);
   vite.optimizeDeps.exclude.push('fsevents', '@lando/vitepress-theme-default-plus');
