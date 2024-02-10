@@ -66,84 +66,84 @@ jobs:
         node-version:
           - '18'
         auto-deploy-repos:
-          # - name: lando/acquia
-          #   dirs: ./
-          # - name: lando/apache
-          #   dirs: ./
-          # - name: lando/backdrop
-          #   dirs: ./
-          # - name: lando/cli
-          #   dirs: ./
-          # - name: lando/compose
-          #   dirs: ./
-          # - name: lando/core
-          #   dirs: ./
+          - name: lando/acquia
+            dirs: ./
+          - name: lando/apache
+            dirs: ./
+          - name: lando/backdrop
+            dirs: ./
+          - name: lando/cli
+            dirs: ./
+          - name: lando/compose
+            dirs: ./
+          - name: lando/core
+            dirs: ./
           # - name: lando/core-next
           #   dirs: ./
-          # - name: lando/docs
-          #   dirs: ./
+          - name: lando/docs
+            dirs: ./
           - name: lando/dotnet
             dirs: ./
-          # - name: lando/drupal
-          #   dirs: ./
-          # - name: lando/elasticsearch
-          #   dirs: ./
-          # - name: lando/go
-          #   dirs: ./
-          # - name: lando/joomla
-          #   dirs: ./
-          # - name: lando/lagoon
-          #   dirs: ./
-          # - name: lando/lamp
-          #   dirs: ./
-          # - name: lando/laravel
-          #   dirs: ./
-          # - name: lando/lemp
-          #   dirs: ./
-          # - name: lando/mailhog
-          #   dirs: ./
-          # - name: lando/mariadb
-          #   dirs: ./
-          # - name: lando/mean
-          #   dirs: ./
-          # - name: lando/memcached
-          #   dirs: ./
-          # - name: lando/mongo
-          #   dirs: ./
-          # - name: lando/mssql
-          #   dirs: ./
-          # - name: lando/mysql
-          #   dirs: ./
-          # - name: lando/nginx
-          #   dirs: ./
-          # - name: lando/node
-          #   dirs: ./
-          # - name: lando/pantheon
-          #   dirs: ./
-          # - name: lando/php
-          #   dirs: ./
-          # - name: lando/phpmyadmin
-          #   dirs: ./
+          - name: lando/drupal
+            dirs: ./
+          - name: lando/elasticsearch
+            dirs: ./
+          - name: lando/go
+            dirs: ./
+          - name: lando/joomla
+            dirs: ./
+          - name: lando/lagoon
+            dirs: ./
+          - name: lando/lamp
+            dirs: ./
+          - name: lando/laravel
+            dirs: ./
+          - name: lando/lemp
+            dirs: ./
+          - name: lando/mailhog
+            dirs: ./
+          - name: lando/mariadb
+            dirs: ./
+          - name: lando/mean
+            dirs: ./
+          - name: lando/memcached
+            dirs: ./
+          - name: lando/mongo
+            dirs: ./
+          - name: lando/mssql
+            dirs: ./
+          - name: lando/mysql
+            dirs: ./
+          - name: lando/nginx
+            dirs: ./
+          - name: lando/node
+            dirs: ./
+          - name: lando/pantheon
+            dirs: ./
+          - name: lando/php
+            dirs: ./
+          - name: lando/phpmyadmin
+            dirs: ./
           # - name: lando/platformsh
           #   dirs: ./
-          # - name: lando/postgres
-          #   dirs: ./
-          # - name: lando/python
-          #   dirs: ./
-          # - name: lando/redis
-          #   dirs: ./
-          # - name: lando/ruby
-          #   dirs: ./
-          # - name: lando/symfony
-          #   dirs: ./
-          # - name: lando/tomcat
-          #   dirs: ./
-          # - name: lando/solr
-          #   dirs: ./
-          # - name: lando/varnish
-          #   dirs: ./
-          # - name: lando/wordpress
-          #   dirs: ./
+          - name: lando/postgres
+            dirs: ./
+          - name: lando/python
+            dirs: ./
+          - name: lando/redis
+            dirs: ./
+          - name: lando/ruby
+            dirs: ./
+          - name: lando/symfony
+            dirs: ./
+          - name: lando/tomcat
+            dirs: ./
+          - name: lando/solr
+            dirs: ./
+          - name: lando/varnish
+            dirs: ./
+          - name: lando/wordpress
+            dirs: ./
     steps:
       # Install deps and cache
       # NOTE that we use ref: main because we need to get the code that was updated from the prepare-release-action
