@@ -78,8 +78,8 @@ jobs:
             dirs: ./
           - name: lando/core
             dirs: ./
-          # - name: lando/core-next
-          #   dirs: ./
+          - name: lando/core-next
+            dirs: ./
           - name: lando/docs
             dirs: ./
           - name: lando/dotnet
