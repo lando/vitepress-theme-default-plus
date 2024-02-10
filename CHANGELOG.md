@@ -1,3 +1,7 @@
+## v1.0.0-beta.30 - [February 9, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.30)
+
+* AUTO DEPLOY FIX 1
+
 ## v1.0.0-beta.29 - [February 8, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.29)
 
 * Fixed broken `internalDomains` handling to force `target=_self`

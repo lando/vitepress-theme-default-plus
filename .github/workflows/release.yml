@@ -53,119 +53,120 @@ jobs:
             echo "::notice title=Published ${{ github.ref_name }} to @${{ github.repository }}@${{ env.PRERELEASE_TAG }}::This is a pre-release published to the '${{ env.PRERELEASE_TAG }}' npm tag"
           fi
 
-  # auto-deploy:
-  #   runs-on: ${{ matrix.os }}
-  #   needs: deploy
-  #   env:
-  #     TERM: xterm
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       os:
-  #         - ubuntu-22.04
-  #       node-version:
-  #         - '18'
-  #       auto-deploy-repos:
-  #         - name: lando/acquia
-  #           dirs: ./
-  #         - name: lando/apache
-  #           dirs: ./
-  #         - name: lando/backdrop
-  #           dirs: ./
-  #         - name: lando/cli
-  #           dirs: ./
-  #         - name: lando/compose
-  #           dirs: ./
-  #         - name: lando/core
-  #           dirs: ./
-  #         - name: lando/core-next
-  #           dirs: ./
-  #         - name: lando/docs
-  #           dirs: ./
-  #         - name: lando/dotnet
-  #           dirs: ./
-  #         - name: lando/drupal
-  #           dirs: ./
-  #         - name: lando/elasticsearch
-  #           dirs: ./
-  #         - name: lando/go
-  #           dirs: ./
-  #         - name: lando/joomla
-  #           dirs: ./
-  #         - name: lando/lagoon
-  #           dirs: ./
-  #         - name: lando/lamp
-  #           dirs: ./
-  #         - name: lando/laravel
-  #           dirs: ./
-  #         - name: lando/lemp
-  #           dirs: ./
-  #         - name: lando/mailhog
-  #           dirs: ./
-  #         - name: lando/mariadb
-  #           dirs: ./
-  #         - name: lando/mean
-  #           dirs: ./
-  #         - name: lando/memcached
-  #           dirs: ./
-  #         - name: lando/mongo
-  #           dirs: ./
-  #         - name: lando/mssql
-  #           dirs: ./
-  #         - name: lando/mysql
-  #           dirs: ./
-  #         - name: lando/nginx
-  #           dirs: ./
-  #         - name: lando/node
-  #           dirs: ./
-  #         - name: lando/pantheon
-  #           dirs: ./
-  #         - name: lando/php
-  #           dirs: ./
-  #         - name: lando/phpmyadmin
-  #           dirs: ./
-  #         - name: lando/platformsh
-  #           dirs: ./
-  #         - name: lando/postgres
-  #           dirs: ./
-  #         - name: lando/python
-  #           dirs: ./
-  #         - name: lando/redis
-  #           dirs: ./
-  #         - name: lando/ruby
-  #           dirs: ./
-  #         - name: lando/symfony
-  #           dirs: ./
-  #         - name: lando/tomcat
-  #           dirs: ./
-  #         - name: lando/solr
-  #           dirs: ./
-  #         - name: lando/varnish
-  #           dirs: ./
-  #         - name: lando/wordpress
-  #           dirs: ./
-  #   steps:
-  #     # Install deps and cache
-  #     # NOTE that we use ref: main because we need to get the code that was updated from the prepare-release-action
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-  #       with:
-  #         ref: main
-  #     - name: Install node ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: ${{ matrix.node-version }}
-  #         registry-url: https://registry.npmjs.org
-  #         cache: npm
-  #     - name: Install dependencies
-  #       run: npm clean-install --prefer-offline --frozen-lockfile
+  auto-deploy:
+    runs-on: ${{ matrix.os }}
+    needs: deploy
+    env:
+      TERM: xterm
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-22.04
+        node-version:
+          - '18'
+        auto-deploy-repos:
+          # - name: lando/acquia
+          #   dirs: ./
+          # - name: lando/apache
+          #   dirs: ./
+          # - name: lando/backdrop
+          #   dirs: ./
+          # - name: lando/cli
+          #   dirs: ./
+          # - name: lando/compose
+          #   dirs: ./
+          # - name: lando/core
+          #   dirs: ./
+          # - name: lando/core-next
+          #   dirs: ./
+          # - name: lando/docs
+          #   dirs: ./
+          - name: lando/dotnet
+            dirs: ./
+          # - name: lando/drupal
+          #   dirs: ./
+          # - name: lando/elasticsearch
+          #   dirs: ./
+          # - name: lando/go
+          #   dirs: ./
+          # - name: lando/joomla
+          #   dirs: ./
+          # - name: lando/lagoon
+          #   dirs: ./
+          # - name: lando/lamp
+          #   dirs: ./
+          # - name: lando/laravel
+          #   dirs: ./
+          # - name: lando/lemp
+          #   dirs: ./
+          # - name: lando/mailhog
+          #   dirs: ./
+          # - name: lando/mariadb
+          #   dirs: ./
+          # - name: lando/mean
+          #   dirs: ./
+          # - name: lando/memcached
+          #   dirs: ./
+          # - name: lando/mongo
+          #   dirs: ./
+          # - name: lando/mssql
+          #   dirs: ./
+          # - name: lando/mysql
+          #   dirs: ./
+          # - name: lando/nginx
+          #   dirs: ./
+          # - name: lando/node
+          #   dirs: ./
+          # - name: lando/pantheon
+          #   dirs: ./
+          # - name: lando/php
+          #   dirs: ./
+          # - name: lando/phpmyadmin
+          #   dirs: ./
+          # - name: lando/platformsh
+          #   dirs: ./
+          # - name: lando/postgres
+          #   dirs: ./
+          # - name: lando/python
+          #   dirs: ./
+          # - name: lando/redis
+          #   dirs: ./
+          # - name: lando/ruby
+          #   dirs: ./
+          # - name: lando/symfony
+          #   dirs: ./
+          # - name: lando/tomcat
+          #   dirs: ./
+          # - name: lando/solr
+          #   dirs: ./
+          # - name: lando/varnish
+          #   dirs: ./
+          # - name: lando/wordpress
+          #   dirs: ./
+    steps:
+      # Install deps and cache
+      # NOTE that we use ref: main because we need to get the code that was updated from the prepare-release-action
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: Install node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: https://registry.npmjs.org
+          cache: npm
+      - name: Install dependencies
+        run: npm clean-install --prefer-offline --frozen-lockfile
 
-  #     # Auto deploy to everything else
-  #     - name: Auto deploy to ${{ matrix.auto-deploy-repos.name }}
-  #       uses: lando/auto-deploy-action@v2
-  #       with:
-  #         branch: main
-  #         slug: ${{ matrix.auto-deploy-repos.name }}
-  #         token: ${{ secrets.PIROG_TOKEN }}
-  #         pr: false
-  #         dirs: ${{ matrix.auto-deploy-repos.dirs }}
+      # Auto deploy to everything else
+      - name: Auto deploy to ${{ matrix.auto-deploy-repos.name }}
+        uses: lando/auto-deploy-action@v3
+        with:
+          branch: main
+          slug: ${{ matrix.auto-deploy-repos.name }}
+          token: ${{ secrets.PIROG_TOKEN }}
+          pr: false
+          dirs: ${{ matrix.auto-deploy-repos.dirs }}
+          args: -D
