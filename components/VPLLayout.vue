@@ -33,7 +33,7 @@
     </template>
 
     <template #aside-ads-before>
-      <Tags />
+      <Tags :key="tagsKey" />
       <Jobs :key="jobsKey" />
       <Sponsors :key="sponsorsKey" />
     </template>
@@ -66,6 +66,7 @@ const {Layout} = DefaultTheme;
 let alertKey = ref(0);
 let jobsKey = ref(0);
 let sponsorsKey = ref(0);
+let tagsKey = ref(0);
 const {frontmatter, page, theme} = useData();
 
 const alert = computed(() => frontmatter.value.alert ?? theme.value.alert ?? false);
@@ -78,6 +79,7 @@ watch(() => page.value.relativePath, () => {
   alertKey = page.value.relativePath;
   jobsKey = page.value.relativePath;
   sponsorsKey = page.value.relativePath;
+  tagsKey = page.value.relativePath;
 });
 
 </script>

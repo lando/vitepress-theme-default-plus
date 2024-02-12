@@ -14,14 +14,14 @@
     >
       <div class="label">
         By
-        <VPLink
+        <Link
           v-for="(author, index) in authors"
           :key="author.name"
           :href="author.link"
           no-icon
         >
           <span class="underline">{{ author.name }}</span><span class="separator">{{ getSeparator(index, authors.length) }}</span>
-        </VPLink>
+        </Link>
       </div>
       <Author
         v-for="author in authors"
@@ -38,8 +38,8 @@ import {computed} from 'vue';
 import {useData} from 'vitepress';
 
 import {default as Author} from './VPLTeamMembersItem.vue';
-import {default as Icon} from '../components/VPLCollectionIcon.vue';
-import VPLink from 'vitepress/dist/client/theme-default/components/VPLink.vue';
+import {default as Icon} from './VPLCollectionIcon.vue';
+import Link from './VPLLink.vue';
 
 const {frontmatter, page} = useData();
 

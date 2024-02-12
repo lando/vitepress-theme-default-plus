@@ -5,13 +5,13 @@
   >
     <span class="ad-header">Tags</span>
     <div class="aside-tags">
-      <VPLink
+      <Link
         v-for="tag in tags"
         :key="tag.key"
         :href="tag.href"
       >
         <Tag :text="tag.name" />
-      </VPLink>
+      </Link>
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@
 import {computed} from 'vue';
 import {useData} from 'vitepress';
 import Tag from './VPLCollectionTag.vue';
-import VPLink from 'vitepress/dist/client/theme-default/components/VPLink.vue';
+import Link from './VPLLink.vue';
 
 const {frontmatter, theme} = useData();
 const ptags = frontmatter?.value?.tags ?? [];
@@ -36,9 +36,6 @@ const tags = computed(() => ptags.map(tag => {
   // return
   return data;
 }).filter(tag => tag.href !== undefined));
-
-console.log(tags.value)
-
 
 </script>
 

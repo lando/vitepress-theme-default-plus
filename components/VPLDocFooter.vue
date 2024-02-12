@@ -9,9 +9,9 @@
         v-if="hasBackLink"
         class="back-link"
       >
-        <VPLink :href="backLink.link">
+        <Link :href="backLink.link">
           {{ backLink.text ?? '<- Back' }}
-        </VPLink>
+        </Link>
       </div>
 
       <div
@@ -38,7 +38,7 @@
           v-if="hasEditLink"
           class="edit-link"
         >
-          <VPLink
+          <Link
             class="edit-link-button"
             :href="editLink.url"
             :no-icon="true"
@@ -48,7 +48,7 @@
               aria-label="edit icon"
             />
             {{ editLink.text }}
-          </VPLink>
+          </Link>
         </div>
 
         <div
@@ -65,7 +65,7 @@
       class="prev-next"
     >
       <div class="pager">
-        <VPLink
+        <Link
           v-if="control.prev?.link"
           class="pager-link prev"
           :href="control.prev.link"
@@ -78,11 +78,11 @@
             class="title"
             v-html="control.prev.text"
           />
-        </VPLink>
+        </Link>
       </div>
 
       <div class="pager">
-        <VPLink
+        <Link
           v-if="control.next?.link"
           class="pager-link next"
           :href="control.next.link"
@@ -95,7 +95,7 @@
             class="title"
             v-html="control.next.text"
           />
-        </VPLink>
+        </Link>
       </div>
     </nav>
   </footer>
@@ -104,14 +104,15 @@
 <script setup>
 import {computed} from 'vue';
 import {useData} from 'vitepress';
+import useCollection from '../client/use-collection.js';
 
 import {useEditLink} from 'vitepress/dist/client/theme-default/composables/edit-link';
 import {usePrevNext} from 'vitepress/dist/client/theme-default/composables/prev-next';
 import VPIconEdit from 'vitepress/dist/client/theme-default/components/icons/VPIconEdit.vue';
-import VPLink from 'vitepress/dist/client/theme-default/components/VPLink.vue';
 
-import useCollection from '../client/use-collection.js';
 import VPLDocFooterLastUpdated from './VPLDocFooterLastUpdated.vue';
+import Link from './VPLLink.vue';
+
 import {default as Contributor} from './VPLTeamMembersItem.vue';
 
 const useBackLink = () => {
@@ -125,15 +126,17 @@ const useBackLink = () => {
 const {theme, page, frontmatter} = useData();
 const collection = computed(() => frontmatter.value?.collection ?? false);
 
-const prevnext = usePrevNext();
+const {prevnext} = useCollection(collection.value);
+const oprevnext = usePrevNext();
+
 const cprevnext = computed(() => {
-  const links = frontmatter.value?.collection ? useCollection(collection.value).prevnext : usePrevNext();
+  const links = frontmatter.value?.collection ? prevnext : usePrevNext();
   return links.value;
 });
 
 const control = computed(() => ({
-  prev: frontmatter.value?.prev ? prevnext.value.prev : cprevnext.value.prev,
-  next: frontmatter.value?.next ? prevnext.value.next : cprevnext.value.next,
+  prev: frontmatter.value?.prev ? oprevnext.value.prev : cprevnext.value.prev,
+  next: frontmatter.value?.next ? oprevnext.value.next : cprevnext.value.next,
 }));
 
 const backLink = useBackLink();
