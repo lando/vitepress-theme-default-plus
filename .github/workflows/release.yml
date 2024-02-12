@@ -124,8 +124,8 @@ jobs:
             dirs: ./
           - name: lando/phpmyadmin
             dirs: ./
-          # - name: lando/platformsh
-          #   dirs: ./
+          - name: lando/platformsh
+            dirs: ./
           - name: lando/postgres
             dirs: ./
           - name: lando/python
