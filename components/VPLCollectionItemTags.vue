@@ -19,8 +19,9 @@
 <script setup>
 import {computed} from 'vue';
 import {useData} from 'vitepress';
-import Tag from './VPLCollectionTag.vue';
+
 import Link from './VPLLink.vue';
+import Tag from './VPLCollectionTag.vue';
 
 const {frontmatter, theme} = useData();
 const ptags = frontmatter?.value?.tags ?? [];

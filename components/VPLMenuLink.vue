@@ -16,10 +16,11 @@
 </template>
 
 <script setup>
-  import Link from './VPLLink.vue';
   import {toRefs} from 'vue';
   import {useData} from 'vitepress';
   import isActive from '../client/is-active.js';
+
+  import Link from './VPLLink.vue';
 
   const props = defineProps({
     item: {

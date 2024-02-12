@@ -55,7 +55,7 @@
           v-if="hasLastUpdated"
           class="last-updated"
         >
-          <VPLDocFooterLastUpdated />
+          <DocFooterLastUpdated />
         </div>
       </div>
     </div>
@@ -104,16 +104,14 @@
 <script setup>
 import {computed} from 'vue';
 import {useData} from 'vitepress';
-import useCollection from '../client/use-collection.js';
-
 import {useEditLink} from 'vitepress/dist/client/theme-default/composables/edit-link';
 import {usePrevNext} from 'vitepress/dist/client/theme-default/composables/prev-next';
+import useCollection from '../client/use-collection.js';
+
 import VPIconEdit from 'vitepress/dist/client/theme-default/components/icons/VPIconEdit.vue';
-
-import VPLDocFooterLastUpdated from './VPLDocFooterLastUpdated.vue';
+import Contributor from './VPLTeamMembersItem.vue';
+import DocFooterLastUpdated from './VPLDocFooterLastUpdated.vue';
 import Link from './VPLLink.vue';
-
-import {default as Contributor} from './VPLTeamMembersItem.vue';
 
 const useBackLink = () => {
   // if its a string then assume its the link

@@ -30,10 +30,11 @@
 <script setup>
 import {computed, ref, defineAsyncComponent} from 'vue';
 import {VPButton} from 'vitepress/theme';
-import VPLCollectionItem from './VPLCollectionItem.vue';
+
+import Item from './VPLCollectionItem.vue';
 
 const Article = defineAsyncComponent({
-  loader: async () => VPLCollectionItem,
+  loader: async () => Item,
 });
 
 const {items, pager, more, size, tags} = defineProps({

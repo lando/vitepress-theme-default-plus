@@ -37,8 +37,8 @@
 import {computed} from 'vue';
 import {useData} from 'vitepress';
 
-import {default as Author} from './VPLTeamMembersItem.vue';
-import {default as Icon} from './VPLCollectionIcon.vue';
+import Author from './VPLTeamMembersItem.vue';
+import Icon from './VPLCollectionIcon.vue';
 import Link from './VPLLink.vue';
 
 const {frontmatter, page} = useData();

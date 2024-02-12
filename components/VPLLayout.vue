@@ -50,9 +50,10 @@
 </template>
 
 <script setup>
-import DefaultTheme from 'vitepress/theme';
 import {useData} from 'vitepress';
 import {computed, ref, watch} from 'vue';
+
+import DefaultTheme from 'vitepress/theme';
 import VPSideBarItem from 'vitepress/dist/client/theme-default/components/VPSidebarItem.vue';
 
 import Alert from './VPLAlert.vue';

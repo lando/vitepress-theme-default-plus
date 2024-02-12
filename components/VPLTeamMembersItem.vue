@@ -84,8 +84,8 @@
 <script setup>
 import {computed} from 'vue';
 import VPIconHeart from 'vitepress/dist/client/theme-default/components/icons/VPIconHeart.vue';
-import Link from './VPLLink.vue';
 import VPSocialLinks from 'vitepress/dist/client/theme-default/components/VPSocialLinks.vue';
+import Link from './VPLLink.vue';
 
 const {member, size} = defineProps({
   size: {

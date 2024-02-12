@@ -9,7 +9,7 @@
 
     <div :class="{'VPMenuGroup-flex-wrapper': props.columns > 1}">
       <template v-for="item in props.items">
-        <VPLMenuLink
+        <MenuLink
           v-if="'link' in item"
           :key="item.href"
           :item="item"
@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import VPLMenuLink from '../components/VPLMenuLink.vue';
+import MenuLink from './VPLMenuLink.vue';
 
 const props = defineProps({
   columns: {
