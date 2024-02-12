@@ -33,6 +33,7 @@
     </template>
 
     <template #aside-ads-before>
+      <Tags />
       <Jobs :key="jobsKey" />
       <Sponsors :key="sponsorsKey" />
     </template>
@@ -53,10 +54,12 @@ import DefaultTheme from 'vitepress/theme';
 import {useData} from 'vitepress';
 import {computed, ref, watch} from 'vue';
 import VPSideBarItem from 'vitepress/dist/client/theme-default/components/VPSidebarItem.vue';
-import {default as Alert} from './VPLAlert.vue';
-import {default as CollectionHeader} from './VPLCollectionHeader.vue';
-import {default as MailChimp} from './VPLMailChimp.vue';
-import {default as PostHeader} from './VPLPostHeader.vue';
+
+import Alert from './VPLAlert.vue';
+import CollectionHeader from './VPLCollectionHeader.vue';
+import MailChimp from './VPLMailChimp.vue';
+import PostHeader from './VPLPostHeader.vue';
+import Tags from './VPLCollectionItemTags.vue';
 
 const {Layout} = DefaultTheme;
 

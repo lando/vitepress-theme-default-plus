@@ -147,7 +147,7 @@ const hasSponsors = computed(() => sponsors !== false && sponsors && sponsors.da
     align-items: center;
     justify-content: space-around;
     .sponsor-link {
-      color: var(--vp-c-text-1);
+      color: var(--vp-c-text-3);
       display: block;
       font-weight: 700;
       font-size: 11px;

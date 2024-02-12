@@ -10,6 +10,10 @@ mailchimp:
 tag:
   - tag 1
   - tag 2
+  - secret tag
+  - other tag
+  - something else
+  - we are really tagging a lot here
 ---
 
 # Adding a guide signup

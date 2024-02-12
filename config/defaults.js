@@ -95,6 +95,8 @@ export default function({base}) {
       sidebar: {},
       sidebarEnder: false,
       sponsors: false,
+      tags: {},
+      tagLink: undefined,
       team: [],
     },
     vite: {

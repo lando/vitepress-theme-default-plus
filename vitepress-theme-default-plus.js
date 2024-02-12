@@ -36,6 +36,7 @@ export {VPTeamPageSection as VPLTeamPageSection} from 'vitepress/theme';
 
 // collection page
 export {default as VPLCollectionItem} from './components/VPLCollectionItem.vue';
+export {default as VPLCollectionItemTags} from './components/VPLCollectionItemTags.vue';
 export {default as VPLCollectionItems} from './components/VPLCollectionItems.vue';
 export {default as VPLCollectionPage} from './components/VPLCollectionPage.vue';
 export {default as VPLCollectionPageTags} from './components/VPLCollectionPageTags.vue';

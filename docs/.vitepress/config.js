@@ -104,6 +104,27 @@ export default defineConfig({
       dogs: './components/VPLDogs.vue',
     },
     logo: {src: '/images/vitepress-lando-logo-icon.png', width: 24, height: 24},
+    tags: {
+      'obscure': {
+        color: 'var(--vp-c-purple-1)',
+        styles: {
+          color: 'var(--vp-c-white)',
+        },
+        icon: '',
+      },
+      'secret tag': {
+        color: '#C0FFEE',
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4"><path fill-rule="evenodd" d="M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0Zm-6 3.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM7.293 5.293a1 1 0 1 1 .99 1.667c-.459.134-1.033.566-1.033 1.29v.25a.75.75 0 1 0 1.5 0v-.115a2.5 2.5 0 1 0-2.518-4.153.75.75 0 1 0 1.061 1.06Z" clip-rule="evenodd" /></svg>',
+        link: '/secret',
+        styles: {
+          color: '#BA11AD',
+        },
+      },
+      'tag 2': {
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4"><path fill-rule="evenodd" d="M11.5 8a3.5 3.5 0 0 0 3.362-4.476c-.094-.325-.497-.39-.736-.15L12.099 5.4a.48.48 0 0 1-.653.033 8.554 8.554 0 0 1-.879-.879.48.48 0 0 1 .033-.653l2.027-2.028c.24-.239.175-.642-.15-.736a3.502 3.502 0 0 0-4.476 3.427c.018.99-.133 2.093-.914 2.7l-5.31 4.13a2.015 2.015 0 1 0 2.828 2.827l4.13-5.309c.607-.78 1.71-.932 2.7-.914L11.5 8ZM3 13.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" /></svg>',
+      },
+    },
+    tagLink: '/all?tag=:tag',
     search: {
       provider: 'local',
     },
