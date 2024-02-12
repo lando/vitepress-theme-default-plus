@@ -43,6 +43,19 @@ This is more or less just a wrapper to provide structure, styling and the downst
 </VPLCollectionPage>
 ```
 
+## \<VPLCollectionPageTags />
+
+Provide a way to filter collection items based on their [tags](../config/frontmatter#tags).
+
+```html
+<VPLCollectionPageTags :tags="selectedTags" />
+<VPLCollectionItems :items="pages" :tags="selectedTags"/>
+
+<script setup>
+const {pages, selectedTags} = useCollection();
+</script>
+```
+
 ## \<VPLCollectionPageTitle />
 
 Provide a title and lead-in for the page.

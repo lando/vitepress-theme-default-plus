@@ -567,6 +567,9 @@ nav#VPSidebarNav {
     background-color: var(--vp-c-box-indigo-soft);
     color: var(--vp-c-box-indigo-1);
   }
+  &.selected {
+    color: var(--vp-c-white) !important;
+  }
 }
 
 .VPDocAsideOutline.has-outline {

@@ -1,7 +1,7 @@
 import sortBy from 'lodash/sortBy.js';
 import uniq from 'lodash/uniq.js';
 
-import {computed, reactive, watch} from 'vue';
+import {computed, reactive} from 'vue';
 import {useRoute} from 'vitepress';
 import {data as collections} from './collections.data.js';
 
@@ -61,25 +61,21 @@ export default function useCollection(type = undefined) {
     .filter(pair => pair[1] === true)
     .map(pair => pair[0]));
 
-  // pages by tags
-  // let pagesBySelectedTags = pages;
-
-  // watch(selectedTags, () => {
-  //   pagesBySelectedTags = pages.filter(page => {
-  //     const selectedTagsList = Object.entries(selectedTags)
-  //     .filter(pair => pair[1] === true)
-  //     .map(pair => pair[0]);
-  //     return selectedTagsList.every(tag => {
-  //       return page.tags.indexOf(tag) !== -1;
-  //     });
-  //   });
-  // }, {immediate: true});
+  // helper func to see if a set of tag filtered pages has items or not, useful for showing collection sections
+  const hasItems = (items = [], tags = {}) => {
+    const tagList = Object.entries(tags).filter(pair => pair[1] === true).map(pair => pair[0]);
+    const filteredItems = items.filter(item => tagList.every(tag => item.tags.indexOf(tag) !== -1));
+    return filteredItems.length > 0;
+  };
 
   return {
+    hasItems,
     pages,
     page,
-    nextPage, prevnext,
-    prevPage, path,
+    nextPage,
+    prevnext,
+    prevPage,
+    path,
     tagCounts,
     tags,
     selectedTags,

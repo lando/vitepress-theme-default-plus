@@ -6,11 +6,22 @@ sidebar: false
 ---
 
 <script setup>
-import {VPLCollectionPage, VPLCollectionPageSection, VPLCollectionPageTitle, VPLCollectionItems} from '@lando/vitepress-theme-default-plus';
+import {computed} from 'vue';
+import {
+  VPLCollectionItems,
+  VPLCollectionPage,
+  VPLCollectionPageSection,
+  VPLCollectionPageTags,
+  VPLCollectionPageTitle,
+} from '@lando/vitepress-theme-default-plus';
 import {useCollection} from '@lando/vitepress-theme-default-plus';
 
 const guides = useCollection('guide');
 const posts = useCollection('post');
+const {hasItems, selectedTags} = useCollection();
+
+const showGuides = computed(() => hasItems(guides.pages, selectedTags));
+const showPosts = computed(() => hasItems(posts.pages, selectedTags));
 </script>
 
 <VPLCollectionPage>
@@ -23,7 +34,9 @@ const posts = useCollection('post');
     </template>
   </VPLCollectionPageTitle>
 
-  <VPLCollectionPageSection>
+  <VPLCollectionPageTags :tags="selectedTags" />
+
+  <VPLCollectionPageSection v-if="showGuides">
     <template #title>
       Guides
     </template>
@@ -31,11 +44,14 @@ const posts = useCollection('post');
       Guides are sort of like tutorial adjacent things but with a tighter vibe.
     </template>
     <template #items>
-      <VPLCollectionItems :items="guides.pages"/>
+      <VPLCollectionItems
+        :items="guides.pages"
+        :tags="selectedTags"
+      />
     </template>
   </VPLCollectionPageSection>
 
-  <VPLCollectionPageSection>
+  <VPLCollectionPageSection v-if="showPosts">
     <template #title>
       Posts
     </template>
@@ -43,7 +59,11 @@ const posts = useCollection('post');
       Posts are sort of like a <em>hot-mess</em> of free-for-all anything-goes word-vomit pretending to be prose.
     </template>
     <template #items>
-      <VPLCollectionItems more="date" :items="posts.pages"/>
+      <VPLCollectionItems
+        more="date"
+        :items="posts.pages"
+        :tags="selectedTags"
+      />
     </template>
   </VPLCollectionPageSection>
 </VPLCollectionPage>
