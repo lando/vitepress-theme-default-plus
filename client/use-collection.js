@@ -7,7 +7,7 @@ import encodeTag from './encode-tag.js';
 import {data as collections} from './collections.data.js';
 
 const getParams = () => {
-  if (!import.meta.env.SSR && window) {
+  if (!import.meta.env.SSR && window !== undefined) {
     const urlSearchParams = new URLSearchParams(window.location.search);
     return Object.fromEntries(urlSearchParams.entries());
   } else return {};
