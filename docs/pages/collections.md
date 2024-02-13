@@ -56,6 +56,13 @@ const {pages, selectedTags} = useCollection();
 </script>
 ```
 
+Note that you can pass one or multiple `:tag` or `:tag-id`s as a query string to select tags. This is useful for creating URL for specific "tag pages". Here are some valid paths for this docs site:
+
+```bash
+/all.html?tags=we-are-really-tagging-a-lot-here,this-is-a-test-tag
+/all.html?tag=we%20are%20really%20tagging%20a%20lot%20here
+```
+
 ## \<VPLCollectionPageTitle />
 
 Provide a title and lead-in for the page.

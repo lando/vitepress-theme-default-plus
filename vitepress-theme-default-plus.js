@@ -18,6 +18,7 @@ import VPLYouTube from './components/VPLYouTube.vue';
 
 // composables
 export {default as isActive} from './client/is-active.js';
+export {default as encodeTag} from './client/encode-tag.js';
 export {default as useCollection} from './client/use-collection.js';
 export {default as useTeam} from './client/use-team.js';
 

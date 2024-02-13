@@ -8,6 +8,7 @@
       <Link
         v-for="tag in tags"
         :key="tag.key"
+        :no-icon="true"
         :href="tag.href"
       >
         <Tag :text="tag.name" />
@@ -19,6 +20,7 @@
 <script setup>
 import {computed} from 'vue';
 import {useData} from 'vitepress';
+import encodeTag from '../client/encode-tag.js';
 
 import Link from './VPLLink.vue';
 import Tag from './VPLCollectionTag.vue';
@@ -33,7 +35,11 @@ const tags = computed(() => ptags.map(tag => {
   // set the link data
   const data = {key: tag, name: tag, href: details?.link};
   // if href is unset and we have a tagLinkPattern then use that
-  if (!data.href && tagLinkPattern) data.href = tagLinkPattern.replace(':tag', tag);
+  if (!data.href && tagLinkPattern && tagLinkPattern.includes(':tag-id')) data.href = tagLinkPattern.replace(':tag-id', encodeTag(tag));
+  // if href is unset and we have a tagLinkPattern then use that
+  if (!data.href && tagLinkPattern && tagLinkPattern.includes(':tag')) data.href = tagLinkPattern.replace(':tag', tag);
+  // just use the tagLink pattern
+  if (!data.href && tagLinkPattern) data.href = tagLinkPattern;
   // return
   return data;
 }).filter(tag => tag.href !== undefined));

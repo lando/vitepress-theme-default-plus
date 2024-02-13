@@ -39,6 +39,10 @@
     </template>
 
     <template #doc-footer-before>
+      <Tags
+        v-if="header === 'post'"
+        :key="tagsKey"
+      />
       <div
         v-if="mailchimp"
         class="newsletter-wrapper"

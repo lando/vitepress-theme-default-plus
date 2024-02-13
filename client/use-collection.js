@@ -3,6 +3,7 @@ import uniq from 'lodash/uniq.js';
 
 import {computed, reactive} from 'vue';
 import {useRoute} from 'vitepress';
+import encodeTag from './encode-tag.js';
 import {data as collections} from './collections.data.js';
 
 export default function useCollection(type = undefined) {
@@ -14,7 +15,9 @@ export default function useCollection(type = undefined) {
 
   function isTagSelected(q) {
     const {tag = '', tags = ''} = params;
-    return [...tag.split(','), ...tags.split(',')].includes(q);
+    const list = [...tag.split(','), ...tags.split(',')];
+
+    return list.includes(q) || list.includes(encodeTag(q));
   }
 
   function findCurrentIndex() {

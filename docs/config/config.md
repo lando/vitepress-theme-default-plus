@@ -555,7 +555,7 @@ You can specify `host` and `sitemap` directly. If you omit them the theme will a
 
 * Details:
 
-  If you would like to customize the appearance of collection item `tags` you [set in frontmatter](./frontmatter#tags) you can do so.
+  If you would like to customize the appearance of collection item `tags` you [set in frontmatter](./frontmatter#tags) you can do so. Note that you can free tag by default. You _do not_ need to set this to use tags. It is _only_ to customize the appearance of the tags.
 
   `color` will set the `background-color` of the `tag`.
 
@@ -564,6 +564,30 @@ You can specify `host` and `sitemap` directly. If you omit them the theme will a
   `icon` is an `svg` string.
 
   `link` will override the default `tagLink`.
+
+## Tag Link
+
+* Type: `String`
+
+* Default: `undefined`
+
+* Example:
+
+  ```js
+  tagLink: `/tags/:tag`
+  ```
+
+* Details:
+
+  This sets a default URL pattern for each tag. Here are some tokens you can use in your pattern.
+
+  ```md
+  # for a tag called "My Special Tag"
+  :tag -> My Special Tag
+  :tag-id -> my-special-tag
+  ```
+
+  You can override the `tagLink` on a per-tag basis using the [tags](#tags) `.link` property. Note that if you use `-` in your tag names and also use `:tag-id` you may get some unexpected behavior.
 
 ## Tracking
 
