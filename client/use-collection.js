@@ -6,17 +6,20 @@ import {useRoute} from 'vitepress';
 import encodeTag from './encode-tag.js';
 import {data as collections} from './collections.data.js';
 
+const getParams = () => {
+  if (!import.meta.env.SSR && window) {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    return Object.fromEntries(urlSearchParams.entries());
+  } else return {};
+};
+
 export default function useCollection(type = undefined) {
   const route = useRoute();
-  const urlSearchParams = new URLSearchParams(window.location.search);
-
   const path = route.path;
-  const params = Object.fromEntries(urlSearchParams.entries());
 
   function isTagSelected(q) {
-    const {tag = '', tags = ''} = params;
+    const {tag = '', tags = ''} = getParams();
     const list = [...tag.split(','), ...tags.split(',')];
-
     return list.includes(q) || list.includes(encodeTag(q));
   }
 
