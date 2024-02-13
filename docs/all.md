@@ -20,8 +20,6 @@ const guides = useCollection('guide');
 const posts = useCollection('post');
 const {hasItems, selectedTags} = useCollection();
 
-console.log(guides.pages);
-
 const showGuides = computed(() => hasItems(guides.pages, selectedTags));
 const showPosts = computed(() => hasItems(posts.pages, selectedTags));
 </script>
