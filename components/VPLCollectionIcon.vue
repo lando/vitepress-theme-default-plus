@@ -1,6 +1,6 @@
 <template>
   <div class="collection-icon">
-    <VPLink
+    <Link
       :href="link"
       rel="noopener"
     >
@@ -8,12 +8,12 @@
         class="icon"
         v-html="icon"
       />{{ title }}
-    </VPLink>
+    </Link>
   </div>
 </template>
 
 <script setup>
-import VPLink from 'vitepress/dist/client/theme-default/components/VPLink.vue';
+import Link from './VPLLink.vue';
 
 const {title, icon, link} = defineProps({
   icon: {

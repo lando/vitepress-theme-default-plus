@@ -33,3 +33,5 @@ const members = useTeam();
 
 </script>
 ```
+
+For more detail on `Team` components you can check [this](/pages/teams).

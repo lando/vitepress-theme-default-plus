@@ -7,6 +7,13 @@ mailchimp:
   title: Want similar content?
   byline: Signup and we will send you a weekly blog digest of similar content to keep you satiated.
   button: Sign me up!
+tag:
+  - tag 1
+  - tag 2
+  - secret tag
+  - other tag
+  - something else
+  - we are really tagging a lot here
 ---
 
 # Adding a guide signup

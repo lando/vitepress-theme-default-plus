@@ -12,7 +12,7 @@ editLink:
 updated:
   timestamp: 1613073690000
 tags:
-  - this is a test tag
+  - tag 1
 ---
 
 # Making a guide 2

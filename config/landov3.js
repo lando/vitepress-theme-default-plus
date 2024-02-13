@@ -208,6 +208,8 @@ export default function({landoPlugin, version}) {
         data: patriots,
         all: sponsors,
       },
+      tags: {},
+      tagLink: undefined,
       team: [],
     },
     vite: {

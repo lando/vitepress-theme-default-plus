@@ -4,10 +4,22 @@ description: Learn about the VitePress Default Theme + useCollection composable.
 
 # useCollection
 
-You can `import` the `useCollection()` composable from `@lando/vitepress-theme-default-plus` and use it to create things like index pages, prev|next links, and more.
+You can `import` the `useCollection()` composable from `@lando/vitepress-theme-default-plus` and use it to create things like index `pages`, `prev` and `next` links and more.
 
 ```js
-const {pages, page, nextPage, prevnext, prevPage, path} = useCollection();
+const {
+  hasItems,
+  pages,
+  page,
+  nextPage,
+  prevnext,
+  prevPage,
+  path,
+  tagCounts,
+  tags,
+  selectedTags,
+  selectedTagsList
+} = useCollection();
 ```
 
 Or target a specific collection:
@@ -15,25 +27,11 @@ Or target a specific collection:
 ```js
 const data = useCollection('post');
 ```
-Here is how we generate our `/blog` index page:
+
+Here is how we generate our `/all` index page which contains a good mix of the most useful things above:
 
 ```html
-<VPLCollectionPage>
-  <VPLCollectionPageTitle>
-    <template #title>
-      DAT BLOG
-    </template>
-    <template #lead>
-      Refined and sophisticated content for the modern developer.
-    </template>
-  </VPLCollectionPageTitle>
-  <VPLCollectionItems :items="pages" more="date"/>
-</VPLCollectionPage>
-
-<script setup>
-import {VPLCollectionPage, VPLCollectionPageTitle, VPLCollectionItems} from '@lando/vitepress-theme-default-plus'
-import {useCollection} from '@lando/vitepress-theme-default-plus';
-
-const {pages} = useCollection('post');
-</script>
+<!--@include: ./../all.md-->
 ```
+
+For more detail on `Collections` components you can check [this](/pages/collections).

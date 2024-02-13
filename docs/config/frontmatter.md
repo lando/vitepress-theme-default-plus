@@ -137,11 +137,32 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
 
   You can also configure this globally with [config](./config.md#sponsors).
 
+## tags
+
+* Type: `String ||  Array[String]`
+
+* Default:
+
+  ```yaml
+  tags:
+  ```
+
+* Example
+
+  ```yaml
+  tags:
+    - this is a test tag
+    - so is this
+  ```
+
+* Details:
+
+  Note that this only works for content that is in a [collection](./config.md#collections).
+
 ## Guides
 
 * See [Making a guide 1](./../guides/making-a-guide)
 * See [Making a guide 2](./../guides/making-a-guide-2)
-
 
 ## Blog Posts
 

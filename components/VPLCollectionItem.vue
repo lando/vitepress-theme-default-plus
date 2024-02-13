@@ -9,11 +9,11 @@
       :link="page.iconLink"
       :title="page.type"
     />
-    <VPLink :href="page.url">
+    <Link :href="page.url">
       <h2 class="title">
         {{ page.title }}
       </h2>
-    </VPLink>
+    </Link>
     <div
       class="summary"
     >
@@ -32,7 +32,7 @@
             :member="author"
           />
         </div>
-        <VPLink
+        <Link
           v-for="(author, index) in page.authors"
           :key="author.name"
           class="names"
@@ -40,7 +40,7 @@
           no-icon
         >
           <span class="underline">{{ author.name }}</span><span class="separator">{{ getSeparator(index, page.authors.length) }}&nbsp;</span>
-        </VPLink>
+        </Link>
       </div>
 
       <time
@@ -50,23 +50,23 @@
       >
         {{ hdate }}
       </time>
-      <VPLink
+      <Link
         v-else
         :href="page.url"
         class="read-more"
       >
         <time :datetime="page.datetime" />
         Read More ->
-      </VPLink>
+      </Link>
     </div>
   </article>
 </template>
 
 <script setup>
 import {computed} from 'vue';
-import VPLink from 'vitepress/dist/client/theme-default/components/VPLink.vue';
-import {default as Author} from './VPLTeamMembersItem.vue';
-import {default as Icon} from '../components/VPLCollectionIcon.vue';
+import Link from './VPLLink.vue';
+import Author from './VPLTeamMembersItem.vue';
+import Icon from './VPLCollectionIcon.vue';
 
 const {more, page, size} = defineProps({
   page: {

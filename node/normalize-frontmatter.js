@@ -1,6 +1,8 @@
 import {existsSync, lstatSync} from 'node:fs';
 import {resolve} from 'node:path';
 
+import sortBy from 'lodash/sortBy.js';
+import uniq from 'lodash/uniq.js';
 import Debug from 'debug';
 
 import {default as getTimestamp} from '../utils/get-timestamp.js';
@@ -39,7 +41,20 @@ export default async function(pageData, {
     pageData.frontmatter.authors = [pageData.frontmatter.authors];
   }
 
+  // consolidate it all into an array at frontmatter.tags
+  if (!frontmatter.tags) pageData.frontmatter.tags = [];
+  if (frontmatter.tags && typeof frontmatter.tags === 'string') pageData.frontmatter.tags = [pageData.frontmatter.tags];
+  if (frontmatter.tag && typeof frontmatter.tag === 'string') pageData.frontmatter.tags.push(pageData.frontmatter.tag);
+  if (Array.isArray(pageData.frontmatter.tag)) {
+    pageData.frontmatter.tags = pageData.frontmatter.tags.concat(pageData.frontmatter.tag);
+  }
+  delete pageData.frontmatter.tag;
+
+  // make sure tags are unique
+  if (Array.isArray(pageData.frontmatter.tags)) pageData.frontmatter.tags = sortBy(uniq((pageData.frontmatter.tags)));
+
   // log
   debug('normalized date information to %o', {date: frontmatter.date, timestamp: pageData.timestamp, datetime: pageData.datetime});
-  debug('normalized author information to %o', {authors: frontmatter.authors});
+  debug('normalized author information to %o', {authors: pageData.frontmatter.authors});
+  debug('normalized tags information to %o', {tags: pageData.frontmatter.tags});
 };

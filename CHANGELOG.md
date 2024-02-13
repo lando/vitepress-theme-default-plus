@@ -1,3 +1,8 @@
+## v1.0.0-beta.32 - [February 12, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.32)
+
+* Added `tags` frontmatter for `collections`
+* Added `<VPLCollectionPageTags>` component for [collections page](https://vitepress-theme-default-plus.lando.dev/pages/collections.html) filtering
+
 ## v1.0.0-beta.31 - [February 9, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.31)
 
 * AUTO DEPLOY FIX 2

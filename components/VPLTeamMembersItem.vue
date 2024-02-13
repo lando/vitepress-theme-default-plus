@@ -11,7 +11,7 @@
         {{ member.commits }}
       </div>
       <figure class="avatar">
-        <VPLink
+        <Link
           :href="getLink(member)"
           no-icon
         >
@@ -21,7 +21,7 @@
             :alt="`Picture of ${member.name}`"
             :title="`${member.name} <${member.email}> - ${Number.parseInt(member.commits, 10)} commits`"
           >
-        </VPLink>
+        </Link>
       </figure>
       <div class="data">
         <h1 class="name">
@@ -43,7 +43,7 @@
           >
             @
           </span>
-          <VPLink
+          <Link
             v-if="member.org"
             class="org"
             :class="{ link: member.orgLink }"
@@ -51,7 +51,7 @@
             no-icon
           >
             {{ member.org }}
-          </VPLink>
+          </Link>
         </p>
         <p
           v-if="member.desc"
@@ -70,13 +70,13 @@
       v-if="member.sponsor"
       class="sp"
     >
-      <VPLink
+      <Link
         class="sp-link"
         :href="member.sponsor"
         no-icon
       >
         <VPIconHeart class="sp-icon" /> Sponsor
-      </VPLink>
+      </Link>
     </div>
   </article>
 </template>
@@ -84,8 +84,8 @@
 <script setup>
 import {computed} from 'vue';
 import VPIconHeart from 'vitepress/dist/client/theme-default/components/icons/VPIconHeart.vue';
-import VPLink from 'vitepress/dist/client/theme-default/components/VPLink.vue';
 import VPSocialLinks from 'vitepress/dist/client/theme-default/components/VPSocialLinks.vue';
+import Link from './VPLLink.vue';
 
 const {member, size} = defineProps({
   size: {

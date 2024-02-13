@@ -1,6 +1,6 @@
 <template>
   <div class="VPMenuLink">
-    <VPLink
+    <Link
       :class="{ active: isActive(page.relativePath, item.activeMatch || item.link, !!item.activeMatch) }"
       :href="item.link"
       :target="item.target"
@@ -11,15 +11,16 @@
         v-if="hasAlert(item.alert) && isActiveAlert(item.alert)"
         v-bind="getAlert(item.alert)"
       />
-    </VPLink>
+    </Link>
   </div>
 </template>
 
 <script setup>
-  import VPLink from 'vitepress/dist/client/theme-default/components/VPLink.vue';
   import {toRefs} from 'vue';
   import {useData} from 'vitepress';
   import isActive from '../client/is-active.js';
+
+  import Link from './VPLLink.vue';
 
   const props = defineProps({
     item: {

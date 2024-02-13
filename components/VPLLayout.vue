@@ -33,11 +33,16 @@
     </template>
 
     <template #aside-ads-before>
+      <Tags :key="tagsKey" />
       <Jobs :key="jobsKey" />
       <Sponsors :key="sponsorsKey" />
     </template>
 
     <template #doc-footer-before>
+      <Tags
+        v-if="header === 'post'"
+        :key="tagsKey"
+      />
       <div
         v-if="mailchimp"
         class="newsletter-wrapper"
@@ -49,20 +54,24 @@
 </template>
 
 <script setup>
-import DefaultTheme from 'vitepress/theme';
 import {useData} from 'vitepress';
 import {computed, ref, watch} from 'vue';
+
+import DefaultTheme from 'vitepress/theme';
 import VPSideBarItem from 'vitepress/dist/client/theme-default/components/VPSidebarItem.vue';
-import {default as Alert} from './VPLAlert.vue';
-import {default as CollectionHeader} from './VPLCollectionHeader.vue';
-import {default as MailChimp} from './VPLMailChimp.vue';
-import {default as PostHeader} from './VPLPostHeader.vue';
+
+import Alert from './VPLAlert.vue';
+import CollectionHeader from './VPLCollectionHeader.vue';
+import MailChimp from './VPLMailChimp.vue';
+import PostHeader from './VPLPostHeader.vue';
+import Tags from './VPLCollectionItemTags.vue';
 
 const {Layout} = DefaultTheme;
 
 let alertKey = ref(0);
 let jobsKey = ref(0);
 let sponsorsKey = ref(0);
+let tagsKey = ref(0);
 const {frontmatter, page, theme} = useData();
 
 const alert = computed(() => frontmatter.value.alert ?? theme.value.alert ?? false);
@@ -75,6 +84,7 @@ watch(() => page.value.relativePath, () => {
   alertKey = page.value.relativePath;
   jobsKey = page.value.relativePath;
   sponsorsKey = page.value.relativePath;
+  tagsKey = page.value.relativePath;
 });
 
 </script>

@@ -18,6 +18,7 @@ import VPLYouTube from './components/VPLYouTube.vue';
 
 // composables
 export {default as isActive} from './client/is-active.js';
+export {default as encodeTag} from './client/encode-tag.js';
 export {default as useCollection} from './client/use-collection.js';
 export {default as useTeam} from './client/use-team.js';
 
@@ -36,8 +37,10 @@ export {VPTeamPageSection as VPLTeamPageSection} from 'vitepress/theme';
 
 // collection page
 export {default as VPLCollectionItem} from './components/VPLCollectionItem.vue';
+export {default as VPLCollectionItemTags} from './components/VPLCollectionItemTags.vue';
 export {default as VPLCollectionItems} from './components/VPLCollectionItems.vue';
 export {default as VPLCollectionPage} from './components/VPLCollectionPage.vue';
+export {default as VPLCollectionPageTags} from './components/VPLCollectionPageTags.vue';
 export {default as VPLCollectionPageTitle} from './components/VPLCollectionPageTitle.vue';
 export {default as VPLCollectionPageSection} from './components/VPLCollectionPageSection.vue';
 
