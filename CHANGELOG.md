@@ -1,6 +1,6 @@
 ## v1.0.0-beta.32 - [February 12, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.32)
 
-* Added `tagging` as a thing
+* Added `tagging` as [a thing](https://vitepress-theme-default-plus.lando.dev/guides/tagging-shit.html)
 * Improved `createContentLoader` so it returns additional optional `frontmatter` but removes unneeded props for performance reasons
 
 ## v1.0.0-beta.31 - [February 9, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.31)
