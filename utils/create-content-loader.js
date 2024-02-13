@@ -64,13 +64,13 @@ export default function createContentLoader(patterns = [], {
         await augmentAuthors(data, {team, debug});
 
         // get stuff
-        const {frontmatter, collection, html, url} = data;
+        const {frontmatter, html, url} = data;
 
         // ensure we have a title
         if (!frontmatter.title) frontmatter.title = parse(html).getElementsByTagName('h1')[0]?.text ?? frontmatter.title;
 
-        // munge it all 2getha and return
-        return {
+        // munge it all 2getha
+        const content = Object.assign(frontmatter, {
           id: nanoid(),
           title: frontmatter.title,
           summary: frontmatter.summary ?? frontmatter.byline ?? frontmatter.description,
@@ -79,14 +79,19 @@ export default function createContentLoader(patterns = [], {
           datetime: data.datetime,
           excerpt: excerpt ? data.excerpt : '',
           html: render ? data.html : '',
-          icon: collection?.icon,
-          iconLink: collection?.iconLink,
           relativePath: data.relativePath,
           tags: frontmatter.tags ?? [],
           timestamp: data.timestamp ?? Date.now(),
           type: frontmatter.collection,
           url,
-        };
+        });
+
+        // remove some stuff we do not need
+        // @TODO: any other optimization here?
+        delete content.head;
+
+        // return
+        return content;
       }));
 
       // sort and return

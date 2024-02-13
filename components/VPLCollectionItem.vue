@@ -4,9 +4,9 @@
     :class="`${page.type} ${size}`"
   >
     <Icon
-      v-if="page.icon !== false"
-      :icon="page.icon"
-      :link="page.iconLink"
+      v-if="icon !== false"
+      :icon="icon"
+      :link="iconLink"
       :title="page.type"
     />
     <Link :href="page.url">
@@ -64,6 +64,8 @@
 
 <script setup>
 import {computed} from 'vue';
+import {useData} from 'vitepress';
+
 import Link from './VPLLink.vue';
 import Author from './VPLTeamMembersItem.vue';
 import Icon from './VPLCollectionIcon.vue';
@@ -82,6 +84,12 @@ const {more, page, size} = defineProps({
     default: 'readmore',
   },
 });
+
+const {theme} = useData();
+const collection = computed(() => page?.collection ?? false);
+
+const icon = computed(() => theme.value?.collections[collection.value]?.icon ?? false);
+const iconLink = computed(() => theme.value?.collections[collection.value]?.iconLink ?? false);
 
 const hdate = computed(() => {
   return new Date(page.date ?? page.timestamp).toLocaleDateString(undefined, {
