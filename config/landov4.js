@@ -10,7 +10,7 @@ const patriots = sponsors.filter(sponsor => sponsor.tier === 'patriot');
 export default function({landoPlugin, version}) {
   const baseUrl = landoPlugin ? `https://docs.lando.dev/${landoPlugin}` : 'https://docs.lando.dev';
   const repo = landoPlugin ? `https://github.com/lando/${landoPlugin}` : 'https://github.com/lando';
-  const base = landoPlugin ? `/${landoPlugin}/` : '/';
+  const base = landoPlugin ? `/plugins/${landoPlugin}/` : '/';
   const sidebarEnder = landoPlugin && version ? {
     text: `${landoPlugin}@v${version}`,
     collapsed: true,

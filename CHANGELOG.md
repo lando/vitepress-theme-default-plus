@@ -1,3 +1,7 @@
+## v1.0.0-beta.33 - [February 13, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.33)
+
+* Updated `lando` config sets
+
 ## v1.0.0-beta.32 - [February 12, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.32)
 
 * Added `tagging` as [a thing](https://vitepress-theme-default-plus.lando.dev/guides/tagging-shit.html)
