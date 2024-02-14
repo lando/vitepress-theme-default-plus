@@ -2,7 +2,7 @@
 import {writeFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 
-import merge from 'lodash/merge.js';
+import merge from 'lodash-es/merge.js';
 import robotstxt from 'generate-robotstxt';
 
 import Debug from 'debug';

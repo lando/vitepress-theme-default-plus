@@ -1,8 +1,8 @@
 
 
 import {basename, join, sep} from 'node:path';
-import dropRight from 'lodash/dropRight.js';
-import range from 'lodash/range.js';
+import dropRight from 'lodash-es/dropRight.js';
+import range from 'lodash-es/range.js';
 
 export default function(files, startsFrom) {
   return range(startsFrom.split(sep).length)
