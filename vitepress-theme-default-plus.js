@@ -24,6 +24,7 @@ export {default as useTeam} from './client/use-team.js';
 
 // components
 export {default as VPLAlert} from './components/VPLAlert.vue';
+export {default as VPLLink} from './components/VPLLink.vue';
 export {default as VPLMenuGroup} from './components/VPLMenuGroup.vue';
 export {default as VPLMenuLink} from './components/VPLMenuLink.vue';
 export {default as VPLNavBarMenuGroup} from './components/VPLNavBarMenuGroup.vue';

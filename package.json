@@ -20,7 +20,10 @@
   "exports": {
     ".": "./vitepress-theme-default-plus.js",
     "./ccl": "./utils/create-content-loader.js",
+    "./client/*": "./client/*",
+    "./components/*": "./components/*",
     "./config": "./config.js",
+    "./node/*": "./node/*",
     "./package.json": "./package.json"
   },
   "type": "module",
