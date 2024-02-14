@@ -18,7 +18,7 @@ hero:
 features:
   - icon: 🗃️
     title: Collections
-    details: Organize docs into categories like <em>posts</em> or <em>guides</em> each with default frontmatter.
+    details: Organize and tag docs into categories like <em>posts</em> or <em>guides</em> each with default frontmatter.
   - icon: 🧾
     title: Navbar+
     details: Configurable dropdown column size, expiring badges and notifications.
