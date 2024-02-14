@@ -65,9 +65,12 @@ In the [above section](#whats-tags-are-available) the `secret tag` has been cust
 You can add a [filter](../pages/collections.md#vplcollectionpagetags) to a [Collections Page](../pages/collections.md). You can also get a list of a given pages Tags with the below:
 
 ```html
-import {VPLCollectionItemTags} from '@lando/vitepress-theme-default-plus
+<VPLCollectionItemTags :v-model="selectedTags" />
 
-<VPLCollectionItemTags />
+<script setup>
+import {VPLCollectionItemTags, useCollection} from '@lando/vitepress-theme-default-plus
+const {selectedTags} = useCollection();
+</script>
 ```
 
 ## Can I set tags with a URL?

@@ -4,14 +4,6 @@ layout: page
 title: Guides
 sidebar: false
 ---
-
-<script setup>
-import {VPLCollectionPage, VPLCollectionPageTags, VPLCollectionPageTitle, VPLCollectionItems} from '@lando/vitepress-theme-default-plus';
-import {useCollection} from '@lando/vitepress-theme-default-plus';
-
-const {pages, pagesBySelectedTags, tags, tagCounts, selectedTags} = useCollection('guide');
-
-</script>
 <VPLCollectionPage>
   <VPLCollectionPageTitle>
     <template #title>
@@ -21,6 +13,13 @@ const {pages, pagesBySelectedTags, tags, tagCounts, selectedTags} = useCollectio
       Helpful tutorial-like content!
     </template>
   </VPLCollectionPageTitle>
-  <VPLCollectionPageTags :tags="selectedTags" />
+  <VPLCollectionPageTags v-model="selectedTags" />
   <VPLCollectionItems :items="pages" :tags="selectedTags"/>
 </VPLCollectionPage>
+
+<script setup>
+import {VPLCollectionPage, VPLCollectionPageTags, VPLCollectionPageTitle, VPLCollectionItems} from '@lando/vitepress-theme-default-plus';
+import {useCollection} from '@lando/vitepress-theme-default-plus';
+
+const {pages, selectedTags} = useCollection('guide');
+</script>

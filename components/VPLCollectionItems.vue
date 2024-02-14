@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="collection-articles">
+    <div
+      :key="key"
+      class="collection-articles"
+    >
       <div
         v-for="(page, index) in pagination()"
         :key="page.key"
@@ -28,7 +31,7 @@
 </template>
 
 <script setup>
-import {computed, ref, defineAsyncComponent} from 'vue';
+import {defineAsyncComponent, onMounted, ref, watch} from 'vue';
 import {VPButton} from 'vitepress/theme';
 
 import Item from './VPLCollectionItem.vue';
@@ -62,29 +65,33 @@ const {items, pager, more, size, tags} = defineProps({
 
 // Hardcoded pager value for now
 const amount = ref(pager);
+const key = ref(0);
 
 // normalize data and sort
-const pages = computed(() => {
+let pages = items
+  .map(item => Object.assign(item, {show: true, timestamp: item.date ? item.date : item.timestamp}))
+  .sort((a, b) => a.timestamp < b.timestamp ? 1 : -1);
+
+const adder = () => amount.value += pager;
+const getGrower = i => pagination()[i + 1] === undefined && (i + 1) % 2 !== 0;
+const pagination = () => pages.slice(0, amount.value);
+
+const filter = () => {
   const tagList = Object.entries(tags).filter(pair => pair[1] === true).map(pair => pair[0]);
-  return items
-    .map(item => Object.assign(item, {timestamp: item.date ? item.date : item.timestamp}))
-    .filter(item => {
-      return tagList.every(tag => {
-        return item.tags.indexOf(tag) !== -1;
-      });
-    })
-    .sort((a, b) => a.timestamp < b.timestamp ? 1 : -1);
+  if (tagList.length === 0) return items;
+  return items.filter(item => Array.isArray(item.tags) && tagList.every(tag => item.tags.includes(tag)));
+};
+
+// recompute filter when tags change
+watch(tags, () => {
+  pages = filter();
+  key.value++;
 });
 
-const adder = () => {
-  amount.value += pager;
-};
-
-const pagination = () => {
-  return pages.value.slice(0, amount.value);
-};
-
-const getGrower = i => pagination()[i + 1] === undefined && (i + 1) % 2 !== 0;
+onMounted(() => {
+  pages = filter();
+  key.value++;
+});
 
 </script>
 

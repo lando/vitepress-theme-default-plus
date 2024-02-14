@@ -11,28 +11,41 @@
 </template>
 
 <script setup>
+import {onMounted} from 'vue';
+import {useRoute} from 'vitepress';
+import encodeTag from '../client/encode-tag.js';
+
 import Tag from './VPLCollectionTag.vue';
 
-const {tags} = defineProps({
-  tags: {
-    type: Object,
-    default: () => ({}),
-  },
-});
+const tags = defineModel();
 
 const toggle = tag => {
-  tags[tag] = !tags[tag]; // eslint-disable-line vue/no-mutating-props
+  tags.value[tag] = !tags.value[tag];
 };
+
+onMounted(() => {
+  const route = useRoute();
+  const params = route.tags ?? [];
+  for (const [tag] of Object.entries(tags.value)) {
+    tags.value[tag] = params.includes(tag) || params.includes(encodeTag(tag));
+  }
+});
 
 </script>
 
 <style scoped>
 .collection-page-tags {
   display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
   justify-content: center;
   align-items: center;
   padding: 12px 0;
 }
 
-
+@media (max-width: 960px) {
+  .collection-page-tags {
+    padding: 12px 24px;
+  }
+}
 </style>

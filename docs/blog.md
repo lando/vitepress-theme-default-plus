@@ -4,7 +4,6 @@ layout: page
 title: Blog
 sidebar: false
 ---
-
 <VPLCollectionPage>
   <VPLCollectionPageTitle>
     <template #title>
@@ -14,12 +13,13 @@ sidebar: false
       Refined and sophisticated content for the modern developer.
     </template>
   </VPLCollectionPageTitle>
-  <VPLCollectionItems :items="pages" more="date"/>
+  <VPLCollectionPageTags v-model="selectedTags" />
+  <VPLCollectionItems :items="pages" :tags="selectedTags"/>
 </VPLCollectionPage>
 
 <script setup>
-import {VPLCollectionPage, VPLCollectionPageTitle, VPLCollectionItems} from '@lando/vitepress-theme-default-plus'
+import {VPLCollectionPage, VPLCollectionPageTags, VPLCollectionPageTitle, VPLCollectionItems} from '@lando/vitepress-theme-default-plus'
 import {useCollection} from '@lando/vitepress-theme-default-plus';
 
-const {pages} = useCollection('post');
+const {pages, selectedTags} = useCollection('post');
 </script>

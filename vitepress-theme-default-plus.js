@@ -45,10 +45,9 @@ export {default as VPLCollectionPageTitle} from './components/VPLCollectionPageT
 export {default as VPLCollectionPageSection} from './components/VPLCollectionPageSection.vue';
 
 const theme = {
-  ...DefaultTheme,
   extends: DefaultTheme,
   Layout,
-  enhanceApp({app, router, siteData}) {
+  async enhanceApp({app, router}) {
     // register global components
     app.component('Jobs', VPLJobs);
     app.component('MailChimp', VPLMailChimp);
@@ -59,6 +58,15 @@ const theme = {
     enhanceAppWithTabs(app);
     // enhance app with layouts
     enhanceAppWithLayouts(app);
+
+    // add query tags if we can
+    if (!import.meta.env.SSR) {
+      const params = new URLSearchParams(window.location.search);
+      router.route.tags = [params.get('tag'), params.get('tags')]
+        .filter(param => param && param !== null && typeof param === 'string')
+        .map(param => param.split(','))
+        .flat(Infinity);
+    }
   },
 };
 

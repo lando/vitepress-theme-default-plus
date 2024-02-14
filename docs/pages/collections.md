@@ -11,24 +11,7 @@ This is especially useful when used in tandem with [useCollection()](../composab
 Here is what we do to create `/guide` for this site.
 
 ```html
-<VPLCollectionPage>
-  <VPLCollectionPageTitle>
-    <template #title>
-      DAT BLOG
-    </template>
-    <template #lead>
-      Refined and sophisticated content for the modern developer.
-    </template>
-  </VPLCollectionPageTitle>
-  <VPLCollectionItems :items="pages" more="date"/>
-</VPLCollectionPage>
-
-<script setup>
-import {VPLCollectionPage, VPLCollectionPageTitle, VPLCollectionItems} from '@lando/vitepress-theme-default-plus'
-import {useCollection} from '@lando/vitepress-theme-default-plus';
-
-const {pages} = useCollection('post');
-</script>
+<!--@include: ./../guides.md-->
 ```
 
 You can also check out [/all](/all) and its [code](https://github.com/lando/vitepress-theme-default-plus/blob/main/docs/all.md) for an example that combines all available collections components.
@@ -48,7 +31,7 @@ This is more or less just a wrapper to provide structure, styling and the downst
 Provide a way to filter collection items based on their [tags](../config/frontmatter#tags).
 
 ```html
-<VPLCollectionPageTags :tags="selectedTags" />
+<VPLCollectionPageTags :v-model="selectedTags" />
 <VPLCollectionItems :items="pages" :tags="selectedTags"/>
 
 <script setup>

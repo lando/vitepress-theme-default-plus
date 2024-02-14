@@ -1,3 +1,7 @@
+## v1.0.0-beta.34 - [February 13, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.34)
+
+* Improved design of `useCollection` and `<VPLCollectionPageTags>`
+
 ## v1.0.0-beta.33 - [February 13, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.33)
 
 * Updated `lando` config sets

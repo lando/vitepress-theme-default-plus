@@ -10,6 +10,7 @@
         :key="tag.key"
         :no-icon="true"
         :href="tag.href"
+        target="_self"
       >
         <Tag :text="tag.name" />
       </Link>
