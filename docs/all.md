@@ -6,7 +6,9 @@ sidebar: false
 ---
 
 <script setup>
-import {computed} from 'vue';
+import {computed, onMounted} from 'vue';
+import {defineClientComponent} from 'vitepress';
+import {useCollection} from '@lando/vitepress-theme-default-plus';
 import {
   VPLCollectionItems,
   VPLCollectionPage,
@@ -14,7 +16,6 @@ import {
   VPLCollectionPageTags,
   VPLCollectionPageTitle,
 } from '@lando/vitepress-theme-default-plus';
-import {useCollection} from '@lando/vitepress-theme-default-plus';
 
 const guides = useCollection('guide');
 const posts = useCollection('post');
@@ -34,7 +35,7 @@ const showPosts = computed(() => hasItems(posts.pages, selectedTags));
     </template>
   </VPLCollectionPageTitle>
 
-  <VPLCollectionPageTags :tags="selectedTags" />
+  <VPLCollectionPageTags v-model="selectedTags" />
 
   <VPLCollectionPageSection v-if="showGuides">
     <template #title>

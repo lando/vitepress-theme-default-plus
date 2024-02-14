@@ -48,7 +48,7 @@ const theme = {
   ...DefaultTheme,
   extends: DefaultTheme,
   Layout,
-  enhanceApp({app, router, siteData}) {
+  async enhanceApp({app}) {
     // register global components
     app.component('Jobs', VPLJobs);
     app.component('MailChimp', VPLMailChimp);

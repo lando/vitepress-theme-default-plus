@@ -48,7 +48,7 @@ This is more or less just a wrapper to provide structure, styling and the downst
 Provide a way to filter collection items based on their [tags](../config/frontmatter#tags).
 
 ```html
-<VPLCollectionPageTags :tags="selectedTags" />
+<VPLCollectionPageTags :v-model="selectedTags" />
 <VPLCollectionItems :items="pages" :tags="selectedTags"/>
 
 <script setup>

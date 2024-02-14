@@ -45,7 +45,7 @@
     "sass": "^1.69.7",
     "timeago.js": "^4.0.2",
     "vitepress-plugin-tabs": "^0.5.0",
-    "vue": "^3.3.12"
+    "vue": "^3.4.15"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.0",

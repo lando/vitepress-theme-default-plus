@@ -9,7 +9,7 @@ sidebar: false
 import {VPLCollectionPage, VPLCollectionPageTags, VPLCollectionPageTitle, VPLCollectionItems} from '@lando/vitepress-theme-default-plus';
 import {useCollection} from '@lando/vitepress-theme-default-plus';
 
-const {pages, pagesBySelectedTags, tags, tagCounts, selectedTags} = useCollection('guide');
+const {pages, selectedTags} = useCollection('guide');
 
 </script>
 <VPLCollectionPage>
@@ -21,6 +21,6 @@ const {pages, pagesBySelectedTags, tags, tagCounts, selectedTags} = useCollectio
       Helpful tutorial-like content!
     </template>
   </VPLCollectionPageTitle>
-  <VPLCollectionPageTags :tags="selectedTags" />
+  <VPLCollectionPageTags v-model="selectedTags" />
   <VPLCollectionItems :items="pages" :tags="selectedTags"/>
 </VPLCollectionPage>

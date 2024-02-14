@@ -3,25 +3,11 @@ import uniq from 'lodash/uniq.js';
 
 import {computed, reactive} from 'vue';
 import {useRoute} from 'vitepress';
-import encodeTag from './encode-tag.js';
 import {data as collections} from './collections.data.js';
-
-const getParams = () => {
-  if (!import.meta.env.SSR && window !== undefined) {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    return Object.fromEntries(urlSearchParams.entries());
-  } else return {};
-};
 
 export default function useCollection(type = undefined) {
   const route = useRoute();
   const path = route.path;
-
-  function isTagSelected(q) {
-    const {tag = '', tags = ''} = getParams();
-    const list = [...tag.split(','), ...tags.split(',')];
-    return list.includes(q) || list.includes(encodeTag(q));
-  }
 
   function findCurrentIndex() {
     const result = pages.findIndex(p => p.url === route.path);
@@ -62,7 +48,7 @@ export default function useCollection(type = undefined) {
   }
 
   // and a selected tag reactive for filtering and that sort of thing
-  const selectedTags = reactive(Object.fromEntries(tags.value.map(tag => ([tag, isTagSelected(tag)]))));
+  const selectedTags = reactive(Object.fromEntries(tags.value.map(tag => ([tag, false]))));
   const selectedTagsList = computed(() => Object.entries(selectedTags)
     .filter(pair => pair[1] === true)
     .map(pair => pair[0]));
