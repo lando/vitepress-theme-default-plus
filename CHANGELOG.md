@@ -1,3 +1,7 @@
+## v1.0.0-beta.36 - [February 14, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.36)
+
+* Improved exportability of non-essentials
+
 ## v1.0.0-beta.35 - [February 14, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.35)
 
 * Switched `lodash` to `lodash-es` because 🤦
