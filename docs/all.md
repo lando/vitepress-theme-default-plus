@@ -4,27 +4,6 @@ layout: page
 title: Guides
 sidebar: false
 ---
-
-<script setup>
-import {computed, onMounted} from 'vue';
-import {defineClientComponent} from 'vitepress';
-import {useCollection} from '@lando/vitepress-theme-default-plus';
-import {
-  VPLCollectionItems,
-  VPLCollectionPage,
-  VPLCollectionPageSection,
-  VPLCollectionPageTags,
-  VPLCollectionPageTitle,
-} from '@lando/vitepress-theme-default-plus';
-
-const guides = useCollection('guide');
-const posts = useCollection('post');
-const {hasItems, selectedTags} = useCollection();
-
-const showGuides = computed(() => hasItems(guides.pages, selectedTags));
-const showPosts = computed(() => hasItems(posts.pages, selectedTags));
-</script>
-
 <VPLCollectionPage>
   <VPLCollectionPageTitle>
     <template #title>
@@ -68,3 +47,22 @@ const showPosts = computed(() => hasItems(posts.pages, selectedTags));
     </template>
   </VPLCollectionPageSection>
 </VPLCollectionPage>
+
+<script setup>
+import {computed} from 'vue';
+import {useCollection} from '@lando/vitepress-theme-default-plus';
+import {
+  VPLCollectionItems,
+  VPLCollectionPage,
+  VPLCollectionPageSection,
+  VPLCollectionPageTags,
+  VPLCollectionPageTitle,
+} from '@lando/vitepress-theme-default-plus';
+
+const guides = useCollection('guide');
+const posts = useCollection('post');
+const {hasItems, selectedTags} = useCollection();
+
+const showGuides = computed(() => hasItems(guides.pages, selectedTags));
+const showPosts = computed(() => hasItems(posts.pages, selectedTags));
+</script>

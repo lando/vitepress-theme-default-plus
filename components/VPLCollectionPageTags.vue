@@ -43,5 +43,9 @@ onMounted(() => {
   padding: 12px 0;
 }
 
-
+@media (max-width: 960px) {
+  .collection-page-tags {
+    padding: 12px 24px;
+  }
+}
 </style>

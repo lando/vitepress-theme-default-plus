@@ -4,7 +4,6 @@ layout: page
 title: Blog
 sidebar: false
 ---
-
 <VPLCollectionPage>
   <VPLCollectionPageTitle>
     <template #title>

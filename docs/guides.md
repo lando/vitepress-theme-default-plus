@@ -4,14 +4,6 @@ layout: page
 title: Guides
 sidebar: false
 ---
-
-<script setup>
-import {VPLCollectionPage, VPLCollectionPageTags, VPLCollectionPageTitle, VPLCollectionItems} from '@lando/vitepress-theme-default-plus';
-import {useCollection} from '@lando/vitepress-theme-default-plus';
-
-const {pages, selectedTags} = useCollection('guide');
-
-</script>
 <VPLCollectionPage>
   <VPLCollectionPageTitle>
     <template #title>
@@ -24,3 +16,10 @@ const {pages, selectedTags} = useCollection('guide');
   <VPLCollectionPageTags v-model="selectedTags" />
   <VPLCollectionItems :items="pages" :tags="selectedTags"/>
 </VPLCollectionPage>
+
+<script setup>
+import {VPLCollectionPage, VPLCollectionPageTags, VPLCollectionPageTitle, VPLCollectionItems} from '@lando/vitepress-theme-default-plus';
+import {useCollection} from '@lando/vitepress-theme-default-plus';
+
+const {pages, selectedTags} = useCollection('guide');
+</script>
