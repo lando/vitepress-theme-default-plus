@@ -48,6 +48,8 @@ export default function useCollection(type = undefined) {
   }
 
   // and a selected tag reactive for filtering and that sort of thing
+  // @TODO: it would be great to set selectedTags from query params instead of just false but when we try to do it the
+  // obvious way we get a hydration mismatch which breaks filtering on prod
   const selectedTags = reactive(Object.fromEntries(tags.value.map(tag => ([tag, false]))));
   const selectedTagsList = computed(() => Object.entries(selectedTags)
     .filter(pair => pair[1] === true)

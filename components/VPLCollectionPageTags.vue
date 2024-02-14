@@ -12,22 +12,10 @@
 
 <script setup>
 import {onMounted} from 'vue';
+import {useRoute} from 'vitepress';
 import encodeTag from '../client/encode-tag.js';
 
 import Tag from './VPLCollectionTag.vue';
-
-
-const getParams = () => {
-  const params = new URLSearchParams(window.location.search);
-  return [params.get('tag'), params.get('tags')]
-    .filter(param => param !== null && typeof param === 'string')
-    .map(param => param.split(','))
-    .flat(Infinity);
-};
-
-function hasTagInQuery(q, params = getParams()) {
-  return params.includes(q) || params.includes(encodeTag(q));
-}
 
 const tags = defineModel();
 
@@ -36,8 +24,10 @@ const toggle = tag => {
 };
 
 onMounted(() => {
+  const route = useRoute();
+  const params = route.tags ?? [];
   for (const [tag] of Object.entries(tags.value)) {
-    tags.value[tag] = hasTagInQuery(tag);
+    tags.value[tag] = params.includes(tag) || params.includes(encodeTag(tag));
   }
 });
 
