@@ -1,7 +1,7 @@
 import {default as execSync} from './parse-stdout.js';
-import findIndex from 'lodash/findIndex.js';
+import findIndex from 'lodash-es/findIndex.js';
 import gravatarUrl from 'gravatar-url';
-import groupBy from 'lodash/groupBy.js';
+import groupBy from 'lodash-es/groupBy.js';
 
 import Debug from 'debug';
 

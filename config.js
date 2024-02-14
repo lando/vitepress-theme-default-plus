@@ -3,8 +3,8 @@ import {existsSync} from 'node:fs';
 import {dirname, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
-import isEmpty from 'lodash/isEmpty.js';
-import merge from 'lodash/merge.js';
+import isEmpty from 'lodash-es/isEmpty.js';
+import merge from 'lodash-es/merge.js';
 import Debug from 'debug';
 
 import {defineConfigWithTheme} from 'vitepress';

@@ -1,8 +1,8 @@
 import {existsSync, lstatSync} from 'node:fs';
 import {resolve} from 'node:path';
 
-import sortBy from 'lodash/sortBy.js';
-import uniq from 'lodash/uniq.js';
+import sortBy from 'lodash-es/sortBy.js';
+import uniq from 'lodash-es/uniq.js';
 import Debug from 'debug';
 
 import {default as getTimestamp} from '../utils/get-timestamp.js';

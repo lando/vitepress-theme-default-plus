@@ -1,4 +1,4 @@
-import merge from 'lodash/merge.js';
+import merge from 'lodash-es/merge.js';
 
 import Debug from 'debug';
 
