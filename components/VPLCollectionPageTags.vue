@@ -1,11 +1,12 @@
 <template>
   <div class="collection-page-tags">
     <Tag
-      v-for="(selected, tag) in tags"
-      :key="tag"
-      :type="selected ? 'selected' : 'info'"
-      :text="tag"
-      @click="toggle(tag)"
+      v-for="(tag, name) in tags"
+      :key="name"
+      :type="tag.selected ? 'selected' : 'info'"
+      :text="name"
+      v-bind="tag"
+      @click="toggle(name)"
     />
   </div>
 </template>
@@ -20,14 +21,14 @@ import Tag from './VPLCollectionTag.vue';
 const tags = defineModel();
 
 const toggle = tag => {
-  tags.value[tag] = !tags.value[tag];
+  tags.value[tag].selected = !tags.value[tag].selected;
 };
 
 onMounted(() => {
   const route = useRoute();
   const params = route.tags ?? [];
   for (const [tag] of Object.entries(tags.value)) {
-    tags.value[tag] = params.includes(tag) || params.includes(encodeTag(tag));
+    tags.value[tag].selected = params.includes(tag) || params.includes(encodeTag(tag));
   }
 });
 

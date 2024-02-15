@@ -1,3 +1,9 @@
+## v1.0.0-beta.37 - [February 15, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.37)
+
+* Added `color`, `icon`, `styles` and `tagClass` properties to `<VPLCollectionTag>`
+* Fixed some styling bugs in `<VPLCollectionTag>`
+* Simplified `useCollection` tagging to an all purpose `tags` export
+
 ## v1.0.0-beta.36 - [February 14, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.36)
 
 * Improved exportability of non-essentials
