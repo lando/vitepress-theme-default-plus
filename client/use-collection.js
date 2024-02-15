@@ -2,12 +2,14 @@ import sortBy from 'lodash-es/sortBy.js';
 import uniq from 'lodash-es/uniq.js';
 
 import {computed, reactive} from 'vue';
-import {useRoute} from 'vitepress';
+import {useData, useRoute} from 'vitepress';
 import {data as collections} from './collections.data.js';
 
 export default function useCollection(type = undefined) {
   const route = useRoute();
   const path = route.path;
+  const {theme} = useData();
+  const themeTags = theme.value?.tags ?? {};
 
   function findCurrentIndex() {
     const result = pages.findIndex(p => p.url === route.path);
@@ -39,21 +41,11 @@ export default function useCollection(type = undefined) {
   }));
 
   // get the tagz as well
-  const tags = computed(() => sortBy(uniq(pages.map(page => page.tags).flat(Infinity))));
-
-  // and the amount of content in each
-  const tagCounts = reactive(Object.fromEntries(tags.value.map(tag => ([tag, 0]))));
-  for (const tag of pages.map(page => page.tags).flat(Infinity)) {
-    tagCounts[tag] = tagCounts[tag] ? tagCounts[tag] + 1 : 1;
-  }
-
-  // and a selected tag reactive for filtering and that sort of thing
-  // @TODO: it would be great to set selectedTags from query params instead of just false but when we try to do it the
-  // obvious way we get a hydration mismatch which breaks filtering on prod
-  const selectedTags = reactive(Object.fromEntries(tags.value.map(tag => ([tag, false]))));
-  const selectedTagsList = computed(() => Object.entries(selectedTags)
-    .filter(pair => pair[1] === true)
-    .map(pair => pair[0]));
+  const sortedTags = sortBy(uniq(pages.map(page => page.tags).flat(Infinity)));
+  const tags = reactive(Object.fromEntries(sortedTags.map(tag => ([tag, {
+    selected: false,
+    ...themeTags[tag] ?? {},
+  }]))));
 
   // helper func to see if a set of tag filtered pages has items or not, useful for showing collection sections
   const hasItems = (items = [], tags = {}) => {
@@ -70,9 +62,6 @@ export default function useCollection(type = undefined) {
     prevnext,
     prevPage,
     path,
-    tagCounts,
     tags,
-    selectedTags,
-    selectedTagsList,
   };
 }

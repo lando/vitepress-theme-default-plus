@@ -1,15 +1,15 @@
 <template>
   <Badge
-    class="tag"
-    :style="type !== 'selected' ? styles : {}"
-    :type="type"
+    :class="`tag ${props.tagClass}`"
+    :style="props.type !== 'selected' ? styles : {}"
+    :type="props.type"
   >
     <span
       v-if="icon"
       class="icon"
       v-html="icon"
     />
-    {{ text }}
+    {{ props.text }}
   </Badge>
 </template>
 
@@ -20,7 +20,23 @@ import {useData} from 'vitepress';
 const {theme} = useData();
 const {tags} = theme.value;
 
-const {text, type} = defineProps({
+const props = defineProps({
+  color: {
+    type: String,
+    default: 'none',
+  },
+  icon: {
+    type: String,
+    default: undefined,
+  },
+  styles: {
+    type: Object,
+    default: () => ({}),
+  },
+  tagClass: {
+    type: String,
+    default: '',
+  },
   text: {
     type: String,
     required: true,
@@ -31,21 +47,21 @@ const {text, type} = defineProps({
   },
 });
 
-const details = Object.assign({color: 'none', styles: {}}, tags[text] ?? {});
+const details = Object.assign({color: props.color, styles: props.styles}, tags[props.text] ?? {});
 
 const styles = computed(() => Object.assign({
   'background-color': details.color,
   'border-color': details.color,
 }, details.styles));
 
-const icon = computed(() => details.icon ?? false);
+const icon = computed(() => props.icon ?? details.icon ?? false);
 
 </script>
 
 <style scoped>
 .tag {
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: space-between;
   gap: 4px;
