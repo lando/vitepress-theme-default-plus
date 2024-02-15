@@ -13,13 +13,13 @@ sidebar: false
       Refined and sophisticated content for the modern developer.
     </template>
   </VPLCollectionPageTitle>
-  <VPLCollectionPageTags v-model="selectedTags" />
-  <VPLCollectionItems :items="pages" :tags="selectedTags"/>
+  <VPLCollectionPageTags v-model="tags" />
+  <VPLCollectionItems :items="pages" :tags="tags"/>
 </VPLCollectionPage>
 
 <script setup>
 import {useCollection} from '@lando/vitepress-theme-default-plus';
 import {VPLCollectionPage, VPLCollectionPageTags, VPLCollectionPageTitle, VPLCollectionItems} from '@lando/vitepress-theme-default-plus'
 
-const {pages, selectedTags} = useCollection('post');
+const {pages, tags} = useCollection('post');
 </script>

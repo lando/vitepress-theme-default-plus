@@ -49,7 +49,7 @@ export default function useCollection(type = undefined) {
 
   // helper func to see if a set of tag filtered pages has items or not, useful for showing collection sections
   const hasItems = (items = [], tags = {}) => {
-    const tagList = Object.entries(tags).filter(pair => pair[1] === true).map(pair => pair[0]);
+    const tagList = Object.entries(tags).filter(pair => pair[1].selected === true).map(pair => pair[0]);
     const filteredItems = items.filter(item => tagList.every(tag => item.tags.indexOf(tag) !== -1));
     return filteredItems.length > 0;
   };

@@ -15,10 +15,7 @@ const {
   prevnext,
   prevPage,
   path,
-  tagCounts,
   tags,
-  selectedTags,
-  selectedTagsList
 } = useCollection();
 ```
 

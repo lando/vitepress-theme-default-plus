@@ -14,7 +14,7 @@ sidebar: false
     </template>
   </VPLCollectionPageTitle>
 
-  <VPLCollectionPageTags v-model="selectedTags" />
+  <VPLCollectionPageTags v-model="tags" />
 
   <VPLCollectionPageSection v-if="showGuides">
     <template #title>
@@ -26,7 +26,7 @@ sidebar: false
     <template #items>
       <VPLCollectionItems
         :items="guides.pages"
-        :tags="selectedTags"
+        :tags="tags"
       />
     </template>
   </VPLCollectionPageSection>
@@ -42,7 +42,7 @@ sidebar: false
       <VPLCollectionItems
         more="date"
         :items="posts.pages"
-        :tags="selectedTags"
+        :tags="tags"
       />
     </template>
   </VPLCollectionPageSection>
@@ -61,8 +61,8 @@ import {
 
 const guides = useCollection('guide');
 const posts = useCollection('post');
-const {hasItems, selectedTags} = useCollection();
+const {hasItems, tags} = useCollection();
 
-const showGuides = computed(() => hasItems(guides.pages, selectedTags));
-const showPosts = computed(() => hasItems(posts.pages, selectedTags));
+const showGuides = computed(() => hasItems(guides.pages, tags));
+const showPosts = computed(() => hasItems(posts.pages, tags));
 </script>

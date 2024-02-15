@@ -65,11 +65,11 @@ In the [above section](#whats-tags-are-available) the `secret tag` has been cust
 You can add a [filter](../pages/collections.md#vplcollectionpagetags) to a [Collections Page](../pages/collections.md). You can also get a list of a given pages Tags with the below:
 
 ```html
-<VPLCollectionItemTags :v-model="selectedTags" />
+<VPLCollectionItemTags :v-model="tags" />
 
 <script setup>
 import {VPLCollectionItemTags, useCollection} from '@lando/vitepress-theme-default-plus
-const {selectedTags} = useCollection();
+const {tags} = useCollection();
 </script>
 ```
 

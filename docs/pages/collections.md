@@ -31,11 +31,11 @@ This is more or less just a wrapper to provide structure, styling and the downst
 Provide a way to filter collection items based on their [tags](../config/frontmatter#tags).
 
 ```html
-<VPLCollectionPageTags :v-model="selectedTags" />
-<VPLCollectionItems :items="pages" :tags="selectedTags"/>
+<VPLCollectionPageTags :v-model="tags" />
+<VPLCollectionItems :items="pages" :tags="tags"/>
 
 <script setup>
-const {pages, selectedTags} = useCollection();
+const {pages, tags} = useCollection();
 </script>
 ```
 
