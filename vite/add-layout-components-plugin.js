@@ -10,7 +10,7 @@ export default function(layouts = [], {debug = Debug('@lando/vite-plugin')}) {  
     enforce: 'pre',
     transform: (code, id) => {
       const layoutfile = 'enhance-app-with-layouts.js';
-      if (id.endsWith(layoutfile) && layouts.length > 0) {
+      if (id.includes(layoutfile) && layouts.length > 0) {
         // get lines and pindex
         const lines = code.split(EOL);
         // get pivot line

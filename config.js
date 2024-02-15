@@ -91,6 +91,7 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   if (themeConfig.contributors === true) themeConfig.contributors = baseConfig.themeConfig.contributors;
   // normalize layouts
   if (Object.keys(themeConfig.layouts).length > 0) themeConfig.layouts = parseLayouts(themeConfig.layouts);
+
   // normalize sitemap
   if (!sitemap.hostname && themeConfig?.autometa?.canonicalUrl) sitemap.hostname = themeConfig.autometa.canonicalUrl;
 
@@ -113,6 +114,7 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
     {find: /^.*\/VPNavBarMenuGroup\.vue$/, replacement: fileURLToPath(new URL('./components/VPLNavBarMenuGroup.vue', import.meta.url))},
     {find: /^.*\/VPTeamMembersItem\.vue$/, replacement: fileURLToPath(new URL('./components/VPLTeamMembersItem.vue', import.meta.url))},
   ]);
+
   vite.plugins.push(...[
     addLayoutsPlugin(layouts, {debug: debug.extend('vite-plugin')}),
     patchVPMenuColumnsPlugin({debug: debug.extend('vite-plugin')}),
