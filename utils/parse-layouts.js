@@ -1,4 +1,4 @@
-import {basename} from 'node:path';
+import {resolve, basename} from 'node:path';
 
 export default function(layouts = {}) {
   return Object.entries(layouts)
@@ -11,6 +11,6 @@ export default function(layouts = {}) {
       ...layout,
       add: `  app.component('${layout.name}', ${layout.var});`,
       index,
-      import: `import ${layout.var} from '../${layout.from}';`,
+      import: `import ${layout.var} from '${resolve(layout.from)}';`,
     }));
 }

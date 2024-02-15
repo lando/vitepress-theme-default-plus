@@ -1,3 +1,7 @@
+## v1.0.0-beta.38 - [February 15, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.38)
+
+* Fixed `layouts` resolution when ingesting theme
+
 ## v1.0.0-beta.37 - [February 15, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.37)
 
 * Added `color`, `icon`, `styles` and `tagClass` properties to `<VPLCollectionTag>`
