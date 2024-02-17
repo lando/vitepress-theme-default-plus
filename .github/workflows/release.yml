@@ -134,6 +134,8 @@ jobs:
             dirs: ./
           - name: lando/ruby
             dirs: ./
+          - name: lando/setup-lando
+            dirs: ./
           - name: lando/symfony
             dirs: ./
           - name: lando/tomcat
