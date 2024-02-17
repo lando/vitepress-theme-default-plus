@@ -1,3 +1,16 @@
+## v1.0.0-beta.39 - [February 17, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.39)
+
+## Fixes
+
+* Fixed: don't enable `carbonAds` by default by @mtdvlpr in https://github.com/lando/vitepress-theme-default-plus/pull/26
+* Fixed: correctly compute `hlocation` by @mtdvlpr in https://github.com/lando/vitepress-theme-default-plus/pull/24
+
+## New Contributors
+
+* @mtdvlpr made their first contribution in https://github.com/lando/vitepress-theme-default-plus/pull/26
+
+**Full Changelog**: https://github.com/lando/vitepress-theme-default-plus/compare/v1.0.0-beta.38...v1.0.0-beta.39
+
 ## v1.0.0-beta.38 - [February 15, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.38)
 
 * Fixed `layouts` resolution when ingesting theme
