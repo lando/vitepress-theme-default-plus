@@ -72,7 +72,7 @@ const hdate = computed(() => {
 });
 
 const hlocation = computed(() => {
-  return frontmatter.value?.location ?? author?.location ?? false;
+  return frontmatter.value?.location ?? authors?.[0]?.location ?? false;
 });
 
 </script>
