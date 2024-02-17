@@ -22,10 +22,7 @@ export default function({base}) {
     themeConfig: {
       alert: false,
       autometa: false,
-      carbonAds: {
-        code: 'CE7DCKJU',
-        placement: 'landodev',
-      },
+      carbonAds: undefined,
       collections: {
         post: {
           frontmatter: {
