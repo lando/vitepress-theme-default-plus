@@ -124,7 +124,7 @@ const getLink = member => {
 const getAvatarTitle = member => {
   let avatarTitle = `${member.name}`
   if (member.email) avatarTitle += ` <${member.email}>`
-  if (member.commits avatarTitle += ` - ${Number.parseInt(member.commits, 10)} commits`
+  if (member.commits) avatarTitle += ` - ${Number.parseInt(member.commits, 10)} commits`
   return avatarTitle
 };
 
