@@ -19,7 +19,7 @@
             class="avatar-img"
             :src="avatar"
             :alt="`Picture of ${member.name}`"
-            :title="`${member.name} <${member.email}> - ${Number.parseInt(member.commits, 10)} commits`"
+            :title="getAvatarTitle(member)"
           >
         </Link>
       </figure>
@@ -119,6 +119,13 @@ const getLink = member => {
   if (member.link) return member.link;
   else if (Array.isArray(member?.links) && member.links[0]) return member.links[0].link;
   else if (member.email) return `mailto:${member.email}`;
+};
+
+const getAvatarTitle = member => {
+  let avatarTitle = `${member.name}`
+  if (member.email) avatarTitle += ` <${member.email}>`
+  if (member.commits avatarTitle += ` - ${Number.parseInt(member.commits, 10)} commits`
+  return avatarTitle
 };
 
 </script>
