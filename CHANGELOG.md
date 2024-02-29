@@ -1,3 +1,13 @@
+## v1.0.0-beta.40 - [TBD](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.40)
+
+## New Features
+
+* Added `mergeWith` for more explicit contrubutor merging
+
+## Fixes
+
+* Changed member data to only render if available [#27](https://github.com/lando/vitepress-theme-default-plus/pull/27)
+
 ## v1.0.0-beta.39 - [February 17, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.39)
 
 ## Fixes

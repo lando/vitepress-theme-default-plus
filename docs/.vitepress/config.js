@@ -100,6 +100,7 @@ export default defineConfig({
             {icon: 'github', link: 'https://github.com/mtdvlpr'},
           ],
           mergeOnly: true,
+          mergeWith: '46671786+mtdvlpr@users.noreply.github.com',
         },
       ],
     },

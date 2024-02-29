@@ -198,6 +198,7 @@ Once you have you should be able to use all the things below.
         email: 'alec@lando.dev',
         title: 'Maintainer',
         mergeOnly: true,
+        mergeWith: 'alec+git@lando.dev',
         org: 'Lando',
         orgLink: 'https://lando.dev',
         desc: 'A chill dude',
@@ -225,7 +226,7 @@ Once you have you should be able to use all the things below.
 
   You can use `include` to either _add_ new contributors or _augment_ existing ones. If you want to add additional data to a contributor pulled from the `git log` you will need to specify an `email` for it to match against.
 
-  Finally, `mergeOnly` can be set if you only want to provide augmented data for a contributor that already exists in the `git log`.
+  Finally, `mergeOnly` can be set if you only want to provide augmented data for a contributor that already exists in the `git log`, if you want to be explicit about the `git log` contributor you want to augment you can use `mergeWith` and specify their `git.email`.
 
   You can also configure this on a page to page basis with [frontmatter](./frontmatter.md#contributors).
 

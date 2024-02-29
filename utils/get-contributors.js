@@ -66,7 +66,7 @@ export default function async(
   if (includeObjects.length > 0) {
     for (const contributor of includeObjects) {
       // try to see if we already have this contrib
-      const existing = data.find(member => member.email === contributor.email);
+      const existing = data.find(member => member.email === contributor.email || member.email === contributor.mergeWith);
       // if we do then update it
       if (existing) Object.assign(existing, contributor);
       // otherwise treat it as a new contrib only merge only is true
