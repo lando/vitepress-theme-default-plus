@@ -91,6 +91,16 @@ export default defineConfig({
           sponsor: 'https://lando.dev/sponsor',
           mergeOnly: true,
         },
+        {
+          avatar: 'https://avatars.githubusercontent.com/u/46671786',
+          name: 'Manoah Tervoort',
+          email: '149895ja@gmail.com',
+          title: 'Contributor',
+          links: [
+            {icon: 'github', link: 'https://github.com/mtdvlpr'},
+          ],
+          mergeOnly: true,
+        },
       ],
     },
     editLink: {pattern: 'https://github.com/lando/vitepress-theme-default-plus/edit/main/docs/:path'},
