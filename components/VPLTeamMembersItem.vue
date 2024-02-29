@@ -265,7 +265,6 @@ const getAvatarTitle = member => {
   margin: 0 auto;
   border-radius: 50%;
   box-shadow: var(--vp-shadow-3);
-  z-index: 9999;
 }
 
 .avatar-img {
