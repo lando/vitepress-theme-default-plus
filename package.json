@@ -35,6 +35,7 @@
     "test": "npm run lint"
   },
   "dependencies": {
+    "@docsearch/js": "^3.5.2",
     "debug": "^4.3.2",
     "fast-glob": "^3.3.2",
     "feed": "^4.2.2",

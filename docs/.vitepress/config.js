@@ -137,7 +137,12 @@ export default defineConfig({
     },
     tagLink: '/all?tag=:tag-id',
     search: {
-      provider: 'local',
+      provider: 'algolia',
+      options: {
+        appId: '9S3BH0SKWT',
+        apiKey: 'd3db589efd595b115848fc6a654d3263',
+        indexName: 'lando',
+      },
     },
     socialLinks: [
       {

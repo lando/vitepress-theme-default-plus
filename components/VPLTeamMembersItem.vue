@@ -24,9 +24,9 @@
         </Link>
       </figure>
       <div class="data">
-        <h1 class="name">
+        <div class="name">
           {{ member.name }}
-        </h1>
+        </div>
         <p
           v-if="member.title || member.org"
           class="affiliation"
