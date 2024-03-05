@@ -3,6 +3,7 @@
 ## New Features
 
 * Added `mergeWith` for more explicit contrubutor merging
+* Updated to `vitepress@1.0.0-rc.44`
 
 ## Fixes
 
