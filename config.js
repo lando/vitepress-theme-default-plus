@@ -29,6 +29,7 @@ import {default as parseCollections} from './node/parse-collections.js';
 import {default as generateFeeds} from './node/generate-feeds.js';
 import {default as generateRobotsTxt} from './node/generate-robots.js';
 import {default as linkOverridePlugin} from './markdown/link-override-plugin.js';
+import {default as patchVPAlgoliaSearcBox} from './vite/patch-vp-algolia-search-box-plugin.js';
 import {default as patchVPMenuColumnsPlugin} from './vite/patch-vp-menu-columns-plugin.js';
 import {tabsMarkdownPlugin} from 'vitepress-plugin-tabs';
 import {default as tabsMarkdownOverridePlugin} from './markdown/tabs-override-plugin.js';
@@ -118,6 +119,7 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   vite.plugins.push(...[
     addLayoutsPlugin(layouts, {debug: debug.extend('vite-plugin')}),
     patchVPMenuColumnsPlugin({debug: debug.extend('vite-plugin')}),
+    patchVPAlgoliaSearcBox({debug: debug.extend('vite-plugin')}),
   ]);
   vite.optimizeDeps.exclude.push('fsevents', '@lando/vitepress-theme-default-plus');
   vite.ssr.noExternal.push('@lando/vitepress-theme-default-plus');
