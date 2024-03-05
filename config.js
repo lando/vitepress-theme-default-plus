@@ -108,6 +108,7 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
 
   // vite
   vite.resolve.alias.push(...[
+    {find: /^.*\/VPAlgoliaSearchBox\.vue$/, replacement: fileURLToPath(new URL('./components/VPLAlgoliaSearchBox.vue', import.meta.url))},
     {find: /^.*\/VPDocFooter\.vue$/, replacement: fileURLToPath(new URL('./components/VPLDocFooter.vue', import.meta.url))},
     {find: /^.*\/VPLink\.vue$/, replacement: fileURLToPath(new URL('./components/VPLLink.vue', import.meta.url))},
     {find: /^.*\/VPMenuGroup\.vue$/, replacement: fileURLToPath(new URL('./components/VPLMenuGroup.vue', import.meta.url))},

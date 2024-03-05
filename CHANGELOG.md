@@ -1,12 +1,19 @@
-## v1.0.0-beta.40 - [TBD](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.40)
+## v1.0.0-beta.40 - [March 5, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.40)
 
 ## New Features
 
 * Added `mergeWith` for more explicit contrubutor merging
+* Updated to `vitepress@1.0.0-rc.44`
 
 ## Fixes
 
 * Changed member data to only render if available [#27](https://github.com/lando/vitepress-theme-default-plus/pull/27)
+* Fixed Algolia search from displaying contrib information in source text, requires reindexing on Algolia end
+* Fixed Algolia search from attempting to route to internal pages that are actually external
+
+## Internal
+
+* Changed `VPLTeamMembersItem.vue` to wrap name in `div` instead of `h1`
 
 ## v1.0.0-beta.39 - [February 17, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.39)
 
