@@ -8,6 +8,10 @@
   tier: ally
   url: https://www.acrocommerce.com/
   logo: https://lando.dev/images/acromedia_logo.png
+- name: Agile Collective
+  tier: ally
+  url: https://agilecollective.com/
+  logo: https://lando.dev/images/agilecollective_logo.png
 - name: BairesDev
   tier: ally
   url: https://www.bairesdev.com/sponsoring-open-source-projects/
