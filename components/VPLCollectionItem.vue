@@ -22,7 +22,7 @@
     <div class="attribution">
       <div class="authors">
         <div
-          v-if="page.authors.length > 0"
+          v-if="page.authors && page.authors.length > 0"
           class="avatars"
         >
           <Author
