@@ -37,6 +37,7 @@ export default async function(pageData, {
   }
 
   // prefer authors be an array
+  if (!pageData.frontmatter.authors) pageData.frontmatter.authors = []
   if (pageData.frontmatter.authors && !Array.isArray(pageData.frontmatter.authors)) {
     pageData.frontmatter.authors = [pageData.frontmatter.authors];
   }
