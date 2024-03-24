@@ -43,7 +43,7 @@ import Link from './VPLLink.vue';
 
 const {frontmatter, page} = useData();
 
-const authors = computed(() => frontmatter.value?.authors ?? false);
+const authors = computed(() => frontmatter.value?.authors ?? []);
 const collection = computed(() => frontmatter.value?.collection ?? false);
 const icon = computed(() => page.value?.collection?.icon ?? false);
 const iconLink = computed(() => page.value?.collection?.iconLink ?? false);
