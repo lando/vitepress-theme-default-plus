@@ -1,3 +1,11 @@
+## v1.0.0-beta.41 - [March 28, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.28)
+
+## Fixes
+
+* Checked if `authors` is defined by @mtdvlpr in https://github.com/lando/vitepress-theme-default-plus/pull/32
+* Converted `undefined` `authors` to empty array by @mtdvlpr in https://github.com/lando/vitepress-theme-default-plus/pull/30
+* Falled back to empty array for `authors` by @mtdvlpr in https://github.com/lando/vitepress-theme-default-plus/pull/31
+
 ## v1.0.0-beta.40 - [March 5, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.40)
 
 ## New Features

@@ -168,7 +168,7 @@ jobs:
         with:
           branch: main
           slug: ${{ matrix.auto-deploy-repos.name }}
-          token: ${{ secrets.PIROG_TOKEN }}
+          token: ${{ secrets.RTFM47_COAXIUM_INJECTOR }}
           pr: false
           dirs: ${{ matrix.auto-deploy-repos.dirs }}
           args: -D
