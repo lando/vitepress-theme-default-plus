@@ -1,4 +1,10 @@
-## v1.0.0-beta.41 - [March 28, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.28)
+## v1.0.0-beta.42 - [April 2, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.42)
+
+## New Features
+
+* Improved `sponsors.data` to accept a URL that returns `json` or `yaml`
+
+## v1.0.0-beta.41 - [March 28, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.41)
 
 ## Fixes
 

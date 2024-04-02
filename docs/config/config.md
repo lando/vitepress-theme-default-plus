@@ -523,6 +523,10 @@ You can specify `host` and `sitemap` directly. If you omit them the theme will a
 
   You can also configure this on a page to page basis with [frontmatter](./frontmatter.md#sponsors).
 
+  You can also set `data` to a `url` and the theme will fetch its contents. By default it will expect `json` however you can also load `yaml` if the url ends in `.yaml` or `.yml` as it does in `https://raw.githubusercontent.com/lando/lando/main/sponsors.yaml`.
+
+  This is useful if you have a single source of truth for your sponsorships that are external to your theme and you want updates to that truth to be reflected in real time. If this is not the case we recommend setting `data` directly with the information you need.
+
 ## Tags
 
 * Type: `Object`

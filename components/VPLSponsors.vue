@@ -48,8 +48,15 @@
 </template>
 
 <script setup>
-import {computed} from 'vue';
+import {load} from 'js-yaml';
+import {computed, onMounted, ref} from 'vue';
 import {useData} from 'vitepress';
+
+const extname = path => {
+  const file = path.split('/')[path.split('/').length - 1];
+  const fileparts = file.split('.');
+  return fileparts.length > 1 ? `.${fileparts[fileparts.length - 1]}` : undefined;
+};
 
 const {theme, frontmatter} = useData();
 const sponsors = frontmatter.value.sponsors ?? theme.value.sponsors ?? [];
@@ -77,9 +84,44 @@ const props = defineProps({
   },
 });
 
+// Set sponsor data to some reactive thing
+const data = ref(sponsors.data ?? []);
+
+// if data is a string/needs to be fetched then do that here
+onMounted(async () => {
+  // if data is already an array then we good
+  if (Array.isArray(data.value)) return;
+
+  // otherwise it SHOULD be a url string
+  try {
+    const url = new URL(data.value);
+    const response = await fetch(url.href);
+
+    console.log(response);
+
+    // allow special file extension handling
+    switch (extname(url.pathname)) {
+      case '.yaml':
+      case '.yml':
+        data.value = load(await response.text());
+        break;
+      default:
+        data.value = await response.json();
+        break;
+    };
+  } catch (error) {
+    console.error(`could not fetch and parse data from ${data.value}`);
+    console.error(error);
+  }
+});
+
 // Compute sponsor list
 const sponsorList = computed(() => {
-  return sponsors.data.map(sponsor => ({...sponsor, classes: `sponsor sponsor-${sponsor.type}`}));
+  if (Array.isArray(data.value)) {
+    return data.value.map(sponsor => ({...sponsor, classes: `sponsor sponsor-${sponsor.type}`}));
+  } else {
+    return [];
+  }
 });
 
 // Compute whether we end up with any sponsors or not
