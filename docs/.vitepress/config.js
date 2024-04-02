@@ -40,7 +40,6 @@ export default defineConfig({
     },
   },
   themeConfig: {
-    landoDocs: 3,
     autometa: {
       canonicalUrl: 'https://vitepress-theme-default-plus.lando.dev/',
       image: 'https://vitepress-theme-default-plus.lando.dev/images/hero.png',
