@@ -1,12 +1,3 @@
-import {readFileSync} from 'node:fs';
-import {dirname, resolve} from 'node:path';
-import {fileURLToPath} from 'node:url';
-import yaml from 'js-yaml';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const sponsors = yaml.load(readFileSync(resolve(__dirname, '..', 'sponsors.yaml'), 'utf8'));
-const patriots = sponsors.filter(sponsor => sponsor.tier === 'patriot');
-
 export default function({landoPlugin, version}) {
   const baseUrl = landoPlugin ? `https://docs.lando.dev/${landoPlugin}` : 'https://docs.lando.dev';
   const repo = landoPlugin ? `https://github.com/lando/${landoPlugin}` : 'https://github.com/lando';
@@ -205,8 +196,8 @@ export default function({landoPlugin, version}) {
       sponsors: {
         text: 'your logo?',
         link: 'https://lando.dev/sponsor',
-        data: patriots,
-        all: sponsors,
+        data: 'https://raw.githubusercontent.com/lando/lando/main/patriots.yaml',
+        all: 'https://raw.githubusercontent.com/lando/lando/main/sponsors.yaml',
       },
       tags: {},
       tagLink: undefined,
