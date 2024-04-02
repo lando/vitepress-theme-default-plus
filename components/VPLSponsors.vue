@@ -48,7 +48,8 @@
 </template>
 
 <script setup>
-import {load} from 'js-yaml';
+import yaml from 'js-yaml';
+
 import {computed, onMounted, ref} from 'vue';
 import {useData} from 'vitepress';
 
@@ -97,13 +98,11 @@ onMounted(async () => {
     const url = new URL(data.value);
     const response = await fetch(url.href);
 
-    console.log(response);
-
     // allow special file extension handling
     switch (extname(url.pathname)) {
       case '.yaml':
       case '.yml':
-        data.value = load(await response.text());
+        data.value = yaml.load(await response.text());
         break;
       default:
         data.value = await response.json();

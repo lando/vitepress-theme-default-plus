@@ -3,17 +3,19 @@ description: Learn about the VitePress Default Theme + global Sponsors component
 sponsors:
   text: your logo?
   link: https://lando.dev/sponsor
-  data:
-    - name: stark
-      id: stark
-      url: https://en.wikipedia.org/wiki/Stark_Industries
-      logo: https://upload.wikimedia.org/wikipedia/commons/7/7d/Stark_Industries.png
-      type: half
-    - name: wayne
-      id: wayne
-      url: https://en.wikipedia.org/wiki/Wayne_Enterprises
-      logo: https://upload.wikimedia.org/wikipedia/commons/3/32/Wayne_Enterprises_%28DC_Comics_fictional_logo%29.png
-      type: half
+  data: https://raw.githubusercontent.com/lando/lando/main/patriots.yaml
+  #data: https://raw.githubusercontent.com/lando/lando/main/package.json
+  # data:
+  #   - name: stark
+  #     id: stark
+  #     url: https://en.wikipedia.org/wiki/Stark_Industries
+  #     logo: https://upload.wikimedia.org/wikipedia/commons/7/7d/Stark_Industries.png
+  #     type: half
+  #   - name: wayne
+  #     id: wayne
+  #     url: https://en.wikipedia.org/wiki/Wayne_Enterprises
+  #     logo: https://upload.wikimedia.org/wikipedia/commons/3/32/Wayne_Enterprises_%28DC_Comics_fictional_logo%29.png
+  #     type: half
 ---
 
 # Sponsors
