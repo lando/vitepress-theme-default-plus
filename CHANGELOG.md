@@ -3,6 +3,7 @@
 ## New Features
 
 * Added `maintainer` key to `contributors`
+* Added `rtfm47` to the `debotify` protocol
 * Updated to `vitepress@1.0.2`
 
 ## v1.0.0-beta.42 - [April 2, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.42)
