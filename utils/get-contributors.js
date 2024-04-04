@@ -59,6 +59,7 @@ export default function async(
       avatar: gravatarUrl(email),
       title: undefined,
       org: undefined,
+      maintainer: false,
       links: [],
     }));
 
@@ -75,7 +76,11 @@ export default function async(
   };
 
   // remove any bots
-  if (debotify) data = data.filter(contributor => !contributor.email.includes('[bot]') && !contributor.name.includes('[bot]'));
+  if (debotify) {
+    data = data
+      .filter(contributor => !contributor.email.includes('[bot]') && !contributor.name.includes('[bot]'))
+      .filter(contributor => contributor.email !== 'rtfm47@lando.dev');
+  }
 
   // remove any excluded contributors
   if (exclude.length > 0) {
@@ -121,5 +126,13 @@ export default function async(
     data = Object.entries(grouped).map(([name, matches]) => matches[0]);
   }
 
-  return data;
+  // sort by commits
+  data = data.sort((a, b) => b.commits - a.commits);
+
+  // separate maintainers from contribs
+  const maintainers = data.filter(contrib => contrib.maintainer);
+  const contributors = data.filter(contrib => !contrib.maintainer);
+
+  // return contribs with maintainers in the front
+  return maintainers.concat(contributors);
 }

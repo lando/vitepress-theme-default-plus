@@ -1,14 +1,19 @@
 <template>
   <article
     class="VPTeamMembersItem"
-    :class="[size]"
+    :class="[size, maintainerClass]"
   >
     <div class="profile">
       <div
-        v-if="member.commits && size !== 'icon'"
-        class="commits"
+        v-if="(member.commits || member.maintainer) && size !== icon"
+        class="top-hat"
       >
-        {{ member.commits }}
+        <div class="maintainer-role">
+          {{ member.maintainer ? 'Maintainer' : '' }}
+        </div>
+        <div class="commits">
+          {{ member.commits ? member.commits : '' }}
+        </div>
       </div>
       <figure class="avatar">
         <Link
@@ -115,6 +120,8 @@ const avatar = computed(() => {
   };
 });
 
+const maintainerClass = computed(() => member.maintainer ? 'maintainer' : '');
+
 const getLink = member => {
   if (member.link) return member.link;
   else if (Array.isArray(member?.links) && member.links[0]) return member.links[0].link;
@@ -154,6 +161,14 @@ const getAvatarTitle = member => {
 .VPTeamMembersItem.icon .profile {
   padding: 0px;
   background-color: transparent;
+}
+
+.VPTeamMembersItem.icon .top-hat {
+  display: none;
+}
+
+.VPTeamMembersItem.icon .maintainer-role {
+  display: none;
 }
 
 .VPTeamMembersItem.icon .commits {
@@ -196,10 +211,6 @@ const getAvatarTitle = member => {
   padding-top: 4px;
   line-height: 20px;
   font-size: 12px;
-}
-
-.VPTeamMembersItem.small .commits {
-  top: -30px;
 }
 
 .VPTeamMembersItem.small .desc {
@@ -252,8 +263,16 @@ const getAvatarTitle = member => {
 
 .profile {
   flex-grow: 1;
-  background-color: var(--vp-c-bg-soft);
+  background-color: var(--vpl-c-bg-contributor);
 }
+
+.maintainer .profile {
+  background-color: var(--vpl-c-bg-maintainer);
+}
+.maintainer .sp-link {
+  background-color: var(--vpl-c-bg-maintainer);
+}
+
 
 .data {
   text-align: center;
@@ -293,16 +312,29 @@ const getAvatarTitle = member => {
   color: var(--vp-c-text-2);
 }
 
-.commits {
+.top-hat {
+  position: relative;
+  top: -30px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
+}
+
+.commits {
   color: var(--vp-c-text-3);
   position: relative;
-  top: -45px;
   right: -25px;
   font-size: 10px
+}
+
+.maintainer-role {
+  color: var(--vp-c-text-3);
+  position: relative;
+  font-size: 10px;
+  left: -25px;
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
 .org.link {

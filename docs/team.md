@@ -21,5 +21,4 @@ import {VPLTeamPage, VPLTeamPageTitle, VPLTeamMembers} from '@lando/vitepress-th
 import {useTeam} from '@lando/vitepress-theme-default-plus';
 
 const members = useTeam();
-
 </script>

@@ -68,12 +68,7 @@ export default defineConfig({
             {icon: 'x', link: 'https://x.com/pirogcommamike'},
           ],
           sponsor: 'https://lando.dev/sponsor',
-          mergeOnly: true,
-        },
-        {
-          name: 'John Ouelett',
-          email: 'john@thinktandem.io',
-          title: 'Robot From Future',
+          maintainer: true,
           mergeOnly: true,
         },
         {
@@ -89,6 +84,7 @@ export default defineConfig({
             {icon: 'x', link: 'https://x.com/reynoldsalec'},
           ],
           sponsor: 'https://lando.dev/sponsor',
+          maintainer: true,
           mergeOnly: true,
         },
         {
@@ -101,6 +97,12 @@ export default defineConfig({
           ],
           mergeOnly: true,
           mergeWith: '46671786+mtdvlpr@users.noreply.github.com',
+        },
+        {
+          name: 'John Ouelett',
+          email: 'john@thinktandem.io',
+          title: 'Robot From Future',
+          mergeOnly: true,
         },
       ],
     },
@@ -219,11 +221,11 @@ export default defineConfig({
             {text: 'GitHub', link: 'https://github.com/lando/vitepress-theme-default-plus/issues/new/choose'},
             {text: 'Slack', link: 'https://www.launchpass.com/devwithlando'},
             {text: 'Contact Us', link: '/support'},
+            {text: 'Guides', link: '/guides'},
           ],
         },
         {text: 'Configuration', link: '/config/config'},
         {text: 'Blog', link: '/blog'},
-        {text: 'Guides', link: '/guides'},
       ],
     },
     sidebarEnder: {
