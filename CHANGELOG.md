@@ -1,3 +1,9 @@
+## v1.0.1 - [April 4, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.1)
+
+## Bug Fixes
+
+* Fixed bug causing auto population of `authors` from `contributors` when `authors` is empty
+
 ## v1.0.0 - [April 4, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0)
 
 ## New Features

@@ -37,10 +37,12 @@ export default async function(pageData, {
   }
 
   // prefer authors be an array
-  if (!pageData.frontmatter.authors) pageData.frontmatter.authors = [];
   if (pageData.frontmatter.authors && !Array.isArray(pageData.frontmatter.authors)) {
     pageData.frontmatter.authors = [pageData.frontmatter.authors];
   }
+
+  // do a final check to make sure authors is at least an empty array
+  if (!pageData.frontmatter.authors) pageData.frontmatter.authors = [];
 
   // consolidate it all into an array at frontmatter.tags
   if (!frontmatter.tags) pageData.frontmatter.tags = [];

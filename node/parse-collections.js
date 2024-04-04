@@ -20,7 +20,9 @@ export default async function(pageData, {
     // if this is a match then do the collection stuff we need to do
     if (pages.includes(relativePath) || frontmatter.collection === collection) {
       // if no author is set then we should be able to set it with contrib info
-      if (frontmatter.authors === undefined && Array.isArray(contributors)) {
+      if ((frontmatter.authors === undefined
+         || (Array.isArray(frontmatter.authors) && frontmatter.authors.length === 0))
+         && Array.isArray(contributors)) {
         frontmatter.authors = contributors;
         debug('set authors %o using contributors information', frontmatter.authors.map(author => author.name));
       }
