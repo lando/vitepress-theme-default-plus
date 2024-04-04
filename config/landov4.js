@@ -109,6 +109,7 @@ export default function({landoPlugin, version}) {
               {icon: 'twitter', link: 'https://twitter.com/pirogcommamike'},
             ],
             sponsor: 'https://lando.dev/sponsor',
+            maintainer: true,
             mergeOnly: true,
           },
           {
@@ -130,6 +131,7 @@ export default function({landoPlugin, version}) {
               {icon: 'twitter', link: 'https://twitter.com/reynoldsalec'},
             ],
             sponsor: 'https://lando.dev/sponsor',
+            maintainer: true,
             mergeOnly: true,
           },
         ],

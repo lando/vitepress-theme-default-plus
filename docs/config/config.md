@@ -197,6 +197,7 @@ Once you have you should be able to use all the things below.
         commits: 9999,
         email: 'alec@lando.dev',
         title: 'Maintainer',
+        maintainer: true,
         mergeOnly: true,
         mergeWith: 'alec+git@lando.dev',
         org: 'Lando',
@@ -221,6 +222,8 @@ Once you have you should be able to use all the things below.
   You can attempt to dedupe/merge/combine with either `merge: name` or `merge: email` or disable with `merge: false`.
 
   If you `debotify` it will remove any author that contains `[bot]` in their name or email.
+
+  You can `maintainer: true` to indicate a `contributor` is also a maintainer. This will bump the contributor to the top of the contributors list and have a different style.
 
   You can `exclude` with contributors by matching _both_ their `name` and `email` using either a `string` or `object`.
 

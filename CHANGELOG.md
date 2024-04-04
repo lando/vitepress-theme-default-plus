@@ -1,3 +1,10 @@
+## v1.0.0 - [April 4, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0)
+
+## New Features
+
+* Added `maintainer` key to `contributors`
+* Updated to `vitepress@1.0.2`
+
 ## v1.0.0-beta.42 - [April 2, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.0-beta.42)
 
 ## New Features
