@@ -1,3 +1,10 @@
+## v1.0.2 - [April 17, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.2)
+
+## Bug Fixes
+
+* Updated `lando` config sets
+* Updated to `vitepress@1.1.0`
+
 ## v1.0.1 - [April 4, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.1)
 
 ## Bug Fixes

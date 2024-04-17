@@ -286,11 +286,20 @@ function sharedNav() {
           items: [
             {
               text: 'Lando',
-              link: 'https://docs.lando.dev/core/v3/lando-service.html',
+              link: 'https://docs.lando.dev/core/v3/services/lando.html',
               alert: {
                 expires: 1697299993000,
                 type: 'new',
                 text: 'NEW!',
+              },
+            },
+            {
+              text: 'L-337 Service',
+              link: 'https://docs.lando.dev/core/v3/services/l337.html',
+              alert: {
+                expires: 1718669846000,
+                type: 'new',
+                text: 'BETA!',
               },
             },
           ],
