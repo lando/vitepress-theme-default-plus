@@ -14,15 +14,15 @@ jobs:
     strategy:
       matrix:
         os:
-          - ubuntu-22.04
+          - ubuntu-24.04
         node-version:
           - '18'
       # Install deps and cache
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
@@ -37,12 +37,21 @@ jobs:
         run: npm run test
 
       # Deploy to NPM
+      - name: Export formatted release date
+        run: echo "RELEASE_DATE=$(date -d "${{ github.event.release.published_at }}" "+%B %e, %Y" | tr -s ' ')" >> $GITHUB_ENV
       - name: Prepare release
         uses: lando/prepare-release-action@v3
         with:
           sync-email: rtfm47@lando.dev
           sync-token: ${{ secrets.RTFM47_COAXIUM_INJECTOR }}
           sync-username: rtfm-47
+          update-files: CHANGELOG.md
+          update-files-header: |
+            ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
+          update-files-meta: |
+            UNRELEASED_DATE=${{ env.RELEASE_DATE }}
+            UNRELEASED_LINK=${{ github.event.release.html_url }}
+            UNRELEASED_VERSION=${{ github.event.release.tag_name }}
 
       - name: Deploy release to npm
         env:
@@ -155,11 +164,11 @@ jobs:
       # Install deps and cache
       # NOTE that we use ref: main because we need to get the code that was updated from the prepare-release-action
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: main
       - name: Install node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
