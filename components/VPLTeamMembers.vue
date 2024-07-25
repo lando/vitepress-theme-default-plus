@@ -16,7 +16,7 @@ const {members, size} = defineProps({
     default: 'medium',
   },
   members: {
-    type: Object,
+    type: Array,
     default: () => {
       return useTeam() ?? [];
     },
