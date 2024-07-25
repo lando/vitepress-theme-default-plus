@@ -1,6 +1,6 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
-* Fixed bug caused by `icon` being a variable and not a string
+* Fixed bug caused by `icon` being a variable instead of a string in `VPLTeamMembersItem`
 
 ## v1.0.2 - [April 17, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.2)
 
