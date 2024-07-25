@@ -5,7 +5,7 @@
   >
     <div class="profile">
       <div
-        v-if="(member.commits || member.maintainer) && size !== icon"
+        v-if="(member.commits || member.maintainer) && size !== 'icon'"
         class="top-hat"
       >
         <div class="maintainer-role">
