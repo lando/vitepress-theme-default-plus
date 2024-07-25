@@ -1,3 +1,5 @@
+## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
+
 ## v1.0.2 - [April 17, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.2)
 
 * Updated `lando` config sets
