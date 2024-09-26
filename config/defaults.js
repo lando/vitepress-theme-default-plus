@@ -88,6 +88,7 @@ export default function({base}) {
         },
       },
       layouts: {},
+      multiVersion: false,
       nav: [],
       sidebar: {},
       sidebarEnder: false,

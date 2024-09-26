@@ -27,6 +27,11 @@ export default defineConfig({
   robots: {
     host: 'https://vitepress-theme-default-plus.lando.dev/',
     sitemap: 'https://vitepress-theme-default-plus.lando.dev/sitemap.xml',
+    policies: [{
+      userAgent: '*',
+      disallow: ['/v/'],
+      allow: '/',
+    }],
   },
   sitemap: {
     hostname: 'https://vitepress-theme-default-plus.lando.dev',
@@ -117,6 +122,12 @@ export default defineConfig({
       dogs: './components/VPLDogs.vue',
     },
     logo: {src: '/images/vitepress-lando-logo-icon.png', width: 24, height: 24},
+    multiVersionBuild: {
+      rootBuild: 'stable',
+      match: 'v[0-9].*',
+      path: 'v',
+      satisfies: '>1.0.0-beta.40',
+    },
     tags: {
       'obscure': {
         color: 'var(--vp-c-purple-1)',
