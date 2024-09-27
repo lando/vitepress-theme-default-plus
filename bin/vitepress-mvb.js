@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import path from 'node:path';
 import fs from 'fs-extra';
-import semver from 'semver';
 
 import {tmpdir} from 'node:os';
 import {nanoid} from 'nanoid';
@@ -99,7 +98,7 @@ exec('npm clean-install');
 // push aliases
 // unshift root
 
-process.exit(1)
+process.exit(1);
 
 // loop through and build
   // git reset HEAD --hard
@@ -126,7 +125,7 @@ const owdOutDir = path.resolve(owd, srcDir, outDir);
 if (clean) fs.removeSync(owdOutDir, {force: true, maxRetries: 10, recursive: true});
 
 // then move tmp to owd
-console.log(tmpOutDir, owdOutDir)
+console.log(tmpOutDir, owdOutDir);
 fs.moveSync(tmpOutDir, owdOutDir);
 
 // done?

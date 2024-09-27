@@ -28,6 +28,9 @@ export default async function({userConfig, outDir}, {debug = Debug('@lando/gener
   // get robots config or defaults
   const robots = merge({}, defaults, userConfig.robots || userConfig?.themeConfig?.robots);
 
+  // munge policies together
+  robots.policy = [...robots.policy, ...robots.policies].filter(policy => policy);
+
   // if no polices and disallowAll=false then assume allowAll
   if (Array.isArray(robots.policy) && robots.policy.length === 0 && !robots.disallowAll) robots.allowAll = true;
 
@@ -45,13 +48,14 @@ export default async function({userConfig, outDir}, {debug = Debug('@lando/gener
   if (host) options.host = host;
   // add sitemap
   if (sitemap) options.sitemap = sitemap;
+  debug('resolved robots.txt config from %o to %o', robots, options);
 
   // write file
   try {
     const dest = resolve(outDir, robots.file);
     const content = await robotstxt(options);
     writeFileSync(dest, content);
-    debug('generated %o with content %O', dest, content);
+    debug('generated %o with content \n%O', dest, content);
   } catch (error) {
     throw error;
   }

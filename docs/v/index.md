@@ -1,37 +1,40 @@
 ---
-description: Learn how to install and get started with VitePress Default Theme Plus!
+description: All Other documentation versions
+title: Docuversions
+contributors: false
+lastUpdated: false
+editLink: false
+next: false
 ---
 
-# Usage
+# Docuversions
 
-Before starting make sure you are familiar with [the basics](https://vitepress.dev/guide/getting-started#file-structure) of VitePress theme installation.
+<br />
+<br />
 
-To start using the theme you will want to create `.vitepress/theme/index.mjs` and `.vitepress/config.mjs` as below:
+<div
+  v-for="link in links"
+  :key="link.text"
+  class="version-link"
+>
+  <VPLVersionLink
+    :text="link.text"
+    :href="link.href"
+    :prerelease="link.prerelease"
+    :stable="link.stable"
+    :edge="link.edge"
+  />
+</div>
 
-## .vitepress/theme/index.mjs
+<br />
 
-```js
-import {VPLTheme} from '@lando/vitepress-theme-default-plus';
-export default VPLTheme;
-```
+<div>
+  <VPLVersionLink :dev="true" :text="aliases.dev" href="/v/dev/" />
+</div>
 
-If you want to extend our theme you should consult the [official docs](https://vitepress.dev/guide/extending-default-theme) on how to best do that.
+<script setup>
+import {useTags} from '@lando/vitepress-theme-default-plus';
+import {VPLCollectionPage, VPLCollectionPageSection, VPLCollectionPageTitle, VPLVersionLink} from '@lando/vitepress-theme-default-plus';
 
-## .vitepress/config.mjs
-
-Import our `defineConfig` wrapper and pass in hte [configuration](./../config/config) you want.
-
-```js
-import {defineConfig} from '@lando/vitepress-theme-default-plus/config';
-
-export default defineConfig({
-  title: 'VitePress Theme +',
-  description: 'The VitePress default theme with some MOARPOWAH!',
-  base: '/',
-  lang: 'en-US',
-  themeConfig: {
-    ...
-  },
-  ...
-});
-```
+const {aliases, links} = useTags();
+</script>

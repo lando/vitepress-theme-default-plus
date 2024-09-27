@@ -95,4 +95,3 @@ watch(() => page.value.relativePath, () => {
   padding: 16px 0 ;
 }
 </style>
-
