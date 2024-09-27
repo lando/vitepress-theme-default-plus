@@ -75,9 +75,8 @@ ${green('Environment Variables')}:
 const options = {...defaults, ...argv, tmpDir: path.resolve(tmpdir(), nanoid())};
 debug('multiversion build from %o using resolved build options: %O', srcDir, options);
 
-// @TODO: clean versions in path? eg /v/1.0.0 instead of /v/v1.0.0/
-// @TODO: wrap whole thing in try?
 // @TODO: separate build exec func with try?
+// @TODO: wrap whole thing in try?
 // @TODO: better cli message?
 
 // determine gitdir
@@ -117,7 +116,7 @@ const builds = extended.map((version, index) => {
     version.base = site.base;
     version.outDir = outDir;
   } else {
-    version.base = path.resolve(`/${site.base}/${options.versionBase}/${version.alias ?? version.semantic}`) + '/';
+    version.base = path.resolve(`/${site.base}/${options.versionBase}/${version.alias ?? version.version}`) + '/';
     version.outDir = path.join(outDir, options.versionBase, version.alias ?? version.version);
   }
 
