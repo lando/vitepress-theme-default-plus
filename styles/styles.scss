@@ -478,6 +478,24 @@ nav#VPSidebarNav {
     svg {
       color: var(--vp-c-green-3) !important;
     }
+    .VPSidebarItem.level-1 {
+      .item {
+        h3.text {
+          font-weight: 700;
+          color: var(--vp-c-text-1);
+        }
+      }
+      .items {
+        .text {
+          font-size: .90em;
+        }
+        border-left: 0;
+        padding-left: 0;
+        border-bottom: 1px solid var(--vp-c-divider);
+        padding-bottom: 24px;
+        margin-bottom: 10px;
+      }
+    }
   }
 }
 

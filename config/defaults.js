@@ -88,7 +88,7 @@ export default function({base}) {
         },
       },
       layouts: {},
-      multiVersion: false,
+      multiVersionBuild: false,
       nav: [],
       sidebar: {},
       sidebarEnder: false,

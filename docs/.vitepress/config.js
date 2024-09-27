@@ -27,6 +27,8 @@ export default defineConfig({
   robots: {
     host: 'https://vitepress-theme-default-plus.lando.dev/',
     sitemap: 'https://vitepress-theme-default-plus.lando.dev/sitemap.xml',
+    disallowAll: false,
+    allowAll: false,
     policies: [{
       userAgent: '*',
       disallow: ['/v/'],
@@ -125,7 +127,7 @@ export default defineConfig({
     multiVersionBuild: {
       rootBuild: 'stable',
       match: 'v[0-9].*',
-      path: 'v',
+      path: '/v/',
       satisfies: '>1.0.0-beta.40',
     },
     tags: {
@@ -243,8 +245,17 @@ export default defineConfig({
       text: `v${version}`,
       collapsed: true,
       items: [
+        {
+          text: 'Other Doc Versions',
+          items: [
+            {text: 'stable', target: '_blank', link: '/v/stable/'},
+            {text: 'edge', target: '_blank', link: '/v/edge/'},
+            {text: 'dev', target: '_blank', link: '/v/dev/'},
+            {text: '<strong>see all versions</strong>', link: '/v/'},
+          ],
+        },
         {text: 'Release Notes', link: `https://github.com/lando/vitepress-theme-default-plus/releases/tag/v${version}`},
-        {text: 'Older Versions', link: 'https://github.com/lando/vitepress-theme-default-plus/releases'},
+        {text: 'Other Releases', link: 'https://github.com/lando/vitepress-theme-default-plus/releases'},
       ],
     },
   },
