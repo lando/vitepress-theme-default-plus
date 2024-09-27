@@ -1,13 +1,13 @@
 ---
 description: All Other documentation versions
-title: Docuversions
+title: Docuverse
 contributors: false
 lastUpdated: false
 editLink: false
 next: false
 ---
 
-# Docuversions
+# Docuverse
 
 <br />
 <br />

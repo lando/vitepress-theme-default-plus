@@ -31,11 +31,29 @@ export default function async(
 
   // get aliases
   const aliases = {
-    dev: getStdOut(`git describe --tags --always --abbrev=1 --match="v[0-9].*"`, {trim: true}),
+    dev: getStdOut(`git describe --tags --always --abbrev=1 --match="${match}"`, {trim: true}),
     edge: versions[0],
     stable: versions.filter(version => semver.prerelease(version) === null)[0],
   };
   debug('generated aliases %o', aliases);
 
-  return {aliases, versions};
+  // construct extended information for ALL versions
+  const extended = versions.map(version => ({
+    ref: version,
+    semantic: semver.clean(version),
+    version: version,
+  }));
+
+  // add aliases into extended
+  for (const [alias, ref] of Object.entries(aliases)) {
+    extended.push({
+      alias,
+      ref: alias !== 'dev' ? ref : getStdOut('git symbolic-ref --short -q HEAD', {trim: true}),
+      semantic: semver.clean(ref),
+      version: ref,
+    });
+  }
+  debug('generated extended info %o', extended);
+
+  return {aliases, extended, versions};
 }
