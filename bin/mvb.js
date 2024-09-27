@@ -8,7 +8,7 @@ import {bold, dim, green} from 'colorette';
 import {nanoid} from 'nanoid';
 import {resolveConfig} from 'vitepress';
 
-import {default as getStdOut} from '../utils/parse-stdout.js';
+import {default as createExec} from '../utils/create-exec.js';
 import {default as getTags} from '../utils/get-tags.js';
 import {default as traverseUp} from '../utils/traverse-up.js';
 
@@ -26,8 +26,10 @@ debug('received argv %o', argv);
 
 // source dir
 const srcDir = argv._[0] ?? 'docs';
+
 // orginal absolute path to source
 const osource = path.resolve(process.cwd(), srcDir);
+
 // help
 const help = argv.h || argv.help;
 
@@ -73,29 +75,10 @@ ${green('Environment Variables')}:
 const options = {...defaults, ...argv, tmpDir: path.resolve(tmpdir(), nanoid())};
 debug('multiversion build from %o using resolved build options: %O', srcDir, options);
 
-
-// @TODO: rework logic to use new options?
-// @TODO: helpers
-// exec factory osourceExec tmpExec
-// for package.json dumping?
-// @TODO: remove dev release from sidebar ender?
-
 // @TODO: clean versions in path? eg /v/1.0.0 instead of /v/v1.0.0/
-// @TODO: replace explicit build with optiins spreader
-// @TODO: remove defaults once we have arg handling
 // @TODO: wrap whole thing in try?
-// @TODO: separate exec func with try?
+// @TODO: separate build exec func with try?
 // @TODO: better cli message?
-
-// build a helper for running commands in tmp
-const exec = (command, options = {}) => {
-  // combine options
-  options = {cwd: tmpDir, stdio: 'inherit', ...options};
-  // debug
-  debug('running %o with %o', command, options);
-  // exec
-  return getStdOut(command, options);
-};
 
 // determine gitdir
 // @TODO: throw error if no git dir?
@@ -109,10 +92,12 @@ const {outDir, tmpDir} = options;
 fs.removeSync(tmpDir, {force: true, maxRetries: 10, recursive: true});
 fs.mkdirSync(tmpDir, {recursive: true});
 
+// create execer for source and tmp ops
+const oexec = createExec(process.cwd(), debug);
+const exec = createExec(tmpDir, debug);
+
 // update all osource
-exec('git fetch origin --tags', {cwd: osource});
-// switch cwd to tmpdir and clone from osource
-process.chdir(tmpDir);
+oexec('git fetch origin --tags');
 // and clone from osource
 exec(`git clone ${gitDir} ./`);
 
@@ -132,7 +117,7 @@ const builds = extended.map((version, index) => {
     version.base = site.base;
     version.outDir = outDir;
   } else {
-    version.base = path.resolve(`/${site.base}/${options.versionBase}/${version.alias ?? version.version}`) + '/';
+    version.base = path.resolve(`/${site.base}/${options.versionBase}/${version.alias ?? version.semantic}`) + '/';
     version.outDir = path.join(outDir, options.versionBase, version.alias ?? version.version);
   }
 
