@@ -125,10 +125,10 @@ export default defineConfig({
     },
     logo: {src: '/images/vitepress-lando-logo-icon.png', width: 24, height: 24},
     multiVersionBuild: {
-      rootBuild: 'stable',
+      build: 'dev',
       match: 'v[0-9].*',
-      path: '/v/',
-      satisfies: '>1.0.0-beta.40',
+      base: '/v/',
+      satisfies: '>=1.0.0-beta.42',
     },
     tags: {
       'obscure': {
@@ -250,7 +250,6 @@ export default defineConfig({
           items: [
             {text: 'stable', target: '_blank', link: '/v/stable/'},
             {text: 'edge', target: '_blank', link: '/v/edge/'},
-            {text: 'dev', target: '_blank', link: '/v/dev/'},
             {text: '<strong>see all versions</strong>', link: '/v/'},
           ],
         },

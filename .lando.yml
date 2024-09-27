@@ -1,22 +1,24 @@
 name: vitepress-theme-default-plus
+proxy:
+  cli:
+    - vitepress-theme-default-plus.lndo.site:5173
 services:
-  node:
-    type: node:18
-    build:
-      - npm install
+  cli:
+    api: 4
+    image: node:18
+    command: sleep infinity
+    ports:
+      - 5173:5173/http
     scanner: false
-    ssl: false
-    sslExpose: false
-    overrides:
-      ports:
-        - 8071:8071
+    user: node
+    build:
+      app: |
+        npm install
 tooling:
   node:
-    service: node
+    service: cli
   npm:
-    service: node
-  dev:
-    service: node
-    cmd: npm run dev --port 8071
-    env:
-      DEBUG: "@lando/*"
+    service: cli
+  vitepress:
+    service: cli
+    cmd: npx vitepress
