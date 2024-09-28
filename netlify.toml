@@ -1,7 +1,7 @@
 [build]
   base = "./"
   publish = "docs/.vitepress/dist/"
-  command = "npx mvb --debug"
+  command = "git fsck --full && git gc --prune=now && git repack -a -d && npx mvb --debug"
 
 # Sets our asset optimization
 [build.processing.css]
