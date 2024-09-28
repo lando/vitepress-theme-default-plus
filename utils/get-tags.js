@@ -48,7 +48,7 @@ export default function async(
   for (const [alias, ref] of Object.entries(aliases)) {
     extended.push({
       alias,
-      ref: alias !== 'dev' ? ref : getStdOut('git rev-parse --abbrev-ref HEAD'),
+      ref: alias !== 'dev' ? ref : getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}),
       semantic: semver.clean(ref),
       version: ref,
     });
