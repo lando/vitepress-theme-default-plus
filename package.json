@@ -33,6 +33,7 @@
   "type": "module",
   "scripts": {
     "build": "vitepress build docs",
+    "mvb": "npx mvb docs",
     "dev": "vitepress dev docs",
     "lint": "eslint . --ext .js,.vue",
     "preview": "vitepress preview docs",
