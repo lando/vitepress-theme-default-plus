@@ -148,7 +148,8 @@ for (const build of builds) {
   // checkout new ref
   await exec('git', ['checkout', ref]);
   // reinstall
-  await exec('npm', ['clean-install']);
+  await exec('rm', ['-rf', `${tmpDir}/node_modules`]);
+  await exec('npm', ['install']);
 
   // update package.json if needed
   const pjsonPath = path.join(tmpDir, 'package.json');
