@@ -48,7 +48,7 @@ export default function async(
   for (const [alias, ref] of Object.entries(aliases)) {
     extended.push({
       alias,
-      ref: alias !== 'dev' ? ref : getStdOut('git symbolic-ref --short -q HEAD', {trim: true}),
+      ref: alias !== 'dev' ? ref : getStdOut('git --no-pager branch --points-at HEAD --color=never --format="%(refname:short)"', {trim: true}),
       semantic: semver.clean(ref),
       version: ref,
     });
