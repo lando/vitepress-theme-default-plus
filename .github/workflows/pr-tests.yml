@@ -16,9 +16,9 @@ jobs:
       # Install deps and cache
       - name: Checkout code
         uses: actions/checkout@v4
-        # with:
-        #   fetch-depth: 0
-        #   fetch-tags: true
+        with:
+          fetch-depth: 0
+          fetch-tags: true
       - name: Install node ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
