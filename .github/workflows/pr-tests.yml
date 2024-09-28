@@ -16,9 +16,9 @@ jobs:
       # Install deps and cache
       - name: Checkout code
         uses: actions/checkout@v4
-        # with:
-        #   fetch-depth: 0
-        #   fetch-tags: true
+        with:
+          fetch-depth: 0
+          fetch-tags: true
       - name: Install node ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
@@ -33,6 +33,9 @@ jobs:
       - name: Run tests
         run: npm run test
       - name: Test build
-        run: npm run build
+        run: |
+          git rev-parse --abbrev-ref HEAD
+          env
+          npm run build
       - name: Test multiversion build
         run: npm run mvb
