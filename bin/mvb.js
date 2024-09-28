@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 import path from 'node:path';
 import {tmpdir} from 'node:os';
+import {format, inspect} from 'node:util';
 
 import fs from 'fs-extra';
 import parser from 'yargs-parser';
-import {bold, dim, green} from 'colorette';
+import {bold, dim, green, magenta, red} from 'colorette';
 import {nanoid} from 'nanoid';
 import {resolveConfig} from 'vitepress';
 
@@ -19,6 +20,13 @@ const debug = Debug('@lando/mvb');  // eslint-disable-line
 
 // enable debug if applicable
 if (process.argv.includes('--debug')) Debug.enable(process.env.DEBUG ?? '*');
+
+// kenny loggin utils
+const log = (message = '', ...args) => {
+  message = typeof message === 'string' ? message : inspect(message);
+  if (debug.enabled) debug(message, ...args);
+  else process.stdout.write(format(message, ...args) + '\n');
+};
 
 // lets start by getting argv
 const argv = parser(process.argv.slice(2));
@@ -37,6 +45,7 @@ const help = argv.h || argv.help;
 // @TODO: if no site then throw error? how do we determine that?
 const siteConfig = await resolveConfig(osource, 'build', 'production');
 const {site} = siteConfig;
+log('found site %s at %s', magenta(site.title), magenta(osource));
 
 // build default options
 const defaults = {
@@ -51,7 +60,7 @@ debug('default options %o', defaults);
 
 // show help/usage if requested
 if (help) {
-  console.log(`
+  logToStderr(`
 Usage: ${dim('[CI=1]')} ${bold(`${path.basename(process.argv[1])} <root>`)} ${dim('[--base <base>] [--build <alias>] [--match "<match>"] [--out-dir <dir>] [--satisifes "<satisfies>"] [--version-base <dir>] [--debug] [--help]')}
 
 ${green('Options')}:
@@ -68,16 +77,13 @@ ${green('Environment Variables')}:
   CI                 installs in CI mode (e.g. does not prompt for user input)
 
 `);
+  process.exit(0);
 }
 
 // resolve options with argv input
 // @TODO: /tmp location option?
 const options = {...defaults, ...argv, tmpDir: path.resolve(tmpdir(), nanoid())};
 debug('multiversion build from %o using resolved build options: %O', srcDir, options);
-
-// @TODO: separate build exec func with try?
-// @TODO: wrap whole thing in try?
-// @TODO: better cli message?
 
 // determine gitdir
 // @TODO: throw error if no git dir?
@@ -92,13 +98,15 @@ fs.removeSync(tmpDir, {force: true, maxRetries: 10, recursive: true});
 fs.mkdirSync(tmpDir, {recursive: true});
 
 // create execer for source and tmp ops
-const oexec = createExec(process.cwd(), debug);
-const exec = createExec(tmpDir, debug);
+const oexec = createExec({cwd: process.cwd(), debug});
+const exec = createExec({cwd: tmpDir, debug});
 
-// update all osource
-oexec('git fetch origin --tags');
-// and clone from osource
-exec(`git clone ${gitDir} ./`);
+// start it up
+log('collecting version information from %s...', magenta(gitDir));
+// update all refs
+await oexec('git', ['fetch', 'origin', '--tags']);
+// and clone from gitDir
+await exec('git', ['clone', gitDir, './']);
 
 // get extended version information
 const {extended} = await getTags(gitDir, options);
@@ -111,7 +119,6 @@ debug('determined main/root build is %o %o', options.build, extended[0]);
 
 // now loop through extended and construct the build metadata
 const builds = extended.map((version, index) => {
-  // add base and outdir but remember index === 0 is special
   if (index === 0) {
     version.base = site.base;
     version.outDir = outDir;
@@ -123,18 +130,25 @@ const builds = extended.map((version, index) => {
   return {...version, srcDir};
 });
 
+// report
+log('found %s versions to build', magenta(builds.length - 1));
+log('default/main/root build using alias %s, ref %s', magenta(builds[0]?.alias), magenta(builds[0]?.ref));
+log('');
+
 // and now build them all
 for (const build of builds) {
+  // @LOG: building?
   // separate out our stuff
   const {alias, ref, semantic, srcDir, version, ...config} = build;
   debug('building %o version %o from %o with config %o', srcDir, `${alias ?? version}@${ref}`, config);
+  log('building version %s, ref %s to %s...', magenta(alias ?? version), magenta(ref), magenta(config.outDir));
 
   // reset HEAD HARD
-  exec('git reset HEAD --hard');
+  await exec('git', ['reset', 'HEAD', '--hard']);
   // checkout new ref
-  exec(`git checkout ${ref}`);
+  await exec('git', ['checkout', ref]);
   // reinstall
-  exec('npm clean-install');
+  await exec('npm', ['clean-install']);
 
   // update package.json if needed
   const pjsonPath = path.join(tmpDir, 'package.json');
@@ -149,10 +163,20 @@ for (const build of builds) {
   }
 
   // build the version
-  exec(`npx vitepress build ${srcDir} --outDir ${config.outDir} --base ${config.base}`);
+  try {
+    await exec('npx', ['vitepress', 'build', srcDir, '--outDir', config.outDir, '--base', config.base]);
+  } catch (error) {
+    error.message = red(`Build failed for version ${version} with error: ${error.message}`);
+    error.build = build;
+    throw error;
+  }
 }
 
 // clean original
 fs.removeSync(siteConfig.outDir, {force: true, maxRetries: 10, recursive: true});
 // move tmp to original
 fs.moveSync(path.resolve(tmpDir, outDir), siteConfig.outDir);
+
+// @LOG: finish info, where / and /v/ and how many versions built?
+log('');
+log('%s %s builds at %s!', green('completed'), magenta(builds.length), magenta(siteConfig.outDir));
