@@ -33,9 +33,6 @@ jobs:
       - name: Run tests
         run: npm run test
       - name: Test build
-        run: |
-          git rev-parse --abbrev-ref HEAD
-          env
-          npm run build
+        run: npm run build
       - name: Test multiversion build
         run: npm run mvb
