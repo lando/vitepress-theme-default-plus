@@ -104,7 +104,6 @@ const exec = createExec({cwd: tmpDir, debug});
 // start it up
 log('collecting version information from %s...', magenta(gitDir));
 // update all refs
-// await oexec('git', ['fetch', '--unshallow']);
 await oexec('git', ['fetch', 'origin', '--tags', '']);
 // and clone from gitDir
 await exec('git', ['clone', gitDir, './']);
@@ -148,6 +147,8 @@ for (const build of builds) {
   await exec('git', ['reset', 'HEAD', '--hard']);
   // checkout new ref
   await exec('git', ['checkout', ref]);
+  // wipe
+  await exec('rm', ['-rf', `${tmpDir}/node_modules`]);
   // reinstall
   await exec('npm', ['install']);
 
