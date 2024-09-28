@@ -44,14 +44,11 @@ export default function async(
     version: version,
   }));
 
-  // attempt to get head ref
-  const HEAD = process.env?.GITHUB_HEAD_REF ?? getStdOut('git --no-pager branch --points-at HEAD --color=never --format="%(refname:short)"', {trim: true});
-
   // add aliases into extended
   for (const [alias, ref] of Object.entries(aliases)) {
     extended.push({
       alias,
-      ref: alias !== 'dev' ? ref : HEAD,
+      ref: alias !== 'dev' ? ref : getStdOut('git rev-parse --abbrev-ref HEAD'),
       semantic: semver.clean(ref),
       version: ref,
     });
