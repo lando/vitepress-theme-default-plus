@@ -108,7 +108,7 @@ log('collecting version information from %s...', magenta(gitDir));
 // netlify does weird shit that requires special special dispensation
 if (process.env?.NETLIFY === 'true') {
   // get git URL from git config
-  const gitUrl = getStd('git config --get remote.origin.url', {trim: true});
+  const gitUrl = getStdOut('git config --get remote.origin.url', {trim: true});
   // reclone in tmp
   await exec('git', ['clone', '--depth=2147483647', '--branch', process.env.HEAD, gitUrl, './']);
 
