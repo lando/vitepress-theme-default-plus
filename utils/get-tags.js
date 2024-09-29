@@ -41,7 +41,6 @@ export default function async(
   }
 
   debug('generated aliases %o', aliases);
-  console.log(aliases);
 
   // construct extended information for ALL versions
   const extended = versions.map(version => ({
@@ -50,20 +49,26 @@ export default function async(
     version: version,
   }));
 
-  // add aliases into extended unless the alias does not exist yet or is invalid
+  // add build aliases into extended unless the alias does not exist yet or is invalid
   for (const [alias, ref] of Object.entries(aliases)) {
-    console.log(aliases, ref, semver.valid(ref));
-    if (semver.valid(ref) !== null) {
+    if (semver.valid(ref) !== null && alias !== 'dev') {
       extended.push({
         alias,
-        ref: alias !== 'dev' ? ref : getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}),
+        ref,
         semantic: semver.clean(ref),
         version: ref,
       });
     }
   }
+
+  // dev should always exist in extended
+  extended.push({
+    alias: 'dev',
+    ref: getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}),
+    semantic: semver.valid(aliases.dev) === null ? 'dev' : semver.clean(aliases.dev),
+    version: semver.valid(aliases.dev) === null ? 'dev' : semver.clean(aliases.dev),
+  });
   debug('generated extended info %o', extended);
-  console.log(extended);
 
   return {aliases, extended, versions};
 }

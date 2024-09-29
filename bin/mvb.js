@@ -120,8 +120,13 @@ await exec('git', ['clone', gitDir, './']);
 const {extended} = await getTags(gitDir, options);
 debug('determined versions to build: %o', extended);
 
-// set up base build and unshift into extended
-// @TODO: throw error if empty?
+// if we cant find the base build then reset it to dev
+if (extended.find(version => version.alias === options.build) === undefined) {
+  debug('could not find a ref for %o, resetting to %o', options.build, 'dev');
+  options.build = 'dev';
+}
+
+// set the base build
 extended.unshift(extended.find(version => version.alias === options.build));
 debug('determined main/root build is %o %o', options.build, extended[0]);
 
@@ -156,7 +161,7 @@ for (const build of builds) {
   // checkout new ref
   await exec('git', ['checkout', ref]);
   await exec('cat', ['.git/config']);
-  await exec('git', ['rev-list', '--objects', '--all', '--missing=print']);
+  // await exec('git', ['rev-list', '--objects', '--all', '--missing=print']);
   // reset ref
   // await exec('git', ['reset', ref, '--hard']);
   // await exec('git', ['status']);
@@ -169,7 +174,7 @@ for (const build of builds) {
   // wipe
   // await exec('rm', ['-rf', `${tmpDir}/node_modules`]);
   // reinstall
-  await exec('npm', ['clean-install']);
+  await exec('npm', ['install']);
 
   // update package.json if needed
   const pjsonPath = path.join(tmpDir, 'package.json');
