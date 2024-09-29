@@ -114,7 +114,8 @@ if (shallow) updateRefs.push('--unshallow');
 // update all refs
 await oexec('git', updateRefs);
 // and clone from gitDir
-await exec('git', ['clone', gitDir, './']);
+if (process.env?.NETLIFY) await exec('git', ['clone', '-depth=2147483647', '--branch', process.env.BRANCH, process.env.REPOSITORY, './']);
+else await exec('git', ['clone', gitDir, './']);
 
 // get extended version information
 const {extended} = await getTags(gitDir, options);
@@ -154,7 +155,7 @@ for (const build of builds) {
   // separate out our stuff
   const {alias, ref, semantic, srcDir, version, ...config} = build;
   debug('building %o version %o with config %o', srcDir, `${alias ?? version}@${ref}`, config);
-  log('building version %s, ref %s, from %s to %s...', magenta(alias ?? version), magenta(srcDir), magenta(ref), magenta(config.outDir));
+  log('building version %s, ref %s, from %s to %s...', magenta(alias ?? version), magenta(ref), magenta(srcDir), magenta(config.outDir));
 
   // reset HEAD HARD
   await exec('git', ['reset', 'HEAD', '--hard']);
