@@ -114,7 +114,7 @@ if (shallow) updateRefs.push('--unshallow');
 // update all refs
 await oexec('git', updateRefs);
 // and clone from gitDir
-if (process.env?.NETLIFY) await exec('git', ['clone', '-depth=2147483647', '--branch', process.env.BRANCH, process.env.REPOSITORY_URL, './']);
+if (process.env?.NETLIFY) await exec('git', ['clone', '--depth=2147483647', '--branch', process.env.BRANCH, process.env.REPOSITORY_URL, './']);
 else await exec('git', ['clone', gitDir, './']);
 
 // get extended version information
