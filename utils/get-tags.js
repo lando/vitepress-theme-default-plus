@@ -23,24 +23,26 @@ export default function async(
   const tags = getStdOut(command.join(' '), opts);
   debug('matched %o tags with %o', tags.split('\n').length, match);
 
-  console.log('tags', tags);
-
   // match tags to versions
   const versions = semver.rsort(tags.split('\n')
     .filter(tag => typeof tag === 'string')
     .filter(tag => semver.valid(semver.clean(tag)) !== null)
     .filter(tag => semver.satisfies(semver.clean(tag), satisfies, {includePrerelease: true}) === true));
-
-  console.log(versions, versions.length);
   debug('matched %o versions using %o', versions.length, satisfies);
 
   console.log('DEV MATCH', getStdOut(`git describe --tags --always --abbrev=1 --match="${match}"`));
-  // get aliases
+  // get stable/edge aliases
   const aliases = {
-    dev: getStdOut(`git describe --tags --always --abbrev=1 --match="${match}"`, {trim: true}),
     edge: versions[0],
     stable: versions.filter(version => semver.prerelease(version) === null)[0],
   };
+
+  // dev alias is a bit more complicated and can fail if there are no tags
+  try {
+    aliases.dev = getStdOut(`git describe --tags --always --abbrev=1 --match="${match}"`, {trim: true});
+  } catch {
+    aliases.dev = 'HEAD';
+  }
   debug('generated aliases %o', aliases);
 
   // construct extended information for ALL versions
