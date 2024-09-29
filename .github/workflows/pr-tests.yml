@@ -31,4 +31,4 @@ jobs:
       - name: Test build
         run: npm run build
       - name: Test multiversion build
-        run: npm run mvb
+        run: npm run mvb --debug
