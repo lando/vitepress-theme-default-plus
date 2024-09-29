@@ -109,6 +109,9 @@ log('collecting version information from %s...', magenta(gitDir));
 if (process.env?.NETLIFY === 'true') {
   // get git URL from git config
   const gitUrl = getStdOut('git config --get remote.origin.url', {trim: true});
+  console.log(getStdOut('git config --get remote.origin.url'))
+  console.log(girUrl);
+
   // reclone in tmp
   await exec('git', ['clone', '--depth=2147483647', '--branch', process.env.HEAD, gitUrl, './']);
 
