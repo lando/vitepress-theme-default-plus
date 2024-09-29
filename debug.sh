@@ -7,7 +7,10 @@ pwd
 env
 
 git rev-parse --is-shallow-repository
-git fetch origin --tags
+git rev-list --objects --all --missing=print
+cat .git/config
+
+git fetch origin --tags --no-filter
 
 git checkout v1.0.2
 git status
