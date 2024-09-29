@@ -27,10 +27,14 @@ export default function async(
 
   // match tags to versions
   const versions = semver.rsort(tags.split('\n')
+    .filter(tag => typeof tag === 'string')
     .filter(tag => semver.valid(semver.clean(tag)) !== null)
     .filter(tag => semver.satisfies(semver.clean(tag), satisfies, {includePrerelease: true}) === true));
+
+  console.log(versions, versions.length);
   debug('matched %o versions using %o', versions.length, satisfies);
 
+  console.log('DEV MATCH', getStdOut(`git describe --tags --always --abbrev=1 --match="${match}"`));
   // get aliases
   const aliases = {
     dev: getStdOut(`git describe --tags --always --abbrev=1 --match="${match}"`, {trim: true}),
