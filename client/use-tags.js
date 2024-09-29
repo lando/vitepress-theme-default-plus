@@ -3,6 +3,7 @@ import {data as tags} from './tags.data.js';
 import {useData} from 'vitepress';
 
 export default function useTags() {
+  console.log(tags);
   // get version path data
   const {theme} = useData();
   const base = theme?.value?.multiVersionBuild?.base ?? '/v/';

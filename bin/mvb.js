@@ -149,8 +149,8 @@ for (const build of builds) {
   // @LOG: building?
   // separate out our stuff
   const {alias, ref, semantic, srcDir, version, ...config} = build;
-  debug('building %o version %o from %o with config %o', srcDir, `${alias ?? version}@${ref}`, config);
-  log('building version %s, ref %s to %s...', magenta(alias ?? version), magenta(ref), magenta(config.outDir));
+  debug('building %o version %o with config %o', srcDir, `${alias ?? version}@${ref}`, config);
+  log('building version %s, ref %s, from %s to %s...', magenta(alias ?? version), magenta(srcDir), magenta(ref), magenta(config.outDir));
 
   // reset HEAD HARD
   await exec('git', ['reset', 'HEAD', '--hard']);
@@ -158,6 +158,13 @@ for (const build of builds) {
   await exec('git', ['checkout', ref]);
   // reset ref
   await exec('git', ['reset', ref, '--hard']);
+  await exec('git', ['status']);
+  // attempt diagnosis
+  await exec('git', ['fsck', '--full']);
+  await exec('git', ['gc', '--prune', 'now']);
+  await exec('git', ['repack', '-a', '-d']);
+  await exec('git', ['status']);
+
   // wipe
   // await exec('rm', ['-rf', `${tmpDir}/node_modules`]);
   // reinstall
