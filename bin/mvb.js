@@ -9,6 +9,7 @@ import {bold, dim, green, magenta, red} from 'colorette';
 import {nanoid} from 'nanoid';
 import {resolveConfig} from 'vitepress';
 
+import {default as getStdOut} from '../utils/parse-layouts.js';
 import {default as createExec} from '../utils/create-exec.js';
 import {default as getTags} from '../utils/get-tags.js';
 import {default as traverseUp} from '../utils/traverse-up.js';
@@ -103,8 +104,16 @@ const exec = createExec({cwd: tmpDir, debug});
 
 // start it up
 log('collecting version information from %s...', magenta(gitDir));
+
+// update args
+const updateRefs = ['fetch', 'origin', '--tags'];
+// determine whether we have a shallow clone eg as on GHA
+const shallow = getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true';
+// if shallow then add to update refs
+if (shallow) updateRefs.push('--unshallow');
+
 // update all refs
-await oexec('git', ['fetch', 'origin', '--tags', '']);
+await oexec('git', updateRefs);
 // and clone from gitDir
 await exec('git', ['clone', gitDir, './']);
 
@@ -147,10 +156,12 @@ for (const build of builds) {
   await exec('git', ['reset', 'HEAD', '--hard']);
   // checkout new ref
   await exec('git', ['checkout', ref]);
+  // reset ref
+  await exec('git', ['reset', ref, '--hard']);
   // wipe
-  await exec('rm', ['-rf', `${tmpDir}/node_modules`]);
+  // await exec('rm', ['-rf', `${tmpDir}/node_modules`]);
   // reinstall
-  await exec('npm', ['install']);
+  await exec('npm', ['clean-install']);
 
   // update package.json if needed
   const pjsonPath = path.join(tmpDir, 'package.json');

@@ -16,20 +16,13 @@ jobs:
       # Install deps and cache
       - name: Checkout code
         uses: actions/checkout@v4
-        # with:
-        #   fetch-depth: 0
-        #   fetch-tags: true
       - name: Install node ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
       - name: Install dependencies
-        run: |
-          npm clean-install --prefer-offline --frozen-lockfile
-          git rev-parse --is-shallow-repository
-          git fetch origin --unshallow --tags
-
+        run: npm clean-install --prefer-offline --frozen-lockfile
       # Run tests
       - name: Run linter
         run: npm run lint
