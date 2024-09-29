@@ -8,7 +8,7 @@ import {bold, dim, green, magenta, red} from 'colorette';
 import {nanoid} from 'nanoid';
 import {resolveConfig} from 'vitepress';
 
-import {default as getStdOut} from '../utils/parse-layouts.js';
+import {default as getStdOut} from '../utils/parse-stdout.js';
 import {default as createExec} from '../utils/create-exec.js';
 import {default as getTags} from '../utils/get-tags.js';
 import {default as traverseUp} from '../utils/traverse-up.js';
@@ -109,9 +109,6 @@ log('collecting version information from %s...', magenta(gitDir));
 if (process.env?.NETLIFY === 'true') {
   // get git URL from git config
   const gitUrl = getStdOut('git config --get remote.origin.url', {trim: true});
-  console.log(getStdOut('git config --get remote.origin.url'))
-  console.log(girUrl);
-
   // reclone in tmp
   await exec('git', ['clone', '--depth=2147483647', '--branch', process.env.HEAD, gitUrl, './']);
 
