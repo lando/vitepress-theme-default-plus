@@ -30,20 +30,18 @@ export default function async(
     .filter(tag => semver.satisfies(semver.clean(tag), satisfies, {includePrerelease: true}) === true));
   debug('matched %o versions using %o', versions.length, satisfies);
 
-  console.log('DEV MATCH', getStdOut(`git describe --tags --always --abbrev=1 --match="${match}"`));
-  // get stable/edge aliases
-  const aliases = {
-    edge: versions[0],
-    stable: versions.filter(version => semver.prerelease(version) === null)[0],
-  };
+  // set aliases to HEAD by default
+  const aliases = {dev: 'HEAD', edge: 'HEAD', stable: 'HEAD'};
 
-  // dev alias is a bit more complicated and can fail if there are no tags
-  try {
+  // if we have versions data we can reset them to actual tags
+  if (versions.length > 0) {
+    aliases.edge = versions[0];
+    aliases.stable = versions.filter(version => semver.prerelease(version) === null)[0];
     aliases.dev = getStdOut(`git describe --tags --always --abbrev=1 --match="${match}"`, {trim: true});
-  } catch {
-    aliases.dev = 'HEAD';
   }
+
   debug('generated aliases %o', aliases);
+  console.log(aliases);
 
   // construct extended information for ALL versions
   const extended = versions.map(version => ({
@@ -52,16 +50,20 @@ export default function async(
     version: version,
   }));
 
-  // add aliases into extended
+  // add aliases into extended unless the alias does not exist yet or is invalid
   for (const [alias, ref] of Object.entries(aliases)) {
-    extended.push({
-      alias,
-      ref: alias !== 'dev' ? ref : getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}),
-      semantic: semver.clean(ref),
-      version: ref,
-    });
+    console.log(alies, reg, semver.valid(ref))
+    if (semver.valid(ref) !== null) {
+      extended.push({
+        alias,
+        ref: alias !== 'dev' ? ref : getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}),
+        semantic: semver.clean(ref),
+        version: ref,
+      });
+    }
   }
   debug('generated extended info %o', extended);
+  console.log(extended);
 
   return {aliases, extended, versions};
 }
