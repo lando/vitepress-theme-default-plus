@@ -104,19 +104,27 @@ const exec = createExec({cwd: tmpDir, debug});
 // start it up
 log('collecting version information from %s...', magenta(gitDir));
 
-// update args
-const updateRefs = ['fetch', 'origin', '--tags', '--no-filter'];
-// determine whether we have a shallow clone eg as on GHA
-const shallow = getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true';
-// if shallow then add to update refs
-if (shallow) updateRefs.push('--unshallow');
+// make a copy of our repo
+// netlify does weird shit that requires special special dispensation
+if (process.env?.NETLIFY === 'true') {
+  // get git URL from git config
+  const gitUrl = getStd('git config --get remote.origin.url', {trim: true});
+  // reclone in tmp
+  await exec('git', ['clone', '--depth=2147483647', '--branch', process.env.HEAD, gitUrl, './']);
 
-// update all refs
-await oexec('git', updateRefs);
-// and clone from gitDir
-// if (process.env?.NETLIFY) await exec('git', ['clone', '--depth=2147483647', '--branch', 'multi-version-build', process.env.REPOSITORY_URL, './']);
-// else
-await exec('git', ['clone', gitDir, './']);
+// everything else can just use this
+} else {
+  // update args
+  const updateRefs = ['fetch', 'origin', '--tags', '--no-filter'];
+  // determine whether we have a shallow clone eg as on GHA
+  const shallow = getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true';
+  // if shallow then add to update refs
+  if (shallow) updateRefs.push('--unshallow');
+  // update all refs
+  await oexec('git', updateRefs);
+  // clone from gitDir
+  await exec('git', ['clone', gitDir, './']);
+}
 
 // get extended version information
 const {extended} = await getTags(gitDir, options);
@@ -162,21 +170,8 @@ for (const build of builds) {
   await exec('git', ['reset', 'HEAD', '--hard']);
   // checkout new ref
   await exec('git', ['checkout', ref]);
-  await exec('cat', ['.git/config']);
-  // await exec('git', ['rev-list', '--objects', '--all', '--missing=print']);
-  // reset ref
-  // await exec('git', ['reset', ref, '--hard']);
-  // await exec('git', ['status']);
-  // // attempt diagnosis
-  // await exec('git', ['fsck', '--full']);
-  // await exec('git', ['gc', '--prune', 'now']);
-  // await exec('git', ['repack', '-a', '-d']);
-  // await exec('git', ['status']);
-
-  // wipe
-  // await exec('rm', ['-rf', `${tmpDir}/node_modules`]);
   // reinstall
-  await exec('npm', ['install']);
+  await exec('npm', ['clean-install']);
 
   // update package.json if needed
   const pjsonPath = path.join(tmpDir, 'package.json');
