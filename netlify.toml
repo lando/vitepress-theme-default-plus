@@ -1,7 +1,7 @@
 [build]
   base = "./"
   publish = "docs/.vitepress/dist/"
-  command = "git config --unset remote.origin.partialCloneFilter && git fetch --no-filter && git fetch origin --no-filter && git fetch --depth=2147483647 && npx mvb --debug"
+  command = "npx mvb --debug"
   # command = "sh debug.sh"
 
 # Sets our asset optimization
