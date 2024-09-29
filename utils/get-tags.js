@@ -23,6 +23,8 @@ export default function async(
   const tags = getStdOut(command.join(' '), opts);
   debug('matched %o tags with %o', tags.split('\n').length, match);
 
+  console.log('tags', tags);
+
   // match tags to versions
   const versions = semver.rsort(tags.split('\n')
     .filter(tag => semver.valid(semver.clean(tag)) !== null)

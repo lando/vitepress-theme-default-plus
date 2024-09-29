@@ -14,7 +14,7 @@ export default function(defaults = {}) {
     const {debug} = options;
 
     // birth
-    debug('running command %o %o', command, args);
+    debug('running command %o %o from %o', command, args, options?.cwd ?? process.cwd());
     const child = spawn(command, args, options);
 
     return mergePromise(child, async () => {
