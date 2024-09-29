@@ -156,6 +156,7 @@ for (const build of builds) {
   // checkout new ref
   await exec('git', ['checkout', ref]);
   await exec('cat', ['.git/config']);
+  await exec('git', ['rev-list', '--objects', '--all', '--missing=print']);
   // reset ref
   // await exec('git', ['reset', ref, '--hard']);
   // await exec('git', ['status']);
