@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import path from 'node:path';
-import {tmpdir} from 'node:os';
 import {format, inspect} from 'node:util';
 
 import fs from 'fs-extra';
@@ -83,7 +82,7 @@ ${green('Environment Variables')}:
 
 // resolve options with argv input
 // @TODO: /tmp location option?
-const options = {...defaults, ...argv, tmpDir: path.resolve(tmpdir(), nanoid())};
+const options = {...defaults, ...argv, tmpDir: path.resolve(siteConfig.tempDir, nanoid())};
 debug('multiversion build from %o using resolved build options: %O', srcDir, options);
 
 // determine gitdir
