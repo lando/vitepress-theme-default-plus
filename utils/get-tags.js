@@ -52,7 +52,7 @@ export default function async(
 
   // add aliases into extended unless the alias does not exist yet or is invalid
   for (const [alias, ref] of Object.entries(aliases)) {
-    console.log(alies, reg, semver.valid(ref));
+    console.log(aliases, reg, semver.valid(ref));
     if (semver.valid(ref) !== null) {
       extended.push({
         alias,

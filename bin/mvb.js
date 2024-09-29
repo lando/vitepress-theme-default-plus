@@ -105,7 +105,7 @@ const exec = createExec({cwd: tmpDir, debug});
 log('collecting version information from %s...', magenta(gitDir));
 
 // update args
-const updateRefs = ['fetch', 'origin', '--tags'];
+const updateRefs = ['fetch', 'origin', '--tags', '--no-filter'];
 // determine whether we have a shallow clone eg as on GHA
 const shallow = getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true';
 // if shallow then add to update refs
@@ -155,14 +155,15 @@ for (const build of builds) {
   await exec('git', ['reset', 'HEAD', '--hard']);
   // checkout new ref
   await exec('git', ['checkout', ref]);
+  await exec('cat', ['.git/config']);
   // reset ref
-  await exec('git', ['reset', ref, '--hard']);
-  await exec('git', ['status']);
-  // attempt diagnosis
-  await exec('git', ['fsck', '--full']);
-  await exec('git', ['gc', '--prune', 'now']);
-  await exec('git', ['repack', '-a', '-d']);
-  await exec('git', ['status']);
+  // await exec('git', ['reset', ref, '--hard']);
+  // await exec('git', ['status']);
+  // // attempt diagnosis
+  // await exec('git', ['fsck', '--full']);
+  // await exec('git', ['gc', '--prune', 'now']);
+  // await exec('git', ['repack', '-a', '-d']);
+  // await exec('git', ['status']);
 
   // wipe
   // await exec('rm', ['-rf', `${tmpDir}/node_modules`]);
