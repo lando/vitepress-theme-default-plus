@@ -60,7 +60,6 @@ function initialize(userOptions = {}) {
     },
 
     transformItems(items) {
-      console.log(items);
       return items.map(item => Object.assign({}, item, {url: getRelativePath(item.url)}));
     },
 
