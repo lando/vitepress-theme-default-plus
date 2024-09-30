@@ -116,6 +116,8 @@ if (process.env?.NETLIFY === 'true') {
   console.log(process.env);
   console.log(gitUrl);
   await exec('git', ['clone', '--depth=2147483647', '--branch', process.env.HEAD, gitUrl, './']);
+  // and just in case something new popped up
+  await exec('git', ['fetch', 'origin', '--tags']);
 
 // everything else can just use this
 } else {
