@@ -113,6 +113,8 @@ if (process.env?.NETLIFY === 'true') {
   // get git URL from git config
   const gitUrl = getStdOut('git config --get remote.origin.url', {trim: true});
   // reclone in tmp
+  console.log(process.env);
+  console.log(gitUrl);
   await exec('git', ['clone', '--depth=2147483647', '--branch', process.env.HEAD, gitUrl, './']);
 
 // everything else can just use this
@@ -142,6 +144,7 @@ if (extended.find(version => version.alias === options.build) === undefined) {
 // set the base build
 extended.unshift(extended.find(version => version.alias === options.build));
 debug('determined main/root build is %o %o', options.build, extended[0]);
+console.log(extended);
 
 // now loop through extended and construct the build metadata
 const builds = extended.map((version, index) => {
