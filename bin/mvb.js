@@ -113,11 +113,7 @@ if (process.env?.NETLIFY === 'true') {
   // get git URL from git config
   const gitUrl = getStdOut('git config --get remote.origin.url', {trim: true});
   // reclone in tmp
-  console.log(process.env);
-  console.log(gitUrl);
-  await exec('git', ['clone', '--branch', process.env.HEAD, gitUrl, './']);
-  // and just in case something new popped up
-  await exec('git', ['fetch', 'origin', '--tags']);
+  await exec('git', ['clone', '--depth=2147483647', '--branch', process.env.HEAD, gitUrl, './']);
 
 // everything else can just use this
 } else {
@@ -134,7 +130,7 @@ if (process.env?.NETLIFY === 'true') {
 }
 
 // get extended version information
-const {extended} = await getTags(gitDir, options);
+const {extended} = await getTags(process.env?.NETLIFY === 'true' ? tmpDir : gitDir, options);
 debug('determined versions to build: %o', extended);
 
 // if we cant find the base build then reset it to dev
@@ -146,7 +142,6 @@ if (extended.find(version => version.alias === options.build) === undefined) {
 // set the base build
 extended.unshift(extended.find(version => version.alias === options.build));
 debug('determined main/root build is %o %o', options.build, extended[0]);
-console.log(extended);
 
 // now loop through extended and construct the build metadata
 const builds = extended.map((version, index) => {
