@@ -114,6 +114,8 @@ if (process.env?.NETLIFY === 'true') {
   const gitUrl = getStdOut('git config --get remote.origin.url', {trim: true});
   // reclone in tmp
   await exec('git', ['clone', '--depth=2147483647', '--branch', process.env.HEAD, gitUrl, './']);
+  // also make sure our original has all tag information
+  await oexec('git', ['fetch', 'origin', '--tags', '--no-filter']);
 
 // everything else can just use this
 } else {
