@@ -4,10 +4,38 @@ import {fileURLToPath} from 'node:url';
 
 import {defineConfig} from '../../config';
 
-const require = createRequire(import.meta.url);
+import {default as isDevRelease} from '../../utils/is-dev-release';
 
+const require = createRequire(import.meta.url);
 const __dirname = dirname(resolve(fileURLToPath(import.meta.url)));
+
+// get version info
 const {version} = require('../../package.json');
+
+// sidebar ender
+const sidebarEnder = {
+  text: `v${version}`,
+  collapsed: true,
+  items: [
+    {
+      text: 'Other Doc Versions',
+      items: [
+        {text: 'stable', target: '_blank', link: '/v/stable/'},
+        {text: 'edge', target: '_blank', link: '/v/edge/'},
+        {text: '<strong>see all versions</strong>', link: '/v/'},
+      ],
+    },
+    {text: 'Other Releases', link: 'https://github.com/lando/vitepress-theme-default-plus/releases'},
+  ],
+};
+
+// if version is a stable or edge release then add in the release notes
+if (!isDevRelease(version)) {
+  sidebarEnder.items.splice(1, 0, {
+    text: 'Release Notes',
+    link: `https://github.com/lando/vitepress-theme-default-plus/releases/tag/v${version}`,
+  });
+}
 
 export default defineConfig({
   title: 'VitePress Theme +',
@@ -241,22 +269,7 @@ export default defineConfig({
         {text: 'Blog', link: '/blog'},
       ],
     },
-    sidebarEnder: {
-      text: `v${version}`,
-      collapsed: true,
-      items: [
-        {
-          text: 'Other Doc Versions',
-          items: [
-            {text: 'stable', target: '_blank', link: '/v/stable/'},
-            {text: 'edge', target: '_blank', link: '/v/edge/'},
-            {text: '<strong>see all versions</strong>', link: '/v/'},
-          ],
-        },
-        {text: 'Release Notes', link: `https://github.com/lando/vitepress-theme-default-plus/releases/tag/v${version}`},
-        {text: 'Other Releases', link: 'https://github.com/lando/vitepress-theme-default-plus/releases'},
-      ],
-    },
+    sidebarEnder,
   },
 });
 
