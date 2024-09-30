@@ -1,7 +1,20 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## New Features
+
+* Added new `multiversion-vitepress-build` command
+* Added `useTags` composable to get docs version information from `git`
+* Added `VPLVersionLink` component
+* Switched these docs to `multiversion-vitepress-build`
+* Updated to `vitepress@1.3.4`
+
+## Bug Fixes
+
+* Fixed bug causing build error when `metadata` is added to a page with no `git` history
 * Fixed bug caused by `icon` being a variable instead of a string in `VPLTeamMembersItem`
 * Fixed bug caused by `VPLTeamMembers.members` typing as `Object` instead of `Array`
+* Fixed bug causing `robots.txt` policies to not be applied when using `policies` instead of `policy`
+* Fixed watch bug on `VPLCollectionItems` preventing tag toggling from working correctly
 
 ## v1.0.2 - [April 17, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.2)
 
