@@ -1,10 +1,22 @@
+import semver from 'semver';
+
 export default function(version) {
-  // start by extracting the prerelease information
-  const prs = version.indexOf('-');
-  // if prs -1 then its a stable release
-  if (prs === -1) return false;
-  // get prerelase into
-  const [build, hash] = version.slice(prs + 1).split('-');
-  // if build is an integer and hash is a string of length five let's say its a dev release
-  return Number.isInteger(parseInt(build)) && typeof hash === 'string' && hash.length === 5;
-};
+  // throw error if not a valid version
+  if (semver.valid(semver.clean(version)) === null) {
+    throw new Error(`${version} must be a semantic version for this to work!`);
+  }
+
+  // parse the version
+  version = semver.parse(version);
+
+  // if prerelease is empty then this is stable version
+  if (version.prerelease.length === 0) return false;
+
+  // if prerelease is length 2 with string and integer parts then this is a non-dev prerelease
+  if (version.prerelease.length === 2 && typeof version.prerelease[0] === 'string' && Number.isInteger(version.prerelease[1])) {
+    return false;
+  }
+
+  // if we get here then lets just assume its a dev release?
+  return true;
+}
