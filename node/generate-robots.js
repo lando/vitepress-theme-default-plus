@@ -11,6 +11,7 @@ const defaults = {
   allowAll: false,
   disallowAll: false,
   policy: [],
+  policies: [],
   file: 'robots.txt',
 };
 

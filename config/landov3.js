@@ -40,6 +40,8 @@ export default function({landoPlugin, version}) {
       host: baseUrl,
       sitemap: `${baseUrl}/sitemap.xml`,
       allowAll: true,
+      policy: [],
+      policies: [],
     },
     sitemap: {
       hostname: 'https://docs.lando.dev/',

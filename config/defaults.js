@@ -7,6 +7,8 @@ export default function({base}) {
     markdown: {},
     robots: {
       allowAll: true,
+      policy: [],
+      policies: [],
     },
     sitemap: {
       lastmodDateOnly: false,
