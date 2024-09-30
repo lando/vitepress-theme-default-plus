@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## v1.1.0-beta.2 - [September 30, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.2)
+
 * Fixed bug causing `robots.txt` build to throw an error when `policies` is `undefined`
 * Fixed bug causing `netlify` specific `mvb` to not get current tags
 
