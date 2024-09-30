@@ -121,7 +121,7 @@ const updateArgs = ['fetch', 'origin', '--tags', '--no-filter'];
 // determine whether we have a shallow clone eg as on GHA
 const shallow = getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true';
 // if shallow then add to update refs
-if (shallow) updateRefs.push('--unshallow');
+if (shallow) updateArgs.push('--unshallow');
 // update all refs
 await oexec('git', updateArgs);
 
@@ -224,8 +224,8 @@ for (const build of builds) {
 
   // save cache if its on
   if (cache) {
-    log('saving version %s to %s at %s...', alias ?? version, 'cache', cached);
-    debug('saving version %s to %s at %s...', alias ?? version, 'cache', cached);
+    log('saving version %s to %s at %s...', version, 'cache', cached);
+    debug('saving version %s to %s at %s...', version, 'cache', cached);
     fs.copySync(path.resolve(config.outDir), cached);
   }
 }
