@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## v1.1.0-beta.1 - [September 30, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.1)
+
 ## New Features
 
 * Added new `multiversion-vitepress-build` command
