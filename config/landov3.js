@@ -39,9 +39,14 @@ export default function({landoPlugin, version}) {
     robots: {
       host: baseUrl,
       sitemap: `${baseUrl}/sitemap.xml`,
-      allowAll: true,
+      disallowAll: false,
+      allowAll: false,
       policy: [],
-      policies: [],
+      policies: [{
+        userAgent: '*',
+        disallow: ['/v/'],
+        allow: '/',
+      }],
     },
     sitemap: {
       hostname: 'https://docs.lando.dev/',
