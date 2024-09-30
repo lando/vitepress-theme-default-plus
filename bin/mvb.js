@@ -107,6 +107,15 @@ const exec = createExec({cwd: tmpDir, debug});
 // start it up
 log('collecting version information from %s...', magenta(gitDir));
 
+// lets make sure the source repo at least has all the tag information it needs
+const updateRefs = ['fetch', 'origin', '--tags', '--no-filter'];
+// determine whether we have a shallow clone eg as on GHA
+const shallow = getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true';
+// if shallow then add to update refs
+if (shallow) updateRefs.push('--unshallow');
+// update all refs
+await oexec('git', updateRefs);
+
 // make a copy of our repo
 // netlify does weird shit that requires special special dispensation
 if (process.env?.NETLIFY === 'true') {
@@ -114,25 +123,12 @@ if (process.env?.NETLIFY === 'true') {
   const gitUrl = getStdOut('git config --get remote.origin.url', {trim: true});
   // reclone in tmp
   await exec('git', ['clone', '--depth=2147483647', '--branch', process.env.HEAD, gitUrl, './']);
-  // also make sure our original has all tag information
-  await oexec('git', ['fetch', 'origin', '--tags', '--no-filter']);
 
 // everything else can just use this
-} else {
-  // update args
-  const updateRefs = ['fetch', 'origin', '--tags', '--no-filter'];
-  // determine whether we have a shallow clone eg as on GHA
-  const shallow = getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true';
-  // if shallow then add to update refs
-  if (shallow) updateRefs.push('--unshallow');
-  // update all refs
-  await oexec('git', updateRefs);
-  // clone from gitDir
-  await exec('git', ['clone', gitDir, './']);
-}
+} else await exec('git', ['clone', gitDir, './']);
 
 // get extended version information
-const {extended} = await getTags(process.env?.NETLIFY === 'true' ? tmpDir : gitDir, options);
+const {extended} = await getTags(gitDir);
 debug('determined versions to build: %o', extended);
 
 // if we cant find the base build then reset it to dev
