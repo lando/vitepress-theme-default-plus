@@ -1,7 +1,7 @@
 [build]
   base = "./"
   publish = "docs/.vitepress/dist/"
-  command = "npx mvb"
+  command = "ls -lsa /opt/build/cache && npx mvb && ls -lsa /opt/build/cache/@lando/mvb/docs/v/"
 
 # Sets our asset optimization
 [build.processing.css]

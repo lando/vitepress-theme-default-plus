@@ -85,11 +85,14 @@ debug('received argv %o', argv);
 debug('default options %o', defaults);
 log('found site %s at %s', magenta(site.title), magenta(osource));
 
+// determine cachebase
+const cacheBase = onNetlify ? '/opt/build/cache' : siteConfig.cacheDir;
+
 // resolve options with argv input
 const options = {
   ...defaults,
   ...argv,
-  cacheDir: onNetlify ? '/opt/build/cache/@lando/mvb' : path.resolve(siteConfig.cacheDir, '@lando/mvb'),
+  cacheDir: path.resolve(cacheBase, '@lando', 'mvb', srcDir),
   tmpDir: path.resolve(siteConfig.tempDir, nanoid()),
 };
 debug('multiversion build from %o using resolved build options: %O', srcDir, options);
@@ -100,7 +103,7 @@ const gitDir = traverseUp(['.git'], osource).find(dir => fs.existsSync(dir));
 debug('determined git-dir: %o', gitDir);
 
 // destructure some helpful options
-const {outDir, tmpDir} = options;
+const {cache, cacheDir, outDir, tmpDir} = options;
 
 // do the initial setup
 fs.removeSync(tmpDir, {force: true, maxRetries: 10, recursive: true});
@@ -149,26 +152,40 @@ debug('determined main/root build is %o %o', options.build, extended[0]);
 // now loop through extended and construct the build metadata
 const builds = extended.map((version, index) => {
   if (index === 0) {
-    version.base = site.base;
+    version.base = options.base;
     version.outDir = outDir;
   } else {
-    version.base = path.resolve(`/${site.base}/${options.versionBase}/${version.alias ?? version.version}`) + '/';
+    version.base = path.resolve(`/${options.base}/${options.versionBase}/${version.alias ?? version.version}`) + '/';
     version.outDir = path.join(outDir, options.versionBase, version.alias ?? version.version);
   }
 
+  // if caching then also suggest a cache location
+  if (cache) version.cached = path.join(cacheDir, options.base, options.versionBase, version.version);
+
+  // return
   return {...version, srcDir};
 });
 
 // report
-log('found %s versions to build', magenta(builds.length - 1));
-log('default/main/root build using alias %s, ref %s', magenta(builds[0]?.alias), magenta(builds[0]?.ref));
+log('normal build at %s using alias %s, ref %s', magenta(options.base), magenta(builds[0]?.alias), magenta(builds[0]?.ref));
+log('and found %s other versions to build', magenta(builds.length - 1));
 log('');
 
 // and now build them all
 for (const build of builds) {
-  // @LOG: building?
   // separate out our stuff
-  const {alias, ref, semantic, srcDir, version, ...config} = build;
+  const {alias, cached, ref, semantic, srcDir, version, ...config} = build;
+
+  // if we have cache then lets just copy it over
+  if (cached && fs.existsSync(cached)) {
+    log('restoring version %s from %s at %s...', magenta(alias ?? version), magenta('cache'), magenta(cached));
+    fs.removeSync(path.resolve(config.outDir), {force: true, maxRetries: 10, recursive: true});
+    fs.mkdirSync(config.outDir, {recursive: true});
+    fs.copySync(cached, path.resolve(config.outDir));
+    continue;
+  }
+
+  // if we get here we need to actually do a build
   debug('building %o version %o with config %o', srcDir, `${alias ?? version}@${ref}`, config);
   log('building version %s, ref %s, from %s to %s...', magenta(alias ?? version), magenta(ref), magenta(srcDir), magenta(config.outDir));
 
@@ -199,13 +216,20 @@ for (const build of builds) {
     error.build = build;
     throw error;
   }
+
+  // clean original
+  fs.removeSync(path.resolve(config.outDir), {force: true, maxRetries: 10, recursive: true});
+  // move tmp to original
+  fs.moveSync(path.resolve(tmpDir, outDir), path.resolve(config.outDir));
+
+  // save cache if its on
+  if (cache) {
+    log('saving version %s to %s at %s...', alias ?? version, 'cache', cached);
+    debug('saving version %s to %s at %s...', alias ?? version, 'cache', cached);
+    fs.copySync(path.resolve(config.outDir), cached);
+  }
 }
 
-// clean original
-fs.removeSync(siteConfig.outDir, {force: true, maxRetries: 10, recursive: true});
-// move tmp to original
-fs.moveSync(path.resolve(tmpDir, outDir), siteConfig.outDir);
-
-// @LOG: finish info, where / and /v/ and how many versions built?
+// FIN
 log('');
 log('%s %s builds at %s!', green('completed'), magenta(builds.length), magenta(siteConfig.outDir));
