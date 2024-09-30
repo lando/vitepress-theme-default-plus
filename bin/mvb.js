@@ -128,7 +128,7 @@ if (process.env?.NETLIFY === 'true') {
 } else await exec('git', ['clone', gitDir, './']);
 
 // get extended version information
-const {extended} = await getTags(gitDir);
+const {extended} = await getTags(gitDir, options);
 debug('determined versions to build: %o', extended);
 
 // if we cant find the base build then reset it to dev
