@@ -117,7 +117,7 @@ if (shallow) updateRefs.push('--unshallow');
 await oexec('git', updateRefs);
 
 // make a copy of our repo
-// netlify does weird shit that requires special special dispensation
+// @NOTE: netlify does weird shit that requires special special dispensation
 if (process.env?.NETLIFY === 'true') {
   // get git URL from git config
   const gitUrl = getStdOut('git config --get remote.origin.url', {trim: true});
