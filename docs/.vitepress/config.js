@@ -1,10 +1,9 @@
 import {createRequire} from 'module';
 import {resolve, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {default as isDevRelease} from '@lando/vitepress-theme-default-plus/is-dev-release';
 
 import {defineConfig} from '../../config';
-
-import {default as isDevRelease} from '../../utils/is-dev-release';
 
 const require = createRequire(import.meta.url);
 const __dirname = dirname(resolve(fileURLToPath(import.meta.url)));
@@ -231,6 +230,7 @@ export default defineConfig({
       },
     ],
     sidebar: {
+      '/build': configSideBar(),
       '/config': configSideBar(),
       '/components': configSideBar(),
       '/composables': configSideBar(),
@@ -262,10 +262,10 @@ export default defineConfig({
             {text: 'GitHub', link: 'https://github.com/lando/vitepress-theme-default-plus/issues/new/choose'},
             {text: 'Slack', link: 'https://www.launchpass.com/devwithlando'},
             {text: 'Contact Us', link: '/support'},
-            {text: 'Guides', link: '/guides'},
           ],
         },
         {text: 'Configuration', link: '/config/config'},
+        {text: 'Guides', link: '/guides'},
         {text: 'Blog', link: '/blog'},
       ],
     },
@@ -283,7 +283,15 @@ function configSideBar() {
         {text: 'Frontmatter', link: '/config/frontmatter'},
         {text: 'createContentLoader()', link: '/config/create-content-loader'},
         {text: 'useCollection()', link: '/composables/use-collection'},
+        {text: 'useTags()', link: '/composables/use-tags'},
         {text: 'useTeam()', link: '/composables/use-team'},
+      ],
+    },
+    {
+      text: 'Build',
+      collapsed: false,
+      items: [
+        {text: 'multiversion-vitepress-build', link: '/build/multiversion-vitepress-build'},
       ],
     },
     {

@@ -31,16 +31,15 @@ features:
   - icon: 🦄
     title: Contributors
     details: Automatically populate contributor metadata from git.
-  - icon: 🔗
-    title: Internal Domains
-    details: Treat some external domains as internal links.
+  - icon: 🔨
+    title: MVB
+    details: Build multiple versions of your docs using our `mvb` command
   - icon: 🤖
     title: Autometa
     details: Automatically add metadata for X, Facebook, canonical links, etc.
   - icon: 🥳
     title: And More!
     details: Read on to learn what else VitePress Theme + has to offer...
-
 ---
 
 <script setup>

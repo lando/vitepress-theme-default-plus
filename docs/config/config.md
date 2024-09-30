@@ -325,6 +325,44 @@ Once you have you should be able to use all the things below.
 
   * You can also configure this on a page to page basis with [frontmatter](./frontmatter.md#jobs).
 
+## Multiversion Build
+
+* Type: `Object || Boolean`
+
+* Default:
+
+  ```js
+  multiVersionBuild: false
+  ```
+
+* Example:
+
+  ```js
+  multiVersionBuild: [
+    {
+      build: 'stable',
+      match: 'v[0-9].*',
+      base: '/v/',
+      satisfies: '*',
+    },
+  ],
+  ```
+* Details:
+
+  `build` will set the main or base version of your docs that is served at your `siteConfig.base`. It can take the values `stable`, `edge` or `dev`.
+
+  * `stable` will build from the last commit tagged with a non-prerelease semantically valid version eg `v1.0.0`.
+  * `edge` will use the commit for the last semantically valid tag which may be `v1.0.0-beta.1` but could also be `v1.0.0`.
+  * `dev` will build from `HEAD`.
+
+  `match` is a `REGEX` to match which `git` tags should be considered versions.
+
+  `base` is where to put all the versioned docs relative to `siteConfig.base`.
+
+  `satisifes` allows you to restrict which versions to build from the versions that `match` returned using a `semver` range as is documented [here](https://github.com/npm/node-semver?tab=readme-ov-file#ranges).
+
+  Note that the above settings will also power what is returned from the [`useTags`](../composables/use-tags) composable.
+
 ## Navbar
 
 * Type: `Array[Object]`

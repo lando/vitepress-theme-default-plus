@@ -27,6 +27,7 @@
     "./client/*": "./client/*",
     "./components/*": "./components/*",
     "./config": "./config.js",
+    "./is-dev-release": "./utils/is-dev-release.js",
     "./node/*": "./node/*",
     "./package.json": "./package.json"
   },

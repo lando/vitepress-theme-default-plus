@@ -30,7 +30,6 @@ const log = (message = '', ...args) => {
 
 // lets start by getting argv
 const argv = parser(process.argv.slice(2));
-debug('received argv %o', argv);
 
 // source dir
 const srcDir = argv._[0] ?? 'docs';
@@ -45,7 +44,6 @@ const help = argv.h || argv.help;
 // @TODO: if no site then throw error? how do we determine that?
 const siteConfig = await resolveConfig(osource, 'build', 'production');
 const {site} = siteConfig;
-log('found site %s at %s', magenta(site.title), magenta(osource));
 
 // build default options
 const defaults = {
@@ -56,11 +54,10 @@ const defaults = {
   satisfies: site?.themeConfig?.multiVersionBuild?.satisfies ?? '*',
   versionBase: site?.themeConfig?.multiVersionBuild?.base ?? '/v/',
 };
-debug('default options %o', defaults);
 
 // show help/usage if requested
 if (help) {
-  logToStderr(`
+  log(`
 Usage: ${dim('[CI=1]')} ${bold(`${path.basename(process.argv[1])} <root>`)} ${dim('[--base <base>] [--build <alias>] [--match "<match>"] [--out-dir <dir>] [--satisifes "<satisfies>"] [--version-base <dir>] [--debug] [--help]')}
 
 ${green('Options')}:
@@ -79,6 +76,12 @@ ${green('Environment Variables')}:
 `);
   process.exit(0);
 }
+
+// intial feedback
+debug('received argv %o', argv);
+debug('default options %o', defaults);
+log('found site %s at %s', magenta(site.title), magenta(osource));
+
 
 // resolve options with argv input
 // @TODO: /tmp location option?
