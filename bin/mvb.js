@@ -115,7 +115,7 @@ if (process.env?.NETLIFY === 'true') {
   // reclone in tmp
   console.log(process.env);
   console.log(gitUrl);
-  await exec('git', ['clone', '--depth=2147483647', '--branch', process.env.HEAD, gitUrl, './']);
+  await exec('git', ['clone', '--branch', process.env.HEAD, gitUrl, './']);
   // and just in case something new popped up
   await exec('git', ['fetch', 'origin', '--tags']);
 
