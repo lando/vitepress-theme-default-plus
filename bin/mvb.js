@@ -17,6 +17,10 @@ import Debug from 'debug';
 
 // debugger
 const debug = Debug('@lando/mvb');  // eslint-disable-line
+// helper to get remote git clone url
+const getCloneUrl = () => getStdOut('git config --get remote.origin.url', {trim: true});
+// env
+const onNetlify = process.env?.NETLIFY === 'true';
 
 // enable debug if applicable
 if (process.argv.includes('--debug')) Debug.enable(process.env.DEBUG ?? '*');
@@ -30,13 +34,10 @@ const log = (message = '', ...args) => {
 
 // lets start by getting argv
 const argv = parser(process.argv.slice(2));
-
 // source dir
 const srcDir = argv._[0] ?? 'docs';
-
 // orginal absolute path to source
 const osource = path.resolve(process.cwd(), srcDir);
-
 // help
 const help = argv.h || argv.help;
 
@@ -49,6 +50,7 @@ const {site} = siteConfig;
 const defaults = {
   base: site?.base ?? '/',
   build: site?.themeConfig?.multiVersionBuild?.build ?? 'stable',
+  cache: site?.themeConfig?.multiVersionBuild?.cache ?? true,
   match: site?.themeConfig?.multiVersionBuild?.match ?? 'v[0-9].*',
   outDir: path.relative(process.cwd(), siteConfig.outDir) ?? './.vitepress/dist',
   satisfies: site?.themeConfig?.multiVersionBuild?.satisfies ?? '*',
@@ -58,12 +60,13 @@ const defaults = {
 // show help/usage if requested
 if (help) {
   log(`
-Usage: ${dim('[CI=1]')} ${bold(`${path.basename(process.argv[1])} <root>`)} ${dim('[--base <base>] [--build <alias>] [--match "<match>"] [--out-dir <dir>] [--satisifes "<satisfies>"] [--version-base <dir>] [--debug] [--help]')}
+Usage: ${dim('[CI=1]')} ${bold(`${path.basename(process.argv[1])} <root>`)} ${dim('[--base <base>] [--build <alias>] [--match "<match>"] [--no-cache] [--out-dir <dir>] [--satisifes "<satisfies>"] [--version-base <dir>] [--debug] [--help]')}
 
 ${green('Options')}:
   --base             sets site base ${dim(`[default: ${defaults.base}`)}]
   --build            uses this version alias for main/root build ${dim(`[default: ${defaults.build}`)}]
   --match            filters versions from git tags ${dim(`[default: "${defaults.match}"`)}]
+  --no-cache         builds all versions every build ${dim(`[default: "${!defaults.cache}"`)}]
   --out-dir          builds into this location ${dim(`[default: ${defaults.outDir}`)}]
   --satisfies        builds versioned docs in this semantic range ${dim(`[default: "${defaults.satisfies}"`)}]
   --version-base     builds versioned docs in this location ${dim(`[default: ${defaults.versionBase}`)}]
@@ -82,10 +85,13 @@ debug('received argv %o', argv);
 debug('default options %o', defaults);
 log('found site %s at %s', magenta(site.title), magenta(osource));
 
-
 // resolve options with argv input
-// @TODO: /tmp location option?
-const options = {...defaults, ...argv, tmpDir: path.resolve(siteConfig.tempDir, nanoid())};
+const options = {
+  ...defaults,
+  ...argv,
+  cacheDir: onNetlify ? '/opt/build/cache/@lando/mvb' : path.resolve(siteConfig.cacheDir, '@lando/mvb'),
+  tmpDir: path.resolve(siteConfig.tempDir, nanoid()),
+};
 debug('multiversion build from %o using resolved build options: %O', srcDir, options);
 
 // determine gitdir
@@ -108,24 +114,23 @@ const exec = createExec({cwd: tmpDir, debug});
 log('collecting version information from %s...', magenta(gitDir));
 
 // lets make sure the source repo at least has all the tag information it needs
-const updateRefs = ['fetch', 'origin', '--tags', '--no-filter'];
+const updateArgs = ['fetch', 'origin', '--tags', '--no-filter'];
 // determine whether we have a shallow clone eg as on GHA
 const shallow = getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true';
 // if shallow then add to update refs
 if (shallow) updateRefs.push('--unshallow');
 // update all refs
-await oexec('git', updateRefs);
+await oexec('git', updateArgs);
 
-// make a copy of our repo
-// @NOTE: netlify does weird shit that requires special special dispensation
-if (process.env?.NETLIFY === 'true') {
-  // get git URL from git config
-  const gitUrl = getStdOut('git config --get remote.origin.url', {trim: true});
-  // reclone in tmp
-  await exec('git', ['clone', '--depth=2147483647', '--branch', process.env.HEAD, gitUrl, './']);
+// build clone args
+const cloneArgs = ['clone', '--depth', '2147483647'];
+// netlicf clone
+if (onNetlify) cloneArgs.push('--branch', process.env.HEAD, getCloneUrl(), './');
+// generic clone
+else cloneArgs.push(gitDir, './');
 
-// everything else can just use this
-} else await exec('git', ['clone', gitDir, './']);
+// do the vampire
+await exec('git', cloneArgs);
 
 // get extended version information
 const {extended} = await getTags(gitDir, options);
