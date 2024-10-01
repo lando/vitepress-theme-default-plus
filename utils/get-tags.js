@@ -22,7 +22,6 @@ export default function async(
   const devReleaseCmd = ['git', 'describe', '--tags', '--always', '--abbrev=1', `--match="${match}"`];
   debug('getting tags with %o with exec options %o', tagCmd, opts);
   debug('getting dev release with %o with exec options %o', devReleaseCmd, opts);
-  console.log(`${devReleaseCmd.join(' ')} ${getBranch(cwd)} || ${devReleaseCmd.join(' ')}`);
 
   const tags = getStdOut(tagCmd.join(' '), opts);
   debug('matched %o tags with %o', tags.split('\n').length, match);
@@ -37,10 +36,6 @@ export default function async(
   // set aliases to HEAD by default
   const aliases = {dev: 'HEAD', edge: 'HEAD', stable: 'HEAD'};
 
-  console.log(process.env);
-  console.log(getStdOut(`git describe --tags --always --abbrev=1 --match="${match}"`, opts));
-
-
   // if we have versions data we can reset them to actual tags
   if (versions.length > 0) {
     aliases.edge = versions[0];
@@ -48,9 +43,6 @@ export default function async(
     aliases.dev = getStdOut(`${devReleaseCmd.join(' ')} ${getBranch(cwd)} || ${devReleaseCmd.join(' ')}`, opts);
   }
   debug('generated aliases %o', aliases);
-
-  console.log(aliases);
-  process.exit(1);
 
   // construct extended information for ALL versions
   const extended = versions.map(version => ({
