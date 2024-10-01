@@ -13,7 +13,7 @@ export default function({landoPlugin, version}) {
         items: [
           {rel: 'mvb', text: 'stable', target: '_blank', link: '/v/stable/'},
           {rel: 'mvb', text: 'edge', target: '_blank', link: '/v/edge/'},
-          {rel: 'mvb', text: '<strong>see all versions</strong>', target: '_self', link: '/v/'},
+          {text: '<strong>see all versions</strong>', link: '/v/'},
         ],
       },
       {text: 'Other Releases', link: `${repo}/releases`},
