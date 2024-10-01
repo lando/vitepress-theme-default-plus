@@ -109,7 +109,7 @@ const oexec = createExec({cwd: process.cwd(), debug});
 const exec = createExec({cwd: options.tmpDir, debug});
 
 // start it up
-log('collecting version information from %s...', magenta(gitDir));
+log('setting up mvb build environment using %s...', magenta(gitDir));
 
 // lets make sure the source repo at least has all the tag information it needs
 const updateArgs = ['fetch', 'origin', '--tags', '--no-filter'];
