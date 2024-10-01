@@ -117,7 +117,9 @@ if (getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true')
 // update original
 await oexec('git', updateArgs);
 // checkout branch
-await oexec('git', ['checkout', getBranch(), '--force']);
+await oexec('git', ['checkout', getBranch(), '--merge']);
+// git pull
+await oexec('git', ['pull']);
 
 // and then copy the repo in tmpdir so we can operate on it
 fs.copySync(gitDir, options.tmpDir);
@@ -160,6 +162,8 @@ const builds = extended.map((version, index) => {
 log('normal build at %s using alias %s, ref %s', magenta(options.base), magenta(builds[0]?.alias), magenta(builds[0]?.ref));
 log('and found %s other versions to build', magenta(builds.length - 1));
 log('');
+
+process.exit(1)
 
 // and now build them all
 for (const build of builds) {
