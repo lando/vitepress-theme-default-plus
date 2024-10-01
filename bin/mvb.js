@@ -25,7 +25,9 @@ const getCloneUrl = () => getStdOut('git config --get remote.origin.url', {trim:
 const onNetlify = process.env?.NETLIFY === 'true';
 
 // enable debug if applicable
-if (process.argv.includes('--debug')) Debug.enable(process.env.DEBUG ?? '*');
+if (process.argv.includes('--debug') || process.env.RUNNER_DEBUG === '1') {
+  Debug.enable(process.env.DEBUG ?? '*');
+}
 
 // kenny loggin utils
 const log = (message = '', ...args) => {
@@ -108,7 +110,7 @@ debug('determined git-dir: %o', gitDir);
 fs.removeSync(options.tmpDir, {force: true, maxRetries: 10, recursive: true});
 fs.mkdirSync(options.tmpDir, {recursive: true});
 
-// create execers for source and tmpopts
+// create execers for source and tmp opts
 const oexec = createExec({cwd: process.cwd(), debug});
 const exec = createExec({cwd: options.tmpDir, debug});
 
