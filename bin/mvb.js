@@ -122,9 +122,11 @@ await oexec('git', ['--no-pager', 'tag']);
 await oexec('git', ['--no-pager', 'log', '-3']);
 
 // checkout branch
-await oexec('git', ['checkout', getBranch(), '--merge']);
+await oexec('git', ['checkout', getBranch(), '--force']);
+// git reset
+await oexec('git', ['reset', 'HEAD', '--hard']);
 // git pull
-await oexec('git', ['pull', '--rebase']);
+await oexec('git', ['pull']);
 
 // and then copy the repo in tmpdir so we can operate on it
 fs.copySync(gitDir, options.tmpDir);
