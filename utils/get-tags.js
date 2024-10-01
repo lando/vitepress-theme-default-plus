@@ -34,6 +34,10 @@ export default function async(
   // set aliases to HEAD by default
   const aliases = {dev: 'HEAD', edge: 'HEAD', stable: 'HEAD'};
 
+  console.log(process.env);
+  console.log(getStdOut(`git describe --tags --always --abbrev=1 --match="${match}"`, opts))
+
+
   // if we have versions data we can reset them to actual tags
   if (versions.length > 0) {
     aliases.edge = versions[0];
