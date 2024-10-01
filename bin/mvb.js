@@ -144,8 +144,8 @@ await exec('git', ['--no-pager', 'tag', '--list', options.match]);
 await exec('git', ['--no-pager', 'branch']);
 await exec('git', ['rev-parse', '--abbrev-ref', 'HEAD']);
 // await exec('git', ['describe', '--debug', '--tags', '--always', '--abbrev=1', `--match'"${options.match}"`, getBranch()]);
-await exec('git', ['describe', '--debug', '--tags', '--always', '--abbrev=1', 'origin/mvb-cache']);
-await exec('git', ['describe', '--debug', '--tags', '--always', '--abbrev=1']);
+await oexec('git', ['describe', '--debug', '--tags', '--always', '--abbrev=1', 'origin/mvb-cache']);
+await oexec('git', ['describe', '--debug', '--tags', '--always', '--abbrev=1']);
 
 // get extended version information
 const {extended} = await getTags(options.tmpDir, options);
