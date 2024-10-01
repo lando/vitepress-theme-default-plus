@@ -66,7 +66,7 @@ export default function async(
     alias: 'dev',
     ref: getBranch(cwd),
     semantic: semver.valid(aliases.dev) === null ? 'dev' : semver.clean(aliases.dev),
-    version: semver.valid(aliases.dev) === null ? 'dev' : semver.clean(aliases.dev),
+    version: semver.valid(aliases.dev) === null ? 'dev' : aliases.dev,
   });
   debug('generated extended info %o', extended);
 

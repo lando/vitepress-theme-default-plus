@@ -160,9 +160,6 @@ const builds = extended.map((version, index) => {
   return {...version, srcDir};
 });
 
-console.log(builds);
-process.exit(1);
-
 // report
 log('normal build at %s using alias %s, ref %s', magenta(options.base), magenta(builds[0]?.alias), magenta(builds[0]?.ref));
 log('and found %s other versions to build', magenta(builds.length - 1));
