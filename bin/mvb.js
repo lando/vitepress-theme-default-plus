@@ -20,10 +20,6 @@ import Debug from 'debug';
 
 // debugger
 const debug = Debug('@lando/mvb');  // eslint-disable-line
-// helper to get remote git clone url
-const getCloneUrl = () => getStdOut('git config --get remote.origin.url', {trim: true});
-// env
-const onNetlify = process.env?.NETLIFY === 'true';
 
 // enable debug if applicable
 if (process.argv.includes('--debug') || process.env.RUNNER_DEBUG === '1') {
@@ -90,14 +86,11 @@ debug('received argv %o', argv);
 debug('default options %o', defaults);
 log('found site %s at %s', magenta(site.title), magenta(osource));
 
-// determine cachebase
-const cacheBase = onNetlify ? '/opt/build/cache' : siteConfig.cacheDir;
-
 // resolve options with argv input
 const options = {
   ...defaults,
   ...argv,
-  cacheDir: path.resolve(cacheBase, '@lando', 'mvb'),
+  cacheDir: path.resolve(process.env?.NETLIFY === 'true' ? '/opt/build/cache' : siteConfig.cacheDir, '@lando', 'mvb'),
   tmpDir: path.resolve(os.tmpdir(), nanoid()),
   // tmpDir: path.resolve(siteConfig.tempDir, nanoid()),
 };
