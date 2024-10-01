@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+* Improved dev release resolution
+
 ## v1.1.0-beta.5 - [October 1, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.5)
 
 * Changed `VPLVersionLink` to _not_ normalize links
