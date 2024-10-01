@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import crypto from 'node:crypto';
+import os from 'node:os';
 import path from 'node:path';
 import {format, inspect} from 'node:util';
 
@@ -97,12 +98,13 @@ const options = {
   ...defaults,
   ...argv,
   cacheDir: path.resolve(cacheBase, '@lando', 'mvb'),
-  tmpDir: path.resolve(siteConfig.tempDir, nanoid()),
+  tmpDir: path.resolve(os.tmpdir(), nanoid()),
+  // tmpDir: path.resolve(siteConfig.tempDir, nanoid()),
 };
 debug('multiversion build from %o using resolved build options: %O', srcDir, options);
 
 // determine gitdir
-const gitDir = path.resolve(traverseUp(['.git'], osource).find(dir => fs.existsSync(dir)));
+const gitDir = path.resolve(traverseUp(['.git'], osource).find(dir => fs.existsSync(dir)), '..');
 debug('determined git-dir: %o', gitDir);
 
 // do the initial setup
@@ -110,7 +112,7 @@ fs.removeSync(options.tmpDir, {force: true, maxRetries: 10, recursive: true});
 fs.mkdirSync(options.tmpDir, {recursive: true});
 
 // copy the source repo to tmp
-fs.copySync(osource, options.tmpDir);
+fs.copySync(gitDir, options.tmpDir);
 
 // create execer for tmp opts
 const exec = createExec({cwd: options.tmpDir, debug});
