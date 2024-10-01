@@ -135,19 +135,8 @@ await exec('cat', ['.git/config']);
 await exec('git', ['diff']);
 
 // if we are in detached head state then checkout best branch
-if (getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}) === 'HEAD') await oexec('git', ['checkout', getBranch()]);
+// if (getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}) === 'HEAD') await oexec('git', ['checkout', getBranch()]);
 console.log(getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}));
-
-process.exit(1);
-
-// build clone args
-const cloneArgs = ['clone', '--origin', 'origin', '--no-single-branch'];
-// netlicf clone
-if (onNetlify) cloneArgs.push('--depth', '2147483647', '--branch', getBranch(), getCloneUrl(), './');
-// generic clone
-else cloneArgs.push('--no-local', '--no-hardlinks', gitDir, './');
-// do the vampire
-await exec('git', cloneArgs);
 
 // get extended version information
 const {extended} = await getTags(options.tmpDir, options);
