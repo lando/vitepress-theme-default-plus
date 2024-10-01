@@ -34,13 +34,3 @@
   [plugins.inputs]
     skipPatterns = [ ".rss", ".gif", ".jpg", 'x.com', 'twitter.com', '/v/' ]
     checkExternal = true
-
-# mvb redirects
-[[redirects]]
-  from = "/v/:version/v/"
-  to = "/v/"
-  status = 301
-[[redirects]]
-  from = "/v/:first/v/:second/"
-  to = "/v/:second/"
-  status = 301
