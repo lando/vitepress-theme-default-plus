@@ -123,6 +123,10 @@ const shallow = getStdOut('git rev-parse --is-shallow-repository', {trim: true})
 if (shallow) updateArgs.push('--unshallow');
 // update all refs
 await oexec('git', updateArgs);
+await oexec('git', ['status']);
+await oexec('git', ['--no-pager', 'branch']);
+await oexec('git', ['show-ref', 'mvb-cache']);
+await oexec('git', ['describe', '--debug', '--tags', '--always', '--abbrev=1', `--match="${match}"`, getBranch()]);
 
 // build clone args
 const cloneArgs = ['clone'];
@@ -134,7 +138,7 @@ else cloneArgs.push(gitDir, './');
 await exec('git', cloneArgs);
 
 await exec('git', ['status']);
-await exec('git', ['--no-pager', 'tag', '--list', `"${options.match}"`]);
+await exec('git', ['--no-pager', 'tag', '--list', options.match]);
 await exec('git', ['--no-pager', 'branch']);
 await exec('git', ['rev-parse', '--abbrev-ref', 'HEAD']);
 
