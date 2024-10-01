@@ -116,15 +116,15 @@ const updateArgs = ['fetch', 'origin', '--tags', '--no-filter'];
 if (getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true') updateArgs.push('--unshallow');
 // fetch
 await oexec('git', updateArgs);
-// checkout
-await oexec('git', ['checkout', getBranch(), '--force']);
-// reset
-await oexec('git', ['reset', 'HEAD', '--hard']);
-// pull
-await oexec('git', ['pull', 'origin', getBranch()]);
 
 // and then copy the repo in tmpdir so we can operate on it
 fs.copySync(gitDir, options.tmpDir);
+// checkout
+await exec('git', ['checkout', getBranch(), '--force']);
+// reset
+await exec('git', ['reset', 'HEAD', '--hard']);
+// pull
+await exec('git', ['pull', 'origin', getBranch()]);
 
 // get extended version information
 const {extended} = await getTags(options.tmpDir, options);
@@ -159,6 +159,9 @@ const builds = extended.map((version, index) => {
   // return
   return {...version, srcDir};
 });
+
+console.log(builds);
+process.exit(1);
 
 // report
 log('normal build at %s using alias %s, ref %s', magenta(options.base), magenta(builds[0]?.alias), magenta(builds[0]?.ref));
