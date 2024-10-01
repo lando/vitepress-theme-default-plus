@@ -15,13 +15,16 @@ export default function async(
     debug = Debug('@lando/get-tags'), // eslint-disable-line
   } = {},
   ) {
-  // start with a command that will get ALL THE AUTHORS
-  const command = ['git', '--no-pager', 'tag', '--list', `"${match}"`];
+  // stdout opts
   const opts = {cwd, trim: true};
+  // commands
+  const tagCmd = ['git', '--no-pager', 'tag', '--list', `"${match}"`];
+  const devReleaseCmd = ['git', 'describe', '--tags', '--always', '--abbrev=1', `--match="${match}"`];
+  debug('getting tags with %o with exec options %o', tagCmd, opts);
+  debug('getting dev release with %o with exec options %o', devReleaseCmd, opts);
+  console.log(`${devReleaseCmd.join(' ')} ${getBranch(cwd)} || ${devReleaseCmd.join(' ')}`);
 
-  // get first load of tags
-  debug('running command %o with exec options %o', command, opts);
-  const tags = getStdOut(command.join(' '), opts);
+  const tags = getStdOut(tagCmd.join(' '), opts);
   debug('matched %o tags with %o', tags.split('\n').length, match);
 
   // match tags to versions
@@ -42,9 +45,12 @@ export default function async(
   if (versions.length > 0) {
     aliases.edge = versions[0];
     aliases.stable = versions.filter(version => semver.prerelease(version) === null)[0];
-    aliases.dev = getStdOut(`git describe --tags --always --abbrev=1 --match="${match}" ${getBranch(cwd)}`, opts);
+    aliases.dev = getStdOut(`${devReleaseCmd.join(' ')} ${getBranch(cwd)} || ${devReleaseCmd.join(' ')}`, opts);
   }
   debug('generated aliases %o', aliases);
+
+  console.log(aliases);
+  process.exit(1);
 
   // construct extended information for ALL versions
   const extended = versions.map(version => ({
