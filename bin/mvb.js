@@ -125,6 +125,7 @@ const shallow = getStdOut('git rev-parse --is-shallow-repository', {trim: true})
 if (shallow) updateArgs.push('--unshallow');
 // update all refs
 await oexec('git', updateArgs);
+await oexec('git', ['--no-pager', 'branch', '--all']);
 
 // build clone args
 const cloneArgs = ['clone'];
@@ -134,6 +135,7 @@ if (onNetlify) cloneArgs.push('--depth', '2147483647', '--branch', getBranch(), 
 else cloneArgs.push('--no-local', '--no-hardlinks', gitDir, './');
 // do the vampire
 await exec('git', cloneArgs);
+await exec('get', ['--no-pager', 'branch', '--all']);
 await exec('git', ['checkout', `origin/${getBranch()}`]);
 
 // get extended version information
