@@ -108,11 +108,8 @@ debug('determined git-dir: %o', gitDir);
 fs.removeSync(options.tmpDir, {force: true, maxRetries: 10, recursive: true});
 fs.mkdirSync(options.tmpDir, {recursive: true});
 
-// set a minimal build env
-const env = {LANDO_MVB_BUILD: 1, LANDO_MVB_BRANCH: getBranch(gitDir), LANDO_MVB_SOURCE: process.cwd()};
-// create execer for source and tmp ops
-const oexec = createExec({cwd: process.cwd(), env, debug});
-const exec = createExec({cwd: options.tmpDir, env, debug});
+// create execer for source
+const oexec = createExec({cwd: process.cwd(), debug});
 
 // start it up
 log('collecting version information from %s...', magenta(gitDir));
@@ -125,6 +122,15 @@ const shallow = getStdOut('git rev-parse --is-shallow-repository', {trim: true})
 if (shallow) updateArgs.push('--unshallow');
 // update all refs
 await oexec('git', updateArgs);
+
+console.log(process.env, getBranch(gitDir));
+
+// create exec for tmp ops
+const exec = createExec({
+  cwd: options.tmpDir,
+  debug,
+  env: {LANDO_MVB_BUILD: 1, LANDO_MVB_BRANCH: getBranch(gitDir), LANDO_MVB_SOURCE: process.cwd()},
+});
 
 // build clone args
 const cloneArgs = ['clone', '--depth', '2147483647'];
