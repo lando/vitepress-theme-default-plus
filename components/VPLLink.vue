@@ -27,10 +27,6 @@ const {theme} = useData();
 const {internalDomains} = theme.value;
 
 const props = defineProps({
-  absolute: {
-    type: Boolean,
-    default: false,
-  },
   tag: {
     type: String,
     default: undefined,
