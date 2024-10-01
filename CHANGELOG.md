@@ -1,5 +1,8 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+* Added `caching` to `mvb` multiversion build
+* Fixed bug causing `alias.dev` to always report highest built tag instead of actual dev version
+
 ## v1.1.0-beta.3 - [September 30, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.3)
 
 * Improved `is-dev-release` to handle `dev` releases that are in front of a prerelease tag

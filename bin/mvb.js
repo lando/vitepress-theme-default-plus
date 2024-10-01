@@ -11,6 +11,7 @@ import {resolveConfig} from 'vitepress';
 
 import {default as getStdOut} from '../utils/parse-stdout.js';
 import {default as createExec} from '../utils/create-exec.js';
+import {default as getBranch} from '../utils/get-branch.js';
 import {default as getTags} from '../utils/get-tags.js';
 import {default as traverseUp} from '../utils/traverse-up.js';
 
@@ -107,9 +108,11 @@ debug('determined git-dir: %o', gitDir);
 fs.removeSync(options.tmpDir, {force: true, maxRetries: 10, recursive: true});
 fs.mkdirSync(options.tmpDir, {recursive: true});
 
+// set a minimal build env
+const env = {LANDO_MVB_BUILD: 1, LANDO_MVB_BRANCH: getBranch(gitDir), LANDO_MVB_SOURCE: process.cwd()};
 // create execer for source and tmp ops
-const oexec = createExec({cwd: process.cwd(), debug});
-const exec = createExec({cwd: options.tmpDir, debug});
+const oexec = createExec({cwd: process.cwd(), env, debug});
+const exec = createExec({cwd: options.tmpDir, env, debug});
 
 // start it up
 log('collecting version information from %s...', magenta(gitDir));
