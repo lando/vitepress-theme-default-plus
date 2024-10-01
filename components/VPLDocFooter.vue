@@ -128,7 +128,7 @@ const {prevnext} = useCollection(collection.value);
 const oprevnext = usePrevNext();
 
 const cprevnext = computed(() => {
-  const links = frontmatter.value?.collection ? prevnext : usePrevNext();
+  const links = frontmatter.value?.collection ? prevnext : oprevnext;
   return links.value;
 });
 

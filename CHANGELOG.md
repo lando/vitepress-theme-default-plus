@@ -2,6 +2,8 @@
 
 * Changed `VPLVersionLink` to _not_ normalize links
 * Fixed bug in `VPLLink` causing some links to to not normalize correctly
+* Fixed bug causing `VPLDocFooter` bleed over with some `frontmatter` combinations of `prev` and `next`
+* Fixed `semver` import causing all kinds of chaos when importing this theme as a package
 
 ## v1.1.0-beta.4 - [October 1, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.4)
 
