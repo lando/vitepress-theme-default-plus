@@ -16,6 +16,12 @@ jobs:
       # Install deps and cache
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Cache version builds
+        uses: actions/cache@v4
+        with:
+          key: lando-mvb-docs
+          path: docs/.vitepress/cache/@lando/mvb
+          save-always: true
       - name: Install node ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
@@ -23,6 +29,7 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm clean-install --prefer-offline --frozen-lockfile
+
       # Run tests
       - name: Run linter
         run: npm run lint
@@ -31,4 +38,5 @@ jobs:
       - name: Test build
         run: npm run build
       - name: Test multiversion build
-        run: npm run mvb
+        run: npx mvb docs --no-cache --debug
+

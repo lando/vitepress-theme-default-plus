@@ -152,9 +152,10 @@ export default defineConfig({
     },
     logo: {src: '/images/vitepress-lando-logo-icon.png', width: 24, height: 24},
     multiVersionBuild: {
-      build: 'edge',
-      match: 'v[0-9].*',
       base: '/v/',
+      build: 'edge',
+      cache: true,
+      match: 'v[0-9].*',
       satisfies: '>=1.0.0-beta.42',
     },
     tags: {

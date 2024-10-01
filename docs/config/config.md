@@ -340,14 +340,17 @@ Once you have you should be able to use all the things below.
   ```js
   multiVersionBuild: [
     {
-      build: 'stable',
-      match: 'v[0-9].*',
       base: '/v/',
+      build: 'stable',
+      cache: true,
+      match: 'v[0-9].*',
       satisfies: '*',
     },
   ],
   ```
 * Details:
+
+  `base` is where to put all the versioned docs relative to `siteConfig.base`.
 
   `build` will set the main or base version of your docs that is served at your `siteConfig.base`. It can take the values `stable`, `edge` or `dev`.
 
@@ -355,9 +358,9 @@ Once you have you should be able to use all the things below.
   * `edge` will use the commit for the last semantically valid tag which may be `v1.0.0-beta.1` but could also be `v1.0.0`.
   * `dev` will build from `HEAD`.
 
-  `match` is a `REGEX` to match which `git` tags should be considered versions.
+  `cache` will speed up builds by using any cached versions you've already build.
 
-  `base` is where to put all the versioned docs relative to `siteConfig.base`.
+  `match` is a `REGEX` to match which `git` tags should be considered versions.
 
   `satisifes` allows you to restrict which versions to build from the versions that `match` returned using a `semver` range as is documented [here](https://github.com/npm/node-semver?tab=readme-ov-file#ranges).
 
