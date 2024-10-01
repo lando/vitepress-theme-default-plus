@@ -116,10 +116,15 @@ const updateArgs = ['fetch', 'origin', '--tags', '--no-filter'];
 if (getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true') updateArgs.push('--unshallow');
 // update original
 await oexec('git', updateArgs);
+
+await oexec('git', ['status']);
+await oexec('git', ['--no-pager', 'tag']);
+await oexec('git', ['--no-pager', 'log', '-3']);
+
 // checkout branch
 await oexec('git', ['checkout', getBranch(), '--merge']);
 // git pull
-await oexec('git', ['pull']);
+await oexec('git', ['pull', '--rebase']);
 
 // and then copy the repo in tmpdir so we can operate on it
 fs.copySync(gitDir, options.tmpDir);
