@@ -59,8 +59,9 @@ const tag = computed(() => props.tag ?? (props.href ? 'a' : 'span'));
 const isFauxInternal = computed(() => props.href && internalDomains.find(domain => props.href.startsWith(domain)) !== undefined);
 const isExternal = computed(() => !isFauxInternal.value && props.href && EXTERNAL_URL_RE.test(props.href));
 
+const nl = normalizeLink(props.href);
 const link = computed(() => {
   if (props.rel === 'mvb' && props.href) return props.href;
-  return props.href ? normalizeLink(props.href) : undefined;
+  return props.href ? nl : undefined;
 });
 </script>
