@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import crypto from 'node:crypto';
+import os from 'node:os';
 import path from 'node:path';
 import {format, inspect} from 'node:util';
 
@@ -19,10 +20,6 @@ import Debug from 'debug';
 
 // debugger
 const debug = Debug('@lando/mvb');  // eslint-disable-line
-// helper to get remote git clone url
-const getCloneUrl = () => getStdOut('git config --get remote.origin.url', {trim: true});
-// env
-const onNetlify = process.env?.NETLIFY === 'true';
 
 // enable debug if applicable
 if (process.argv.includes('--debug') || process.env.RUNNER_DEBUG === '1') {
@@ -89,21 +86,17 @@ debug('received argv %o', argv);
 debug('default options %o', defaults);
 log('found site %s at %s', magenta(site.title), magenta(osource));
 
-// determine cachebase
-const cacheBase = onNetlify ? '/opt/build/cache' : siteConfig.cacheDir;
-
 // resolve options with argv input
 const options = {
   ...defaults,
   ...argv,
-  cacheDir: path.resolve(cacheBase, '@lando', 'mvb'),
-  tmpDir: path.resolve(siteConfig.tempDir, nanoid()),
+  cacheDir: path.resolve(process.env?.NETLIFY === 'true' ? '/opt/build/cache' : siteConfig.cacheDir, '@lando', 'mvb'),
+  tmpDir: path.resolve(os.tmpdir(), nanoid()),
 };
 debug('multiversion build from %o using resolved build options: %O', srcDir, options);
 
 // determine gitdir
-// @TODO: throw error if no git dir?
-const gitDir = traverseUp(['.git'], osource).find(dir => fs.existsSync(dir));
+const gitDir = path.resolve(traverseUp(['.git'], osource).find(dir => fs.existsSync(dir)), '..');
 debug('determined git-dir: %o', gitDir);
 
 // do the initial setup
@@ -115,32 +108,19 @@ const oexec = createExec({cwd: process.cwd(), debug});
 const exec = createExec({cwd: options.tmpDir, debug});
 
 // start it up
-log('collecting version information from %s...', magenta(gitDir));
+log('setting up mvb build environment using %s...', magenta(gitDir));
 
 // lets make sure the source repo at least has all the tag information it needs
 const updateArgs = ['fetch', 'origin', '--tags', '--no-filter'];
 // if shallow then add to update refs
 if (getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true') updateArgs.push('--unshallow');
-// update all refs
+// update original
 await oexec('git', updateArgs);
+// checkout branch
+await oexec('git', ['checkout', getBranch()]);
 
-await oexec('git', ['status']);
-console.log(getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}));
-await oexec('git', ['diff']);
-
-// if we are in detached head state then checkout best branch
-if (getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}) === 'HEAD') await oexec('git', ['checkout', getBranch()]);
-
-process.exit(1)
-
-// build clone args
-const cloneArgs = ['clone', '--origin', 'origin', '--no-single-branch'];
-// netlicf clone
-if (onNetlify) cloneArgs.push('--depth', '2147483647', '--branch', getBranch(), getCloneUrl(), './');
-// generic clone
-else cloneArgs.push('--no-local', '--no-hardlinks', gitDir, './');
-// do the vampire
-await exec('git', cloneArgs);
+// and then copy the repo in tmpdir so we can operate on it
+fs.copySync(gitDir, options.tmpDir);
 
 // get extended version information
 const {extended} = await getTags(options.tmpDir, options);
