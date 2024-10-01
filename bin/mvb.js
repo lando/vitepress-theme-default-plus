@@ -126,14 +126,14 @@ await oexec('git', updateArgs);
 await oexec('git', ['status']);
 await oexec('git', ['--no-pager', 'branch']);
 await oexec('git', ['show-ref', 'mvb-cache']);
-await oexec('git', ['describe', '--debug', '--tags', '--always', '--abbrev=1', `--match="${match}"`, getBranch()]);
+// await oexec('git', ['describe', '--debug', '--tags', '--always', '--abbrev=1', `--match="${options.match}"`, getBranch()]);
 
 // build clone args
 const cloneArgs = ['clone'];
 // netlicf clone
-if (onNetlify) cloneArgs.push('--depth', '2147483647', '--branch', process.env.HEAD, getCloneUrl(), './');
+if (onNetlify) cloneArgs.push('--depth', '2147483647', '--branch', getBranch(), getCloneUrl(), './');
 // generic clone
-else cloneArgs.push(gitDir, './');
+else cloneArgs.push('--branch', getBranch(), gitDir, './');
 // do the vampire
 await exec('git', cloneArgs);
 
@@ -141,6 +141,7 @@ await exec('git', ['status']);
 await exec('git', ['--no-pager', 'tag', '--list', options.match]);
 await exec('git', ['--no-pager', 'branch']);
 await exec('git', ['rev-parse', '--abbrev-ref', 'HEAD']);
+await oexec('git', ['describe', '--debug', '--tags', '--always', '--abbrev=1', `--match="${options.match}"`, getBranch()]);
 
 // get extended version information
 const {extended} = await getTags(options.tmpDir, options);
