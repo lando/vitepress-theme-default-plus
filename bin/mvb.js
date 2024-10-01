@@ -119,17 +119,13 @@ log('collecting version information from %s...', magenta(gitDir));
 
 // lets make sure the source repo at least has all the tag information it needs
 const updateArgs = ['fetch', 'origin', '--tags', '--no-filter'];
-// determine whether we have a shallow clone eg as on GHA
-const shallow = getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true';
 // if shallow then add to update refs
-if (shallow) updateArgs.push('--unshallow');
+if (getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true') updateArgs.push('--unshallow');
 // update all refs
 await oexec('git', updateArgs);
-await oexec('git', ['--no-pager', 'log', '-3']);
-await oexec('git', ['checkout', 'mvb-cache']);
-await oexec('git', ['--no-pager', 'log', '-3']);
-await oexec('git', ['checkout', getBranch()]);
-await oexec('git', ['--no-pager', 'log', '-3']);
+
+// if we are in detached head state then checkout best branch
+if (getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}) === 'HEAD') await oexec('git', ['checkout', getBranch()]);
 
 // build clone args
 const cloneArgs = ['clone', '--origin', 'origin', '--no-single-branch'];
