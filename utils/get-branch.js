@@ -8,7 +8,7 @@ export default function async(cwd) {
   // or if we are on netlify
   else if (process.env?.NETLIFY) return process.env.HEAD;
   // or GHA
-  else if (process.env?.GITHUB_ACTION) return process.env.GITHUB_REF_NAME;
+  else if (process.env?.GITHUB_HEAD_REF) return process.env.GITHUB_HEAD_REF;
   // otherwise try to get it from git
   else return getStdOut('git rev-parse --abbrev-ref HEAD', {cwd, trim: true});
 };

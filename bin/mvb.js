@@ -108,8 +108,9 @@ debug('determined git-dir: %o', gitDir);
 fs.removeSync(options.tmpDir, {force: true, maxRetries: 10, recursive: true});
 fs.mkdirSync(options.tmpDir, {recursive: true});
 
-// create execer for source
+// create execers for source and tmpopts
 const oexec = createExec({cwd: process.cwd(), debug});
+const exec = createExec({cwd: options.tmpDir, debug});
 
 // start it up
 log('collecting version information from %s...', magenta(gitDir));
@@ -123,22 +124,12 @@ if (shallow) updateArgs.push('--unshallow');
 // update all refs
 await oexec('git', updateArgs);
 
-console.log(process.env, getBranch(gitDir));
-
-// create exec for tmp ops
-const exec = createExec({
-  cwd: options.tmpDir,
-  debug,
-  env: {LANDO_MVB_BUILD: 1, LANDO_MVB_BRANCH: getBranch(gitDir), LANDO_MVB_SOURCE: process.cwd()},
-});
-
 // build clone args
 const cloneArgs = ['clone', '--depth', '2147483647'];
 // netlicf clone
 if (onNetlify) cloneArgs.push('--branch', process.env.HEAD, getCloneUrl(), './');
 // generic clone
 else cloneArgs.push(gitDir, './');
-
 // do the vampire
 await exec('git', cloneArgs);
 
@@ -220,7 +211,11 @@ for (const build of builds) {
 
   // build the version
   try {
-    await exec('npx', ['vitepress', 'build', srcDir, '--outDir', config.outDir, '--base', config.base]);
+    await exec(
+      'npx',
+      ['vitepress', 'build', srcDir, '--outDir', config.outDir, '--base', config.base],
+      {env: {LANDO_MVB_BUILD: 1, LANDO_MVB_BRANCH: getBranch(gitDir), LANDO_MVB_SOURCE: process.cwd()}},
+    );
   } catch (error) {
     error.message = red(`Build failed for version ${version} with error: ${error.message}`);
     error.build = build;
