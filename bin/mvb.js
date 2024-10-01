@@ -126,7 +126,7 @@ if (shallow) updateArgs.push('--unshallow');
 // update all refs
 await oexec('git', updateArgs);
 await oexec('git', ['--no-pager', 'log', '-1']);
-await oexec('git', ['checkout', 'remotes/pull/51/merge']);
+await oexec('git', ['checkout', getBranch()]);
 
 
 // build clone args
@@ -142,6 +142,8 @@ await exec('git', ['--no-pager', 'tag']);
 await exec('git', ['--no-pager', 'branch', '--all']);
 await exec('git', ['status']);
 await exec('git', ['--no-pager', 'log', '-1']);
+
+process.exit(1)
 
 // get extended version information
 const {extended} = await getTags(options.tmpDir, options);
