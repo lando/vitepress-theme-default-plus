@@ -92,7 +92,6 @@ const options = {
   ...argv,
   cacheDir: path.resolve(process.env?.NETLIFY === 'true' ? '/opt/build/cache' : siteConfig.cacheDir, '@lando', 'mvb'),
   tmpDir: path.resolve(os.tmpdir(), nanoid()),
-  // tmpDir: path.resolve(siteConfig.tempDir, nanoid()),
 };
 debug('multiversion build from %o using resolved build options: %O', srcDir, options);
 
