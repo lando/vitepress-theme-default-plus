@@ -134,12 +134,12 @@ else cloneArgs.push(gitDir, './');
 await exec('git', cloneArgs);
 
 await exec('git', ['status']);
+await exec('git', ['--no-pager', 'tag', '--list', `"${options.match}"`]);
+await exec('git', ['--no-pager', 'branch']);
 await exec('git', ['rev-parse', '--abbrev-ref', 'HEAD']);
-await oexec('git', ['status']);
-await oexec('git', ['rev-parse', '--abbrev-ref', 'HEAD']);
 
 // get extended version information
-const {extended} = await getTags(gitDir, options);
+const {extended} = await getTags(options.tmpDir, options);
 debug('determined versions to build: %o', extended);
 
 // if we cant find the base build then reset it to dev
