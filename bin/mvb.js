@@ -102,16 +102,17 @@ const options = {
 debug('multiversion build from %o using resolved build options: %O', srcDir, options);
 
 // determine gitdir
-// @TODO: throw error if no git dir?
-const gitDir = traverseUp(['.git'], osource).find(dir => fs.existsSync(dir));
+const gitDir = path.resolve(traverseUp(['.git'], osource).find(dir => fs.existsSync(dir)));
 debug('determined git-dir: %o', gitDir);
 
 // do the initial setup
 fs.removeSync(options.tmpDir, {force: true, maxRetries: 10, recursive: true});
 fs.mkdirSync(options.tmpDir, {recursive: true});
 
-// create execers for source and tmp opts
-const oexec = createExec({cwd: process.cwd(), debug});
+// copy the source repo to tmp
+fs.copySync(osource, options.tmpDir);
+
+// create execer for tmp opts
 const exec = createExec({cwd: options.tmpDir, debug});
 
 // start it up
@@ -122,14 +123,18 @@ const updateArgs = ['fetch', 'origin', '--tags', '--no-filter'];
 // if shallow then add to update refs
 if (getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true') updateArgs.push('--unshallow');
 // update all refs
-await oexec('git', updateArgs);
+await exec('git', updateArgs);
 
-await oexec('git', ['status']);
-console.log(getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}));
-await oexec('git', ['diff']);
+await exec('git', ['status']);
+await exec('git', ['--no-pager', 'tag']);
+await exec('git', ['--no-pager', 'branch', '--all']);
+await exec('cat', ['.git/config']);
+
+await exec('git', ['diff']);
 
 // if we are in detached head state then checkout best branch
 if (getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}) === 'HEAD') await oexec('git', ['checkout', getBranch()]);
+console.log(getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}));
 
 process.exit(1)
 
