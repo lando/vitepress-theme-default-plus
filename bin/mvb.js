@@ -126,6 +126,8 @@ await oexec('git', updateArgs);
 await oexec('git', ['status']);
 await oexec('git', ['--no-pager', 'branch']);
 await oexec('git', ['show-ref', 'mvb-cache']);
+await oexec('git', ['show-ref', 'mvb-cache']);
+console.log(getCloneUrl());
 // await oexec('git', ['describe', '--debug', '--tags', '--always', '--abbrev=1', `--match="${options.match}"`, getBranch()]);
 
 // build clone args
