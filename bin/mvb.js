@@ -123,19 +123,6 @@ await oexec('git', ['checkout', getBranch()]);
 // and then copy the repo in tmpdir so we can operate on it
 fs.copySync(gitDir, options.tmpDir);
 
-await exec('git', ['status']);
-await exec('git', ['--no-pager', 'tag']);
-await exec('git', ['--no-pager', 'branch', '--all']);
-await exec('cat', ['.git/config']);
-
-await exec('git', ['diff']);
-
-// if we are in detached head state then checkout best branch
-// if (getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}) === 'HEAD') await oexec('git', ['checkout', getBranch()]);
-console.log(getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}));
-
-process.exit(1);
-
 // get extended version information
 const {extended} = await getTags(options.tmpDir, options);
 debug('determined versions to build: %o', extended);
