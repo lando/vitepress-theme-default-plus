@@ -114,22 +114,17 @@ log('setting up mvb build environment using %s...', magenta(gitDir));
 const updateArgs = ['fetch', 'origin', '--tags', '--no-filter'];
 // if shallow then add to update refs
 if (getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true') updateArgs.push('--unshallow');
-// update original
+// fetch
 await oexec('git', updateArgs);
-
-await oexec('git', ['status']);
-await oexec('git', ['--no-pager', 'tag']);
-await oexec('git', ['--no-pager', 'log', '-3']);
-
-// checkout branch
-await oexec('git', ['checkout', getBranch(), '--force']);
-// git reset
-await oexec('git', ['reset', 'HEAD', '--hard']);
-// git pull
-await oexec('git', ['pull']);
 
 // and then copy the repo in tmpdir so we can operate on it
 fs.copySync(gitDir, options.tmpDir);
+// checkout
+await exec('git', ['checkout', getBranch(), '--force']);
+// reset
+await exec('git', ['reset', 'HEAD', '--hard']);
+// pull
+await exec('git', ['pull', 'origin', getBranch()]);
 
 // get extended version information
 const {extended} = await getTags(options.tmpDir, options);
@@ -169,8 +164,6 @@ const builds = extended.map((version, index) => {
 log('normal build at %s using alias %s, ref %s', magenta(options.base), magenta(builds[0]?.alias), magenta(builds[0]?.ref));
 log('and found %s other versions to build', magenta(builds.length - 1));
 log('');
-
-process.exit(1)
 
 // and now build them all
 for (const build of builds) {
