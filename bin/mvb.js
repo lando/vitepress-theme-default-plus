@@ -224,7 +224,6 @@ for (const build of builds) {
 
   // save cache if its on
   if (cache) {
-    log('saving version %s to %s at %s...', version, 'cache', cached);
     debug('saving version %s to %s at %s...', version, 'cache', cached);
     fs.copySync(path.resolve(config.outDir), cached);
   }
