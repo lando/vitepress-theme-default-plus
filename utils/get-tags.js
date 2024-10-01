@@ -38,7 +38,7 @@ export default function async(
   if (versions.length > 0) {
     aliases.edge = versions[0];
     aliases.stable = versions.filter(version => semver.prerelease(version) === null)[0];
-    aliases.dev = getStdOut(`git describe --tags --always --abbrev=1 --match="${match}" ${getBranch(cwd)}`, {trim: true});
+    aliases.dev = getStdOut(`git describe --tags --always --abbrev=1 --match="${match}" ${getBranch(cwd)}`, opts);
   }
   debug('generated aliases %o', aliases);
 

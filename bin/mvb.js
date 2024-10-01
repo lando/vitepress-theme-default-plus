@@ -113,15 +113,14 @@ const exec = createExec({cwd: options.tmpDir, debug});
 // start it up
 log('collecting version information from %s...', magenta(gitDir));
 
-// checkout branch
-await exec('git', ['checkout', getBranch()]);
-
-// lets make sure the source repo at least has all the tag and branch information it needs
+// lets make sure the source repo at least has all the tag information it needs
 const updateArgs = ['fetch', 'origin', '--tags', '--no-filter'];
 // if shallow then add to update refs
 if (getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true') updateArgs.push('--unshallow');
 // update all refs
 await exec('git', updateArgs);
+// checkout branch
+await exec('git', ['checkout', getBranch()]);
 
 await exec('git', ['status']);
 await exec('git', ['--no-pager', 'tag']);
