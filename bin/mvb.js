@@ -117,7 +117,7 @@ if (getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true')
 // update original
 await oexec('git', updateArgs);
 // checkout branch
-await oexec('git', ['checkout', getBranch()]);
+await oexec('git', ['checkout', getBranch(), '--merge']);
 
 // and then copy the repo in tmpdir so we can operate on it
 fs.copySync(gitDir, options.tmpDir);
