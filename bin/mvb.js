@@ -104,10 +104,8 @@ debug('determined git-dir: %o', gitDir);
 fs.removeSync(options.tmpDir, {force: true, maxRetries: 10, recursive: true});
 fs.mkdirSync(options.tmpDir, {recursive: true});
 
-// copy the source repo to tmp
-fs.copySync(gitDir, options.tmpDir);
-
-// create execer for tmp opts
+// create execers for source and tmp opts
+const oexec = createExec({cwd: process.cwd(), debug});
 const exec = createExec({cwd: options.tmpDir, debug});
 
 // start it up
@@ -117,10 +115,13 @@ log('collecting version information from %s...', magenta(gitDir));
 const updateArgs = ['fetch', 'origin', '--tags', '--no-filter'];
 // if shallow then add to update refs
 if (getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true') updateArgs.push('--unshallow');
-// update all refs
-await exec('git', updateArgs);
+// update original
+await oexec('git', updateArgs);
 // checkout branch
-await exec('git', ['checkout', getBranch()]);
+await oexec('git', ['checkout', getBranch()]);
+
+// and then copy the repo in tmpdir so we can operate on it
+fs.copySync(gitDir, options.tmpDir);
 
 await exec('git', ['status']);
 await exec('git', ['--no-pager', 'tag']);
@@ -132,6 +133,8 @@ await exec('git', ['diff']);
 // if we are in detached head state then checkout best branch
 // if (getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}) === 'HEAD') await oexec('git', ['checkout', getBranch()]);
 console.log(getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}));
+
+process.exit(1)
 
 // get extended version information
 const {extended} = await getTags(options.tmpDir, options);
