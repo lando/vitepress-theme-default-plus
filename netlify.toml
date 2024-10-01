@@ -2,6 +2,10 @@
   base = "./"
   publish = "docs/.vitepress/dist/"
   command = "npx mvb docs"
+
+[context.deploy-preview]
+  command = "npm run build"
+
 # Sets our asset optimization
 [build.processing.css]
   bundle = true
