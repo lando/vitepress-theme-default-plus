@@ -64,7 +64,7 @@ export default function async(
   // dev should always exist in extended
   extended.push({
     alias: 'dev',
-    ref: getBranch(cwd),
+    ref: `origin/${getBranch(cwd)}`,
     semantic: semver.valid(aliases.dev) === null ? 'dev' : semver.clean(aliases.dev),
     version: semver.valid(aliases.dev) === null ? 'dev' : semver.clean(aliases.dev),
   });
