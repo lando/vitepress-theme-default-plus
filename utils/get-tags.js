@@ -38,7 +38,7 @@ export default function async(
   if (versions.length > 0) {
     aliases.edge = versions[0];
     aliases.stable = versions.filter(version => semver.prerelease(version) === null)[0];
-    aliases.dev = getStdOut(`git describe --tags --always --abbrev=1 --match="${match}" origin/${getBranch(cwd)}`, {trim: true});
+    aliases.dev = getStdOut(`git describe --tags --always --abbrev=1 --match="${match}" ${getBranch(cwd)}`, {trim: true});
   }
   debug('generated aliases %o', aliases);
 
@@ -64,7 +64,7 @@ export default function async(
   // dev should always exist in extended
   extended.push({
     alias: 'dev',
-    ref: `origin/${getBranch(cwd)}`,
+    ref: getBranch(cwd),
     semantic: semver.valid(aliases.dev) === null ? 'dev' : semver.clean(aliases.dev),
     version: semver.valid(aliases.dev) === null ? 'dev' : semver.clean(aliases.dev),
   });
