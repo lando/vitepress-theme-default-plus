@@ -135,8 +135,9 @@ if (onNetlify) cloneArgs.push('--depth', '2147483647', '--branch', getBranch(), 
 else cloneArgs.push('--no-local', '--no-hardlinks', gitDir, './');
 // do the vampire
 await exec('git', cloneArgs);
-await exec('get', ['--no-pager', 'branch', '--all']);
-await exec('git', ['checkout', `origin/${getBranch()}`]);
+console.log(process.env);
+await exec('git', ['--no-pager', 'branch', '--all']);
+await exec('git', ['checkout', 'remotes/pull/51/merge']);
 
 // get extended version information
 const {extended} = await getTags(options.tmpDir, options);
