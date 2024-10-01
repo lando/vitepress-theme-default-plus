@@ -141,7 +141,7 @@ await exec('git', ['status']);
 await exec('git', ['--no-pager', 'tag', '--list', options.match]);
 await exec('git', ['--no-pager', 'branch']);
 await exec('git', ['rev-parse', '--abbrev-ref', 'HEAD']);
-await oexec('git', ['describe', '--debug', '--tags', '--always', '--abbrev=1', `--match="${options.match}"`, getBranch()]);
+await exec('git', ['describe', '--debug', '--tags', '--always', '--abbrev=1', `--match="${options.match}"`, getBranch()]);
 
 // get extended version information
 const {extended} = await getTags(options.tmpDir, options);
