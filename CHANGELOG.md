@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## v1.1.0-beta.4 - [October 1, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.4)
+
 * Added `caching` to `mvb` multiversion build
 * Added better dev `branch` detection to `mvb`
 * Fixed bug causing `alias.dev` to always report highest built tag instead of actual dev version
