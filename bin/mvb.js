@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import crypto from 'node:crypto';
 import path from 'node:path';
 import {format, inspect} from 'node:util';
 
@@ -92,7 +93,7 @@ const cacheBase = onNetlify ? '/opt/build/cache' : siteConfig.cacheDir;
 const options = {
   ...defaults,
   ...argv,
-  cacheDir: path.resolve(cacheBase, '@lando', 'mvb', srcDir),
+  cacheDir: path.resolve(cacheBase, '@lando', 'mvb'),
   tmpDir: path.resolve(siteConfig.tempDir, nanoid()),
 };
 debug('multiversion build from %o using resolved build options: %O', srcDir, options);
@@ -102,16 +103,13 @@ debug('multiversion build from %o using resolved build options: %O', srcDir, opt
 const gitDir = traverseUp(['.git'], osource).find(dir => fs.existsSync(dir));
 debug('determined git-dir: %o', gitDir);
 
-// destructure some helpful options
-const {cache, cacheDir, outDir, tmpDir} = options;
-
 // do the initial setup
-fs.removeSync(tmpDir, {force: true, maxRetries: 10, recursive: true});
-fs.mkdirSync(tmpDir, {recursive: true});
+fs.removeSync(options.tmpDir, {force: true, maxRetries: 10, recursive: true});
+fs.mkdirSync(options.tmpDir, {recursive: true});
 
 // create execer for source and tmp ops
 const oexec = createExec({cwd: process.cwd(), debug});
-const exec = createExec({cwd: tmpDir, debug});
+const exec = createExec({cwd: options.tmpDir, debug});
 
 // start it up
 log('collecting version information from %s...', magenta(gitDir));
@@ -153,14 +151,17 @@ debug('determined main/root build is %o %o', options.build, extended[0]);
 const builds = extended.map((version, index) => {
   if (index === 0) {
     version.base = options.base;
-    version.outDir = outDir;
+    version.outDir = options.outDir;
   } else {
     version.base = path.resolve(`/${options.base}/${options.versionBase}/${version.alias ?? version.version}`) + '/';
-    version.outDir = path.join(outDir, options.versionBase, version.alias ?? version.version);
+    version.outDir = path.join(options.outDir, options.versionBase, version.alias ?? version.version);
   }
 
   // if caching then also suggest a cache location
-  if (cache) version.cached = path.join(cacheDir, options.base, options.versionBase, version.version);
+  if (options.cache) {
+    version.cacheKey = path.join(options.base, options.versionBase, version.version, version.base);
+    version.cachePath = path.join(options.cacheDir, crypto.createHash('sha256').update(version.cacheKey).digest('hex'));
+  }
 
   // return
   return {...version, srcDir};
@@ -174,14 +175,14 @@ log('');
 // and now build them all
 for (const build of builds) {
   // separate out our stuff
-  const {alias, cached, ref, semantic, srcDir, version, ...config} = build;
+  const {alias, cachePath, ref, semantic, srcDir, version, ...config} = build;
 
   // if we have cache then lets just copy it over
-  if (cached && fs.existsSync(cached)) {
-    log('restoring version %s from %s at %s...', magenta(alias ?? version), magenta('cache'), magenta(cached));
+  if (cachePath && fs.existsSync(cachePath)) {
+    log('restoring version %s from %s at %s...', magenta(alias ?? version), magenta('cache'), magenta(cachePath));
     fs.removeSync(path.resolve(config.outDir), {force: true, maxRetries: 10, recursive: true});
     fs.mkdirSync(config.outDir, {recursive: true});
-    fs.copySync(cached, path.resolve(config.outDir));
+    fs.copySync(cachePath, path.resolve(config.outDir));
     continue;
   }
 
@@ -197,7 +198,7 @@ for (const build of builds) {
   await exec('npm', ['clean-install']);
 
   // update package.json if needed
-  const pjsonPath = path.join(tmpDir, 'package.json');
+  const pjsonPath = path.join(options.tmpDir, 'package.json');
   const pjson = JSON.parse(fs.readFileSync(pjsonPath, {encoding: 'utf8'}));
   if (pjson.version !== semantic) {
     // update version
@@ -219,13 +220,13 @@ for (const build of builds) {
 
   // clean original
   fs.removeSync(path.resolve(config.outDir), {force: true, maxRetries: 10, recursive: true});
-  // move tmp to original
-  fs.moveSync(path.resolve(tmpDir, outDir), path.resolve(config.outDir));
+  // copy tmp to original
+  fs.copySync(path.join(options.tmpDir, config.outDir), path.resolve(config.outDir));
 
   // save cache if its on
-  if (cache) {
-    debug('saving version %s to %s at %s...', version, 'cache', cached);
-    fs.copySync(path.resolve(config.outDir), cached);
+  if (options.cache) {
+    debug('saving version %s to %s at %s...', version, 'cache', cachePath);
+    fs.copySync(path.resolve(config.outDir), cachePath);
   }
 }
 
