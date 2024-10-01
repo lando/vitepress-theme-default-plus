@@ -1,4 +1,4 @@
-import semver from 'semver';
+import * as semver from 'semver';
 
 export default function(version) {
   // throw error if not a valid version

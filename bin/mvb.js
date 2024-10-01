@@ -131,7 +131,7 @@ const cloneArgs = ['clone'];
 // netlicf clone
 if (onNetlify) cloneArgs.push('--depth', '2147483647', '--branch', getBranch(), getCloneUrl(), './');
 // generic clone
-else cloneArgs.push(gitDir, './');
+else cloneArgs.push('--branch', `origin/${getBranch()}`, gitDir, './');
 // do the vampire
 await exec('git', cloneArgs);
 
