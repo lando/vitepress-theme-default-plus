@@ -134,7 +134,7 @@ await exec('git', ['diff']);
 // if (getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}) === 'HEAD') await oexec('git', ['checkout', getBranch()]);
 console.log(getStdOut('git rev-parse --abbrev-ref HEAD', {trim: true}));
 
-process.exit(1)
+process.exit(1);
 
 // get extended version information
 const {extended} = await getTags(options.tmpDir, options);
