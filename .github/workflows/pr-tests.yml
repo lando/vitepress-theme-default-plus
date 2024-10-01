@@ -20,7 +20,7 @@ jobs:
         uses: actions/cache@v4
         with:
           key: lando-mvb-docs
-          path: docs/.vitepress/cache/@lando/mvb/docs
+          path: docs/.vitepress/cache/@lando/mvb
           save-always: true
       - name: Install node ${{ matrix.node-version }}
         uses: actions/setup-node@v4

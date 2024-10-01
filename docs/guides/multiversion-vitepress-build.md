@@ -13,7 +13,8 @@ Here are some steps to:
 
 * Build multiple versions of your docs
 * Get a nice index page listing them
-* Get some versioning docs in the sidebar.
+* Get some versioning docs in the sidebar
+* Speed up builds with caching
 
 There are what we do to set up the multiversion build for this site eg this is an example and **YMMV**.
 
@@ -73,7 +74,6 @@ next: false
 
 Note that `useTags()` has additional exportables you can read more about [here](../composables/use-tags.md).
 
-
 ## 4. Sidebar
 
 We use the [Sidebar Ender](../config/config.md#sidebar-ender) to put our version information.
@@ -112,6 +112,25 @@ export default defineConfig({
     },
   }
 });
+```
 
+## 5. Caching
 
+By default successful builds will cache in `${siteConfig.cacheDir}/@lando/mvb`.
+
+However, if you are using an ephemeral build or testing environment a la GitHub Actions you may need to configure the cache to persist across rebuilds.
+
+:::tip NETLIFY
+If you are using Netlify to deploy your docs then caching will be configured and working by default!
+:::
+
+For example we use `@actions/cache` to speed up our `mvb` test builds by caching `docs/.vitepress/cache/@lando/mvb` as in the below example:
+
+```yaml
+uses: actions/cache@v4
+with:
+  key: lando-mvb
+  path: docs/.vitepress/cache/@lando/mvb
+  save-always: true
+```
 

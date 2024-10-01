@@ -188,9 +188,10 @@ export default function({landoPlugin, version}) {
       layouts: {},
       logo: {src: '/images/icon.svg', width: 24, height: 24},
       multiVersionBuild: {
-        build: 'stable',
-        match: 'v[0-9].*',
         base: '/v/',
+        build: 'stable',
+        cache: true,
+        match: 'v[0-9].*',
         satisfies: '>=1.0.0',
       },
       nav: [],

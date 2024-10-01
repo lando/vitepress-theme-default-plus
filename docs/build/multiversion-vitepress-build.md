@@ -27,6 +27,7 @@ Usage: [CI=1] multiversion-vitepress-build <root> \
   [--base <base>] \
   [--build <alias>] \
   [--match "<match>"] \
+  [--no-cache] \
   [--out-dir <dir>] \
   [--satisifes "<satisfies>"] \
   [--version-base <dir>] \
@@ -35,10 +36,11 @@ Usage: [CI=1] multiversion-vitepress-build <root> \
 
 Options:
   --base             sets site base [default: /]
-  --build            uses this version alias for main/root build [default: dev]
+  --build            uses this version alias for main/root build [default: stable]
   --match            filters versions from git tags [default: "v[0-9].*"]
+  --no-cache         builds all versions every build [default: "false"]
   --out-dir          builds into this location [default: docs/.vitepress/dist]
-  --satisfies        builds versioned docs in this semantic range [default: ">=1.0.0-beta.42"]
+  --satisfies        builds versioned docs in this semantic range [default: "*"]
   --version-base     builds versioned docs in this location [default: /v/]
   --debug            shows debug messages
   -h, --help         displays this message
@@ -62,7 +64,9 @@ npx mvb old_docs --build stable --satisfies ">=1.0.0 <1.0.4"
 # build all versions into a separate directory
 npx mvb --satisfies "*" --version-base "/all-versions/"
 
+# rebuild all versions from scratch
+npx mvb --no-cache
+
 # get usage/help
 npx mvb --help
-
 ```
