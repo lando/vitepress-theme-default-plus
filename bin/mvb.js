@@ -127,7 +127,7 @@ if (shallow) updateArgs.push('--unshallow');
 await oexec('git', updateArgs);
 
 // build clone args
-const cloneArgs = ['clone', '--mirror'];
+const cloneArgs = ['clone', '--origin', 'origin', '--no-single-branch'];
 // netlicf clone
 if (onNetlify) cloneArgs.push('--depth', '2147483647', '--branch', getBranch(), getCloneUrl(), './');
 // generic clone
