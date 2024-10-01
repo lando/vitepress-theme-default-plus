@@ -119,6 +119,8 @@ const updateArgs = ['fetch', 'origin', '--tags', '--no-filter'];
 if (getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true') updateArgs.push('--unshallow');
 // update all refs
 await exec('git', updateArgs);
+// checkout branch
+await exec('git', ['checkout', getBranch()]);
 
 await exec('git', ['status']);
 await exec('git', ['--no-pager', 'tag']);
