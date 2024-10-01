@@ -35,7 +35,7 @@ export default function async(
   const aliases = {dev: 'HEAD', edge: 'HEAD', stable: 'HEAD'};
 
   console.log(process.env);
-  console.log(getStdOut(`git describe --tags --always --abbrev=1 --match="${match}"`, opts))
+  console.log(getStdOut(`git describe --tags --always --abbrev=1 --match="${match}"`, opts));
 
 
   // if we have versions data we can reset them to actual tags
