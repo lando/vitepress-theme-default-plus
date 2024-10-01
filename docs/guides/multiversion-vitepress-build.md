@@ -51,7 +51,21 @@ You will want to update your build process from something like `npx vitepress bu
   command = "npx mvb docs"  // [!code ++]
 ```
 
-You can get more detail on the `mvp` command [over here](../build/multiversion-vitepress-build.md).
+You can get more detail on the `mvb` command [over here](../build/multiversion-vitepress-build.md).
+
+You may also want to consider using the usual `npx vitepress build docs` in certain build contect eg pull requests that generate previews as that probably makes more sense for various reasons.
+
+Here is what we do in our `netlify.toml` to separate between `deploy-preview` and all other build contexts.
+
+```toml
+[build]
+  base = "./"
+  publish = "docs/.vitepress/dist/"
+  command = "npx mvb docs"
+
+[context.deploy-preview]
+  command = "npm run build"
+```
 
 ## 3. Index
 
