@@ -121,7 +121,7 @@ await oexec('git', ['checkout', getBranch(), '--force']);
 // reset
 await oexec('git', ['reset', 'HEAD', '--hard']);
 // pull
-await oexec('git', ['pull']);
+await oexec('git', ['pull', 'origin', getBranch()]);
 
 // and then copy the repo in tmpdir so we can operate on it
 fs.copySync(gitDir, options.tmpDir);
