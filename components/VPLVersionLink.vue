@@ -7,7 +7,7 @@
       'vp-external-link-icon': props.target === '_blank',
       'no-icon': props.noIcon
     }"
-    :href="normalizeLink(props.href)"
+    :href="props.href"
     :target="props.target"
     :rel="props.rel"
   >
@@ -34,7 +34,6 @@
 </template>
 
 <script setup>
-import {normalizeLink} from 'vitepress/dist/client/theme-default/support/utils.js';
 
 const props = defineProps({
   text: {

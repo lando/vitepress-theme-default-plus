@@ -1,5 +1,6 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+* Changed `VPLVersionLink` to _not_ normalize links
 * Fixed bug in `VPLLink` causing some links to to not normalize correctly
 
 ## v1.1.0-beta.4 - [October 1, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.4)
