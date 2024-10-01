@@ -1,7 +1,7 @@
 [build]
   base = "./"
   publish = "docs/.vitepress/dist/"
-  command = "npm run build"
+  command = "npx mvb"
 
 # Sets our asset optimization
 [build.processing.css]
@@ -32,5 +32,5 @@
 [[plugins]]
   package = "netlify-plugin-checklinks"
   [plugins.inputs]
-    skipPatterns = [ ".rss", ".gif", ".jpg", 'x.com', 'twitter.com' ]
+    skipPatterns = [ ".rss", ".gif", ".jpg", 'x.com', 'twitter.com', '/v/' ]
     checkExternal = true

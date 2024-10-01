@@ -11,8 +11,8 @@
       >
         <Article
           :page="page"
-          :size="size"
-          :more="more"
+          :size="props.size"
+          :more="props.more"
           class="collection-page-article"
         />
       </div>
@@ -40,7 +40,7 @@ const Article = defineAsyncComponent({
   loader: async () => Item,
 });
 
-const {items, pager, more, size, tags} = defineProps({
+const props = defineProps({
   items: {
     type: Array,
     required: true,
@@ -64,26 +64,26 @@ const {items, pager, more, size, tags} = defineProps({
 });
 
 // Hardcoded pager value for now
-const amount = ref(pager);
+const amount = ref(props.pager);
 const key = ref(0);
 
 // normalize data and sort
-let pages = items
+let pages = props.items
   .map(item => Object.assign(item, {show: true, timestamp: item.date ? item.date : item.timestamp}))
   .sort((a, b) => a.timestamp < b.timestamp ? 1 : -1);
 
-const adder = () => amount.value += pager;
+const adder = () => amount.value += props.pager;
 const getGrower = i => pagination()[i + 1] === undefined && (i + 1) % 2 !== 0;
 const pagination = () => pages.slice(0, amount.value);
 
 const filter = () => {
-  const tagList = Object.entries(tags).filter(pair => pair[1].selected === true).map(pair => pair[0]);
-  if (tagList.length === 0) return items;
-  return items.filter(item => Array.isArray(item.tags) && tagList.every(tag => item.tags.includes(tag)));
+  const tagList = Object.entries(props.tags).filter(pair => pair[1].selected === true).map(pair => pair[0]);
+  if (tagList.length === 0) return props.items;
+  return props.items.filter(item => Array.isArray(item.tags) && tagList.every(tag => item.tags.includes(tag)));
 };
 
 // recompute filter when tags change
-watch(tags, () => {
+watch(props.tags, () => {
   pages = filter();
   key.value++;
 });

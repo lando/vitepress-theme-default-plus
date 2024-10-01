@@ -18,8 +18,10 @@ import VPLYouTube from './components/VPLYouTube.vue';
 
 // composables
 export {default as isActive} from './client/is-active.js';
+export {default as isDevRelease} from './utils/is-dev-release.js';
 export {default as encodeTag} from './client/encode-tag.js';
 export {default as useCollection} from './client/use-collection.js';
+export {default as useTags} from './client/use-tags.js';
 export {default as useTeam} from './client/use-team.js';
 
 // components
@@ -27,6 +29,7 @@ export {default as VPLAlert} from './components/VPLAlert.vue';
 export {default as VPLLink} from './components/VPLLink.vue';
 export {default as VPLMenuGroup} from './components/VPLMenuGroup.vue';
 export {default as VPLMenuLink} from './components/VPLMenuLink.vue';
+export {default as VPLVersionLink} from './components/VPLVersionLink.vue';
 export {default as VPLNavBarMenuGroup} from './components/VPLNavBarMenuGroup.vue';
 
 // team page

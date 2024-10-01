@@ -7,6 +7,8 @@ export default function({base}) {
     markdown: {},
     robots: {
       allowAll: true,
+      policy: [],
+      policies: [],
     },
     sitemap: {
       lastmodDateOnly: false,
@@ -88,6 +90,7 @@ export default function({base}) {
         },
       },
       layouts: {},
+      multiVersionBuild: false,
       nav: [],
       sidebar: {},
       sidebarEnder: false,

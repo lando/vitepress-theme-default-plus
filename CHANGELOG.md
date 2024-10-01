@@ -1,3 +1,37 @@
+## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
+
+## v1.1.0-beta.3 - [September 30, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.3)
+
+* Improved `is-dev-release` to handle `dev` releases that are in front of a prerelease tag
+
+## v1.1.0-beta.2 - [September 30, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.2)
+
+* Fixed bug causing `robots.txt` build to throw an error when `policies` is `undefined`
+* Fixed bug causing `netlify` specific `mvb` to not get current tags
+
+## v1.1.0-beta.1 - [September 30, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.1)
+
+## New Features
+
+* Added new `multiversion-vitepress-build` command
+* Added `useTags` composable to get docs version information from `git`
+* Added `VPLVersionLink` component
+* Switched these docs to `multiversion-vitepress-build`
+* Updated to `vitepress@1.3.4`
+
+## Bug Fixes
+
+* Fixed bug causing build error when `metadata` is added to a page with no `git` history
+* Fixed bug caused by `icon` being a variable instead of a string in `VPLTeamMembersItem`
+* Fixed bug caused by `VPLTeamMembers.members` typing as `Object` instead of `Array`
+* Fixed bug causing `robots.txt` policies to not be applied when using `policies` instead of `policy`
+* Fixed watch bug on `VPLCollectionItems` preventing tag toggling from working correctly
+
+## v1.0.2 - [April 17, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.2)
+
+* Updated `lando` config sets
+* Updated to `vitepress@1.1.0`
+
 ## v1.0.1 - [April 4, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.0.1)
 
 ## Bug Fixes

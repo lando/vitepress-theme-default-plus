@@ -22,7 +22,7 @@ export default async function(pageData, {
     const description = frontmatter.description ?? frontmatter.summary ?? site.description;
     const i = frontmatter.image ?? image ?? site?.logo?.src;
     const xandle = x ?? twitter;
-    const published = new Date(lastUpdated);
+    const published = new Date(Number.isNaN(lastUpdated) || !lastUpdated ? Date.now() : lastUpdated);
 
     // generics
     frontmatter.head.push(

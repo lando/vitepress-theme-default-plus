@@ -1,13 +1,40 @@
 import {createRequire} from 'module';
 import {resolve, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {default as isDevRelease} from '@lando/vitepress-theme-default-plus/is-dev-release';
 
 import {defineConfig} from '../../config';
 
 const require = createRequire(import.meta.url);
-
 const __dirname = dirname(resolve(fileURLToPath(import.meta.url)));
+
+// get version info
 const {version} = require('../../package.json');
+
+// sidebar ender
+const sidebarEnder = {
+  text: `v${version}`,
+  collapsed: true,
+  items: [
+    {
+      text: 'Other Doc Versions',
+      items: [
+        {text: 'stable', target: '_blank', link: '/v/stable/'},
+        {text: 'edge', target: '_blank', link: '/v/edge/'},
+        {text: '<strong>see all versions</strong>', link: '/v/'},
+      ],
+    },
+    {text: 'Other Releases', link: 'https://github.com/lando/vitepress-theme-default-plus/releases'},
+  ],
+};
+
+// if version is a stable or edge release then add in the release notes
+if (!isDevRelease(version)) {
+  sidebarEnder.items.splice(1, 0, {
+    text: 'Release Notes',
+    link: `https://github.com/lando/vitepress-theme-default-plus/releases/tag/v${version}`,
+  });
+}
 
 export default defineConfig({
   title: 'VitePress Theme +',
@@ -27,6 +54,13 @@ export default defineConfig({
   robots: {
     host: 'https://vitepress-theme-default-plus.lando.dev/',
     sitemap: 'https://vitepress-theme-default-plus.lando.dev/sitemap.xml',
+    disallowAll: false,
+    allowAll: false,
+    policies: [{
+      userAgent: '*',
+      disallow: ['/v/'],
+      allow: '/',
+    }],
   },
   sitemap: {
     hostname: 'https://vitepress-theme-default-plus.lando.dev',
@@ -117,6 +151,12 @@ export default defineConfig({
       dogs: './components/VPLDogs.vue',
     },
     logo: {src: '/images/vitepress-lando-logo-icon.png', width: 24, height: 24},
+    multiVersionBuild: {
+      build: 'edge',
+      match: 'v[0-9].*',
+      base: '/v/',
+      satisfies: '>=1.0.0-beta.42',
+    },
     tags: {
       'obscure': {
         color: 'var(--vp-c-purple-1)',
@@ -190,6 +230,7 @@ export default defineConfig({
       },
     ],
     sidebar: {
+      '/build': configSideBar(),
       '/config': configSideBar(),
       '/components': configSideBar(),
       '/composables': configSideBar(),
@@ -221,21 +262,14 @@ export default defineConfig({
             {text: 'GitHub', link: 'https://github.com/lando/vitepress-theme-default-plus/issues/new/choose'},
             {text: 'Slack', link: 'https://www.launchpass.com/devwithlando'},
             {text: 'Contact Us', link: '/support'},
-            {text: 'Guides', link: '/guides'},
           ],
         },
         {text: 'Configuration', link: '/config/config'},
+        {text: 'Guides', link: '/guides'},
         {text: 'Blog', link: '/blog'},
       ],
     },
-    sidebarEnder: {
-      text: `v${version}`,
-      collapsed: true,
-      items: [
-        {text: 'Release Notes', link: `https://github.com/lando/vitepress-theme-default-plus/releases/tag/v${version}`},
-        {text: 'Older Versions', link: 'https://github.com/lando/vitepress-theme-default-plus/releases'},
-      ],
-    },
+    sidebarEnder,
   },
 });
 
@@ -249,7 +283,15 @@ function configSideBar() {
         {text: 'Frontmatter', link: '/config/frontmatter'},
         {text: 'createContentLoader()', link: '/config/create-content-loader'},
         {text: 'useCollection()', link: '/composables/use-collection'},
+        {text: 'useTags()', link: '/composables/use-tags'},
         {text: 'useTeam()', link: '/composables/use-team'},
+      ],
+    },
+    {
+      text: 'Build',
+      collapsed: false,
+      items: [
+        {text: 'multiversion-vitepress-build', link: '/build/multiversion-vitepress-build'},
       ],
     },
     {

@@ -1,3 +1,5 @@
+import {default as isDevRelease} from '@lando/vitepress-theme-default-plus/is-dev-release';
+
 export default function({landoPlugin, version}) {
   const baseUrl = landoPlugin ? `https://docs.lando.dev/${landoPlugin}` : 'https://docs.lando.dev';
   const repo = landoPlugin ? `https://github.com/lando/${landoPlugin}` : 'https://github.com/lando';
@@ -6,10 +8,25 @@ export default function({landoPlugin, version}) {
     text: `${landoPlugin}@v${version}`,
     collapsed: true,
     items: [
-      {text: 'Release Notes', link: `${repo}/releases/tag/v${version}`},
-      {text: 'Older Versions', link: `${repo}/releases`},
+      {
+        text: 'Other Doc Versions',
+        items: [
+          {text: 'stable', target: '_blank', link: '/v/stable/'},
+          {text: 'edge', target: '_blank', link: '/v/edge/'},
+          {text: '<strong>see all versions</strong>', link: '/v/'},
+        ],
+      },
+      {text: 'Other Releases', link: `${repo}/releases`},
     ],
   } : false;
+
+  // add release notes
+  if (sidebarEnder && !isDevRelease(version)) {
+    sidebarEnder.items.splice(1, 0, {
+      text: 'Release Notes',
+      link: `${repo}/releases/tag/v${version}`,
+    });
+  }
 
   return {
     base,
@@ -22,7 +39,14 @@ export default function({landoPlugin, version}) {
     robots: {
       host: baseUrl,
       sitemap: `${baseUrl}/sitemap.xml`,
-      allowAll: true,
+      disallowAll: false,
+      allowAll: false,
+      policy: [],
+      policies: [{
+        userAgent: '*',
+        disallow: ['/v/'],
+        allow: '/',
+      }],
     },
     sitemap: {
       hostname: 'https://docs.lando.dev/',
@@ -163,6 +187,12 @@ export default function({landoPlugin, version}) {
       },
       layouts: {},
       logo: {src: '/images/icon.svg', width: 24, height: 24},
+      multiVersionBuild: {
+        build: 'stable',
+        match: 'v[0-9].*',
+        base: '/v/',
+        satisfies: '>=1.0.0',
+      },
       nav: [],
       sidebar: {},
       sidebarEnder,
