@@ -38,5 +38,4 @@ jobs:
       - name: Test build
         run: npm run build
       - name: Test multiversion build
-        # run: npm run mvb
         run: npx mvb docs --no-cache --debug

@@ -125,13 +125,18 @@ if (shallow) updateArgs.push('--unshallow');
 await oexec('git', updateArgs);
 
 // build clone args
-const cloneArgs = ['clone', '--depth', '2147483647'];
+const cloneArgs = ['clone'];
 // netlicf clone
-if (onNetlify) cloneArgs.push('--branch', process.env.HEAD, getCloneUrl(), './');
+if (onNetlify) cloneArgs.push('--depth', '2147483647', '--branch', process.env.HEAD, getCloneUrl(), './');
 // generic clone
 else cloneArgs.push(gitDir, './');
 // do the vampire
 await exec('git', cloneArgs);
+
+await exec('git', ['status']);
+await exec('git', ['rev-parse', '--abbrev-ref', 'HEAD']);
+await oexec('git', ['status']);
+await oexec('git', ['rev-parse', '--abbrev-ref', 'HEAD']);
 
 // get extended version information
 const {extended} = await getTags(gitDir, options);
