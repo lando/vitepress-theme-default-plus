@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## v1.1.0-beta.12 - [October 2, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.12)
+
 * Added `aliasLinks` as an `export` of `useTags()`
 * Fixed `useTags()` to return correct links for sites with non-root `base` considerations
 
