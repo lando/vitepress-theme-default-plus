@@ -1,16 +1,18 @@
 import {default as isDevRelease} from '@lando/vitepress-theme-default-plus/is-dev-release';
 
-export default function({landoPlugin, version}) {
+export default function({landoPlugin, themeConfig, version}) {
   // allow version to imported from ENV which is nice for one-off dev builds
   version = process?.env?.LANDO_MVB_VERSION ? process.env.LANDO_MVB_VERSION : `v${version}`;
 
-  // special handling for core/cli
-  const text = ['core', 'cli'].includes(landoPlugin) ? version : `${landoPlugin}@${version}`;
-
   // construct the rest
+  const mvbase = themeConfig?.multiVersionBuild?.base ?? '/v/';
   const baseUrl = landoPlugin ? `https://docs.lando.dev/${landoPlugin}` : 'https://docs.lando.dev';
   const repo = landoPlugin ? `https://github.com/lando/${landoPlugin}` : 'https://github.com/lando';
   const base = landoPlugin ? `/plugins/${landoPlugin}/` : '/';
+
+  const text = ['core', 'cli'].includes(landoPlugin) ? version : `${landoPlugin}@${version}`;
+  const vbase = ['core', 'cli'].includes(landoPlugin) ? `/${landoPlugin}${mvbase}` : `${base.slice(0, -1)}${mvbase}`;
+
   const sidebarEnder = landoPlugin && version ? {
     text,
     collapsed: true,
@@ -18,9 +20,9 @@ export default function({landoPlugin, version}) {
       {
         text: 'Other Doc Versions',
         items: [
-          {rel: 'mvb', text: 'stable', target: '_blank', link: '/v/stable/'},
-          {rel: 'mvb', text: 'edge', target: '_blank', link: '/v/edge/'},
-          {text: '<strong>see all versions</strong>', link: '/v/'},
+          {rel: 'mvb', text: 'stable', target: '_blank', link: `${vbase}stable/`},
+          {rel: 'mvb', text: 'edge', target: '_blank', link: `${vbase}edge/`},
+          {text: '<strong>see all versions</strong>', link: `${vbase}`},
         ],
       },
       {text: 'Other Releases', link: `${repo}/releases`},
