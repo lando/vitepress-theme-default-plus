@@ -4,17 +4,14 @@ import {useData} from 'vitepress';
 
 export default function useTags() {
   // get version path data
-  const {site, theme} = useData();
+  const {site} = useData();
   const base = site?.value?.base ?? '/';
-  const vbase = theme?.value?.multiVersionBuild?.base ?? '/v/';
-
-  console.log(site.value, theme.value, base, vbase);
 
   // generate links we can pass into VPLVersionLink
   const links = tags.versions
     .map(version => ({
       text: version,
-      href: `/${base}/${vbase}/${version}/`.replace(/\/{2,}/g, '/'),
+      href: `/${base}/${version}/`.replace(/\/{2,}/g, '/'),
       prerelease: /^v?\d+\.\d+\.\d+-\S+$/.test(version),
       stable: tags?.aliases?.stable === version,
       edge: tags?.aliases?.edge === version,
@@ -22,9 +19,9 @@ export default function useTags() {
 
   // also generate alias linkes
   const aliasLinks = {
-    dev: `/${base}/${vbase}/dev/`.replace(/\/{2,}/g, '/'),
-    edge: `/${base}/${vbase}/edge/`.replace(/\/{2,}/g, '/'),
-    stable: `/${base}/${vbase}/stable/`.replace(/\/{2,}/g, '/'),
+    dev: `/${base}/dev/`.replace(/\/{2,}/g, '/'),
+    edge: `/${base}/edge/`.replace(/\/{2,}/g, '/'),
+    stable: `/${base}/stable/`.replace(/\/{2,}/g, '/'),
   };
 
   return {...tags, links, aliasLinks};
