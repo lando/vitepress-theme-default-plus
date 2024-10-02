@@ -1,11 +1,18 @@
 import {default as isDevRelease} from '@lando/vitepress-theme-default-plus/is-dev-release';
 
 export default function({landoPlugin, version}) {
+  // allow version to imported from ENV which is nice for one-off dev builds
+  version = process?.env?.LANDO_MVB_VERSION ? process.env.LANDO_MVB_VERSION : `v${version}`;
+
+  // special handling for core/cli
+  const text = ['core', 'cli'].includes(landoPlugin) ? version : `${landoPlugin}@${version}`;
+
+  // construct the rest
   const baseUrl = landoPlugin ? `https://docs.lando.dev/${landoPlugin}` : 'https://docs.lando.dev';
   const repo = landoPlugin ? `https://github.com/lando/${landoPlugin}` : 'https://github.com/lando';
   const base = landoPlugin ? `/plugins/${landoPlugin}/` : '/';
   const sidebarEnder = landoPlugin && version ? {
-    text: `${landoPlugin}@v${version}`,
+    text,
     collapsed: true,
     items: [
       {
