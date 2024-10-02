@@ -1,6 +1,6 @@
 import {default as isDevRelease} from '@lando/vitepress-theme-default-plus/is-dev-release';
 
-export default function({landoPlugin, themeConfig, version}) {
+export default function({base, landoPlugin, themeConfig, version}) {
   // reset the base if its undefined
   if (!base) base = landoPlugin ? `/plugins/${landoPlugin}/` : '/';
 
