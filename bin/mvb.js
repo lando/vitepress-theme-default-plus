@@ -171,6 +171,9 @@ for (const build of builds) {
   // separate out our stuff
   const {alias, cachePath, ref, semantic, srcDir, version, ...config} = build;
 
+  console.log(config)
+
+
   // if we have cache then lets just copy it over
   if (cachePath && fs.existsSync(cachePath)) {
     log('restoring version %s from %s at %s...', magenta(alias ?? version), magenta('cache'), magenta(cachePath));

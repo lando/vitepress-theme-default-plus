@@ -74,7 +74,7 @@ dist
 cache
 temp
 config.*.timestamp-*-*.*
-data.js.timestamp-*-*.*
+*.data.js.timestamp-*-*.*
 
 # YARN
 yarn.lock
