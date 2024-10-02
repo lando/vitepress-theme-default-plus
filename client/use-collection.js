@@ -8,11 +8,11 @@ import {data as collections} from './collections.data.js';
 export default function useCollection(type = undefined) {
   const route = useRoute();
   const path = route.path;
-  const {theme} = useData();
+  const {site, theme} = useData();
   const themeTags = theme.value?.tags ?? {};
 
   function findCurrentIndex() {
-    const result = pages.findIndex(p => p.url === route.path);
+    const result = pages.findIndex(p => `${site.value?.base ?? ''}${p.url}`.replace(/\/+/g, '/') === route.path);
     if (result === -1) console.error(`content missing: ${route.path}`);
     return result;
   }
