@@ -21,6 +21,8 @@ const {
 } = useTeam();
 ```
 
+Note that `aliasLinks` and `links` will _only_ be available if you've configured [Multiversion Build](./../config/config.md#multiversion-build).
+
 Here is how we generate our version [index page](/v/) at `/v/`.
 
 ```md
