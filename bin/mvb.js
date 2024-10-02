@@ -162,7 +162,7 @@ const builds = extended.map((version, index) => {
 
 // report
 log('%s build at %s using alias %s, ref %s', magenta('primary'), magenta(options.base), magenta(builds[0]?.alias), magenta(builds[0]?.ref));
-log('%s builds (%s) at %s', magenta('versioning'), magenta(builds.length - 1), magenta(`${options.base}${options.versionBase}`));
+log('%s %s builds at %s', magenta(builds.length - 1), magenta('versioned'), magenta(`${options.base}${options.versionBase}`.replace(/\/{2,}/g, '/')));
 log('%s builds queued up!', magenta(builds.length));
 log('');
 
