@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## v1.1.0-beta.7 - [October 2, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.7)
+
 * Update default config sets
 
 ## v1.1.0-beta.6 - [October 2, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.6)
