@@ -70,7 +70,6 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   // do mvb stuff here
   console.log(config);
   console.log(process.env);
-  process.exit(1)
 
   // get git root if its not defined
   if (!config.gitRoot) {
