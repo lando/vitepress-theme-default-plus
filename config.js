@@ -14,6 +14,7 @@ import {default as createContainer} from './utils/create-container.js';
 import {default as getContributors} from './utils/get-contributors.js';
 import {default as getGaHeaders} from './utils/get-ga-headers.js';
 import {default as getHubspotHeaders} from './utils/get-hubspot-headers.js';
+import {default as normalizeMVB} from './utils/normalize-mvb.js';
 import {default as parseLayouts} from './utils/parse-layouts.js';
 import {default as traverseUp} from './utils/traverse-up.js';
 
@@ -67,9 +68,11 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   // log
   debug('incoming vitepress configuration %O', config);
 
-  // do mvb stuff here
-  console.log(config);
-  console.log(process.env);
+  // normalize mvb stuff as needed
+  if (config?.themeConfig.multiVersionBuild) {
+    config.themeConfig.multiVersionBuild = normalizeMVB({...config.themeConfig.multiVersionBuild, siteBase: config.base});
+    debug('normalized mvb config to %o', config.themeConfig.multiVersionBuild);
+  }
 
   // get git root if its not defined
   if (!config.gitRoot) {
