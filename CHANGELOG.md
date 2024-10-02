@@ -1,6 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
 * Improved dev release resolution
+* Fixed `prev-next` calculation when using sites with non `/` bases [#55](https://github.com/lando/vitepress-theme-default-plus/pull/55)
 
 ## v1.1.0-beta.5 - [October 1, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.5)
 
