@@ -10,6 +10,8 @@ You can `import` the `useTags()` composable from `@lando/vitepress-theme-default
 const {
   // alias:ref pairs
   aliases,
+  // alias:link pairs
+  aliasLinks,
   // extended version information
   extended,
   // versions prepared for injection into `VPLVersionLink`

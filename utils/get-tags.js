@@ -31,6 +31,7 @@ export default function async(
     .filter(tag => typeof tag === 'string')
     .filter(tag => semver.valid(semver.clean(tag)) !== null)
     .filter(tag => semver.satisfies(semver.clean(tag), satisfies, {includePrerelease: true}) === true));
+
   debug('matched %o versions using %o', versions.length, satisfies);
 
   // set aliases to HEAD by default
