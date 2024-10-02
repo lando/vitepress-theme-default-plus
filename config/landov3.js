@@ -31,7 +31,7 @@ export default function({landoPlugin, version}) {
   if (sidebarEnder && !isDevRelease(version)) {
     sidebarEnder.items.splice(1, 0, {
       text: 'Release Notes',
-      link: `${repo}/releases/tag/v${version}`,
+      link: `${repo}/releases/tag/${version}`,
     });
   }
 
