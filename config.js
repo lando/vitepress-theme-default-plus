@@ -67,6 +67,11 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   // log
   debug('incoming vitepress configuration %O', config);
 
+  // do mvb stuff here
+  console.log(config);
+  console.log(process.env);
+  process.exit(1)
+
   // get git root if its not defined
   if (!config.gitRoot) {
     const gitDir = traverseUp(['.git'], resolve(config.themeRoot, '..')).find(dir => existsSync(dir));

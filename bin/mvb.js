@@ -208,7 +208,12 @@ for (const build of builds) {
     await exec(
       'npx',
       ['vitepress', 'build', srcDir, '--outDir', config.outDir, '--base', config.base],
-      {env: {LANDO_MVB_BUILD: 1, LANDO_MVB_BRANCH: getBranch(gitDir), LANDO_MVB_SOURCE: process.cwd()}},
+      {env: {
+        LANDO_MVB_BASE: site.base,
+        LANDO_MVB_BUILD: 1,
+        LANDO_MVB_BRANCH: getBranch(gitDir),
+        LANDO_MVB_SOURCE: process.cwd(),
+      }},
     );
   } catch (error) {
     error.message = red(`Build failed for version ${version} with error: ${error.message}`);
