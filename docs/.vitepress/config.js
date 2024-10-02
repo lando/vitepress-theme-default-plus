@@ -1,19 +1,20 @@
 import {createRequire} from 'module';
 import {resolve, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
+
 import {default as isDevRelease} from '@lando/vitepress-theme-default-plus/is-dev-release';
 
 import {defineConfig} from '../../config';
 
-const require = createRequire(import.meta.url);
 const __dirname = dirname(resolve(fileURLToPath(import.meta.url)));
+const require = createRequire(import.meta.url);
 
 // get version info
 const {version} = require('../../package.json');
 
 // sidebar ender
 const sidebarEnder = {
-  text: `v${version}`,
+  text: process?.env?.LANDO_MVB_VERSION ? process.env.LANDO_MVB_VERSION : `v${version}`,
   collapsed: true,
   items: [
     {
