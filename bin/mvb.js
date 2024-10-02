@@ -161,8 +161,9 @@ const builds = extended.map((version, index) => {
 });
 
 // report
-log('normal build at %s using alias %s, ref %s', magenta(options.base), magenta(builds[0]?.alias), magenta(builds[0]?.ref));
-log('and found %s other versions to build', magenta(builds.length - 1));
+log('%s build at %s using alias %s, ref %s', magenta('primary'), magenta(options.base), magenta(builds[0]?.alias), magenta(builds[0]?.ref));
+log('%s builds (%s) at %s', magenta('versioning'), magenta(builds.length - 1), magenta(`${options.base}${options.versionBase}`));
+log('%s builds queued up!', magenta(builds.length));
 log('');
 
 // and now build them all
