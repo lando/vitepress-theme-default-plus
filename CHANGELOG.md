@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+* Improved dependency organization
+
 ## v1.1.0-beta.8 - [October 2, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.8)
 
 * Update default config sets part deux
