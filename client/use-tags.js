@@ -8,6 +8,8 @@ export default function useTags() {
   const base = site?.value?.base ?? '/';
   const vbase = theme?.value?.multiVersionBuild?.base ?? '/v/';
 
+  console.log(site.value, theme.value, base, vbase);
+
   // generate links we can pass into VPLVersionLink
   const links = tags.versions
     .map(version => ({
