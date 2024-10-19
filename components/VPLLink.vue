@@ -3,12 +3,12 @@
     :is="tag"
     class="VPLink"
     :class="{
-      link: href,
+      link: props.href,
       'lando': true,
       'vp-external-link-icon': isExternal,
       'no-icon': noIcon
     }"
-    :href="link"
+    :href="getLink(props.href)"
     :target="target ?? (isExternal ? '_blank' : isFauxInternal ? '_self' : undefined)"
     :rel="relation ?? (isExternal ? 'noreferrer' : undefined)"
   >
@@ -55,9 +55,10 @@ const tag = computed(() => props.tag ?? (props.href ? 'a' : 'span'));
 const isFauxInternal = computed(() => props.href && internalDomains.find(domain => props.href.startsWith(domain)) !== undefined);
 const isExternal = computed(() => !isFauxInternal.value && props.href && EXTERNAL_URL_RE.test(props.href));
 
-const nl = props.href ? normalizeLink(props.href) : undefined;
-const link = computed(() => {
+const getLink = href => {
+  const nl = props.href ? normalizeLink(props.href) : undefined;
   if (props.rel === 'mvb' && props.href) return props.href;
   return nl;
-});
+};
+
 </script>
