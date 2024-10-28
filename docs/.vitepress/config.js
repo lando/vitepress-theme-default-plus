@@ -40,6 +40,7 @@ if (!isDevRelease(version)) {
 export default defineConfig({
   title: 'VitePress Theme +',
   description: 'The VitePress default theme with some MOARPOWAH!',
+  // landoDocs: 3,
   base: '/',
   lang: 'en-US',
   head: [
