@@ -86,15 +86,11 @@ jobs:
             dirs: ./
           - name: lando/backdrop
             dirs: ./
-          - name: lando/cli
-            dirs: ./
           - name: lando/compose
             dirs: ./
           - name: lando/core
             dirs: ./
           - name: lando/core-next
-            dirs: ./
-          - name: lando/docs
             dirs: ./
           - name: lando/dotnet
             dirs: ./
