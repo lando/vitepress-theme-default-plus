@@ -9,8 +9,8 @@
 [[context.deploy-preview.plugins]]
   package = "netlify-plugin-checklinks"
   [context.deploy-preview.plugins.inputs]
-    todoPatterns = [ "load", "CHANGELOG.html", "x.com", "twitter.com", "/v/", "--vitepress-theme-default-plus.netlify.app" ]
-    skipPatterns = [ ".rss", ".gif", ".jpg" ]
+    todoPatterns = [ "load", "CHANGELOG.html", "x.com", "twitter.com", "/v/" ]
+    skipPatterns = [ ".rss", ".gif", ".jpg", "--vitepress-theme-default-plus.netlify.app" ]
     checkExternal = true
 
 # Sets our asset optimization
