@@ -40,7 +40,6 @@ if (!isDevRelease(version)) {
 export default defineConfig({
   title: 'VitePress Theme +',
   description: 'The VitePress default theme with some MOARPOWAH!',
-  // landoDocs: 3,
   base: '/',
   lang: 'en-US',
   head: [
@@ -148,6 +147,11 @@ export default defineConfig({
     },
     ga: {id: 'G-ZSK3T9FTQ9'},
     hubspot: {id: '6478338'},
+    internalDomains: [
+      'http://localhost',
+      'https://localhost',
+      new RegExp('^https:\/\/[a-zA-Z0-9-]+--vitepress-theme-default-plus\.netlify\.app(\/.*)?$'),
+    ],
     layouts: {
       cats: './components/VPLCats.vue',
       dogs: './components/VPLDogs.vue',

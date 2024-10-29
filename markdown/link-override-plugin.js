@@ -1,12 +1,10 @@
 import Debug from 'debug';
 import {URL} from 'url';
 
+import {default as isFauxInternal} from '../utils/is-faux-internal.js';
+
 const indexRE = /(^|.*\/)index.md(#?.*)$/i;
 const EXTERNAL_URL_RE = /^(?:[a-z]+:|\/\/)/i;
-
-function isFauxInternal(path, domains = []) {
-  return domains.find(domain => path.startsWith(domain)) !== undefined;
-}
 
 function isExternal(path) {
   return EXTERNAL_URL_RE.test(path);

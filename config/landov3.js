@@ -176,6 +176,8 @@ export default function({base, landoPlugin, themeConfig, version}) {
       },
       internalDomain: [],
       internalDomains: [
+        'http://localhost',
+        'https://localhost',
         'http://docs.lando.dev',
         'https://docs.lando.dev',
       ],

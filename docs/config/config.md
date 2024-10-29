@@ -286,13 +286,18 @@ Once you have you should be able to use all the things below.
 
   ```js
   internalDomains:
-    - 'http://docs.lando.dev'
-    - 'https://docs.lando.dev'
+    - 'http://localhost',
+    - 'https://localhost',
+    - 'http://vitepress-theme-default-plus.lando.dev/'
+    - 'https://vitepress-theme-default-plus.lando.dev/'
+    - new RegExp('^https:\/\/[a-zA-Z0-9-]+--vitepress-theme-default-plus\.netlify\.app(\/.*)?$'),
   ```
 
 * Details:
 
-  This allows external links _starting with_ the specified `internalDomains` to be experentially treated like internal links.
+  This allows external links matchin `internalDomains` to be experentially treated like internal links.
+
+  If you use `string` it will match any path that `startsWith` the `internalDomain` or you can use a `RegEx`.
 
   This is useful if you have multiple VitePress sites that are all tied together into a single domain experience a la Netlify's rewrite functionality.
 
