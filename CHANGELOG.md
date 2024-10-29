@@ -1,6 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
 * Added `RegEx` support for `internalDomains` matching
+* Added `get-base-url` helper util
 * Added `is-faux-internal` helper util
 * Standardized support envars to `VPL_` namespacing
 

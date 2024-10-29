@@ -3,6 +3,7 @@ import {resolve, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 import {default as isDevRelease} from '@lando/vitepress-theme-default-plus/is-dev-release';
+import {default as getBaseUrl} from '@lando/vitepress-theme-default-plus/get-base-url';
 
 import {defineConfig} from '../../config';
 
@@ -11,6 +12,7 @@ const require = createRequire(import.meta.url);
 
 // get version info
 const {version} = require('../../package.json');
+const baseUrl = getBaseUrl();
 
 // sidebar ender
 const sidebarEnder = {
@@ -150,6 +152,7 @@ export default defineConfig({
     internalDomains: [
       'http://localhost',
       'https://localhost',
+      'https://vitepress-theme-default-plus.lando.dev',
       new RegExp('^https:\/\/[a-zA-Z0-9-]+--vitepress-theme-default-plus\.netlify\.app(\/.*)?$'),
     ],
     layouts: {
@@ -222,7 +225,7 @@ export default defineConfig({
       },
       {
         text: 'Configuration',
-        link: '/config/config',
+        link: `${baseUrl}/config/config`,
         activeMatch: '/config/|/components/|/composables|/markdown|/pages',
       },
       {
