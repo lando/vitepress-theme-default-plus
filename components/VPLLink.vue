@@ -21,6 +21,8 @@ import {useData} from 'vitepress';
 import {computed} from 'vue';
 import {normalizeLink} from 'vitepress/dist/client/theme-default/support/utils.js';
 
+import {default as checkIsFauxInternal} from '../utils/is-faux-internal';
+
 const EXTERNAL_URL_RE = /^(?:[a-z]+:|\/\/)/i;
 
 const {theme} = useData();
@@ -52,7 +54,7 @@ const props = defineProps({
 const relation = computed(() => props.rel === 'mvb' ? 'alternate' : props.rel);
 const tag = computed(() => props.tag ?? (props.href ? 'a' : 'span'));
 
-const isFauxInternal = computed(() => props.href && internalDomains.find(domain => props.href.startsWith(domain)) !== undefined);
+const isFauxInternal = computed(() => props.href && checkIsFauxInternal(props.href, internalDomains));
 const isExternal = computed(() => !isFauxInternal.value && props.href && EXTERNAL_URL_RE.test(props.href));
 
 const getLink = href => {
