@@ -4,8 +4,13 @@ export default function({base, landoPlugin, themeConfig, version}) {
   // reset the base if its undefined
   if (!base) base = landoPlugin ? `/plugins/${landoPlugin}/` : '/';
 
+  // backwards compat with LANDO_MVB_VERSION
+  if (!process?.env?.VPL_MVB_VERSION && process?.env?.LANDO_MVB_VERSION) {
+    process.env.VPL_MVB_VERSION = process.env.LANDO_MVB_VERSION;
+  }
+
   // allow version to imported from ENV which is nice for one-off dev builds
-  version = process?.env?.LANDO_MVB_VERSION ? process.env.LANDO_MVB_VERSION : `v${version}`;
+  version = process?.env?.VPL_MVB_VERSION ? process.env.VPL_MVB_VERSION : `v${version}`;
 
   // construct the rest
   const mvbase = themeConfig?.multiVersionBuild?.base ?? '/v/';

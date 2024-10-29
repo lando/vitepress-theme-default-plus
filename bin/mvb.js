@@ -209,10 +209,10 @@ for (const build of builds) {
       'npx',
       ['vitepress', 'build', srcDir, '--outDir', config.outDir, '--base', config.base],
       {env: {
-        LANDO_MVB_BASE: site.base,
-        LANDO_MVB_BUILD: 1,
-        LANDO_MVB_BRANCH: getBranch(gitDir),
-        LANDO_MVB_SOURCE: process.cwd(),
+        VPL_MVB_BASE: site.base,
+        VPL_MVB_BUILD: 1,
+        VPL_MVB_BRANCH: getBranch(gitDir),
+        VPL_MVB_SOURCE: process.cwd(),
       }},
     );
   } catch (error) {

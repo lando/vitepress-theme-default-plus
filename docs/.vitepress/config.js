@@ -14,7 +14,7 @@ const {version} = require('../../package.json');
 
 // sidebar ender
 const sidebarEnder = {
-  text: process?.env?.LANDO_MVB_VERSION ? process.env.LANDO_MVB_VERSION : `v${version}`,
+  text: process?.env?.VPL_MVB_VERSION ? process.env.VPL_MVB_VERSION : `v${version}`,
   collapsed: true,
   items: [
     {
