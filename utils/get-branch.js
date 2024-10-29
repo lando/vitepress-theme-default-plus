@@ -2,7 +2,11 @@ import {default as getStdOut} from './parse-stdout.js';
 
 export default function async(cwd = process.cwd()) {
   // lando build env directly
-  if (process.env?.LANDO_MVB_BRANCH) return process.env?.LANDO_MVB_BRANCH;
+  if (process.env?.VPL_MVB_BRANCH) return process.env?.VPL_MVB_BRANCH;
+  // lando build env directly
+  else if (process.env?.LANDO_MVB_BRANCH) return process.env?.LANDO_MVB_BRANCH;
+  // or from source
+  else if (process.env?.VPL_MVB_SOURCE) return getStdOut('git rev-parse --abbrev-ref HEAD', {cwd: process.env?.VPL_MVB_SOURCE, trim: true});
   // or from source
   else if (process.env?.LANDO_MVB_SOURCE) return getStdOut('git rev-parse --abbrev-ref HEAD', {cwd: process.env?.LANDO_MVB_SOURCE, trim: true});
   // or if we are on netlify
