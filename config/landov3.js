@@ -1,8 +1,18 @@
 import {default as isDevRelease} from '@lando/vitepress-theme-default-plus/is-dev-release';
 
-export default function({base, landoPlugin, themeConfig, version}) {
+export default function({
+  base,
+  landoPlugin,
+  themeConfig,
+  version,
+  baseUrl = 'https://docs.lando.dev',
+  navBaseUrl = 'https://docs.lando.dev',
+} = {}) {
   // reset the base if its undefined
   if (!base) base = landoPlugin ? `/plugins/${landoPlugin}/` : '/';
+
+  // reset baseUrl with dat base
+  baseUrl = `${baseUrl}${base}`;
 
   // backwards compat with LANDO_MVB_VERSION
   if (!process?.env?.VPL_MVB_VERSION && process?.env?.LANDO_MVB_VERSION) {
@@ -16,8 +26,7 @@ export default function({base, landoPlugin, themeConfig, version}) {
   const mvbase = themeConfig?.multiVersionBuild?.base ?? '/v/';
   const vbase = `${base.slice(0, -1)}${mvbase}`;
 
-  const text = ['core', 'cli'].includes(landoPlugin) ? version : `${landoPlugin}@${version}`;
-  const baseUrl = landoPlugin ? `https://docs.lando.dev/${landoPlugin}` : 'https://docs.lando.dev';
+  const text = ['core'].includes(landoPlugin) ? version : `${landoPlugin}@${version}`;
   const repo = landoPlugin ? `https://github.com/lando/${landoPlugin}` : 'https://github.com/lando';
 
   const sidebarEnder = landoPlugin && version ? {
@@ -42,6 +51,19 @@ export default function({base, landoPlugin, themeConfig, version}) {
       text: 'Release Notes',
       link: `${repo}/releases/tag/${version}`,
     });
+  }
+
+  // internal domains
+  const internalDomains = [
+    'http://localhost',
+    'https://localhost',
+    'http://docs.lando.dev',
+    'https://docs.lando.dev',
+  ];
+
+  // if plguin then add netlify stuff
+  if (landoPlugin) {
+    internalDomains.push(new RegExp(`^https:\/\/[a-zA-Z0-9-]+--lando-${landoPlugin}\.netlify\.app(\/.*)?$`));
   }
 
   return {
@@ -180,12 +202,7 @@ export default function({base, landoPlugin, themeConfig, version}) {
         pattern: `${repo}/edit/main/docs/:path`,
       },
       internalDomain: [],
-      internalDomains: [
-        'http://localhost',
-        'https://localhost',
-        'http://docs.lando.dev',
-        'https://docs.lando.dev',
-      ],
+      internalDomains,
       ga: {id: 'G-ZSK3T9FTQ9'},
       hubspot: {id: '6478338'},
       jobs: [
@@ -223,7 +240,7 @@ export default function({base, landoPlugin, themeConfig, version}) {
           indexName: 'lando',
         },
       },
-      sharedNav: sharedNav(),
+      sharedNav: sharedNav(navBaseUrl),
       socialLinks: [
         {
           icon: 'github',
@@ -263,92 +280,76 @@ export default function({base, landoPlugin, themeConfig, version}) {
   };
 };
 
-function sharedNav() {
+function sharedNav(navbase = 'https://docs.lando.dev') {
   return [
     {
       text: 'Getting Started',
-      link: 'https://docs.lando.dev/getting-started/',
+      link: `${navbase}/getting-started/`,
+      activeMatch: '/contrib|/getting-started|/guides|/help|/install|/lando-101|/security|/support|/team|/troubleshooting',
     },
     {
       text: 'CLI',
-      link: 'https://docs.lando.dev/cli/',
+      link: `${navbase}/cli/`,
+      activeMatch: '/cli',
     },
     {
-      text: 'Core',
+      text: 'Config',
+      activeMatch: '/config|/landofile',
       items: [
         {
           text: 'Landofile',
           columns: 3,
           items: [
-            {text: 'Basics', link: 'https://docs.lando.dev/core/v3/index.html'},
-            {text: 'Services', link: 'https://docs.lando.dev/core/v3/services.html'},
-            {text: 'Recipes', link: 'https://docs.lando.dev/core/v3/recipes.html'},
-            {text: 'Tooling', link: 'https://docs.lando.dev/core/v3/tooling.html'},
-            {text: 'Proxy', link: 'https://docs.lando.dev/core/v3/proxy.html'},
-            {text: 'Events', link: 'https://docs.lando.dev/core/v3/events.html'},
+            {text: 'Basics', link: `${navbase}/landofile/index.html`},
+            {text: 'Services', link: `${navbase}/landofile/services.html`},
+            {text: 'Recipes', link: `${navbase}/landofile/recipes.html`},
+            {text: 'Tooling', link: `${navbase}/landofile/tooling.html`},
+            {text: 'Proxy', link: `${navbase}/landofile/proxy.html`},
+            {text: 'Events', link: `${navbase}/landofile/events.html`},
           ],
         },
         {
-          text: 'Configuration',
+          text: 'Global Config',
+          columns: 3,
+          items: [
+            {text: 'Global', link: `${navbase}/config/index.html`},
+            {text: 'Environment', link: `${navbase}/config/env.html`},
+            {text: 'Experimental', link: `${navbase}/config/experimental.html`},
+            {text: 'Healthcheck', link: `${navbase}/config/healthcheck.html`},
+            {text: 'Orchestrator', link: `${navbase}/config/orchestrator.html`},
+            {text: 'Networking', link: `${navbase}/config/networking.html`},
+            {text: 'Performance', link: `${navbase}/config/performance.html`},
+            {text: 'Plugins', link: `${navbase}/config/plugins.html`},
+            {text: 'Releases', link: `${navbase}/config/releases.html`},
+            {text: 'Scanner', link: `${navbase}/config/scanner.html`},
+            {text: 'Security', link: `${navbase}/config/security.html`},
+            {text: 'SSH', link: `${navbase}/config/ssh.html`},
+            {text: 'Shared Files', link: `${navbase}/config/files.html`},
+          ],
+        },
+      ],
+    },
+    {
+      text: 'Services',
+      activeMatch: '/services',
+      items: [
+        {
+          text: 'API 3',
           columns: 2,
           items: [
-            {text: 'Global', link: 'https://docs.lando.dev/core/v3/index.html'},
-            {text: 'Environment', link: 'https://docs.lando.dev/core/v3/env.html'},
-            {text: 'Experimental', link: 'https://docs.lando.dev/core/v3/experimental.html'},
-            {
-              text: 'Orchestrator',
-              link: 'https://docs.lando.dev/core/v3/orchestrator.html',
-              alert: {
-                expires: 1697299993000,
-                type: 'new',
-                text: 'NEW!',
-              },
-            },
-            {text: 'Performance', link: 'https://docs.lando.dev/core/v3/performance.html'},
-            {text: 'Plugins', link: 'https://docs.lando.dev/core/v3/plugins.html'},
-            {text: 'Releases', link: 'https://docs.lando.dev/core/v3/releases.html'},
-            {text: 'Security', link: 'https://docs.lando.dev/core/v3/security.html'},
-            {text: 'SSH', link: 'https://docs.lando.dev/core/v3/ssh.html'},
-            {text: 'Shared Files', link: 'https://docs.lando.dev/core/v3/files.html'},
+            {text: 'Lando', link: `${navbase}/services/lando-3.html`},
           ],
         },
         {
-          text: 'Plugins',
+          text: 'API 4',
           columns: 2,
           items: [
-            {
-              text: 'Healthcheck',
-              link: 'https://docs.lando.dev/core/v3/healthcheck.html',
-              alert: {
-                expires: 1697299993000,
-                type: 'new',
-                text: 'NEW!',
-              },
-            },
-            {text: 'Networking', link: 'https://docs.lando.dev/core/v3/networking.html'},
-            {text: 'Scanner', link: 'https://docs.lando.dev/core/v3/scanner.html'},
-          ],
-        },
-        {
-          text: 'Services',
-          columns: 2,
-          items: [
-            {
-              text: 'Lando',
-              link: 'https://docs.lando.dev/core/v3/services/lando.html',
-              alert: {
-                expires: 1697299993000,
-                type: 'new',
-                text: 'NEW!',
-              },
-            },
             {
               text: 'L-337 Service',
-              link: 'https://docs.lando.dev/core/v3/services/l337.html',
+              link: `${navbase}/services/l337.html`,
               alert: {
-                expires: 1718669846000,
-                type: 'new',
                 text: 'BETA!',
+                type: 'new',
               },
             },
           ],
@@ -357,7 +358,8 @@ function sharedNav() {
     },
     {
       text: 'Plugins',
-      link: 'https://docs.lando.dev/plugins',
+      activeMatch: '/plugins',
+      link: `${navbase}/plugins/`,
     },
   ];
 };
