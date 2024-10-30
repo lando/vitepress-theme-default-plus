@@ -39,7 +39,7 @@ const isChildActive = navItem => {
   if ('link' in navItem) {
     return isActive(
       page.value.relativePath,
-      navItem.link,
+      props.item.activeMatch,
       !!props.item.activeMatch,
     );
   } else {

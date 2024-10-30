@@ -3,6 +3,7 @@
 * Added `RegEx` support for `internalDomains` matching
 * Added `get-base-url` helper util
 * Added `is-faux-internal` helper util
+* Fixed bug causing `active` to not be correctly set on `VPLNavBarMenuGroup`
 * Standardized support envars to `VPL_` namespacing
 
 ## v1.1.0-beta.15 - [October 19, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.15)
