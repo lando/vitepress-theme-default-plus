@@ -5,6 +5,8 @@
 * Added `is-faux-internal` helper util
 * Fixed bug causing `active` to not be correctly set on `VPLNavBarMenuGroup`
 * Standardized support envars to `VPL_` namespacing
+* Updated `scss` and `sass` compilation to `modern-compiler`
+* Updated to `vitepress@1.4.2`
 
 ## v1.1.0-beta.15 - [October 19, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.15)
 

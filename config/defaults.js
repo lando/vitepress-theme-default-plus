@@ -100,6 +100,12 @@ export default function({base}) {
       team: [],
     },
     vite: {
+      css: {
+        preprocessorOptions: {
+          sass: {api: 'modern-compiler'},
+          scss: {api: 'modern-compiler'},
+        },
+      },
       optimizeDeps: {exclude: []},
       plugins: [],
       resolve: {alias: []},

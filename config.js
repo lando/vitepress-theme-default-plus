@@ -113,7 +113,7 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
     debug('added custom markdown container %o with config %o', name, opts);
   }
 
-  // vite
+  // vite aliases
   vite.resolve.alias.push(...[
     {find: /^.*\/VPAlgoliaSearchBox\.vue$/, replacement: fileURLToPath(new URL('./components/VPLAlgoliaSearchBox.vue', import.meta.url))},
     {find: /^.*\/VPDocFooter\.vue$/, replacement: fileURLToPath(new URL('./components/VPLDocFooter.vue', import.meta.url))},
@@ -123,12 +123,18 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
     {find: /^.*\/VPTeamMembersItem\.vue$/, replacement: fileURLToPath(new URL('./components/VPLTeamMembersItem.vue', import.meta.url))},
   ]);
 
+  // plguins
   vite.plugins.push(...[
     addLayoutsPlugin(layouts, {debug: debug.extend('vite-plugin')}),
     patchVPMenuColumnsPlugin({debug: debug.extend('vite-plugin')}),
   ]);
+
+  // deps
   vite.optimizeDeps.exclude.push('fsevents', '@lando/vitepress-theme-default-plus');
+  // ssr
   vite.ssr.noExternal.push('@lando/vitepress-theme-default-plus');
+
+  // debug
   debug('added vite resolver config %O', vite.resolve);
   debug('added vite plugins %O', vite.plugins);
   debug('added vite optimizeDeps config %O', vite.optimizeDeps);
