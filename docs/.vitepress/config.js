@@ -153,7 +153,7 @@ export default defineConfig({
       'http://localhost',
       'https://localhost',
       'https://vitepress-theme-default-plus.lando.dev',
-      new RegExp('^https:\/\/[a-zA-Z0-9-]+--vitepress-theme-default-plus\.netlify\.app(\/.*)?$'),
+      '^https:\/\/[a-zA-Z0-9-]+--vitepress-theme-default-plus.netlify.app(\/.*)?$',
     ],
     layouts: {
       cats: './components/VPLCats.vue',

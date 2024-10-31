@@ -290,7 +290,7 @@ Once you have you should be able to use all the things below.
     - 'https://localhost',
     - 'http://vitepress-theme-default-plus.lando.dev/'
     - 'https://vitepress-theme-default-plus.lando.dev/'
-    - new RegExp('^https:\/\/[a-zA-Z0-9-]+--vitepress-theme-default-plus\.netlify\.app(\/.*)?$'),
+    - '^https:\/\/[a-zA-Z0-9-]+--vitepress-theme-default-plus\.netlify\.app(\/.*)?$')'
   ```
 
 * Details:
