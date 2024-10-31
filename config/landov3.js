@@ -61,10 +61,8 @@ export default function({
     'https://docs.lando.dev',
   ];
 
-  // if plguin then add netlify stuff
-  if (landoPlugin) {
-    internalDomains.push(new RegExp(`^https:\/\/[a-zA-Z0-9-]+--lando-${landoPlugin}\.netlify\.app(\/.*)?$`));
-  }
+  // if plugin then add netlify stuff
+  if (landoPlugin) internalDomains.push(`^https:\/\/[a-zA-Z0-9-]+--lando-${landoPlugin}\.netlify\.app(\/.*)?$`);
 
   return {
     base,

@@ -94,8 +94,10 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   if (typeof themeConfig.internalDomain === 'string') themeConfig.internalDomain = [themeConfig.internalDomain];
   if (typeof themeConfig.internalDomains === 'string') themeConfig.internalDomains = [themeConfig.internalDomains];
   themeConfig.internalDomains = [...themeConfig.internalDomain, ...themeConfig.internalDomains];
+
   // normalize contribs
   if (themeConfig.contributors === true) themeConfig.contributors = baseConfig.themeConfig.contributors;
+
   // normalize layouts
   if (Object.keys(themeConfig.layouts).length > 0) themeConfig.layouts = parseLayouts(themeConfig.layouts);
 
