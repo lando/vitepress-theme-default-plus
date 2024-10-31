@@ -76,7 +76,7 @@ export default function({
     markdown: {},
     robots: {
       host: baseUrl,
-      sitemap: `${baseUrl}/sitemap.xml`,
+      sitemap: `${baseUrl}sitemap.xml`,
       disallowAll: false,
       allowAll: false,
       policy: [],
@@ -102,7 +102,7 @@ export default function({
       alert: false,
       autometa: {
         canonicalUrl: 'https://docs.lando.dev',
-        image: `${baseUrl}/images/hero.png`,
+        image: `${baseUrl}images/hero.png`,
         x: '@devwithlando',
       },
       carbonAds: {
@@ -300,7 +300,7 @@ function sharedNav(navbase = 'https://docs.lando.dev') {
     },
     {
       text: 'Config',
-      activeMatch: '/config|/landofile',
+      activeMatch: '/config/|/landofile',
       items: [
         {
           text: 'Landofile',

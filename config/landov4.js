@@ -1,8 +1,18 @@
 import {default as isDevRelease} from '@lando/vitepress-theme-default-plus/is-dev-release';
 
-export default function({base, landoPlugin, themeConfig, version}) {
+export default function({
+  base,
+  landoPlugin,
+  themeConfig,
+  version,
+  baseUrl = 'https://docs.lando.dev',
+  navBaseUrl = 'https://docs.lando.dev',
+} = {}) {
   // reset the base if its undefined
   if (!base) base = landoPlugin ? `/plugins/${landoPlugin}/` : '/';
+
+  // reset baseUrl with dat base
+  baseUrl = `${baseUrl}${base}`;
 
   // backwards compat with LANDO_MVB_VERSION
   if (!process?.env?.VPL_MVB_VERSION && process?.env?.LANDO_MVB_VERSION) {
@@ -16,8 +26,7 @@ export default function({base, landoPlugin, themeConfig, version}) {
   const mvbase = themeConfig?.multiVersionBuild?.base ?? '/v/';
   const vbase = `${base.slice(0, -1)}${mvbase}`;
 
-  const text = ['core', 'cli'].includes(landoPlugin) ? version : `${landoPlugin}@${version}`;
-  const baseUrl = landoPlugin ? `https://docs.lando.dev/${landoPlugin}` : 'https://docs.lando.dev';
+  const text = ['core'].includes(landoPlugin) ? version : `${landoPlugin}@${version}`;
   const repo = landoPlugin ? `https://github.com/lando/${landoPlugin}` : 'https://github.com/lando';
 
   const sidebarEnder = landoPlugin && version ? {
@@ -44,6 +53,19 @@ export default function({base, landoPlugin, themeConfig, version}) {
     });
   }
 
+  // internal domains
+  const internalDomains = [
+    'http://localhost',
+    'https://localhost',
+    'http://docs.lando.dev',
+    'https://docs.lando.dev',
+  ];
+
+  // if plguin then add netlify stuff
+  if (landoPlugin) {
+    internalDomains.push(new RegExp(`^https:\/\/[a-zA-Z0-9-]+--lando-${landoPlugin}\.netlify\.app(\/.*)?$`));
+  }
+
   return {
     base,
     collections: {},
@@ -54,7 +76,7 @@ export default function({base, landoPlugin, themeConfig, version}) {
     markdown: {},
     robots: {
       host: baseUrl,
-      sitemap: `${baseUrl}/sitemap.xml`,
+      sitemap: `${baseUrl}sitemap.xml`,
       disallowAll: false,
       allowAll: false,
       policy: [],
@@ -80,7 +102,7 @@ export default function({base, landoPlugin, themeConfig, version}) {
       alert: false,
       autometa: {
         canonicalUrl: 'https://docs.lando.dev',
-        image: `${baseUrl}/images/hero.png`,
+        image: `${baseUrl}images/hero.png`,
         x: '@devwithlando',
       },
       carbonAds: {
@@ -180,10 +202,7 @@ export default function({base, landoPlugin, themeConfig, version}) {
         pattern: `${repo}/edit/main/docs/:path`,
       },
       internalDomain: [],
-      internalDomains: [
-        'http://docs.lando.dev',
-        'https://docs.lando.dev',
-      ],
+      internalDomains,
       ga: {id: 'G-ZSK3T9FTQ9'},
       hubspot: {id: '6478338'},
       jobs: [
@@ -221,7 +240,7 @@ export default function({base, landoPlugin, themeConfig, version}) {
           indexName: 'lando',
         },
       },
-      sharedNav: sharedNav(),
+      sharedNav: sharedNav(navBaseUrl),
       socialLinks: [
         {
           icon: 'github',
@@ -267,7 +286,7 @@ export default function({base, landoPlugin, themeConfig, version}) {
   };
 };
 
-function sharedNav() {
+function sharedNav(navbase = 'https://docs.lando.dev') {
   return [
     {
       text: 'Core',
@@ -278,7 +297,7 @@ function sharedNav() {
           items: [
             {
               text: 'Services',
-              link: 'https://docs.lando.dev/core/v4/landofile/services.html',
+              link: `${navbase}/landofile/services.html`,
             },
           ],
         },
@@ -296,7 +315,7 @@ function sharedNav() {
           text: 'Services',
           columns: 2,
           items: [
-            {text: 'L-337', link: 'https://docs.lando.dev/core/v4/services/l337.html'},
+            {text: 'L-337', link: `${navbase}/next/services/l337.html`},
           ],
         },
       ],
