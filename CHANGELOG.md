@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## v1.1.0-beta.16 - [October 31, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.16)
+
 * Added `RegEx` support for `internalDomains` matching
 * Added `get-base-url` helper util
 * Added `is-faux-internal` helper util
