@@ -316,7 +316,7 @@ function sharedNav(navbase = 'https://docs.lando.dev') {
           text: 'Services',
           columns: 2,
           items: [
-            {text: 'L-337', link: `${navbase}/next/services/l337.html`},
+            {text: 'L-337', link: `${navbase}/services/l337.html`},
           ],
         },
       ],
