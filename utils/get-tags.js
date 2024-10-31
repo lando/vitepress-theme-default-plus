@@ -37,11 +37,13 @@ export default function async(
   // set aliases to HEAD by default
   const aliases = {dev: 'HEAD', edge: 'HEAD', stable: 'HEAD'};
 
+  // get the dev alias
+  aliases.dev = getStdOut(`${devReleaseCmd.join(' ')} ${getBranch(cwd)} || ${devReleaseCmd.join(' ')}`, opts);
+
   // if we have versions data we can reset them to actual tags
   if (versions.length > 0) {
     aliases.edge = versions[0];
     aliases.stable = versions.filter(version => semver.prerelease(version) === null)[0];
-    aliases.dev = getStdOut(`${devReleaseCmd.join(' ')} ${getBranch(cwd)} || ${devReleaseCmd.join(' ')}`, opts);
   }
   debug('generated aliases %o', aliases);
 
@@ -68,8 +70,8 @@ export default function async(
   extended.push({
     alias: 'dev',
     ref: getBranch(cwd),
-    semantic: semver.valid(aliases.dev) === null ? 'dev' : semver.clean(aliases.dev),
-    version: semver.valid(aliases.dev) === null ? 'dev' : aliases.dev,
+    semantic: semver.valid(aliases.dev) === null ? '0.0.0' : semver.clean(aliases.dev),
+    version: semver.valid(aliases.dev) === null ? 'v0.0.0' : aliases.dev,
   });
   debug('generated extended info %o', extended);
 

@@ -4,6 +4,7 @@
 * Added `get-base-url` helper util
 * Added `is-faux-internal` helper util
 * Fixed bug causing `active` to not be correctly set on `VPLNavBarMenuGroup`
+* Improved `get-tags` and `mvb` to better handle scenarios with no matchings versions or tags
 * Standardized support envars to `VPL_` namespacing
 * Updated `scss` and `sass` compilation to `modern-compiler`
 * Updated to `vitepress@1.4.2`
