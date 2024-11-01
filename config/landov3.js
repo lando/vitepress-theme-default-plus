@@ -325,7 +325,7 @@ function sharedNav(navbase = 'https://docs.lando.dev') {
           text: 'Global Config',
           columns: 3,
           items: [
-            {text: 'Global', link: `${navbase}/config/index.html`},
+            {text: 'Global', link: `${navbase}/config/global.html`},
             {text: 'Environment', link: `${navbase}/config/env.html`},
             {text: 'Experimental', link: `${navbase}/config/experimental.html`},
             {text: 'Healthcheck', link: `${navbase}/config/healthcheck.html`},
