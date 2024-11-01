@@ -16,7 +16,7 @@ jobs:
         os:
           - ubuntu-24.04
         node-version:
-          - '18'
+          - '20'
       # Install deps and cache
     steps:
       - name: Checkout code
@@ -76,9 +76,9 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-22.04
+          - ubuntu-24.04
         node-version:
-          - '18'
+          - '20'
         auto-deploy-repos:
           - name: lando/acquia
             dirs: ./
