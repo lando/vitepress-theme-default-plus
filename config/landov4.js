@@ -1,4 +1,5 @@
 import {default as isDevRelease} from '@lando/vitepress-theme-default-plus/is-dev-release';
+import uniq from 'lodash-es/merge.js';
 
 export default function({
   base,
@@ -29,42 +30,48 @@ export default function({
   const text = ['core'].includes(landoPlugin) ? version : `${landoPlugin}@${version}`;
   const repo = landoPlugin ? `https://github.com/lando/${landoPlugin}` : 'https://github.com/lando';
 
-  const sidebarEnder = landoPlugin && version ? {
-    text,
-    collapsed: true,
-    items: [
-      {
-        text: 'Other Doc Versions',
-        items: [
-          {rel: 'mvb', text: 'stable', target: '_blank', link: `${vbase}stable/`},
-          {rel: 'mvb', text: 'edge', target: '_blank', link: `${vbase}edge/`},
-          {text: '<strong>see all versions</strong>', link: mvbase},
-        ],
-      },
-      {text: 'Other Releases', link: `${repo}/releases`},
-    ],
-  } : false;
+  // if no sidebar ender and we have plugin/version then do it
+  if (!themeConfig.sidebarEnder && landoPlugin && version) {
+    themeConfig.sidebarEnder = {
+      text,
+      collapsed: true,
+      items: [
+        {
+          text: 'Other Doc Versions',
+          items: [
+            {rel: 'mvb', text: 'stable', target: '_blank', link: `${vbase}stable/`},
+            {rel: 'mvb', text: 'edge', target: '_blank', link: `${vbase}edge/`},
+            {text: '<strong>see all versions</strong>', link: mvbase},
+          ],
+        },
+        {text: 'Other Releases', link: `${repo}/releases`},
+      ],
+    };
 
-  // add release notes
-  if (sidebarEnder && !isDevRelease(version)) {
-    sidebarEnder.items.splice(1, 0, {
-      text: 'Release Notes',
-      link: `${repo}/releases/tag/${version}`,
-    });
+    // add release notes
+    if (themeConfig.sidebarEnder && !isDevRelease(version)) {
+      themeConfig.sidebarEnder.items.splice(1, 0, {
+        text: 'Release Notes',
+        link: `${repo}/releases/tag/${version}`,
+      });
+    }
   }
 
-  // internal domains
-  const internalDomains = [
+  // combine internals
+  themeConfig.internalDomains = themeConfig.internalDomains ?? [];
+
+  // add the usual domains
+  themeConfig.internalDomains.push(
     'http://localhost',
     'https://localhost',
     'http://docs.lando.dev',
     'https://docs.lando.dev',
-  ];
+  );
 
   // if plugin then add netlify stuff
   if (landoPlugin) {
-    internalDomains.push(`^https:\/\/lando-${landoPlugin}\.netlify\.app(\/.*)?$`);
-    internalDomains.push(`^https:\/\/[a-zA-Z0-9-]+--lando-${landoPlugin}\.netlify\.app(\/.*)?$`);
+    themeConfig.internalDomains.push(`^https:\/\/lando-${landoPlugin}\.netlify\.app(\/.*)?$`);
+    themeConfig.internalDomains.push(`^https:\/\/[a-zA-Z0-9-]+--lando-${landoPlugin}\.netlify\.app(\/.*)?$`);
   }
 
   return {
@@ -203,7 +210,7 @@ export default function({
         pattern: `${repo}/edit/main/docs/:path`,
       },
       internalDomain: [],
-      internalDomains,
+      internalDomains: uniq(themeConfig.internalDomains),
       ga: {id: 'G-ZSK3T9FTQ9'},
       hubspot: {id: '6478338'},
       jobs: [
@@ -232,7 +239,7 @@ export default function({
       },
       nav: [],
       sidebar: {},
-      sidebarEnder,
+      sidebarEnder: themeConfig.sidebarEnder ?? false,
       search: {
         provider: 'algolia',
         options: {

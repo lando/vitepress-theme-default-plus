@@ -1,5 +1,8 @@
 
 export default function(path, domains = []) {
+  // filter out non-strings
+  domains = domains.filter(domain => typeof domain === 'string');
+
   // separate out strings and regex
   const regexers = domains.map(domain => new RegExp(domain)) ?? [];
 
