@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## v1.1.0-beta.17 - [November 1, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.17)
+
 * Updated GTM tracking
 
 ## v1.1.0-beta.16 - [October 31, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.16)
