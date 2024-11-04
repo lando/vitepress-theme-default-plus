@@ -1,10 +1,10 @@
 [build]
   base = "./"
   publish = "docs/.vitepress/dist/"
-  command = "env && npx mvb docs"
+  command = "npx mvb docs"
 
 [context.deploy-preview]
-  command = "env && npm run build"
+  command = "npm run build"
 # https://github.com/munter/netlify-plugin-checklinks#readme
 [[context.deploy-preview.plugins]]
   package = "netlify-plugin-checklinks"

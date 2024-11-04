@@ -1,6 +1,7 @@
 export default function({
   absoluteBase = undefined,
   base = '/v/',
+  build = 'stable',
   cache = true,
   match = 'v[0-9].*',
   satisfies = '*',
@@ -14,6 +15,6 @@ export default function({
   if (process.env.LANDO_MVB_BUILD) absoluteBase = `/${process.env.LANDO_MVB_BASE}/${base}/`.replace(/\/{2,}/g, '/');
 
   // return
-  return {absoluteBase, base, cache, match, satisfies};
+  return {absoluteBase, base, build, cache, match, satisfies};
 };
 
