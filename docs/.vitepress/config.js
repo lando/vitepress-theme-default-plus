@@ -147,7 +147,7 @@ export default defineConfig({
     feed: {
       patterns: '*/**/*.md',
     },
-    ga: {id: 'G-STE7VMVSB8'},
+    ga: {id: 'G-HSBBLGND33'},
     hubspot: {id: '6478338'},
     internalDomains: [
       'http://localhost',
