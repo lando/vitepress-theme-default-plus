@@ -88,7 +88,7 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   }
 
   // explode
-  const {markdown, themeConfig, sitemap, vite} = config;
+  const {buildEnd, markdown, themeConfig, transformPageData, sitemap, vite} = config;
 
   // normalize id
   if (typeof themeConfig.internalDomain === 'string') themeConfig.internalDomain = [themeConfig.internalDomain];
@@ -187,6 +187,11 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
     await generateRobotsTxt(siteConfig, {debug: debug.extend('generate-robots')});
     // generate rss feeds
     await generateFeeds(siteConfig, {debug: debug.extend('generate-feeds')});
+
+    // run any user specified transformPageData if its a function
+    if (buildEnd && typeof buildEnd === 'function') {
+      await buildEnd(siteConfig, {debug: debug.extend('user-build-end')});
+    }
   };
 
   // augment pages with additional data
@@ -205,6 +210,11 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
     await parseCollections(pageData, {siteConfig, debug: debug.extend('page-data')});
     // normalize authors
     await augmentAuthors(pageData, {team, debug: debug.extend('page-data')});
+
+    // run any user specified transformPageData if its a function
+    if (transformPageData && typeof transformPageData === 'function') {
+      await transformPageData(pageData, {siteConfig, debug: debug.extend('user-transform-page-data')});
+    }
   };
 
   return defineConfigWithTheme(config);
