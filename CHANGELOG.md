@@ -1,6 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
 * Fixed bug in `normalize-mvb` causing `multiVersionBuild.build` to sometimes not be set correctly
+* Fixed `lando` configset bug causing `sidebarEnder` to not merge correctly
 
 ## v1.1.0-beta.17 - [November 1, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.17)
 

@@ -31,7 +31,7 @@ export default function({
   const repo = landoPlugin ? `https://github.com/lando/${landoPlugin}` : 'https://github.com/lando';
 
   // if no sidebar ender and we have plugin/version then do it
-  if (!themeConfig.sidebarEnder && landoPlugin && version) {
+  if (!themeConfig.sidebarEnder && themeConfig.sidebarEnder !== false && landoPlugin && version) {
     themeConfig.sidebarEnder = {
       text,
       collapsed: true,
