@@ -1,6 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
 * Fixed bug preventing user specified `buildEnd` and `transformPageData` from running after theme's
+* Fixed bug preventing `mvb` from correctly setting the `mvbase`
 
 ## v1.1.0-beta.18 - [November 4, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.18)
 
