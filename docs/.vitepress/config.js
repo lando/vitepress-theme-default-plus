@@ -42,7 +42,7 @@ if (!isDevRelease(version)) {
 export default defineConfig({
   title: 'VitePress Theme +',
   description: 'The VitePress default theme with some MOARPOWAH!',
-  base: '/test/',
+  base: '/',
   lang: 'en-US',
   head: [
     ['link', {rel: 'icon', type: 'image/png', href: '/images/vitepress-lando-logo-mini.png'}],
