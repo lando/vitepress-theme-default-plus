@@ -22,6 +22,8 @@ import {computed} from 'vue';
 import {normalizeLink} from 'vitepress/dist/client/theme-default/support/utils.js';
 
 import {default as checkIsFauxInternal} from '../utils/is-faux-internal';
+import {default as normalizeMvb} from '../client/normalize-mvblink';
+import {default as normalizeRoot} from '../client/normalize-rootlink';
 
 const EXTERNAL_URL_RE = /^(?:[a-z]+:|\/\/)/i;
 
@@ -51,16 +53,17 @@ const props = defineProps({
   },
 });
 
-const relation = computed(() => props.rel === 'mvb' ? 'alternate' : props.rel);
+const relation = computed(() => props.rel === 'mvb' || props.rel === 'root' ? 'alternate' : props.rel);
 const tag = computed(() => props.tag ?? (props.href ? 'a' : 'span'));
+const target = computed(() => props.target ?? (props.rel === 'mvb' || props.rel === 'root' ? '_self' : undefined));
 
 const isFauxInternal = computed(() => props.href && checkIsFauxInternal(props.href, internalDomains));
 const isExternal = computed(() => !isFauxInternal.value && props.href && EXTERNAL_URL_RE.test(props.href));
 
 const getLink = href => {
-  const nl = props.href ? normalizeLink(props.href) : undefined;
-  if (props.rel === 'mvb' && props.href) return props.href;
-  return nl;
+  if (props.rel === 'mvb' && href) return normalizeMvb(href);
+  else if (props.rel === 'root' && href) return normalizeRoot(href);
+  return href ? normalizeLink(href) : undefined;
 };
 
 </script>

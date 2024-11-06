@@ -1,7 +1,11 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+* Added `normalize2base` helper client util
+* Added `normalizeMVB` helper client util
+* Added `normalizeRoot` helper client util
 * Fixed bug preventing user specified `buildEnd` and `transformPageData` from running after theme's
 * Fixed bug preventing `mvb` from correctly setting the `mvbase`
+* Improved `mvb` an `root` link normalization
 * Updated to [vitepress@1.5.](https://github.com/vuejs/vitepress/blob/main/CHANGELOG.md)
 
 ## v1.1.0-beta.18 - [November 4, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.18)
