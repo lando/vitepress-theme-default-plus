@@ -11,6 +11,7 @@ import {defineConfigWithTheme} from 'vitepress';
 
 // utils
 import {default as createContainer} from './utils/create-container.js';
+import {default as getBaseUrl} from './utils/get-base-url.js';
 import {default as getContributors} from './utils/get-contributors.js';
 import {default as getGaHeaders} from './utils/get-ga-headers.js';
 import {default as getHubspotHeaders} from './utils/get-hubspot-headers.js';
@@ -105,7 +106,7 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   if (!sitemap.hostname && themeConfig?.autometa?.canonicalUrl) sitemap.hostname = themeConfig.autometa.canonicalUrl;
 
   // attempt to set a baseurl
-  config.baseUrl = themeConfig?.autometa?.canonicalUrl ?? sitemap.hostname;
+  if (!config.baseUrl) config.baseUrl = getBaseUrl() ?? config.basethemeConfig?.autometa?.canonicalUrl ?? sitemap.hostname;
 
   // extract
   const {containers, contributors, ga, hubspot, internalDomains, layouts} = themeConfig;

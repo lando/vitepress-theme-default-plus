@@ -3,7 +3,6 @@ import {resolve, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 import {default as isDevRelease} from '@lando/vitepress-theme-default-plus/is-dev-release';
-import {default as getBaseUrl} from '@lando/vitepress-theme-default-plus/get-base-url';
 
 import {defineConfig} from '../../config';
 
@@ -12,7 +11,6 @@ const require = createRequire(import.meta.url);
 
 // get version info
 const {version} = require('../../package.json');
-const baseUrl = getBaseUrl();
 
 // sidebar ender
 const sidebarEnder = {
@@ -22,9 +20,9 @@ const sidebarEnder = {
     {
       text: 'Other Doc Versions',
       items: [
-        {rel: 'mvb', text: 'stable', target: '_blank', link: '/v/stable/'},
-        {rel: 'mvb', text: 'edge', target: '_blank', link: '/v/edge/'},
-        {text: '<strong>see all versions</strong>', link: '/v/'},
+        {rel: 'mvb', text: 'stable', target: '_blank', link: '/stable/'},
+        {rel: 'mvb', text: 'edge', target: '_blank', link: '/edge/'},
+        {rel: 'mvb', text: '<strong>see all versions</strong>', link: '/'},
       ],
     },
     {text: 'Other Releases', link: 'https://github.com/lando/vitepress-theme-default-plus/releases'},
@@ -225,7 +223,7 @@ export default defineConfig({
       },
       {
         text: 'Configuration',
-        link: `${baseUrl}/config/config`,
+        link: '/config/config',
         activeMatch: '/config/|/components/|/composables|/markdown|/pages',
       },
       {

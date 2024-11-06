@@ -62,7 +62,7 @@ const props = defineProps({
   },
   rel: {
     type: String,
-    default: undefined,
+    default: 'mvb',
   },
   stable: {
     type: Boolean,
