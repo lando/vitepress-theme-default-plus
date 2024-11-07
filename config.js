@@ -15,6 +15,7 @@ import {default as getBaseUrl} from './utils/get-base-url.js';
 import {default as getContributors} from './utils/get-contributors.js';
 import {default as getGaHeaders} from './utils/get-ga-headers.js';
 import {default as getHubspotHeaders} from './utils/get-hubspot-headers.js';
+import {default as getTags} from './utils/get-tags.js';
 import {default as normalizeMVB} from './utils/normalize-mvb.js';
 import {default as parseLayouts} from './utils/parse-layouts.js';
 import {default as traverseUp} from './utils/traverse-up.js';
@@ -178,9 +179,18 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   }
 
   // get full team info
-  const opts = {debug: debug.extend('get-contribs'), paths: []};
-  const team = contributors !== false ? await getContributors(config.gitRoot, contributors, opts) : [];
+  const copts = {debug: debug.extend('get-contribs'), paths: []};
+  const team = contributors !== false ? await getContributors(config.gitRoot, contributors, copts) : [];
   debug('discovered full team info %o', team);
+
+  // get full version alias information but let this fail
+  try {
+    const tags= await getTags(config.gitRoot, undefined, {debug: debug.extend('get-tags')});
+    config.versions = tags.aliases ?? {};
+    debug('discovered version aliases %o', config.versions);
+  } catch (error) {
+    debug('unable to get version alias information with error %o', error);
+  }
 
   // build robots.txt and rssfeed
   config.buildEnd = async siteConfig => {
