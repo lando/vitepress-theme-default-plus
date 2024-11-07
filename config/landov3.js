@@ -7,7 +7,7 @@ export default function({
   themeConfig,
   version,
   baseUrl = 'https://docs.lando.dev',
-  navBaseUrl = 'https://docs.lando.dev',
+  navrel = 'root',
 } = {}) {
   // reset the base if its undefined
   if (!base) base = landoPlugin ? `/plugins/${landoPlugin}/` : '/';
@@ -24,8 +24,6 @@ export default function({
   version = process?.env?.VPL_MVB_VERSION ? process.env.VPL_MVB_VERSION : `v${version}`;
 
   // construct the rest
-  const mvbase = themeConfig?.multiVersionBuild?.base ?? '/v/';
-  const vbase = `${base.slice(0, -1)}${mvbase}`;
   const text = ['core'].includes(landoPlugin) ? version : `${landoPlugin}@${version}`;
   const repo = landoPlugin ? `https://github.com/lando/${landoPlugin}` : 'https://github.com/lando';
 
@@ -38,9 +36,9 @@ export default function({
         {
           text: 'Other Doc Versions',
           items: [
-            {rel: 'mvb', text: 'stable', target: '_blank', link: `${vbase}stable/`},
-            {rel: 'mvb', text: 'edge', target: '_blank', link: `${vbase}edge/`},
-            {text: '<strong>see all versions</strong>', link: mvbase},
+            {rel: 'mvb', text: 'stable', target: '_blank', link: '/stable/'},
+            {rel: 'mvb', text: 'edge', target: '_blank', link: '/edge/'},
+            {rel: 'mvb', text: '<strong>see all versions</strong>', link: '/'},
           ],
         },
         {text: 'Other Releases', link: `${repo}/releases`},
@@ -247,7 +245,7 @@ export default function({
           indexName: 'lando',
         },
       },
-      sharedNav: sharedNav(navBaseUrl),
+      sharedNav: sharedNav(navrel),
       socialLinks: [
         {
           icon: 'github',
@@ -293,17 +291,19 @@ export default function({
   };
 };
 
-function sharedNav(navbase = 'https://docs.lando.dev') {
+function sharedNav(rel = navrel) {
   return [
     {
       text: 'Getting Started',
-      link: `${navbase}/getting-started/`,
+      link: `/getting-started/`,
       activeMatch: '/contrib|/getting-started|/guides|/help|/install|/lando-101|/security|/support|/team|/troubleshooting',
+      rel,
     },
     {
       text: 'CLI',
-      link: `${navbase}/cli/`,
+      link: `/cli/`,
       activeMatch: '/cli',
+      rel,
     },
     {
       text: 'Config',
@@ -313,31 +313,31 @@ function sharedNav(navbase = 'https://docs.lando.dev') {
           text: 'Landofile',
           columns: 3,
           items: [
-            {text: 'Basics', link: `${navbase}/landofile/index.html`},
-            {text: 'Services', link: `${navbase}/landofile/services.html`},
-            {text: 'Recipes', link: `${navbase}/landofile/recipes.html`},
-            {text: 'Tooling', link: `${navbase}/landofile/tooling.html`},
-            {text: 'Proxy', link: `${navbase}/landofile/proxy.html`},
-            {text: 'Events', link: `${navbase}/landofile/events.html`},
+            {text: 'Basics', link: `/landofile/index.html`, rel},
+            {text: 'Services', link: `/landofile/services.html`, rel},
+            {text: 'Recipes', link: `/landofile/recipes.html`, rel},
+            {text: 'Tooling', link: `/landofile/tooling.html`, rel},
+            {text: 'Proxy', link: `/landofile/proxy.html`, rel},
+            {text: 'Events', link: `/landofile/events.html`, rel},
           ],
         },
         {
           text: 'Global Config',
           columns: 3,
           items: [
-            {text: 'Global', link: `${navbase}/config/global.html`},
-            {text: 'Environment', link: `${navbase}/config/env.html`},
-            {text: 'Experimental', link: `${navbase}/config/experimental.html`},
-            {text: 'Healthcheck', link: `${navbase}/config/healthcheck.html`},
-            {text: 'Orchestrator', link: `${navbase}/config/orchestrator.html`},
-            {text: 'Networking', link: `${navbase}/config/networking.html`},
-            {text: 'Performance', link: `${navbase}/config/performance.html`},
-            {text: 'Plugins', link: `${navbase}/config/plugins.html`},
-            {text: 'Releases', link: `${navbase}/config/releases.html`},
-            {text: 'Scanner', link: `${navbase}/config/scanner.html`},
-            {text: 'Security', link: `${navbase}/config/security.html`},
-            {text: 'SSH', link: `${navbase}/config/ssh.html`},
-            {text: 'Shared Files', link: `${navbase}/config/files.html`},
+            {text: 'Global', link: `/config/global.html`, rel},
+            {text: 'Environment', link: `/config/env.html`, rel},
+            {text: 'Experimental', link: `/config/experimental.html`, rel},
+            {text: 'Healthcheck', link: `/config/healthcheck.html`, rel},
+            {text: 'Orchestrator', link: `/config/orchestrator.html`, rel},
+            {text: 'Networking', link: `/config/networking.html`, rel},
+            {text: 'Performance', link: `/config/performance.html`, rel},
+            {text: 'Plugins', link: `/config/plugins.html`, rel},
+            {text: 'Releases', link: `/config/releases.html`, rel},
+            {text: 'Scanner', link: `/config/scanner.html`, rel},
+            {text: 'Security', link: `/config/security.html`, rel},
+            {text: 'SSH', link: `/config/ssh.html`, rel},
+            {text: 'Shared Files', link: `/config/files.html`, rel},
           ],
         },
       ],
@@ -350,7 +350,7 @@ function sharedNav(navbase = 'https://docs.lando.dev') {
           text: 'API 3',
           columns: 2,
           items: [
-            {text: 'Lando', link: `${navbase}/services/lando-3.html`},
+            {text: 'Lando', link: `/services/lando-3.html`, rel},
           ],
         },
         {
@@ -359,7 +359,8 @@ function sharedNav(navbase = 'https://docs.lando.dev') {
           items: [
             {
               text: 'L-337 Service',
-              link: `${navbase}/services/l337.html`,
+              link: `/services/l337.html`,
+              rel,
               alert: {
                 text: 'BETA!',
                 type: 'new',
@@ -372,7 +373,8 @@ function sharedNav(navbase = 'https://docs.lando.dev') {
     {
       text: 'Plugins',
       activeMatch: '/plugins',
-      link: `${navbase}/plugins/`,
+      link: `/plugins/`,
+      rel,
     },
   ];
 };

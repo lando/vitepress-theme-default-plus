@@ -7,7 +7,7 @@ export default function({
   themeConfig,
   version,
   baseUrl = 'https://docs.lando.dev',
-  navBaseUrl = 'https://docs.lando.dev',
+  navrel = 'root',
 } = {}) {
   // reset the base if its undefined
   if (!base) base = landoPlugin ? `/plugins/${landoPlugin}/` : '/';
@@ -24,9 +24,6 @@ export default function({
   version = process?.env?.VPL_MVB_VERSION ? process.env.VPL_MVB_VERSION : `v${version}`;
 
   // construct the rest
-  const mvbase = themeConfig?.multiVersionBuild?.base ?? '/v/';
-  const vbase = `${base.slice(0, -1)}${mvbase}`;
-
   const text = ['core'].includes(landoPlugin) ? version : `${landoPlugin}@${version}`;
   const repo = landoPlugin ? `https://github.com/lando/${landoPlugin}` : 'https://github.com/lando';
 
@@ -39,9 +36,9 @@ export default function({
         {
           text: 'Other Doc Versions',
           items: [
-            {rel: 'mvb', text: 'stable', target: '_blank', link: `${vbase}stable/`},
-            {rel: 'mvb', text: 'edge', target: '_blank', link: `${vbase}edge/`},
-            {text: '<strong>see all versions</strong>', link: mvbase},
+            {rel: 'mvb', text: 'stable', target: '_blank', link: '/stable/'},
+            {rel: 'mvb', text: 'edge', target: '_blank', link: '/edge/'},
+            {rel: 'mvb', text: '<strong>see all versions</strong>', link: '/'},
           ],
         },
         {text: 'Other Releases', link: `${repo}/releases`},
@@ -248,7 +245,7 @@ export default function({
           indexName: 'lando',
         },
       },
-      sharedNav: sharedNav(navBaseUrl),
+      sharedNav: sharedNav(navrel),
       socialLinks: [
         {
           icon: 'github',
@@ -294,7 +291,7 @@ export default function({
   };
 };
 
-function sharedNav(navbase = 'https://docs.lando.dev') {
+function sharedNav(rel = navrel) {
   return [
     {
       text: 'Core',
@@ -305,7 +302,8 @@ function sharedNav(navbase = 'https://docs.lando.dev') {
           items: [
             {
               text: 'Services',
-              link: `${navbase}/landofile/services.html`,
+              link: `/landofile/services.html`,
+              rel,
             },
           ],
         },
@@ -323,7 +321,7 @@ function sharedNav(navbase = 'https://docs.lando.dev') {
           text: 'Services',
           columns: 2,
           items: [
-            {text: 'L-337', link: `${navbase}/services/l337.html`},
+            {text: 'L-337', link: `/services/l337.html`, rel},
           ],
         },
       ],
