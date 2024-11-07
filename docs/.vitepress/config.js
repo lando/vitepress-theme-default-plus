@@ -163,7 +163,7 @@ export default defineConfig({
       build: 'edge',
       cache: true,
       match: 'v[0-9].*',
-      satisfies: '>=1.1.0-beta.16',
+      satisfies: '>=1.1.0-beta.19',
     },
     tags: {
       'obscure': {
