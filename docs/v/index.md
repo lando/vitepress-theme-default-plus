@@ -18,8 +18,7 @@ prev: false
   class="version-link"
 >
   <VPLVersionLink
-    :text="link.text"
-    :href="link.href"
+    :version="link.text"
     :prerelease="link.prerelease"
     :stable="link.stable"
     :edge="link.edge"
@@ -29,7 +28,7 @@ prev: false
 <br />
 
 <div>
-  <VPLVersionLink :dev="true" :text="aliases.dev" :href="aliasLinks.dev" />
+  <VPLVersionLink :dev="true" :version="aliases.dev" />
 </div>
 
 <script setup>

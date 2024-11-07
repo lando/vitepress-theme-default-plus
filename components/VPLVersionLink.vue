@@ -3,15 +3,14 @@
     class="VPLink"
     :class="{
       'prerelease': props.prerelease,
-      link: props.href,
+      link: props.version ?? props.text,
       'vp-external-link-icon': props.target === '_blank',
       'no-icon': props.noIcon
     }"
-    :href="props.href"
+    :href="getLink(props.version ?? props.text)"
     :target="props.target"
-    :rel="props.rel"
   >
-    {{ props.text }}
+    {{ props.version ?? props.text }}
     <Badge
       v-if="props.stable"
       type="success"
@@ -34,16 +33,11 @@
 </template>
 
 <script setup>
+import {default as normalizeMvb} from '../client/normalize-mvblink';
+
+const getLink = version => normalizeMvb(`/${version}/`);
 
 const props = defineProps({
-  text: {
-    type: String,
-    default: undefined,
-  },
-  href: {
-    type: String,
-    default: undefined,
-  },
   dev: {
     type: Boolean,
     default: false,
@@ -60,10 +54,6 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  rel: {
-    type: String,
-    default: 'mvb',
-  },
   stable: {
     type: Boolean,
     default: false,
@@ -71,6 +61,16 @@ const props = defineProps({
   target: {
     type: String,
     default: '_blank',
+  },
+  version: {
+    type: String,
+    default: undefined,
+  },
+
+  // DEPRECATED but kept for backwards compat
+  text: {
+    type: String,
+    default: undefined,
   },
 });
 </script>
