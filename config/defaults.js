@@ -1,6 +1,9 @@
+import {default as getBaseUrl} from '@lando/vitepress-theme-default-plus/get-base-url';
+
 export default function({base}) {
   return {
     base: base ?? '/',
+    baseUrl: getBaseUrl(),
     collections: {},
     feeds: false,
     lang: 'en-US',

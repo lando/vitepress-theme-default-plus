@@ -1,4 +1,6 @@
 import {default as isDevRelease} from '@lando/vitepress-theme-default-plus/is-dev-release';
+import {default as getBaseUrl} from '@lando/vitepress-theme-default-plus/get-base-url';
+
 import uniq from 'lodash-es/merge.js';
 
 export default function({
@@ -6,7 +8,7 @@ export default function({
   landoPlugin,
   themeConfig,
   version,
-  baseUrl = 'https://docs.lando.dev',
+  baseUrl = getBaseUrl() ?? 'https://docs.lando.dev',
   navrel = 'root',
 } = {}) {
   // reset the base if its undefined
