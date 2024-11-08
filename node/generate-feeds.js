@@ -7,6 +7,8 @@ import {default as createContentLoader} from '../utils/create-content-loader.js'
 import Debug from 'debug';
 import {Feed} from 'feed';
 
+const normalizeUrl = url => url.replace(/([^:]\/)\/+/g, '$1');
+
 // helper to normalize things
 const normalizeConfig = (config = {}, feed = 'feed') => {
   // pluralize
@@ -52,11 +54,11 @@ export default async function(siteConfig, {debug = Debug('@lando/generate-feeds'
     const feed = new Feed({
       title: config.title ?? site.title ?? '',
       description: config.description ?? config.description ?? '',
-      id: config.id ?? href,
-      link: config.link ?? href,
+      id: normalizeUrl(config.id ?? href),
+      link: normalizeUrl(config.link ?? href),
       language: config.language ?? 'en',
       image: config.image ?? '',
-      favicon: config.favicon ?? `${href}/favicon.ico`,
+      favicon: normalizeUrl(config.favicon ?? `${href}/favicon.ico`),
       copyright: config.copyright ?? '',
     });
 
@@ -70,8 +72,8 @@ export default async function(siteConfig, {debug = Debug('@lando/generate-feeds'
       // initial payload
       const data = {
         title,
-        id: `${href}${url}`,
-        link: `${href}${url}`,
+        id: normalizeUrl(`${href}${url}`),
+        link: normalizeUrl(`${href}${url}`),
         description: excerpt !== '' ? excerpt : summary,
         content: html,
         date: new Date(timestamp),

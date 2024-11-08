@@ -7,6 +7,7 @@
 * Added `version` alias information to config
 * Fixed bug preventing user specified `buildEnd` and `transformPageData` from running after theme's
 * Fixed bug preventing `mvb` from correctly setting the `mvbase`
+* Fixed duplicate `//` in generated `rss` feed
 * Improved `mvb` and `root` link normalization
 * Improved `VPLVersionLink` to only need `version` input
 * Updated to [vitepress@1.5.0](https://github.com/vuejs/vitepress/blob/main/CHANGELOG.md)

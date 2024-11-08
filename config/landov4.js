@@ -65,6 +65,7 @@ export default function({
     'https://localhost',
     'http://docs.lando.dev',
     'https://docs.lando.dev',
+    getBaseUrl(),
   );
 
   // if plugin then add netlify stuff
@@ -94,7 +95,7 @@ export default function({
       }],
     },
     sitemap: {
-      hostname: 'https://docs.lando.dev/',
+      hostname: getBaseUrl() ?? 'https://docs.lando.dev/',
       lastmodDateOnly: false,
       transformItems: items => {
         for (const item of items) {
@@ -108,8 +109,8 @@ export default function({
     themeConfig: {
       alert: false,
       autometa: {
-        canonicalUrl: 'https://docs.lando.dev',
-        image: `${baseUrl}images/hero.png`,
+        canonicalUrl: getBaseUrl() ?? 'https://docs.lando.dev/',
+        image: 'https://docs.lando.dev/images/icon.png',
         x: '@devwithlando',
       },
       carbonAds: {
