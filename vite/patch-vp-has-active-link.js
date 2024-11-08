@@ -9,7 +9,7 @@ export default function({debug = Debug('@lando/vite-plugin')}) { // eslint-disab
       const supportfile = 'dist/client/theme-default/support/sidebar.js';
       if (id.includes(supportfile)) {
         // prepend our mvb normalizer
-        code = `import { default as getItemNormalizedLink } from '../../../../../../client/get-item-nl.js';${EOL}${code}`;
+        code = `import { getItemNormalizedLink } from '@lando/vitepress-theme-default-plus';${EOL}${code}`;
         // and then use it
         code = code.replace('return isActive(path, items.link)', 'return isActive(path, getItemNormalizedLink(items))');
         // log
