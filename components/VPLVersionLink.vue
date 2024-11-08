@@ -35,8 +35,6 @@
 <script setup>
 import {default as normalizeMvb} from '../client/normalize-mvblink';
 
-const getLink = version => normalizeMvb(`/${version}/`);
-
 const props = defineProps({
   dev: {
     type: Boolean,
@@ -73,6 +71,13 @@ const props = defineProps({
     default: undefined,
   },
 });
+
+
+const getLink = version => {
+  if (props.dev === true) return normalizeMvb('/dev/');
+  return normalizeMvb(`/${version}/`);
+};
+
 </script>
 
 <style lang="scss">
