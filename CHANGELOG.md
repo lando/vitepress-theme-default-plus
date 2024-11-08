@@ -1,12 +1,10 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
 * Added `getItemNormalizedLink` helper client util
-* Added `hasActiveLink` helper client util
 * Added `normalize2base` helper client util
 * Added `normalizeMVB` helper client util
 * Added `normalizeRoot` helper client util
 * Added `version` alias information to config
-* Added `VPLSidebarEnder` component to better handle `mvb` things
 * Fixed bug preventing user specified `buildEnd` and `transformPageData` from running after theme's
 * Fixed bug preventing `mvb` from correctly setting the `mvbase`
 * Improved `mvb` and `root` link normalization

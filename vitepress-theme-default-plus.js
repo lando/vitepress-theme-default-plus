@@ -23,7 +23,6 @@ export {default as isFauxInternal} from './utils/is-faux-internal.js';
 export {default as encodeTag} from './client/encode-tag.js';
 export {default as getBaseUrl} from './utils/get-base-url.js';
 export {default as getItemNormalizedLink} from './client/get-item-nl.js';
-export {default as hasActiveLink} from './client/has-active-link.js';
 export {default as normalize2base} from './client/normalize-2base.js';
 export {default as normalizeMVB} from './client/normalize-mvblink.js';
 export {default as normalizeRoot} from './client/normalize-rootlink.js';
@@ -37,7 +36,6 @@ export {default as VPLLink} from './components/VPLLink.vue';
 export {default as VPLMenuGroup} from './components/VPLMenuGroup.vue';
 export {default as VPLMenuLink} from './components/VPLMenuLink.vue';
 export {default as VPLNavBarMenuGroup} from './components/VPLNavBarMenuGroup.vue';
-export {default as VPLSidebarEnder} from './components/VPLSidebarEnder.vue';
 export {default as VPLVersionLink} from './components/VPLVersionLink.vue';
 
 // team page

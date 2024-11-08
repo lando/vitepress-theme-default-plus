@@ -1,6 +1,6 @@
 ---
 description: VitePress Default Theme Plus extends the VitePress default theme with some extra power and features.
-layout: home
+# layout: home
 hero:
   name: VitePress Theme +
   text: The Default Theme w/ MoAr PoWaH.

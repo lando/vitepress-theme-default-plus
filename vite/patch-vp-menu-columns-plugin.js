@@ -2,7 +2,7 @@ import Debug from 'debug';
 
 export default function({debug = Debug('@lando/vite-plugin')}) { // eslint-disable-line
   return {
-    name: 'vpmenugroup-columns',
+    name: 'vp-menugroup-columns',
     enforce: 'pre',
     transform: (code, id) => {
       const menufile = 'VPMenu.vue';
