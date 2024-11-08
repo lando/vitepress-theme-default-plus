@@ -15,10 +15,7 @@
         v-if="sidebarEnder !== false"
         class="sidebar-end"
       >
-        <VPSideBarItem
-          :depth="0"
-          :item="sidebarEnder"
-        />
+        <SidebarEnder :item="sidebarEnder" />
       </div>
     </template>
 
@@ -58,12 +55,12 @@ import {useData} from 'vitepress';
 import {computed, ref, watch} from 'vue';
 
 import DefaultTheme from 'vitepress/theme';
-import VPSideBarItem from 'vitepress/dist/client/theme-default/components/VPSidebarItem.vue';
 
 import Alert from './VPLAlert.vue';
 import CollectionHeader from './VPLCollectionHeader.vue';
 import MailChimp from './VPLMailChimp.vue';
 import PostHeader from './VPLPostHeader.vue';
+import SidebarEnder from './VPLSidebarEnder.vue';
 import Tags from './VPLCollectionItemTags.vue';
 
 const {Layout} = DefaultTheme;
