@@ -15,7 +15,7 @@
 <script setup>
 import {computed, toRefs} from 'vue';
 import {useData} from 'vitepress';
-import isActive from '../client/is-active.js';
+import isActive from '../utils/is-active.js';
 
 import VPFlyout from 'vitepress/dist/client/theme-default/components/VPFlyout.vue';
 

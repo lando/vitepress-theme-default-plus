@@ -18,7 +18,7 @@
 <script setup>
   import {toRefs} from 'vue';
   import {useData} from 'vitepress';
-  import isActive from '../client/is-active.js';
+  import isActive from '../utils/is-active.js';
 
   import Link from './VPLLink.vue';
 
