@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## v1.1.0-beta.19 - [November 9, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.19)
+
 * Added `version` alias information to config
 * Fixed bug preventing user specified `buildEnd` and `transformPageData` from running after theme's
 * Fixed bug preventing `mvb` from correctly setting the `mvbase`
