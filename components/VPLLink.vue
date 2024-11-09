@@ -53,7 +53,11 @@ const props = defineProps({
   },
 });
 
-const relation = computed(() => props.rel === 'mvb' || props.rel === 'root' ? 'alternate' : props.rel);
+const relation = computed(() => {
+  if (props.rel === 'mvb') return 'alternate';
+  else if (props.rel === 'root' || props.rel === 'none') return undefined;
+  return props.rel;
+});
 const tag = computed(() => props.tag ?? (props.href ? 'a' : 'span'));
 const target = computed(() => props.target ?? (props.rel === 'mvb' || props.rel === 'root' ? '_self' : undefined));
 
