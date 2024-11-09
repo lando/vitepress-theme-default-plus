@@ -21,7 +21,7 @@
 <script setup>
 import {computed} from 'vue';
 import {useData} from 'vitepress';
-import encodeTag from '../client/encode-tag.js';
+import encodeTag from '../utils/encode-tag.js';
 
 import Link from './VPLLink.vue';
 import Tag from './VPLCollectionTag.vue';

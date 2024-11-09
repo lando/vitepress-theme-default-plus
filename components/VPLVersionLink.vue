@@ -33,7 +33,10 @@
 </template>
 
 <script setup>
-import {default as normalizeMvb} from '../client/normalize-mvblink';
+import {default as normalizeMvb} from '../utils/normalize-mvblink';
+import {useData} from 'vitepress';
+
+const {site} = useData();
 
 const props = defineProps({
   dev: {
@@ -72,10 +75,9 @@ const props = defineProps({
   },
 });
 
-
 const getLink = version => {
-  if (props.dev === true) return normalizeMvb('/dev/');
-  return normalizeMvb(`/${version}/`);
+  if (props.dev === true) return normalizeMvb('/dev/', site.value);
+  return normalizeMvb(`/${version}/`, site.value);
 };
 
 </script>

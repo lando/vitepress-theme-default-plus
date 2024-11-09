@@ -10,11 +10,26 @@ export default function({debug = Debug('@lando/vite-plugin')}) { // eslint-disab
       if (id.includes(supportfile)) {
         // prepend our mvb normalizer
         code = `import { getItemNormalizedLink } from '@lando/vitepress-theme-default-plus';${EOL}${code}`;
-        // and then use it
+        code = `import { normalizeItems } from '@lando/vitepress-theme-default-plus';${EOL}${code}`;
+
+        // make sure we get "site" as well
+        code = code.replace(
+          'const { page, hash } = useData()',
+          'const { site, page, hash } = useData()',
+        );
+
+        // and then use getItemNormalizedLink
         code = code.replace(
           'isActive(page.value.relativePath, item.value.link)',
-          'isActive(page.value.relativePath, getItemNormalizedLink(item.value))',
+          'isActive(page.value.relativePath, getItemNormalizedLink(item.value, site.value))',
         );
+
+        // and also use normalizeItems
+        code = code.replace(
+          'containsActiveLink(page.value.relativePath, item.value.items)',
+          'containsActiveLink(page.value.relativePath, normalizeItems(item.value.items, site.value))',
+        );
+
         // log
         debug('patched %o to use getItemNormalizedLink', supportfile);
         return code;

@@ -14,7 +14,7 @@
 <script setup>
 import {onMounted} from 'vue';
 import {useRoute} from 'vitepress';
-import encodeTag from '../client/encode-tag.js';
+import encodeTag from '../utils/encode-tag.js';
 
 import Tag from './VPLCollectionTag.vue';
 

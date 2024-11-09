@@ -1,5 +1,3 @@
-import {useData} from 'vitepress';
-
 const EXTERNAL_URL_RE = /^(?:[a-z]+:|\/\/)/i;
 const KNOWN_EXTENSIONS = new Set();
 
@@ -30,15 +28,13 @@ const treatAsHtml = filename => {
   return ext == null || !KNOWN_EXTENSIONS.has(ext.toLowerCase());
 };
 
-export default function normalize2Base(url, base = '/') {
+export default function normalize2Base(url, base = '/', site) {
   const {pathname, search, hash, protocol} = new URL(url, 'http://lando.dev');
 
   // return external urls
   if (isExternal(url) || url.startsWith('#') || !protocol.startsWith('http') || !treatAsHtml(pathname)) return url;
 
   // otherwise do the usual normalization
-  const {site} = useData();
-
   const path =
     pathname.endsWith('/') || pathname.endsWith('.html')
       ? url
@@ -46,7 +42,7 @@ export default function normalize2Base(url, base = '/') {
           /(?:(^\.+)\/)?.*$/,
           `$1${pathname.replace(
             /(\.md)?$/,
-            site.value.cleanUrls ? '' : '.html',
+            site.cleanUrls ? '' : '.html',
           )}${search}${hash}`,
         );
 

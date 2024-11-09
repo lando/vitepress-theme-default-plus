@@ -36,7 +36,6 @@ import {tabsMarkdownPlugin} from 'vitepress-plugin-tabs';
 import {default as tabsMarkdownOverridePlugin} from './markdown/tabs-override-plugin.js';
 
 // vitepress patches
-import {default as patchVPHasActiveLink} from './vite/patch-vp-has-active-link.js';
 import {default as patchVPMenuColumnsPlugin} from './vite/patch-vp-menu-columns-plugin.js';
 import {default as patchVPUseSidebarControl} from './vite/patch-vp-use-sidebar-control.js';
 
@@ -135,7 +134,6 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   vite.plugins.push(...[
     addLayoutsPlugin(layouts, {debug: debug.extend('vite-plugin')}),
     patchVPMenuColumnsPlugin({debug: debug.extend('vite-plugin')}),
-    patchVPHasActiveLink({debug: debug.extend('vite-plugin')}),
     patchVPUseSidebarControl({debug: debug.extend('vite-plugin')}),
   ]);
 

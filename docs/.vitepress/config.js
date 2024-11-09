@@ -11,10 +11,11 @@ const require = createRequire(import.meta.url);
 
 // get version info
 const {version} = require('../../package.json');
+const semver = process?.env?.VPL_MVB_VERSION ? process.env.VPL_MVB_VERSION : `v${version}`;
 
 // sidebar ender
 const sidebarEnder = {
-  text: process?.env?.VPL_MVB_VERSION ? process.env.VPL_MVB_VERSION : `v${version}`,
+  text: semver,
   collapsed: true,
   items: [
     {
@@ -30,10 +31,10 @@ const sidebarEnder = {
 };
 
 // if version is a stable or edge release then add in the release notes
-if (!isDevRelease(version)) {
+if (!isDevRelease(semver)) {
   sidebarEnder.items.splice(1, 0, {
     text: 'Release Notes',
-    link: `https://github.com/lando/vitepress-theme-default-plus/releases/tag/v${version}`,
+    link: `https://github.com/lando/vitepress-theme-default-plus/releases/tag/v${semver}`,
   });
 }
 
