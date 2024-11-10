@@ -200,6 +200,8 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
 
   For `frontmatter` you can deeply `merge` the remote frontmatter over the markdown files or you can `rebase` which will merge the markdown files frontmatter over the remotes. You can also `skip`, `omit` or `false` to do nothing with the remote frontmatter.
 
+  See [Loading remote content](../guides/adding-remote-content.html)
+
 ## Guides
 
 * See [Making a guide 1](./../guides/making-a-guide)

@@ -7,6 +7,7 @@
 * Fixed bug preventing user specified `buildEnd` and `transformPageData` from running after theme's
 * Fixed bug preventing `mvb` from correctly setting the `mvbase`
 * Fixed duplicate `//` in generated `rss` feed
+* Fixed `frontmatter.editLink` to fallback to theme and default `text` if not passed in
 * Improved `mvb` and `root` link normalization
 * Improved `VPLVersionLink` to only need `version` input
 * Updated to [vitepress@1.5.0](https://github.com/vuejs/vitepress/blob/main/CHANGELOG.md)
