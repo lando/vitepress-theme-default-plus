@@ -1,6 +1,5 @@
-
-import {EOL} from 'node:os';
 import Debug from 'debug';
+import {EOL} from 'node:os';
 
 const pivot = 'export default function(app) {';
 

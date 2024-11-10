@@ -159,6 +159,47 @@ Note that the below are _in addition_ to the [options](https://vitepress.dev/ref
 
   Note that this only works for content that is in a [collection](./config.md#collections).
 
+## url-loader
+
+* Type: `String ||  Object`
+
+* Default:
+
+  ```yaml
+  url-loader:
+    source:
+    content: replace
+    frontmatter: replace
+  ```
+
+* Examples
+
+  **shorthand**
+  ```yaml
+  url-loader: https://raw.githubusercontent.com/lando/setup-lando/refs/heads/main/docs/macos.md
+  ```
+
+  **long form**
+
+  ```yaml
+  url-loader:
+    source: https://raw.githubusercontent.com/lando/setup-lando/refs/heads/main/docs/macos.md
+    frontmatter: rebase
+    content: append
+  ```
+
+* Details:
+
+  You can set `url-loader` to a string and it will populate `url-loader.source` using the `replace` default values for `url-loader.content` and `url-loader.frontmatter`.
+
+  By default `frontmatter` and `content` will `replace` the current `.md` file's frontmatter and content with the frontmatter and content from `source`.
+
+  You can alter the behavior for both `frontmatter` and `content` though.
+
+  For `content` you can `append` the content from `source` to the content in the markdown file. `prepend` will, [you guessed it](https://www.youtube.com/watch?v=Fb6KH7GRAY4&t=47s), prepend the remote content to the markdown file.
+
+  For `frontmatter` you can deeply `merge` the remote frontmatter over the markdown files or you can `rebase` which will merge the markdown files frontmatter over the remotes. You can also `skip`, `omit` or `false` to do nothing with the remote frontmatter.
+
 ## Guides
 
 * See [Making a guide 1](./../guides/making-a-guide)

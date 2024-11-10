@@ -1,7 +1,7 @@
 import {default as isDevRelease} from '@lando/vitepress-theme-default-plus/is-dev-release';
 import {default as getBaseUrl} from '@lando/vitepress-theme-default-plus/get-base-url';
 
-import uniq from 'lodash-es/merge.js';
+import uniq from 'lodash-es/uniq.js';
 
 export default function({
   base,

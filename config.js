@@ -34,6 +34,7 @@ import {default as generateRobotsTxt} from './node/generate-robots.js';
 import {default as linkOverridePlugin} from './markdown/link-override-plugin.js';
 import {tabsMarkdownPlugin} from 'vitepress-plugin-tabs';
 import {default as tabsMarkdownOverridePlugin} from './markdown/tabs-override-plugin.js';
+import {default as urlLoader} from './vite/url-loader.js';
 
 // vitepress patches
 import {default as patchVPMenuColumnsPlugin} from './vite/patch-vp-menu-columns-plugin.js';
@@ -133,8 +134,9 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   // plguins
   vite.plugins.push(...[
     addLayoutsPlugin(layouts, {debug: debug.extend('vite-plugin')}),
-    patchVPMenuColumnsPlugin({debug: debug.extend('vite-plugin')}),
-    patchVPUseSidebarControl({debug: debug.extend('vite-plugin')}),
+    patchVPMenuColumnsPlugin({debug: debug.extend('vitepress-patcher')}),
+    patchVPUseSidebarControl({debug: debug.extend('vitepress-patcher')}),
+    urlLoader({debug: debug.extend('url-loader')}),
   ]);
 
   // deps
