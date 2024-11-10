@@ -1,13 +1,14 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+* Added `frontmatter.url-loader` to allow `.md` files to pull content from remote `markdown` sources
+* Fixed `frontmatter.editLink` to fallback to theme and default `text` if not passed in
+
 ## v1.1.0-beta.19 - [November 9, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.19)
 
-* Added `frontmatter.url-loader` to allow `.md` files to pull content from remote `markdown` sources
 * Added `version` alias information to config
 * Fixed bug preventing user specified `buildEnd` and `transformPageData` from running after theme's
 * Fixed bug preventing `mvb` from correctly setting the `mvbase`
 * Fixed duplicate `//` in generated `rss` feed
-* Fixed `frontmatter.editLink` to fallback to theme and default `text` if not passed in
 * Improved `mvb` and `root` link normalization
 * Improved `VPLVersionLink` to only need `version` input
 * Updated to [vitepress@1.5.0](https://github.com/vuejs/vitepress/blob/main/CHANGELOG.md)
