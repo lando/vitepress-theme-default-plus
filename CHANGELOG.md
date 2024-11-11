@@ -1,5 +1,8 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+* Added `frontmatter.url-loader` to allow `.md` files to pull content from remote `markdown` sources
+* Fixed `frontmatter.editLink` to fallback to theme and default `text` if not passed in
+
 ## v1.1.0-beta.19 - [November 9, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.19)
 
 * Added `version` alias information to config

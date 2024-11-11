@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@docsearch/js": "^3.5.2",
+    "axios": "^1.7.7",
     "colorette": "^2.0.20",
     "debug": "^4.3.2",
     "es-semver": "^1.0.1",
@@ -52,6 +53,7 @@
     "fs-extra": "^11.2.0",
     "generate-robotstxt": "^8.0.3",
     "gravatar-url": "^4.0.1",
+    "gray-matter": "^4.0.3",
     "js-yaml": "^4.1.0",
     "lodash-es": "^4.17.21",
     "markdown-it-container": "^4.0.0",

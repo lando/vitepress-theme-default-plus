@@ -40,14 +40,14 @@
         >
           <Link
             class="edit-link-button"
-            :href="editLink.url"
+            :href="editLink?.url ?? editLink"
             :no-icon="true"
           >
             <VPIconEdit
               class="edit-link-icon"
               aria-label="edit icon"
             />
-            {{ editLink.text }}
+            {{ editLink?.text ?? theme?.value?.editLink?.text ?? 'Edit this page' }}
           </Link>
         </div>
 
