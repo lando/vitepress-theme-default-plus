@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+* Fixed incorrect `lodash-es/uniq.js` import in `landov3` config set
+
 ## v1.1.0-beta.20 - [November 11, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.20)
 
 * Added `frontmatter.url-loader` to allow `.md` files to pull content from remote `markdown` sources
