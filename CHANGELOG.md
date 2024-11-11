@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## v1.1.0-beta.21 - [November 11, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.21)
+
 * Fixed incorrect `lodash-es/uniq.js` import in `landov3` config set
 
 ## v1.1.0-beta.20 - [November 11, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.20)
