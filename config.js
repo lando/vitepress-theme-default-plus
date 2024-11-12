@@ -191,7 +191,7 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
 
   // get full version alias information but let this fail
   try {
-    const tags= await getTags(config.gitRoot, undefined, {debug: debug.extend('get-tags')});
+    const tags = await getTags(config.gitRoot, undefined, {debug: debug.extend('get-tags')});
     themeConfig.versions = tags.aliases ?? {};
     debug('discovered version aliases %o', config.versions);
   } catch (error) {
