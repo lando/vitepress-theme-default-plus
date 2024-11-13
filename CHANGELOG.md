@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## v1.1.0-beta.22 - [November 13, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.22)
+
 * Added `VPL_MVB_DEV_VERSION` to `mvb` envvars
 * Improved `get-tags` to prefer `VPL_MVB_DEV_VERSION` as the `dev` alias if available
 
