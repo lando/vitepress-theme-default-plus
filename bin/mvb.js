@@ -95,6 +95,8 @@ const options = {
 };
 debug('multiversion build from %o using resolved build options: %O', srcDir, options);
 
+process.exit(1)
+
 // determine gitdir
 const gitDir = path.resolve(traverseUp(['.git'], osource).find(dir => fs.existsSync(dir)), '..');
 debug('determined git-dir: %o', gitDir);
