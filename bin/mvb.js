@@ -151,7 +151,7 @@ const builds = extended.map((version, index) => {
   }
 
   // if caching then also suggest a cache location
-  if (options.cache && options.base !== '/') {
+  if (options.cache && version.base !== '/') {
     version.cacheKey = path.join(options.base, options.versionBase, version.version, version.base);
     version.cachePath = path.join(options.cacheDir, crypto.createHash('sha256').update(version.cacheKey).digest('hex'));
   }
@@ -186,7 +186,7 @@ for (const build of builds) {
 
   // if we get here we need to actually do a build
   debug('building %o version %o with config %o', srcDir, `${alias ?? version}@${ref}`, config);
-  log('building version %s, ref %s, from %s to %s...', magenta(alias ?? version), magenta(ref), magenta(srcDir), magenta(config.outDir));
+  log('building version %s, ref %s, from %s to %s...', magenta(alias ?? version), magenta(ref), magenta(srcDir), magenta(`${config.outDir}/`));
 
   // reset HEAD HARD
   await exec('git', ['reset', 'HEAD', '--hard']);
@@ -232,7 +232,7 @@ for (const build of builds) {
   fs.copySync(path.join(options.tmpDir, config.outDir), path.resolve(config.outDir));
 
   // save cache if its on
-  if (options.cache) {
+  if (cachePath && options.cache) {
     debug('saving version %s to %s at %s...', version, 'cache', cachePath);
     fs.copySync(path.resolve(config.outDir), cachePath);
   }
