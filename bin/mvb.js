@@ -160,6 +160,10 @@ const builds = extended.map((version, index) => {
   return {...version, srcDir};
 });
 
+// get the dev build so we can set downstream envvars
+const devBuild = builds.find(build => build.alias === 'dev');
+console.log(devBuild);
+
 // report
 log('%s build at %s using alias %s, ref %s', magenta('primary'), magenta(options.base), magenta(builds[0]?.alias), magenta(builds[0]?.ref));
 log('%s %s builds at %s', magenta(builds.length - 1), magenta('versioned'), magenta(`${options.base}${options.versionBase}`.replace(/\/{2,}/g, '/')));
@@ -203,6 +207,8 @@ for (const build of builds) {
     debug('updated %o version to %o', pjsonPath, semantic);
   }
 
+  process.exit(1)
+
   // build the version
   try {
     await exec(
@@ -211,6 +217,7 @@ for (const build of builds) {
       {env: {
         VPL_MVB_BASE: site.base,
         VPL_MVB_BUILD: 1,
+        VPL_MVB_DEV_VERSION: 'hi',
         VPL_MVB_BRANCH: getBranch(gitDir),
         VPL_MVB_SOURCE: process.cwd(),
       }},
