@@ -38,7 +38,9 @@ export default function async(
   const aliases = {dev: 'HEAD', edge: 'HEAD', stable: 'HEAD'};
 
   // get the dev alias
-  aliases.dev = getStdOut(`${devReleaseCmd.join(' ')} ${getBranch(cwd)} || ${devReleaseCmd.join(' ')}`, opts);
+  aliases.dev =
+    process?.env?.VPL_MVB_DEV_VERSION ??
+    getStdOut(`${devReleaseCmd.join(' ')} ${getBranch(cwd)} || ${devReleaseCmd.join(' ')}`, opts);
 
   // if we have versions data we can reset them to actual tags
   if (versions.length > 0) {
