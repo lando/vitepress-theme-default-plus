@@ -67,7 +67,7 @@ ${green('Options')}:
   --base             sets site base ${dim(`[default: ${defaults.base}`)}]
   --build            uses this version alias for main/root build ${dim(`[default: ${defaults.build}`)}]
   --match            filters versions from git tags ${dim(`[default: "${defaults.match}"`)}]
-  --no-cache         builds all versions every build ${dim(`[default: "${!defaults.cache}"`)}]
+  --no-cache         builds versioned docs every build ${dim(`[default: "${!defaults.cache}"`)}]
   --out-dir          builds into this location ${dim(`[default: ${defaults.outDir}`)}]
   --satisfies        builds versioned docs in this semantic range ${dim(`[default: "${defaults.satisfies}"`)}]
   --version-base     builds versioned docs in this location ${dim(`[default: ${defaults.versionBase}`)}]
@@ -94,8 +94,6 @@ const options = {
   tmpDir: path.resolve(os.tmpdir(), nanoid()),
 };
 debug('multiversion build from %o using resolved build options: %O', srcDir, options);
-
-process.exit(1)
 
 // determine gitdir
 const gitDir = path.resolve(traverseUp(['.git'], osource).find(dir => fs.existsSync(dir)), '..');
@@ -153,7 +151,7 @@ const builds = extended.map((version, index) => {
   }
 
   // if caching then also suggest a cache location
-  if (options.cache) {
+  if (options.cache && options.base !== '/') {
     version.cacheKey = path.join(options.base, options.versionBase, version.version, version.base);
     version.cachePath = path.join(options.cacheDir, crypto.createHash('sha256').update(version.cacheKey).digest('hex'));
   }
