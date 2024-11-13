@@ -1,9 +1,10 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+* Changed `mvb` to never cache the main/base/root build
+
 ## v1.1.0-beta.22 - [November 13, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.22)
 
 * Added `VPL_MVB_DEV_VERSION` to `mvb` envvars
-* Changed `mvb` to never cache the main/base/root build
 * Improved `get-tags` to prefer `VPL_MVB_DEV_VERSION` as the `dev` alias if available
 
 ## v1.1.0-beta.21 - [November 11, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.21)
