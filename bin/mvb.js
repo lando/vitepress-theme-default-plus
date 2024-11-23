@@ -111,7 +111,7 @@ const exec = createExec({cwd: options.tmpDir, debug});
 log('setting up mvb build environment using %s...', magenta(gitDir));
 
 // lets make sure the source repo at least has all the tag information it needs
-const updateArgs = ['fetch', 'origin', '--tags', '--no-filter'];
+const updateArgs = ['fetch', 'origin', '--tags', '--no-filter', '--force'];
 // if shallow then add to update refs
 if (getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true') updateArgs.push('--unshallow');
 // fetch
