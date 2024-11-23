@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+* Improved `mvb` tag fetching to ensure remote tags are canonical for version building, fixes `would clobber existing tag` error(s)
+
 ## v1.1.0-beta.23 - [November 13, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.23)
 
 * Changed `mvb` to never cache the main/base/root build
