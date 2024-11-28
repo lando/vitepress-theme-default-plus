@@ -244,7 +244,7 @@ export default function({
         provider: 'algolia',
         options: {
           appId: '9S3BH0SKWT',
-          apiKey: 'd3db589efd595b115848fc6a654d3263',
+          apiKey: 'dbdd36d83bdc347eb485aa13f381527c',
           indexName: 'lando',
         },
       },
