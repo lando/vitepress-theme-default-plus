@@ -236,6 +236,7 @@ export default function({
         cache: true,
         match: 'v[0-9].*',
         satisfies: '>=1.0.0',
+        ag: 'edge',
       },
       nav: [],
       sidebar: {},

@@ -49,6 +49,7 @@ const {site} = siteConfig;
 
 // build default options
 const defaults = {
+  ag: site?.themeConfig?.multiVersionBuild?.ag ?? false,
   base: site?.base ?? '/',
   build: site?.themeConfig?.multiVersionBuild?.build ?? 'stable',
   cache: site?.themeConfig?.multiVersionBuild?.cache ?? true,
@@ -111,7 +112,7 @@ const exec = createExec({cwd: options.tmpDir, debug});
 log('setting up mvb build environment using %s...', magenta(gitDir));
 
 // lets make sure the source repo at least has all the tag information it needs
-const updateArgs = ['fetch', 'origin', '--tags', '--no-filter', '--force'];
+const updateArgs = ['fetch', options.ag === false ? 'origin' : '--all', '--tags', '--no-filter', '--force'];
 // if shallow then add to update refs
 if (getStdOut('git rev-parse --is-shallow-repository', {trim: true}) === 'true') updateArgs.push('--unshallow');
 // fetch
@@ -125,6 +126,8 @@ await exec('git', ['checkout', getBranch(), '--force']);
 await exec('git', ['reset', 'HEAD', '--hard']);
 // pull
 await exec('git', ['pull', 'origin', getBranch()]);
+// also get
+if (options.ag !== false) await exec('git', ['merge', options.ag, '-X', 'theirs']);
 
 // get extended version information
 const {extended} = await getTags(options.tmpDir, options);
