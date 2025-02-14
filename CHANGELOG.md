@@ -1,5 +1,53 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## New Features
+
+* Added `version` alias information to config
+* Added `RegEx` support for `internalDomains` matching
+* Added `get-base-url` helper util
+* Added `is-faux-internal` helper util
+* Added `caching` to `mvb` multiversion build
+* Added better dev `branch` detection to `mvb`
+* Added `frontmatter.url-loader` to allow `.md` files to pull content from remote `markdown` sources
+* Added new `multiversion-vitepress-build` command
+* Added `useTags` composable to get docs version information from `git`
+* Added `VPLVersionLink` component
+* Changed `VPLVersionLink` to _not_ normalize links
+* Improved `get-tags` and `mvb` to better handle scenarios with no matchings versions or tags
+* Improved robustness of `mvb` build environment generation
+* Improved `is-dev-release` to handle `dev` releases that are in front of a prerelease tag
+* Improved dev release resolution
+* Improved `mvb` and `root` link normalization
+* Improved `VPLVersionLink` to only need `version` input
+* Switched these docs to `multiversion-vitepress-build`
+* Updated to [vitepress@1.5.0](https://github.com/vuejs/vitepress/blob/main/CHANGELOG.md)
+* Updated `scss` and `sass` compilation to `modern-compiler`
+
+## Bug Fixes
+
+* Fixed `frontmatter.editLink` to fallback to theme and default `text` if not passed in
+* Fixed incorrect `lodash-es/uniq.js` import in `landov3` config set
+* Fixed bug causing build error when `metadata` is added to a page with no `git` history
+* Fixed bug caused by `icon` being a variable instead of a string in `VPLTeamMembersItem`
+* Fixed bug caused by `VPLTeamMembers.members` typing as `Object` instead of `Array`
+* Fixed bug causing `robots.txt` policies to not be applied when using `policies` instead of `policy`
+* Fixed watch bug on `VPLCollectionItems` preventing tag toggling from working correctly
+* Fixed bug in `VPLLink` causing some links to to not normalize correctly
+* Fixed bug causing `VPLDocFooter` bleed over with some `frontmatter` combinations of `prev` and `next`
+* Fixed `semver` import causing all kinds of chaos when importing this theme as a package
+* Fixed bug causing `alias.dev` to always report highest built tag instead of actual dev version
+* Fixed `useTags()` to return correct links for sites with non-root `base` considerations take 2
+* Fixed `prev-next` calculation when using sites with non `/` bases [#55](https://github.com/lando/vitepress-theme-default-plus/pull/55)
+* Fixed bug with `<VPLLink>` not dynamically updating and showing strange behavior for `prev|next` links
+* Fixed bug causing `active` to not be correctly set on `VPLNavBarMenuGroup`
+* Fixed bug in `normalize-mvb` causing `multiVersionBuild.build` to sometimes not be set correctly
+* Fixed `lando` configset bug causing `sidebarEnder` to not merge correctly
+* Fixed bug preventing user specified `buildEnd` and `transformPageData` from running after theme's
+* Fixed bug preventing `mvb` from correctly setting the `mvbase`
+* Fixed duplicate `//` in generated `rss` feed
+* Fixed bug causing `robots.txt` build to throw an error when `policies` is `undefined`
+* Fixed bug causing `netlify` specific `mvb` to not get current tags
+
 ## v1.1.0-beta.24 - [November 23, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.24)
 
 * Improved `mvb` tag fetching to ensure remote tags are canonical for version building, fixes `would clobber existing tag` error(s)
