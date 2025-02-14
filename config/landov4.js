@@ -11,6 +11,9 @@ export default function({
   baseUrl = getBaseUrl() ?? 'https://docs.lando.dev',
   navrel = 'root',
 } = {}) {
+  // if this is a lando plugin then reset the baseUrl
+  if (landoPlugin) baseUrl = getBaseUrl(landoPlugin);
+
   // reset the base if its undefined
   if (!base) base = landoPlugin ? `/plugins/${landoPlugin}/` : '/';
 
