@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## v1.1.1 - [February 14, 2025](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.1)
+
 * Fixed bug causing `mvb` and `vitepress build` to fail when `landoPlugin` is set and `VPL_BASE_URL` or `NETLIFY ` are not
 
 ## v1.1.0 - [February 14, 2025](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0)
