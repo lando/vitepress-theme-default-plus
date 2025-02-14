@@ -17,6 +17,9 @@ export default function async(
   ) {
   // stdout opts
   const opts = {cwd, trim: true};
+  // quiet opts
+  const qopts = {...opts, stdio: ['pipe', 'pipe', 'ignore']};
+
   // commands
   const tagCmd = ['git', '--no-pager', 'tag', '--list', `"${match}"`];
   const devReleaseCmd = ['git', 'describe', '--tags', '--always', '--abbrev=1', `--match="${match}"`];
@@ -40,7 +43,7 @@ export default function async(
   // get the dev alias
   aliases.dev =
     process?.env?.VPL_MVB_DEV_VERSION ??
-    getStdOut(`${devReleaseCmd.join(' ')} ${getBranch(cwd)} || ${devReleaseCmd.join(' ')}`, opts);
+    getStdOut(`${devReleaseCmd.join(' ')} ${getBranch(cwd)} || ${devReleaseCmd.join(' ')}`, qopts);
 
   // if we have versions data we can reset them to actual tags
   if (versions.length > 0) {

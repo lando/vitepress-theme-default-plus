@@ -47,6 +47,7 @@
 * Fixed duplicate `//` in generated `rss` feed
 * Fixed bug causing `robots.txt` build to throw an error when `policies` is `undefined`
 * Fixed bug causing `netlify` specific `mvb` to not get current tags
+* Fixed `git tag` dev alias detection to incorrectly report `fatal: Not a valid object name undefined` on first attempt
 
 ## v1.1.0-beta.24 - [November 23, 2024](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.0-beta.24)
 
