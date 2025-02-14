@@ -112,6 +112,8 @@ jobs:
             dirs: ./
           - name: lando/mailhog
             dirs: ./
+          - name: lando/mailpit
+            dirs: ./
           - name: lando/mariadb
             dirs: ./
           - name: lando/mean
