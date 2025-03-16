@@ -151,6 +151,7 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   debug('added vite ssr config %O', vite.ssr);
 
   // markdown plugins
+  const markdownConfig = ('config' in markdown) ? markdown.config : null;
   markdown.config = md => {
     // add custom markdown containers, including tabs
     for (const [name, opts] of Object.entries(containers)) {
@@ -170,6 +171,9 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
       internalDomains,
       debug.extend('markdown-plugin'),
     );
+    if (markdownConfig) {
+      markdownConfig(md);
+    }
   };
 
   // add google analytics
