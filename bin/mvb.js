@@ -10,8 +10,9 @@ import {bold, dim, green, magenta, red} from 'colorette';
 import {nanoid} from 'nanoid';
 import {resolveConfig} from 'vitepress';
 
-import {default as getStdOut} from '../utils/parse-stdout.js';
 import {default as createExec} from '../utils/create-exec.js';
+import {default as detectRuntime} from '../utils/detect-runtime.js';
+import {default as getStdOut} from '../utils/parse-stdout.js';
 import {default as getBranch} from '../utils/get-branch.js';
 import {default as getTags} from '../utils/get-tags.js';
 import {default as traverseUp} from '../utils/traverse-up.js';
@@ -20,6 +21,10 @@ import Debug from 'debug';
 
 // debugger
 const debug = Debug('@lando/mvb');  // eslint-disable-line
+
+// executor
+const runtimeX = detectRuntime() === 'bun' ? 'bunx' : 'npx';
+const pkgInstaller = detectRuntime() === 'bun' ? ['bun', ['install', '--frozen-localfile']] : ['npm', ['clean-install']];
 
 // enable debug if applicable
 if (process.argv.includes('--debug') || process.env.RUNNER_DEBUG === '1') {
@@ -196,7 +201,7 @@ for (const build of builds) {
   // checkout new ref
   await exec('git', ['checkout', ref]);
   // reinstall
-  await exec('npm', ['clean-install']);
+  await exec(...pkgInstaller);
 
   // update package.json if needed
   const pjsonPath = path.join(options.tmpDir, 'package.json');
@@ -213,7 +218,7 @@ for (const build of builds) {
   // build the version
   try {
     await exec(
-      'npx',
+      runtimeX,
       ['vitepress', 'build', srcDir, '--outDir', config.outDir, '--base', config.base],
       {env: {
         VPL_MVB_BASE: site.base,

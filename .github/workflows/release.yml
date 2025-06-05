@@ -92,6 +92,8 @@ jobs:
             dirs: ./
           - name: lando/core-next
             dirs: ./
+          - name: lando/devtool
+            dirs: ./
           - name: lando/dotnet
             dirs: ./
           - name: lando/drupal
