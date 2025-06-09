@@ -4,7 +4,7 @@ description: Learn about custom tab markdown containers in VitePress Default The
 
 # Tab Containers
 
-We extend the **great** [vitepress-plugin-tabs](https://vitepress-plugins.sapphi.red/tabs/) so you can get a few different style options.
+We extend the **great** [vitepress-plugin-tabs](https://github.com/sapphi-red/vitepress-plugins/tree/main/packages/vitepress-plugin-tabs) so you can get a few different style options.
 
 Those style options piggyback off of [Boxes](./boxes.md).
 

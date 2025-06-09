@@ -36,11 +36,10 @@
   "type": "module",
   "scripts": {
     "build": "VPL_MVB_VERSION=$(git describe --tags --always --abbrev=1 --match=\"v[0-9].*\") vitepress build docs",
-    "mvb": "npx mvb docs",
     "dev": "VPL_BASE_URL=http://localhost:5173 VPL_MVB_VERSION=$(git describe --tags --always --abbrev=1 --match=\"v[0-9].*\") vitepress dev docs",
     "lint": "eslint . --ext .js,.vue",
     "preview": "vitepress preview docs",
-    "test": "npm run lint"
+    "test": "eslint . --ext .js,.vue"
   },
   "dependencies": {
     "@docsearch/js": "^3.5.2",

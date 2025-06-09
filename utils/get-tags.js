@@ -1,4 +1,4 @@
-import semver from 'es-semver';
+import * as semver from 'es-semver';
 
 import {default as getBranch} from './get-branch.js';
 import {default as getStdOut} from './parse-stdout.js';
