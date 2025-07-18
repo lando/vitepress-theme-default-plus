@@ -256,7 +256,7 @@ Once you have you should be able to use all the things below.
     },
     blog: {
       baseUrl: 'https://vitepress-theme-default-plus.lando.dev/',
-      copyright: '© 2024 Lando'
+      copyright: '©2025 Lando Alliance'
       description: 'Do you have a need to feed?',
       file: 'bloggy.rss',
       image: 'https://sm.ign.com/ign_za/photo/3/31-best-lo/31-best-lord-of-the-rings-quotes_z4n9.jpg',
