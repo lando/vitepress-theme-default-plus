@@ -3,7 +3,7 @@
   "description": "A VitePress Theme that extends the default theme with some more power.",
   "version": "1.1.1",
   "author": "Mike Pirog @pirog",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "repository": "github:lando/vitepress-theme-default-plus",
   "bugs": "https://github.com/lando/vitepress-theme-default-plus/issues/new/choose/",
   "homepage": "https://github.com/lando/vitepress-theme-default-plus",
