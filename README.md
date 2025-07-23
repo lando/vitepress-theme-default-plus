@@ -54,4 +54,5 @@ Made with [contributors-img](https://contrib.rocks).
 * [LICENSE](/LICENSE)
 * [TERMS OF USE](https://docs.lando.dev/terms)
 * [PRIVACY POLICY](https://docs.lando.dev/privacy)
+* [CODE OF CONDUCT](https://docs.lando.dev/coc)
 
