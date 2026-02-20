@@ -4,9 +4,32 @@ on:
   release:
     types:
       - published
-
+      - released
 jobs:
+  # When a prerelease is promoted to a full release, update the npm latest tag
+  promote:
+    if: github.event.action == 'released'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Install node 20
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          registry-url: https://registry.npmjs.org
+      - name: Promote edge to latest
+        run: |
+          VERSION=$(echo "$TAG_NAME" | sed 's/^v//')
+          PACKAGE=$(node -p "require('./package.json').name")
+          npm dist-tag add "$PACKAGE@$VERSION" latest
+          echo "::notice title=Promoted $VERSION to latest::The latest tag now points to $VERSION (was edge-only)"
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_DEPLOY_TOKEN}}
+
   deploy:
+    if: github.event.action == 'published'
     runs-on: ${{ matrix.os }}
     env:
       TERM: xterm
