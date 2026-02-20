@@ -43,9 +43,9 @@ jobs:
       # Install deps and cache
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install node ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
@@ -187,7 +187,7 @@ jobs:
       # Install deps and cache
       # NOTE that we use ref: main because we need to get the code that was updated from the prepare-release-action
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: main
       - name: Install Bun
@@ -195,7 +195,7 @@ jobs:
         with:
           bun-version-file: .bun-version
       - name: Install node ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
