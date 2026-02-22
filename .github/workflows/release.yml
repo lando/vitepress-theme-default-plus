@@ -22,8 +22,20 @@ jobs:
         run: |
           VERSION=$(echo "$TAG_NAME" | sed 's/^v//')
           PACKAGE=$(node -p "require('./package.json').name")
-          npm dist-tag add "$PACKAGE@$VERSION" latest
-          echo "::notice title=Promoted $VERSION to latest::The latest tag now points to $VERSION (was edge-only)"
+
+          # Wait for version to be available on npm (handles race with deploy job)
+          for i in $(seq 1 30); do
+            if npm view "$PACKAGE@$VERSION" version &>/dev/null; then
+              npm dist-tag add "$PACKAGE@$VERSION" latest
+              echo "::notice title=Promoted $VERSION to latest::The latest tag now points to $VERSION"
+              exit 0
+            fi
+            echo "Waiting for $PACKAGE@$VERSION on npm... (attempt $i/30)"
+            sleep 10
+          done
+
+          echo "::error title=Promotion failed::$PACKAGE@$VERSION not found on npm after 5 minutes"
+          exit 1
         env:
           TAG_NAME: ${{ github.event.release.tag_name }}
           NODE_AUTH_TOKEN: ${{secrets.NPM_DEPLOY_TOKEN}}
