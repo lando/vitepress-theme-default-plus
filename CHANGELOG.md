@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## v1.1.5 - [March 5, 2026](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.5)
+
 * Introduced `mvb` option `runtime` to allow explicit runtime targeting and to avoid not-the-best autodetection
 
 ## v1.1.4 - [March 5, 2026](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.4)
