@@ -93,6 +93,8 @@ jobs:
             UNRELEASED_LINK=${{ github.event.release.html_url }}
             UNRELEASED_VERSION=${{ github.event.release.tag_name }}
 
+      - name: Upgrade npm for trusted publishing
+        run: npm install -g "npm@^11.5.1"
       - name: Deploy release to npm
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_DEPLOY_TOKEN}}
