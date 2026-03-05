@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+* Updated to use `npm` Trusted Publishing part 2
+
 ## v1.1.2 - [March 5, 2026](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.2)
 
 * Added `bun` support to `mvb`
