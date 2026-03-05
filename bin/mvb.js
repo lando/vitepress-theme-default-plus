@@ -22,10 +22,6 @@ import Debug from 'debug';
 // debugger
 const debug = Debug('@lando/mvb');  // eslint-disable-line
 
-// executor
-const runtimeX = detectRuntime() === 'bun' ? 'bunx' : 'npx';
-const pkgInstaller = detectRuntime() === 'bun' ? ['bun', ['install', '--frozen-localfile']] : ['npm', ['clean-install']];
-
 // enable debug if applicable
 if (process.argv.includes('--debug') || process.env.RUNNER_DEBUG === '1') {
   Debug.enable(process.env.DEBUG ?? '*');
@@ -60,6 +56,7 @@ const defaults = {
   cache: site?.themeConfig?.multiVersionBuild?.cache ?? true,
   match: site?.themeConfig?.multiVersionBuild?.match ?? 'v[0-9].*',
   outDir: path.relative(process.cwd(), siteConfig.outDir) ?? './.vitepress/dist',
+  runtime: detectRuntime() === 'bun' ? 'bun' : 'npm',
   satisfies: site?.themeConfig?.multiVersionBuild?.satisfies ?? '*',
   versionBase: site?.themeConfig?.multiVersionBuild?.base ?? '/v/',
 };
@@ -75,6 +72,7 @@ ${green('Options')}:
   --match            filters versions from git tags ${dim(`[default: "${defaults.match}"`)}]
   --no-cache         builds versioned docs every build ${dim(`[default: "${!defaults.cache}"`)}]
   --out-dir          builds into this location ${dim(`[default: ${defaults.outDir}`)}]
+  --runtime          builds versioned docs using npx or bunx ${dim(`[default: "${defaults.runtime}"`)}]
   --satisfies        builds versioned docs in this semantic range ${dim(`[default: "${defaults.satisfies}"`)}]
   --version-base     builds versioned docs in this location ${dim(`[default: ${defaults.versionBase}`)}]
   --debug            shows debug messages
@@ -100,6 +98,11 @@ const options = {
   tmpDir: path.resolve(os.tmpdir(), nanoid()),
 };
 debug('multiversion build from %o using resolved build options: %O', srcDir, options);
+
+// executor
+const runtimeX = options.runtime === 'bun' ? 'bunx' : 'npx';
+const pkgInstaller = options.runtime === 'bun' ? ['bun', ['install', '--frozen-localfile']] : ['npm', ['clean-install']];
+debug('multiversion build runtime %o with %O', options.runtime, {runtimeX, pkgInstaller});
 
 // determine gitdir
 const gitDir = path.resolve(traverseUp(['.git'], osource).find(dir => fs.existsSync(dir)), '..');
