@@ -43,20 +43,24 @@
             {{ member.title }}
           </span>
           <span
-            v-if="member.title && member.org"
-            class="at"
-          >
-            @
-          </span>
-          <Link
             v-if="member.org"
-            class="org"
-            :class="{ link: member.orgLink }"
-            :href="member.orgLink"
-            no-icon
+            class="at-org"
           >
-            {{ member.org }}
-          </Link>
+            <span
+              v-if="member.title"
+              class="at"
+            >
+              @
+            </span>
+            <Link
+              class="org"
+              :class="{ link: member.orgLink }"
+              :href="member.orgLink"
+              no-icon
+            >
+              {{ member.org }}
+            </Link>
+          </span>
         </p>
         <p
           v-if="member.desc"
@@ -306,6 +310,24 @@ const getAvatarTitle = member => {
   text-transform: uppercase;
   font-weight: 700;
   color: var(--vp-c-text-3);
+  /* Flex with wrap lets `.title` and `.at-org` flow on one line when they
+     fit, and break onto separate lines (between them, never inside them)
+     when they don't. column-gap supplies the visual space because Vue's
+     template compiler strips whitespace text nodes between sibling element
+     tags, so we can't rely on inline whitespace as a break opportunity. */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 0.3em;
+  /* Always reserve two lines of vertical space so the social-link row
+     (and anything else rendered below) lines up across cards regardless
+     of whether a given member's affiliation wraps to a second line. */
+  min-height: 2lh;
+}
+
+.title,
+.at-org {
+  white-space: nowrap;
 }
 
 .at {
