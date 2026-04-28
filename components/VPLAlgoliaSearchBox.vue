@@ -45,6 +45,13 @@ async function update() {
   });
 }
 
+// DocSearch bundles Preact, whose diff fast-path short-circuits when
+// newVnode.__v == oldVnode.__v (loose == since @docsearch/js 3.9.x).
+// A null __v collides on every render → blank .DocSearch-Hit rows.
+// Give each vnode a unique id to force the full diff path.
+// See: https://github.com/lando/vitepress-theme-default-plus/issues/98
+let hitVNodeId = 0;
+
 function initialize(userOptions = {}) {
   const options = Object.assign({}, userOptions, {
     container: '#docsearch',
@@ -65,11 +72,10 @@ function initialize(userOptions = {}) {
 
     hitComponent({hit, children}) {
       return {
-        __v: null,
+        __v: ++hitVNodeId, // see hitVNodeId comment above
         type: 'a',
         ref: undefined,
         constructor: undefined,
-        target: '_blank',
         key: undefined,
         props: {href: hit.url, children, target: '_self'},
       };
