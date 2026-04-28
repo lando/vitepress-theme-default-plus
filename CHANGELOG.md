@@ -3,7 +3,7 @@
 * Added Aaron Feledy as a default maintainer in `landov3` and `landov4` presets.
 * Updated `twitter` icon to `x` for default Lando maintainer entries.
 * Fixed team-card affiliation overflowing container on narrow widths; title and `@org` now wrap together at the `@` boundary.
-* Aligned social-link rows across team cards regardless of whether the affiliation wraps to a second line.
+* Aligned social-link rows across team cards in the same grid row by pinning `.links` to the bottom of each card; affiliation height stays flexible (only grows when a card actually wraps).
 
 ## v1.1.5 - [March 5, 2026](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.5)
 

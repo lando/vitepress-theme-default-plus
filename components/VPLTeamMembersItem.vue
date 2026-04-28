@@ -225,7 +225,11 @@ const getAvatarTitle = member => {
 }
 
 .VPTeamMembersItem.small .links {
-  margin: 0 -16px -20px;
+  /* longhand (no margin-top) so the base `.links { margin-top: auto }`
+     can pin links to the bottom of `.data` */
+  margin-right: -16px;
+  margin-bottom: -20px;
+  margin-left: -16px;
   padding: 10px 0 0;
 }
 
@@ -261,11 +265,25 @@ const getAvatarTitle = member => {
 }
 
 .VPTeamMembersItem.medium .links {
-  margin: 0 -16px -12px;
+  /* longhand (no margin-top) so the base `.links { margin-top: auto }`
+     can pin links to the bottom of `.data` */
+  margin-right: -16px;
+  margin-bottom: -12px;
+  margin-left: -16px;
   padding: 16px 12px 0;
 }
 
 .profile {
+  /* Flex column lets `.data` flex-grow to fill the height that grid
+     auto-stretches the card to. Combined with `margin-top: auto` on
+     `.links`, this pins social-link rows to the bottom of each card,
+     which aligns them across all cards in a grid row (since grid
+     stretches every card in a row to the tallest one). The result:
+     when one card's affiliation wraps to two lines, sibling cards in
+     the same row keep their links aligned without forcing a 2-line
+     reservation on rows where nobody wraps. */
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   background-color: var(--vpl-c-bg-contributor);
 }
@@ -279,6 +297,9 @@ const getAvatarTitle = member => {
 
 
 .data {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   text-align: center;
 }
 
@@ -319,10 +340,6 @@ const getAvatarTitle = member => {
   flex-wrap: wrap;
   justify-content: center;
   column-gap: 0.3em;
-  /* Always reserve two lines of vertical space so the social-link row
-     (and anything else rendered below) lines up across cards regardless
-     of whether a given member's affiliation wraps to a second line. */
-  min-height: 2lh;
 }
 
 .title,
@@ -383,6 +400,8 @@ const getAvatarTitle = member => {
   display: flex;
   justify-content: center;
   height: 56px;
+  /* Pin to bottom of `.data` so link rows align across cards in a grid row. */
+  margin-top: auto;
 }
 
 .sp-link {
