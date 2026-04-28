@@ -225,8 +225,7 @@ const getAvatarTitle = member => {
 }
 
 .VPTeamMembersItem.small .links {
-  /* longhand (no margin-top) so the base `.links { margin-top: auto }`
-     can pin links to the bottom of `.data` */
+  /* longhand: don't reset margin-top (used by .links to bottom-align) */
   margin-right: -16px;
   margin-bottom: -20px;
   margin-left: -16px;
@@ -265,8 +264,7 @@ const getAvatarTitle = member => {
 }
 
 .VPTeamMembersItem.medium .links {
-  /* longhand (no margin-top) so the base `.links { margin-top: auto }`
-     can pin links to the bottom of `.data` */
+  /* longhand: don't reset margin-top (used by .links to bottom-align) */
   margin-right: -16px;
   margin-bottom: -12px;
   margin-left: -16px;
@@ -274,14 +272,8 @@ const getAvatarTitle = member => {
 }
 
 .profile {
-  /* Flex column lets `.data` flex-grow to fill the height that grid
-     auto-stretches the card to. Combined with `margin-top: auto` on
-     `.links`, this pins social-link rows to the bottom of each card,
-     which aligns them across all cards in a grid row (since grid
-     stretches every card in a row to the tallest one). The result:
-     when one card's affiliation wraps to two lines, sibling cards in
-     the same row keep their links aligned without forcing a 2-line
-     reservation on rows where nobody wraps. */
+  /* flex column + .data flex-grow + .links margin-top: auto pins links
+     to card bottom, aligning them across cards in a grid row. */
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -331,11 +323,7 @@ const getAvatarTitle = member => {
   text-transform: uppercase;
   font-weight: 700;
   color: var(--vp-c-text-3);
-  /* Flex with wrap lets `.title` and `.at-org` flow on one line when they
-     fit, and break onto separate lines (between them, never inside them)
-     when they don't. column-gap supplies the visual space because Vue's
-     template compiler strips whitespace text nodes between sibling element
-     tags, so we can't rely on inline whitespace as a break opportunity. */
+  /* wrap between .title and .at-org as a unit, never inside either */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -400,7 +388,6 @@ const getAvatarTitle = member => {
   display: flex;
   justify-content: center;
   height: 56px;
-  /* Pin to bottom of `.data` so link rows align across cards in a grid row. */
   margin-top: auto;
 }
 

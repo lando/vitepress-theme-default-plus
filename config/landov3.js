@@ -211,13 +211,8 @@ export default function({
             avatar: 'https://avatars.githubusercontent.com/u/1000487',
             name: 'Aaron Feledy',
             email: 'aaron@arrow.one',
-            // In repos where Aaron has more commits under his older email
-            // (`aaron@arrowonesolutions.com`) than his current one, the
-            // higher-commit entry becomes `matches[0]` after the name-merge
-            // pass and `maintainer` does not get carried over (only
-            // `links`, `org`, `title` do, see utils/get-contributors.js).
-            // `mergeWith` lets `data.find()` match the higher-commit entry
-            // up front so `maintainer: true` lands on it directly.
+            // older email; needed so `maintainer: true` attaches to the
+            // higher-commit entry before name-merge picks matches[0]
             mergeWith: 'aaron@arrowonesolutions.com',
             title: 'Principal Consultant',
             org: 'arrow.one',
