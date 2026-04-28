@@ -144,6 +144,7 @@ export default defineConfig({
           avatar: 'https://avatars.githubusercontent.com/u/1000487',
           name: 'Aaron Feledy',
           email: 'aaron@arrow.one',
+          mergeWith: 'aaron@arrowonesolutions.com',
           title: 'Principal Consultant',
           org: 'arrow.one',
           orgLink: 'https://arrow.one',
