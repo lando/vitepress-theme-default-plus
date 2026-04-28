@@ -179,7 +179,7 @@ export default function({
             orgLink: 'https://lando.dev',
             links: [
               {icon: 'github', link: 'https://github.com/pirog'},
-              {icon: 'twitter', link: 'https://twitter.com/pirogcommamike'},
+              {icon: 'x', link: 'https://x.com/pirogcommamike'},
             ],
             sponsor: 'https://lando.dev/sponsor',
             maintainer: true,
@@ -201,7 +201,25 @@ export default function({
             desc: 'A chill dude',
             links: [
               {icon: 'github', link: 'https://github.com/reynoldsalec'},
-              {icon: 'twitter', link: 'https://twitter.com/reynoldsalec'},
+              {icon: 'x', link: 'https://x.com/reynoldsalec'},
+            ],
+            sponsor: 'https://lando.dev/sponsor',
+            maintainer: true,
+            mergeOnly: true,
+          },
+          {
+            avatar: 'https://avatars.githubusercontent.com/u/1000487',
+            name: 'Aaron Feledy',
+            email: 'aaron@arrow.one',
+            // older email; needed so `maintainer: true` attaches to the
+            // higher-commit entry before name-merge picks matches[0]
+            mergeWith: 'aaron@arrowonesolutions.com',
+            title: 'Principal Consultant',
+            org: 'arrow.one',
+            orgLink: 'https://arrow.one',
+            links: [
+              {icon: 'github', link: 'https://github.com/AaronFeledy'},
+              {icon: 'x', link: 'https://x.com/aaronfeledy'},
             ],
             sponsor: 'https://lando.dev/sponsor',
             maintainer: true,

@@ -43,20 +43,24 @@
             {{ member.title }}
           </span>
           <span
-            v-if="member.title && member.org"
-            class="at"
-          >
-            @
-          </span>
-          <Link
             v-if="member.org"
-            class="org"
-            :class="{ link: member.orgLink }"
-            :href="member.orgLink"
-            no-icon
+            class="at-org"
           >
-            {{ member.org }}
-          </Link>
+            <span
+              v-if="member.title"
+              class="at"
+            >
+              @
+            </span>
+            <Link
+              class="org"
+              :class="{ link: member.orgLink }"
+              :href="member.orgLink"
+              no-icon
+            >
+              {{ member.org }}
+            </Link>
+          </span>
         </p>
         <p
           v-if="member.desc"
@@ -221,7 +225,10 @@ const getAvatarTitle = member => {
 }
 
 .VPTeamMembersItem.small .links {
-  margin: 0 -16px -20px;
+  /* longhand: don't reset margin-top (used by .links to bottom-align) */
+  margin-right: -16px;
+  margin-bottom: -20px;
+  margin-left: -16px;
   padding: 10px 0 0;
 }
 
@@ -257,11 +264,18 @@ const getAvatarTitle = member => {
 }
 
 .VPTeamMembersItem.medium .links {
-  margin: 0 -16px -12px;
+  /* longhand: don't reset margin-top (used by .links to bottom-align) */
+  margin-right: -16px;
+  margin-bottom: -12px;
+  margin-left: -16px;
   padding: 16px 12px 0;
 }
 
 .profile {
+  /* flex column + .data flex-grow + .links margin-top: auto pins links
+     to card bottom, aligning them across cards in a grid row. */
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   background-color: var(--vpl-c-bg-contributor);
 }
@@ -275,6 +289,9 @@ const getAvatarTitle = member => {
 
 
 .data {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   text-align: center;
 }
 
@@ -306,6 +323,16 @@ const getAvatarTitle = member => {
   text-transform: uppercase;
   font-weight: 700;
   color: var(--vp-c-text-3);
+  /* wrap between .title and .at-org as a unit, never inside either */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 0.3em;
+}
+
+.title,
+.at-org {
+  white-space: nowrap;
 }
 
 .at {
@@ -361,6 +388,7 @@ const getAvatarTitle = member => {
   display: flex;
   justify-content: center;
   height: 56px;
+  margin-top: auto;
 }
 
 .sp-link {

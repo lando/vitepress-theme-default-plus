@@ -119,4 +119,4 @@ b content
 :::
 ```
 
-![kalabox1-dash](https://thinktandem.io/images/articles/kalabox1.png "Kalabox V1 Dashboard")
+![kalabox1-dash](https://www.thinktandem.io/images/articles/kalabox1.png "Kalabox V1 Dashboard")

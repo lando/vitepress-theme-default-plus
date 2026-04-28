@@ -1,5 +1,9 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+* Added Aaron Feledy as a default maintainer in `landov3` and `landov4` presets.
+* Updated `twitter` icon to `x` for default Lando maintainer entries.
+* Fixed team-card affiliation overflowing container on narrow widths; title and `@org` now wrap together at the `@` boundary.
+
 ## v1.1.5 - [March 5, 2026](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.5)
 
 * Introduced `mvb` option `runtime` to allow explicit runtime targeting and to avoid not-the-best autodetection
