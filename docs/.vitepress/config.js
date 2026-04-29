@@ -91,8 +91,6 @@ export default defineConfig({
     contributors: {
       merge: 'name',
       debotify: true,
-      resolveGitHub: 'auto',
-      cachePath: 'docs/.vitepress/cache/team-github.json',
       include: [
         {
           name: 'Mike Pirog',

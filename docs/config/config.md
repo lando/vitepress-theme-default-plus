@@ -239,13 +239,15 @@ Once you have you should be able to use all the things below.
 
   By default the theme will try to resolve each contributor's git commit email to a GitHub username so the team page links to GitHub profiles (instead of `mailto:` addresses) and uses GitHub avatars (instead of Gravatar).
 
-  This is done via a single GraphQL call to GitHub's commit history API, with results cached on disk. Subsequent builds reuse the cache and make zero API calls unless a new contributor appears.
+  This is done via paginated GraphQL queries against GitHub's commit history API, with results cached on disk. Subsequent builds reuse the cache and make zero API calls unless a new contributor appears.
 
   The relevant options are:
 
   * `resolveGitHub` — set to `false` to disable entirely, `'auto'` (default) to try when a `GITHUB_TOKEN` env var is present and silently skip otherwise, or `true` to always try.
-  * `cachePath` — where to write the resolved email→username map. Relative paths are resolved against your repo's git root. The conventional location is `docs/.vitepress/cache/team-github.json` and that directory is typically already gitignored. If unset, no cache is read or written and the resolver runs on every build.
+  * `cachePath` — where to write the resolved email→username map. Relative paths are resolved against your repo's git root. Defaults to `'docs/.vitepress/cache/team-github.json'`, which is typically already gitignored. Set to `undefined` or `null` to disable caching entirely (not recommended).
   * `repo` — an optional `'owner/name'` override (or `{owner, name}` object) for which repository's commit history to walk. By default this is sniffed from `git remote get-url origin`.
+  * `maxPages` — hard ceiling on commit-history pages fetched per resolution run (default `100`, i.e. 10000 commits). Bumping this only affects first-run cost; subsequent builds hit the cache.
+  * `maxStalePages` — give up after this many consecutive history pages that don't resolve any new emails (default `10`). Stops the walker from chasing emails that just don't map to GitHub users.
 
   When the resolver finds a match for a contributor, it:
 
@@ -254,6 +256,8 @@ Once you have you should be able to use all the things below.
   3. seeds the contributor's `links` array with a GitHub social link if one isn't already configured.
 
   Contributors who already have a GitHub link in their `links` array (typically maintainers configured via `include`) are left alone — the resolver only fills in fields that are empty.
+
+  Emails that exhaust the search without resolving (i.e. they ran out of history or hit `maxStalePages`) are negative-cached so they aren't retried on every build. To force a re-resolve after a contributor connects their email to GitHub, delete the cache file. Emails that are merely cut off by `maxPages` are NOT negative-cached, so a subsequent build with a higher `maxPages` will pick them up.
 
   In CI, set `GITHUB_TOKEN` (GitHub Actions sets this for you automatically) or `GH_TOKEN`. Without a token the resolver silently degrades and unresolved contributors keep their `mailto:` link as before.
 

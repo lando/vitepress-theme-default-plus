@@ -90,13 +90,18 @@ export default async function resolveGitHubUsernames(emails, {
   repo,
   token = process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN,
   cachePath,
-  maxPages = 10,
+  // hard ceiling on commit-history pages we'll fetch in a single run.
+  // 100 pages = 10000 commits, which covers all but the largest repos.
+  // bumping this is cheap rate-limit wise (1 graphql point per page) but
+  // costs build time on first run.
+  maxPages = 100,
   // bail after this many consecutive pages with no progress on the
   // unresolved set — handles the long tail of "this email just doesn't
   // map to a github user" without wasting calls walking deep history.
-  // 5 is forgiving enough that a contributor whose only commits are buried
-  // a few pages deep (e.g. they switched emails) still gets resolved.
-  maxStalePages = 5,
+  // 10 is forgiving enough that a contributor whose only commits are
+  // buried a few pages deep (e.g. they switched emails) still gets
+  // resolved on a deep walk.
+  maxStalePages = 10,
   debug = Debug('@lando/resolve-github-usernames'), // eslint-disable-line
 } = {}) {
   // start with whatever's in the cache (a prior run's results). cache values
@@ -136,6 +141,13 @@ export default async function resolveGitHubUsernames(emails, {
   let pages = 0;
   let stalePages = 0;
   let dirty = false;
+  // we only persist negative-cache entries (null) when we've confidently
+  // exhausted the search — i.e. either ran off the end of history or hit
+  // maxStalePages. when we cut off early at maxPages, the search was
+  // incomplete and the unresolved emails should be retried on the next
+  // build (where deeper history may have been merged in, or the user may
+  // have bumped maxPages).
+  let exhaustedSearch = false;
 
   try {
     while (unresolved.size > 0 && pages < maxPages) {
@@ -159,26 +171,33 @@ export default async function resolveGitHubUsernames(emails, {
       stalePages = progress ? 0 : stalePages + 1;
       if (stalePages >= maxStalePages) {
         debug('giving up after %o stale page(s); %o emails still unresolved', stalePages, unresolved.size);
+        exhaustedSearch = true;
         break;
       }
 
-      if (!pageInfo.hasNextPage) break;
+      if (!pageInfo.hasNextPage) {
+        exhaustedSearch = true;
+        break;
+      }
       cursor = pageInfo.endCursor;
     }
 
-    debug('walked %o page(s); %o emails still unresolved', pages, unresolved.size);
+    debug('walked %o page(s); %o emails still unresolved (exhausted=%o)', pages, unresolved.size, exhaustedSearch);
   } catch (error) {
     // never fail the build — degrade gracefully and just return what we have
     debug('GitHub API resolution failed (%o); falling back to cache + mailto', error.message);
   }
 
-  // persist any emails we could NOT resolve as null in the cache. this is
-  // a negative cache: if an email never connects to a github user, we
-  // remember that and don't waste api calls retrying on every build.
-  for (const email of unresolved) {
-    if (!result.has(email)) {
-      result.set(email, null);
-      dirty = true;
+  // only negative-cache emails when the search ran to completion. if we cut
+  // off at maxPages we don't know if the email resolves or not, so leave it
+  // out of the cache entirely so future builds can retry (potentially with
+  // a higher maxPages or after additional commit history exists).
+  if (exhaustedSearch) {
+    for (const email of unresolved) {
+      if (!result.has(email)) {
+        result.set(email, null);
+        dirty = true;
+      }
     }
   }
 

@@ -71,6 +71,8 @@ export default async function(
     cachePath,
     repo,
     token,
+    maxPages,
+    maxStalePages,
   } = {},
   {
     debug = Debug('@lando/get-contributors'), // eslint-disable-line
@@ -209,6 +211,8 @@ export default async function(
           repo: repoCoord,
           token,
           cachePath: resolvedCachePath,
+          maxPages,
+          maxStalePages,
           debug: debug.extend('resolve-github'),
         });
       } else {

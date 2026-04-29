@@ -81,7 +81,7 @@ export default function({base}) {
         exclude: [],
         include: [],
         resolveGitHub: 'auto',
-        cachePath: undefined,
+        cachePath: 'docs/.vitepress/cache/team-github.json',
         repo: undefined,
       },
       internalDomain: [],
