@@ -176,6 +176,8 @@ Once you have you should be able to use all the things below.
   contributors: {
     merge: 'name',
     debotify: true,
+    resolveGitHub: 'auto',
+    cachePath: 'docs/.vitepress/cache/team-github.json',
     exclude: [
       'Mike Pirog <mike@kalamuna.com>',
       {
@@ -232,6 +234,28 @@ Once you have you should be able to use all the things below.
   Finally, `mergeOnly` can be set if you only want to provide augmented data for a contributor that already exists in the `git log`, if you want to be explicit about the `git log` contributor you want to augment you can use `mergeWith` and specify their `git.email`.
 
   You can also configure this on a page to page basis with [frontmatter](./frontmatter.md#contributors).
+
+  ### Resolving GitHub usernames
+
+  By default the theme will try to resolve each contributor's git commit email to a GitHub username so the team page links to GitHub profiles (instead of `mailto:` addresses) and uses GitHub avatars (instead of Gravatar).
+
+  This is done via a single GraphQL call to GitHub's commit history API, with results cached on disk. Subsequent builds reuse the cache and make zero API calls unless a new contributor appears.
+
+  The relevant options are:
+
+  * `resolveGitHub` — set to `false` to disable entirely, `'auto'` (default) to try when a `GITHUB_TOKEN` env var is present and silently skip otherwise, or `true` to always try.
+  * `cachePath` — where to write the resolved email→username map. Relative paths are resolved against your repo's git root. The conventional location is `docs/.vitepress/cache/team-github.json` and that directory is typically already gitignored. If unset, no cache is read or written and the resolver runs on every build.
+  * `repo` — an optional `'owner/name'` override (or `{owner, name}` object) for which repository's commit history to walk. By default this is sniffed from `git remote get-url origin`.
+
+  When the resolver finds a match for a contributor, it:
+
+  1. sets a `github` field on the contributor with the resolved username,
+  2. swaps Gravatar avatars (the default for unconfigured contributors) for GitHub avatars,
+  3. seeds the contributor's `links` array with a GitHub social link if one isn't already configured.
+
+  Contributors who already have a GitHub link in their `links` array (typically maintainers configured via `include`) are left alone — the resolver only fills in fields that are empty.
+
+  In CI, set `GITHUB_TOKEN` (GitHub Actions sets this for you automatically) or `GH_TOKEN`. Without a token the resolver silently degrades and unresolved contributors keep their `mailto:` link as before.
 
 ## Feeds
 

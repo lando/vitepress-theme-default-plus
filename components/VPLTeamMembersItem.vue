@@ -129,12 +129,17 @@ const maintainerClass = computed(() => member.maintainer ? 'maintainer' : '');
 const getLink = member => {
   if (member.link) return member.link;
   else if (Array.isArray(member?.links) && member.links[0]) return member.links[0].link;
+  else if (member.github) return `https://github.com/${member.github}`;
   else if (member.email) return `mailto:${member.email}`;
 };
 
 const getAvatarTitle = member => {
   let avatarTitle = `${member.name}`;
-  if (member.email) avatarTitle += ` <${member.email}>`;
+  // prefer the github handle when available; otherwise fall back to the
+  // raw email. this also reduces unnecessary email-address exposure on
+  // public team pages.
+  if (member.github) avatarTitle += ` (@${member.github})`;
+  else if (member.email) avatarTitle += ` <${member.email}>`;
   if (member.commits) avatarTitle += ` - ${Number.parseInt(member.commits, 10)} commits`;
   return avatarTitle;
 };

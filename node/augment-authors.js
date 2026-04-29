@@ -6,6 +6,7 @@ const getContributor = (id, contributors = []) => contributors.find(contributor 
 const getLink = author => {
   if (author.link) return author.link;
   else if (Array.isArray(author?.links) && author.links[0]) return author.links[0].link;
+  else if (author.github) return `https://github.com/${author.github}`;
   else if (author.email) return `mailto:${author.email}`;
 };
 

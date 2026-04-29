@@ -1,9 +1,14 @@
+import {isAbsolute, resolve} from 'node:path';
+
 import {default as execSync} from './parse-stdout.js';
 import findIndex from 'lodash-es/findIndex.js';
 import gravatarUrl from 'gravatar-url';
 import groupBy from 'lodash-es/groupBy.js';
 
 import Debug from 'debug';
+
+import {default as getRepoCoordinate} from './get-repo-coordinate.js';
+import {default as resolveGitHubUsernames} from '../node/resolve-github-usernames.js';
 
 const parseStringInclude = data => {
   const parts = data.trim().split(' ');
@@ -15,17 +20,62 @@ const parseStringInclude = data => {
   return parts.join(' ');
 };
 
-export default function async(
+// Heuristic: detect contributor records whose avatar came from gravatar (the
+// default we set when parsing git shortlog) so we know it's safe to replace
+// with a GitHub avatar when we resolve their username. Matches both the
+// www. and bare-domain variants gravatar-url has used over time.
+const isGravatarAvatar = url => typeof url === 'string' && /^https?:\/\/(www\.)?gravatar\.com\//.test(url);
+
+// Try to extract a GitHub username from an existing github link in the
+// contributor's social-links array. This lets configured maintainers benefit
+// from avatar/tooltip improvements without needing to hit the API.
+const githubLoginFromLinks = links => {
+  if (!Array.isArray(links)) return null;
+  const githubLink = links.find(link => link?.icon === 'github')?.link;
+  if (!githubLink) return null;
+  const match = githubLink.match(/github\.com\/([^/?#]+)/);
+  return match ? match[1] : null;
+};
+
+// Apply resolved email->login mappings to the contributor list. Sets a
+// `github` field, swaps gravatar avatars for GitHub avatars, and seeds the
+// `links` array with a GitHub link if one isn't already present.
+const applyGitHubLogins = (contributors, mappings) => {
+  for (const contributor of contributors) {
+    // prefer an api-resolved login, fall back to scraping an existing
+    // github link configured by hand on a maintainer entry
+    const login = mappings?.get(contributor.email) ?? githubLoginFromLinks(contributor.links);
+    if (!login) continue;
+    contributor.github = login;
+    // upgrade gravatar -> github avatar (better-quality, no email-hash leak)
+    if (isGravatarAvatar(contributor.avatar)) {
+      contributor.avatar = `https://avatars.githubusercontent.com/${login}`;
+    }
+    // seed a github social link if the contributor doesn't already have one
+    contributor.links = Array.isArray(contributor.links) ? contributor.links : [];
+    if (!contributor.links.some(link => link?.icon === 'github')) {
+      contributor.links.unshift({icon: 'github', link: `https://github.com/${login}`});
+    }
+  }
+  return contributors;
+};
+
+export default async function(
   cwd,
   {
     merge = 'name',
     debotify = true,
     include = [],
     exclude = [],
+    resolveGitHub = 'auto',
+    cachePath,
+    repo,
+    token,
   } = {},
   {
     debug = Debug('@lando/get-contributors'), // eslint-disable-line
     paths = [],
+    packageJson,
   } = {},
   ) {
   // start with a command that will get ALL THE AUTHORS
@@ -128,6 +178,49 @@ export default function async(
 
   // sort by commits
   data = data.sort((a, b) => b.commits - a.commits);
+
+  // resolve GitHub usernames via the GraphQL API (cached, with graceful
+  // fallback). this swaps gravatar avatars for GitHub avatars, populates
+  // a `github` field for tooltips, and seeds a GitHub link in the
+  // contributor's social-links array when none is configured.
+  if (resolveGitHub !== false && data.length > 0) {
+    let mappings = null;
+    const repoCoord = repo && typeof repo === 'object' && repo.owner ? repo : getRepoCoordinate(cwd, {
+      override: typeof repo === 'string' ? repo : undefined,
+      packageJson,
+      debug: debug.extend('repo-coord'),
+    });
+
+    if (repoCoord) {
+      // only ask the api for emails we don't already have a github link for
+      // (configured maintainers contribute their username via the link)
+      const emailsToResolve = data
+        .filter(c => !c.links?.some(link => link?.icon === 'github'))
+        .map(c => c.email)
+        .filter(Boolean);
+
+      if (emailsToResolve.length > 0) {
+        // resolve relative cache paths against the git root so users can
+        // configure something convenient like 'docs/.vitepress/cache/...'
+        const resolvedCachePath = cachePath
+          ? (isAbsolute(cachePath) ? cachePath : resolve(cwd, cachePath))
+          : undefined;
+        mappings = await resolveGitHubUsernames(emailsToResolve, {
+          repo: repoCoord,
+          token,
+          cachePath: resolvedCachePath,
+          debug: debug.extend('resolve-github'),
+        });
+      } else {
+        debug('all contributors already have github links configured; skipping API resolution');
+      }
+    }
+
+    // always apply — even with no api mappings, this scrapes existing
+    // github links on maintainer entries and uses them to swap avatars
+    // and populate the `github` field
+    applyGitHubLogins(data, mappings);
+  }
 
   // separate maintainers from contribs
   const maintainers = data.filter(contrib => contrib.maintainer);
