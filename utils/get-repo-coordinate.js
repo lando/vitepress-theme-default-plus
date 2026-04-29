@@ -5,9 +5,9 @@ import Debug from 'debug';
 // parse {owner, name} from ssh/https github URLs or npm `github:owner/name` shorthand
 const parseUrl = url => {
   if (typeof url !== 'string' || url.length === 0) return null;
-  const npmMatch = url.match(/^github:([^/]+)\/([^/.]+?)(?:\.git)?$/);
+  const npmMatch = url.match(/^github:([^/]+)\/([^/]+?)(?:\.git)?$/);
   if (npmMatch) return {owner: npmMatch[1], name: npmMatch[2]};
-  const urlMatch = url.match(/github\.com[:/]([^/]+)\/([^/.]+?)(?:\.git)?\/?$/);
+  const urlMatch = url.match(/github\.com[:/]([^/]+)\/([^/]+?)(?:\.git)?\/?$/);
   if (urlMatch) return {owner: urlMatch[1], name: urlMatch[2]};
   return null;
 };
