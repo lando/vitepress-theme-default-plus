@@ -184,42 +184,49 @@ export default async function(
   // a `github` field for tooltips, and seeds a GitHub link in the
   // contributor's social-links array when none is configured.
   if (resolveGitHub !== false && data.length > 0) {
-    let mappings = null;
-    const repoCoord = repo && typeof repo === 'object' && repo.owner ? repo : getRepoCoordinate(cwd, {
-      override: typeof repo === 'string' ? repo : undefined,
-      packageJson,
-      debug: debug.extend('repo-coord'),
-    });
+    // 'auto' mode: short-circuit early if no token is present, avoiding
+    // unnecessary repo-coordinate lookup and resolver invocation
+    if (resolveGitHub === 'auto' && !token && !process.env.GITHUB_TOKEN && !process.env.GH_TOKEN) {
+      debug('resolveGitHub is "auto" and no token available; skipping GitHub username resolution');
+    } else {
+      let mappings = null;
+      const repoCoord = repo && typeof repo === 'object' && repo.owner ? repo : getRepoCoordinate(cwd, {
+        override: typeof repo === 'string' ? repo : undefined,
+        packageJson,
+        debug: debug.extend('repo-coord'),
+      });
 
-    if (repoCoord) {
-      // only ask the api for emails we don't already have a github link for
-      // (configured maintainers contribute their username via the link)
-      const emailsToResolve = data
-        .filter(c => !c.links?.some(link => link?.icon === 'github'))
-        .map(c => c.email)
-        .filter(Boolean);
+      if (repoCoord) {
+        // only ask the api for emails we don't already have a github link for
+        // (configured maintainers contribute their username via the link)
+        const emailsToResolve = data
+          .filter(c => !c.links?.some(link => link?.icon === 'github'))
+          .map(c => c.email)
+          .filter(Boolean);
 
-      if (emailsToResolve.length > 0) {
-        // resolve relative cache paths against the git root so users can
-        // configure something convenient like 'docs/.vitepress/cache/...'
-        const resolvedCachePath = cachePath
-          ? (isAbsolute(cachePath) ? cachePath : resolve(cwd, cachePath))
-          : undefined;
-        mappings = await resolveGitHubUsernames(emailsToResolve, {
-          repo: repoCoord,
-          token,
-          cachePath: resolvedCachePath,
-          debug: debug.extend('resolve-github'),
-        });
-      } else {
-        debug('all contributors already have github links configured; skipping API resolution');
+        if (emailsToResolve.length > 0) {
+          // resolve relative cache paths against the git root so users can
+          // configure something convenient like 'docs/.vitepress/cache/...'
+          const resolvedCachePath = cachePath
+            ? (isAbsolute(cachePath) ? cachePath : resolve(cwd, cachePath))
+            : undefined;
+          mappings = await resolveGitHubUsernames(emailsToResolve, {
+            repo: repoCoord,
+            token,
+            cachePath: resolvedCachePath,
+            debug: debug.extend('resolve-github'),
+            warnOnMissingToken: resolveGitHub === true,
+          });
+        } else {
+          debug('all contributors already have github links configured; skipping API resolution');
+        }
       }
-    }
 
-    // always apply — even with no api mappings, this scrapes existing
-    // github links on maintainer entries and uses them to swap avatars
-    // and populate the `github` field
-    applyGitHubLogins(data, mappings);
+      // always apply — even with no api mappings, this scrapes existing
+      // github links on maintainer entries and uses them to swap avatars
+      // and populate the `github` field
+      applyGitHubLogins(data, mappings);
+    }
   }
 
   // separate maintainers from contribs

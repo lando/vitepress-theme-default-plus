@@ -97,6 +97,7 @@ export default async function resolveGitHubUsernames(emails, {
   // 5 is forgiving enough that a contributor whose only commits are buried
   // a few pages deep (e.g. they switched emails) still gets resolved.
   maxStalePages = 5,
+  warnOnMissingToken = false,
   debug = Debug('@lando/resolve-github-usernames'), // eslint-disable-line
 } = {}) {
   // start with whatever's in the cache (a prior run's results). cache values
@@ -118,6 +119,9 @@ export default async function resolveGitHubUsernames(emails, {
 
   // need a token to talk to the API; warn and bail if missing
   if (!token) {
+    if (warnOnMissingToken) {
+      console.warn('[vitepress-theme-default-plus] resolveGitHub is set to `true` but no GITHUB_TOKEN or GH_TOKEN environment variable is set; skipping GitHub username resolution');
+    }
     debug('no GITHUB_TOKEN/GH_TOKEN env var set; skipping API resolution for %o emails', unresolved.size);
     return result;
   }
