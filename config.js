@@ -196,7 +196,14 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   }
 
   // get full team info
-  const copts = {debug: debug.extend('get-contribs'), paths: []};
+  //
+  // we thread a single `contributorCtx` through this build-time call AND
+  // every per-page transformPageData call below. the first call (here)
+  // resolves the repo coordinate and walks GitHub commit history once;
+  // subsequent per-page calls reuse the populated ctx instead of spawning
+  // `git remote get-url origin` and re-reading the cache file every page.
+  const contributorCtx = {};
+  const copts = {debug: debug.extend('get-contribs'), paths: [], ctx: contributorCtx};
   const team = contributors !== false ? await getContributors(config.gitRoot, contributors, copts) : [];
   debug('discovered full team info %o', team);
 
@@ -230,8 +237,8 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
     await normalizeLegacyFrontmatter(pageData, {siteConfig, debug: debug.extend('page-data')});
     // normalize frontmatter
     await normalizeFrontmatter(pageData, {siteConfig, debug: debug.extend('page-data')});
-    // add contributor information
-    await addContributors(pageData, {siteConfig, debug: debug.extend('page-data')});
+    // add contributor information (reusing build-global ctx populated above)
+    await addContributors(pageData, {siteConfig, debug: debug.extend('page-data'), ctx: contributorCtx});
     // add metadata information
     await addMetadata(pageData, {siteConfig, debug: debug.extend('page-data')});
     // parse collections

@@ -78,6 +78,12 @@ export default async function(
     debug = Debug('@lando/get-contributors'), // eslint-disable-line
     paths = [],
     packageJson,
+    // Shared build-context object. When the caller threads the same `ctx`
+    // through multiple calls (e.g. config.js → transformPageData → per-page
+    // addContributors), the GitHub repo coordinate and email→login mappings
+    // are resolved on the first call and reused on subsequent calls — no
+    // per-page subprocess spawns or cache-file reads.
+    ctx = {},
   } = {},
   ) {
   // start with a command that will get ALL THE AUTHORS
@@ -185,45 +191,73 @@ export default async function(
   // fallback). this swaps gravatar avatars for GitHub avatars, populates
   // a `github` field for tooltips, and seeds a GitHub link in the
   // contributor's social-links array when none is configured.
+  //
+  // resolution is build-global: the first call with a shared `ctx` walks
+  // commit history once and stores the result on ctx; subsequent calls
+  // (e.g. per-page transformPageData) reuse the same Map without spawning
+  // `git remote get-url origin` or re-reading the on-disk cache.
   if (resolveGitHub !== false && data.length > 0) {
-    let mappings = null;
-    const repoCoord = repo && typeof repo === 'object' && repo.owner ? repo : getRepoCoordinate(cwd, {
-      override: typeof repo === 'string' ? repo : undefined,
-      packageJson,
-      debug: debug.extend('repo-coord'),
-    });
-
-    if (repoCoord) {
-      // only ask the api for emails we don't already have a github link for
-      // (configured maintainers contribute their username via the link)
-      const emailsToResolve = data
-        .filter(c => !c.links?.some(link => link?.icon === 'github'))
-        .map(c => c.email)
-        .filter(Boolean);
-
-      if (emailsToResolve.length > 0) {
-        // resolve relative cache paths against the git root so users can
-        // configure something convenient like 'docs/.vitepress/cache/...'
-        const resolvedCachePath = cachePath
-          ? (isAbsolute(cachePath) ? cachePath : resolve(cwd, cachePath))
-          : undefined;
-        mappings = await resolveGitHubUsernames(emailsToResolve, {
-          repo: repoCoord,
-          token,
-          cachePath: resolvedCachePath,
-          maxPages,
-          maxStalePages,
-          debug: debug.extend('resolve-github'),
-        });
-      } else {
-        debug('all contributors already have github links configured; skipping API resolution');
+    if (ctx.mappings === undefined) {
+      // first call for this ctx — actually resolve. detect token here so we
+      // can distinguish 'auto' (silent skip when no token) from `true` (the
+      // user explicitly opted in, so warn loudly when no token is set).
+      const apiToken = token ?? process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN;
+      if (resolveGitHub === true && !apiToken) {
+        // intentionally `console.warn` (not debug) — `true` is an explicit
+        // opt-in and a silent skip would mask a misconfigured build.
+        // eslint-disable-next-line no-console
+        console.warn(
+          '[@lando/vitepress-theme-default-plus] `themeConfig.contributors.resolveGitHub` is `true` '
+          + 'but no `GITHUB_TOKEN` or `GH_TOKEN` environment variable is set; GitHub username resolution '
+          + 'will fall back to cached results only',
+        );
       }
+
+      const repoCoord = repo && typeof repo === 'object' && repo.owner ? repo : getRepoCoordinate(cwd, {
+        override: typeof repo === 'string' ? repo : undefined,
+        packageJson,
+        debug: debug.extend('repo-coord'),
+      });
+      ctx.repoCoord = repoCoord;
+
+      if (repoCoord) {
+        // only ask the api for emails we don't already have a github link for
+        // (configured maintainers contribute their username via the link)
+        const emailsToResolve = data
+          .filter(c => !c.links?.some(link => link?.icon === 'github'))
+          .map(c => c.email)
+          .filter(Boolean);
+
+        if (emailsToResolve.length > 0) {
+          // resolve relative cache paths against the git root so users can
+          // configure something convenient like 'docs/.vitepress/cache/...'
+          const resolvedCachePath = cachePath
+            ? (isAbsolute(cachePath) ? cachePath : resolve(cwd, cachePath))
+            : undefined;
+          ctx.mappings = await resolveGitHubUsernames(emailsToResolve, {
+            repo: repoCoord,
+            token: apiToken,
+            cachePath: resolvedCachePath,
+            maxPages,
+            maxStalePages,
+            debug: debug.extend('resolve-github'),
+          });
+        } else {
+          debug('all contributors already have github links configured; skipping API resolution');
+          ctx.mappings = null;
+        }
+      } else {
+        debug('no repo coordinate determined; skipping GitHub username resolution');
+        ctx.mappings = null;
+      }
+    } else {
+      debug('reusing pre-resolved GitHub mappings (%o entries)', ctx.mappings?.size ?? 0);
     }
 
     // always apply — even with no api mappings, this scrapes existing
     // github links on maintainer entries and uses them to swap avatars
     // and populate the `github` field
-    applyGitHubLogins(data, mappings);
+    applyGitHubLogins(data, ctx.mappings);
   }
 
   // separate maintainers from contribs
