@@ -96,6 +96,7 @@ import {useData} from 'vitepress';
 import VPIconHeart from 'vitepress/dist/client/theme-default/components/icons/VPIconHeart.vue';
 import VPSocialLinks from 'vitepress/dist/client/theme-default/components/VPSocialLinks.vue';
 import Link from './VPLLink.vue';
+import getAuthorLink from '../utils/get-author-link.js';
 
 const {member, size} = defineProps({
   size: {
@@ -133,13 +134,9 @@ const avatar = computed(() => {
 
 const maintainerClass = computed(() => member.maintainer ? 'maintainer' : '');
 
-const getLink = member => {
-  if (member.link) return member.link;
-  else if (Array.isArray(member?.links) && member.links[0]) return member.links[0].link;
-  else if (member.github) return `https://github.com/${member.github}`;
-  else if (member.email && mailtoFallback.value) return `mailto:${member.email}`;
-  return undefined;
-};
+// link priority is shared with `node/augment-authors.js` so blog bylines
+// and team cards always resolve the same way; see utils/get-author-link.js
+const getLink = member => getAuthorLink(member, mailtoFallback.value);
 
 const getAvatarTitle = member => {
   let avatarTitle = `${member.name}`;

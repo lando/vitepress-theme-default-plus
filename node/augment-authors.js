@@ -1,15 +1,9 @@
 import Debug from 'debug';
 
+import {default as getAuthorLink} from '../utils/get-author-link.js';
+
 const getContributor = (id, contributors = []) => contributors.find(contributor => contributor.email === id)
   ?? contributors.find(contributor => contributor.name === id);
-
-const getLink = (author, mailtoFallback) => {
-  if (author.link) return author.link;
-  else if (Array.isArray(author?.links) && author.links[0]) return author.links[0].link;
-  else if (author.github) return `https://github.com/${author.github}`;
-  else if (author.email && mailtoFallback) return `mailto:${author.email}`;
-  return undefined;
-};
 
 export default async function(pageData, {
   team,
@@ -28,7 +22,7 @@ export default async function(pageData, {
     frontmatter.authors = frontmatter.authors
       .map(author => typeof author === 'string' ? getContributor(author, team) : author)
       .filter(author => author && author !== false && author !== null)
-      .map(author => ({...author, link: getLink(author, mailtoFallback)}));
+      .map(author => ({...author, link: getAuthorLink(author, mailtoFallback)}));
   }
 
   // log
