@@ -90,6 +90,7 @@ export default async function resolveGitHubUsernames(emails, {
   repo,
   token = process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN,
   cachePath,
+  cachedMappings,
   // hard ceiling on commit-history pages we'll fetch in a single run.
   // 100 pages = 10000 commits, which covers all but the largest repos.
   // bumping this is cheap rate-limit wise (1 graphql point per page) but
@@ -107,7 +108,7 @@ export default async function resolveGitHubUsernames(emails, {
   // start with whatever's in the cache (a prior run's results). cache values
   // can be a string (resolved login) or null (we tried and couldn't resolve;
   // skip on subsequent runs to avoid burning api calls every build)
-  const cache = readCache(cachePath, debug);
+  const cache = cachedMappings || readCache(cachePath, debug);
   const result = new Map(Object.entries(cache));
 
   // figure out which emails still need resolving — anything not in the

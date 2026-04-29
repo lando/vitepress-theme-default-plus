@@ -1,6 +1,6 @@
 // mods
-import {existsSync} from 'node:fs';
-import {dirname, resolve} from 'node:path';
+import {existsSync, readFileSync} from 'node:fs';
+import {dirname, isAbsolute, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 import isEmpty from 'lodash-es/isEmpty.js';
@@ -15,6 +15,7 @@ import {default as getBaseUrl} from './utils/get-base-url.js';
 import {default as getContributors} from './utils/get-contributors.js';
 import {default as getGaHeaders} from './utils/get-ga-headers.js';
 import {default as getHubspotHeaders} from './utils/get-hubspot-headers.js';
+import {default as getRepoCoordinate} from './utils/get-repo-coordinate.js';
 import {default as getTags} from './utils/get-tags.js';
 import {default as normalizeMVB} from './utils/normalize-mvb.js';
 import {default as parseLayouts} from './utils/parse-layouts.js';
@@ -193,6 +194,38 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   if (hubspot !== false && hubspot.id) {
     config.head.push(...getHubspotHeaders(hubspot.id));
     debug('added hubspot tracking with %o', hubspot);
+  }
+
+  // compute repo coordinate and read GitHub username cache once for the entire
+  // build to avoid repeated subprocess spawns and synchronous file I/O in
+  // per-page getContributors calls
+  if (contributors !== false && typeof contributors === 'object') {
+    if (!contributors.repo || typeof contributors.repo === 'string') {
+      const repoCoord = getRepoCoordinate(config.gitRoot, {
+        override: typeof contributors.repo === 'string' ? contributors.repo : undefined,
+        debug: debug.extend('repo-coord'),
+      });
+      if (repoCoord) {
+        contributors.repo = repoCoord;
+        debug('cached repo coordinate %o/%o for per-page contributor resolution', repoCoord.owner, repoCoord.name);
+      }
+    }
+
+    // read the GitHub username mappings cache once if configured
+    if (contributors.cachePath && !contributors.cachedMappings) {
+      const resolvedCachePath = isAbsolute(contributors.cachePath)
+        ? contributors.cachePath
+        : resolve(config.gitRoot, contributors.cachePath);
+      if (existsSync(resolvedCachePath)) {
+        try {
+          contributors.cachedMappings = JSON.parse(readFileSync(resolvedCachePath, 'utf8'));
+          debug('cached %o email->login mappings from %o for per-page contributor resolution',
+            Object.keys(contributors.cachedMappings).length, resolvedCachePath);
+        } catch (error) {
+          debug('failed to read cache file %o: %o', resolvedCachePath, error.message);
+        }
+      }
+    }
   }
 
   // get full team info
