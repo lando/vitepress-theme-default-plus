@@ -3,8 +3,7 @@
 * Added Aaron Feledy as a default maintainer in `landov3` and `landov4` presets.
 * Updated `twitter` icon to `x` for default Lando maintainer entries.
 * Fixed team-card affiliation overflowing container on narrow widths; title and `@org` now wrap together at the `@` boundary.
-* Resolved [#78](https://github.com/lando/vitepress-theme-default-plus/issues/78): team-card avatars and blog post bylines now link to GitHub profiles and use GitHub profile pictures when a contributor's commit email resolves to a GitHub user. Cached GraphQL resolver, configurable via new `themeConfig.contributors.{resolveGitHub, cachePath, repo, maxPages, maxStalePages}` options.
-* Unresolved contributor avatars no longer fall back to `mailto:` links — the avatar simply isn't a link. Configurable via `themeConfig.contributors.mailtoFallback` (default `'auto'`).
+* Resolved [#78](https://github.com/lando/vitepress-theme-default-plus/issues/78): team-card avatars and blog post bylines now link to GitHub profiles and use GitHub profile pictures when commit emails resolve to GitHub users; unresolved contributors no longer fall back to `mailto:` links. Configurable via new `themeConfig.contributors.{resolveGitHub, cachePath, repo, mailtoFallback, maxPages, maxStalePages}` options.
 
 ## v1.1.5 - [March 5, 2026](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.5)
 
