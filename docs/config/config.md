@@ -248,6 +248,7 @@ Once you have you should be able to use all the things below.
   * `repo` — an optional `'owner/name'` override (or `{owner, name}` object) for which repository's commit history to walk. By default this is sniffed from `git remote get-url origin`.
   * `maxPages` — hard ceiling on commit-history pages fetched per resolution run (default `100`, i.e. 10000 commits). Bumping this only affects first-run cost; subsequent builds hit the cache.
   * `maxStalePages` — give up after this many consecutive history pages that don't resolve any new emails (default `10`). Stops the walker from chasing emails that just don't map to GitHub users.
+  * `mailtoFallback` — controls whether unresolvable contributors fall back to a `mailto:` link on their avatar. `'auto'` (default) means "off when GitHub resolution is on, on when it's off" — by default we don't expose email addresses on public pages once GitHub resolution is in play. Set `true` to always show mailto links, `false` to never. When disabled, an unresolvable contributor's avatar simply isn't a link.
 
   When the resolver finds a match for a contributor, it:
 
@@ -259,7 +260,7 @@ Once you have you should be able to use all the things below.
 
   Emails that exhaust the search without resolving (i.e. they ran out of history or hit `maxStalePages`) are negative-cached so they aren't retried on every build. To force a re-resolve after a contributor connects their email to GitHub, delete the cache file. Emails that are merely cut off by `maxPages` are NOT negative-cached, so a subsequent build with a higher `maxPages` will pick them up.
 
-  In CI, set `GITHUB_TOKEN` (GitHub Actions sets this for you automatically) or `GH_TOKEN`. Without a token the resolver silently degrades and unresolved contributors keep their `mailto:` link as before.
+  In CI, set `GITHUB_TOKEN` (GitHub Actions sets this for you automatically) or `GH_TOKEN`. Without a token the resolver silently degrades and unresolved contributors keep their `mailto:` link if `mailtoFallback` allows it.
 
 ## Feeds
 

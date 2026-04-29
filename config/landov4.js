@@ -172,6 +172,7 @@ export default function({
         debotify: true,
         resolveGitHub: 'auto',
         cachePath: 'docs/.vitepress/cache/team-github.json',
+        mailtoFallback: 'auto',
         include: [
           {
             name: 'Mike Pirog',

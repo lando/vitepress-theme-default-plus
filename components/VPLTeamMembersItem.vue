@@ -92,6 +92,7 @@
 
 <script setup>
 import {computed} from 'vue';
+import {useData} from 'vitepress';
 import VPIconHeart from 'vitepress/dist/client/theme-default/components/icons/VPIconHeart.vue';
 import VPSocialLinks from 'vitepress/dist/client/theme-default/components/VPSocialLinks.vue';
 import Link from './VPLLink.vue';
@@ -106,6 +107,12 @@ const {member, size} = defineProps({
     default: () => ({}),
   },
 });
+
+const {theme} = useData();
+// when github resolution is on, an unresolved contributor's avatar simply
+// doesn't link anywhere — friendlier than exposing email addresses on
+// public pages. configurable via themeConfig.contributors.mailtoFallback.
+const mailtoFallback = computed(() => theme.value?.contributors?.mailtoFallback === true);
 
 // compute avatar url with correct size
 const avatar = computed(() => {
@@ -130,16 +137,17 @@ const getLink = member => {
   if (member.link) return member.link;
   else if (Array.isArray(member?.links) && member.links[0]) return member.links[0].link;
   else if (member.github) return `https://github.com/${member.github}`;
-  else if (member.email) return `mailto:${member.email}`;
+  else if (member.email && mailtoFallback.value) return `mailto:${member.email}`;
+  return undefined;
 };
 
 const getAvatarTitle = member => {
   let avatarTitle = `${member.name}`;
-  // prefer the github handle when available; otherwise fall back to the
-  // raw email. this also reduces unnecessary email-address exposure on
-  // public team pages.
+  // prefer the github handle. only show the raw email if mailto fallback
+  // is on — otherwise we don't want to expose unresolved contributors'
+  // email addresses anywhere on the rendered page.
   if (member.github) avatarTitle += ` (@${member.github})`;
-  else if (member.email) avatarTitle += ` <${member.email}>`;
+  else if (member.email && mailtoFallback.value) avatarTitle += ` <${member.email}>`;
   if (member.commits) avatarTitle += ` - ${Number.parseInt(member.commits, 10)} commits`;
   return avatarTitle;
 };

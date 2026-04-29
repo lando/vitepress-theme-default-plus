@@ -104,6 +104,17 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   // normalize contribs
   if (themeConfig.contributors === true) themeConfig.contributors = baseConfig.themeConfig.contributors;
 
+  // resolve mailtoFallback 'auto' once so downstream consumers (the team
+  // template, blog augmentAuthors) can just check a boolean. 'auto' means
+  // "off when github resolution is on, on when it isn't" — we don't expose
+  // raw emails as mailto links unless the user explicitly opted out of
+  // github resolution.
+  if (themeConfig.contributors && typeof themeConfig.contributors === 'object') {
+    if (themeConfig.contributors.mailtoFallback === 'auto' || themeConfig.contributors.mailtoFallback === undefined) {
+      themeConfig.contributors.mailtoFallback = themeConfig.contributors.resolveGitHub === false;
+    }
+  }
+
   // normalize layouts
   if (Object.keys(themeConfig.layouts).length > 0) themeConfig.layouts = parseLayouts(themeConfig.layouts);
 
@@ -226,7 +237,7 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
     // parse collections
     await parseCollections(pageData, {siteConfig, debug: debug.extend('page-data')});
     // normalize authors
-    await augmentAuthors(pageData, {team, debug: debug.extend('page-data')});
+    await augmentAuthors(pageData, {team, mailtoFallback: contributors?.mailtoFallback === true, debug: debug.extend('page-data')});
 
     // run any user specified transformPageData if its a function
     if (transformPageData && typeof transformPageData === 'function') {

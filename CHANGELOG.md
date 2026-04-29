@@ -3,10 +3,12 @@
 * Added Aaron Feledy as a default maintainer in `landov3` and `landov4` presets.
 * Updated `twitter` icon to `x` for default Lando maintainer entries.
 * Fixed team-card affiliation overflowing container on narrow widths; title and `@org` now wrap together at the `@` boundary.
-* Resolved [#78](https://github.com/lando/vitepress-theme-default-plus/issues/78): team-card avatars now link to GitHub profiles (with `mailto:` as the last-resort fallback) and use GitHub profile pictures instead of Gravatar when a contributor's commit email can be matched to a GitHub user.
+* Resolved [#78](https://github.com/lando/vitepress-theme-default-plus/issues/78): team-card avatars now link to GitHub profiles and use GitHub profile pictures (instead of Gravatar) when a contributor's commit email can be matched to a GitHub user.
+* When GitHub resolution is on, unresolvable contributors no longer expose `mailto:` links on their team-card avatars — the avatar simply isn't a link. Configurable via `themeConfig.contributors.mailtoFallback` (default `'auto'`, set to `true` to keep the legacy mailto behavior).
 * Added `themeConfig.contributors.resolveGitHub` option (`'auto' | true | false`, default `'auto'`) to control whether the GitHub GraphQL API is used to resolve contributor emails to GitHub usernames.
-* Added `themeConfig.contributors.cachePath` option to persist resolved email→username mappings (relative paths resolve against the git root; recommended `docs/.vitepress/cache/team-github.json`).
+* Added `themeConfig.contributors.cachePath` option to persist resolved email→username mappings (defaults to `docs/.vitepress/cache/team-github.json`, relative paths resolve against the git root).
 * Added `themeConfig.contributors.repo` option to override the GitHub repository coordinate (defaults to `git remote get-url origin`).
+* Added `themeConfig.contributors.maxPages` (default `100`) and `maxStalePages` (default `10`) options to tune the commit-history walker.
 * Reduced email-address exposure in team-card avatar tooltips when a GitHub username is known.
 
 ## v1.1.5 - [March 5, 2026](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.5)
