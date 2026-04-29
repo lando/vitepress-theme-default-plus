@@ -104,6 +104,13 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   // normalize contribs
   if (themeConfig.contributors === true) themeConfig.contributors = baseConfig.themeConfig.contributors;
 
+  // resolve mailtoFallback 'auto' to a boolean: off when GitHub resolution is on
+  if (themeConfig.contributors && typeof themeConfig.contributors === 'object') {
+    if (themeConfig.contributors.mailtoFallback === 'auto' || themeConfig.contributors.mailtoFallback === undefined) {
+      themeConfig.contributors.mailtoFallback = themeConfig.contributors.resolveGitHub === false;
+    }
+  }
+
   // normalize layouts
   if (Object.keys(themeConfig.layouts).length > 0) themeConfig.layouts = parseLayouts(themeConfig.layouts);
 
@@ -184,8 +191,10 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
     debug('added hubspot tracking with %o', hubspot);
   }
 
-  // get full team info
-  const copts = {debug: debug.extend('get-contribs'), paths: []};
+  // get full team info; shared ctx lets per-page calls below reuse the
+  // GitHub resolution + repo coordinate lookup done here
+  const contributorCtx = {};
+  const copts = {debug: debug.extend('get-contribs'), paths: [], ctx: contributorCtx};
   const team = contributors !== false ? await getContributors(config.gitRoot, contributors, copts) : [];
   debug('discovered full team info %o', team);
 
@@ -219,14 +228,14 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
     await normalizeLegacyFrontmatter(pageData, {siteConfig, debug: debug.extend('page-data')});
     // normalize frontmatter
     await normalizeFrontmatter(pageData, {siteConfig, debug: debug.extend('page-data')});
-    // add contributor information
-    await addContributors(pageData, {siteConfig, debug: debug.extend('page-data')});
+    // add contributor information (reuses ctx populated above)
+    await addContributors(pageData, {siteConfig, debug: debug.extend('page-data'), ctx: contributorCtx});
     // add metadata information
     await addMetadata(pageData, {siteConfig, debug: debug.extend('page-data')});
     // parse collections
     await parseCollections(pageData, {siteConfig, debug: debug.extend('page-data')});
     // normalize authors
-    await augmentAuthors(pageData, {team, debug: debug.extend('page-data')});
+    await augmentAuthors(pageData, {team, mailtoFallback: contributors?.mailtoFallback === true, debug: debug.extend('page-data')});
 
     // run any user specified transformPageData if its a function
     if (transformPageData && typeof transformPageData === 'function') {

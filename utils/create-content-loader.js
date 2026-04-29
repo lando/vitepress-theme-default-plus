@@ -42,7 +42,9 @@ export default function createContentLoader(patterns = [], {
     async transform(raw) {
       const contributors = siteConfig?.userConfig?.themeConfig?.contributors ?? false;
       const root = siteConfig?.userConfig?.gitRoot;
-      const team = contributors !== false ? await getContributors(root, contributors, {debug: debug.extend('get-contribs'), paths: []}) : [];
+      // shared ctx so per-post addContributors calls reuse one GitHub-resolution pass
+      const contributorCtx = {};
+      const team = contributors !== false ? await getContributors(root, contributors, {debug: debug.extend('get-contribs'), paths: [], ctx: contributorCtx}) : [];
       debug('discovered full team info %o', team);
 
       const pages = await Promise.all(raw.map(async data => {
@@ -54,14 +56,14 @@ export default function createContentLoader(patterns = [], {
         await normalizeLegacyFrontmatter(data, {siteConfig, debug});
         // normalize frontmatter
         await normalizeFrontmatter(data, {siteConfig, debug});
-        // add contributor information
-        await addContributors(data, {siteConfig, debug});
+        // add contributor information (reusing ctx from team lookup above)
+        await addContributors(data, {siteConfig, debug, ctx: contributorCtx});
         // add metadata information
         await addMetadata(data, {siteConfig, debug});
         // parse collections
         await parseCollections(data, {siteConfig, debug});
-        // normalize authors
-        await augmentAuthors(data, {team, debug});
+        // normalize authors (mailtoFallback mirrors transformPageData in config.js)
+        await augmentAuthors(data, {team, mailtoFallback: contributors?.mailtoFallback === true, debug});
 
         // get stuff
         const {frontmatter, html, url} = data;

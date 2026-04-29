@@ -6,6 +6,8 @@ import {default as getContributors} from '../utils/get-contributors.js';
 export default async function(pageData, {
   debug = Debug('@lando/add-contributors'),  // eslint-disable-line
   siteConfig,
+  // shared build-context (see utils/get-contributors.js)
+  ctx,
 } = {}) {
   debug = debug.extend(`${pageData.relativePath}`);
   // get path
@@ -20,7 +22,7 @@ export default async function(pageData, {
   // add contributors unless turned off
   if (contributors !== false) {
     try {
-      pageData.contributors = await getContributors(gitDir, contributors, {debug, paths: gitPaths});
+      pageData.contributors = await getContributors(gitDir, contributors, {debug, paths: gitPaths, ctx});
       debug('set contributors %o', pageData.contributors);
     } catch (error) {
       debug('could not get contributor information, considering this non-fatal but you should investigate and resolve');
