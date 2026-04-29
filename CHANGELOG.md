@@ -6,6 +6,7 @@
 * Changed team-card avatars and blog post bylines to link to GitHub profiles instead of `mailto:`, configurable via new `themeConfig.contributors` options [#78](https://github.com/lando/vitepress-theme-default-plus/issues/78).
 * Improved contributor resolution to run once per build instead of once per page, eliminating per-page `git remote` subprocess spawns and cache-file reads in `transformPageData`.
 * Fixed `themeConfig.contributors.resolveGitHub: true` silently behaving like `'auto'`; it now warns when no `GITHUB_TOKEN`/`GH_TOKEN` is set.
+* Fixed blog post bylines ignoring `themeConfig.contributors.mailtoFallback`; they now honor the same setting as team pages.
 
 ## v1.1.5 - [March 5, 2026](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.5)
 

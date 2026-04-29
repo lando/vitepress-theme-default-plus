@@ -64,8 +64,13 @@ export default function createContentLoader(patterns = [], {
         await addMetadata(data, {siteConfig, debug});
         // parse collections
         await parseCollections(data, {siteConfig, debug});
-        // normalize authors
-        await augmentAuthors(data, {team, debug});
+        // normalize authors. mirror the mailtoFallback resolution from
+        // config.js's transformPageData so blog-post bylines render the
+        // same mailto: behavior as team pages — without this, a user who
+        // opted into the legacy mailto fallback (mailtoFallback: true, or
+        // resolveGitHub: false which auto-resolves to true) would silently
+        // lose mailto links specifically on blog content.
+        await augmentAuthors(data, {team, mailtoFallback: contributors?.mailtoFallback === true, debug});
 
         // get stuff
         const {frontmatter, html, url} = data;
