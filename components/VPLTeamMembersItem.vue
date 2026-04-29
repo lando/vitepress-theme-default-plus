@@ -96,6 +96,7 @@ import {useData} from 'vitepress';
 import VPIconHeart from 'vitepress/dist/client/theme-default/components/icons/VPIconHeart.vue';
 import VPSocialLinks from 'vitepress/dist/client/theme-default/components/VPSocialLinks.vue';
 import Link from './VPLLink.vue';
+import getContributorLink from '../utils/get-contributor-link.js';
 
 const {member, size} = defineProps({
   size: {
@@ -133,13 +134,7 @@ const avatar = computed(() => {
 
 const maintainerClass = computed(() => member.maintainer ? 'maintainer' : '');
 
-const getLink = member => {
-  if (member.link) return member.link;
-  else if (Array.isArray(member?.links) && member.links[0]) return member.links[0].link;
-  else if (member.github) return `https://github.com/${member.github}`;
-  else if (member.email && mailtoFallback.value) return `mailto:${member.email}`;
-  return undefined;
-};
+const getLink = member => getContributorLink(member, mailtoFallback.value);
 
 const getAvatarTitle = member => {
   let avatarTitle = `${member.name}`;
