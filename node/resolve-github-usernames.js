@@ -29,6 +29,7 @@ const readCache = (cachePath, debug) => {
   if (!cachePath || !existsSync(cachePath)) return {};
   try {
     const data = JSON.parse(readFileSync(cachePath, 'utf8'));
+    if (!data || typeof data !== 'object' || Array.isArray(data)) return {};
     debug('loaded %o cached email->login mappings from %o', Object.keys(data).length, cachePath);
     return data;
   } catch (error) {
