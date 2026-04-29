@@ -65,7 +65,7 @@ export default function createContentLoader(patterns = [], {
         // parse collections
         await parseCollections(data, {siteConfig, debug});
         // normalize authors
-        await augmentAuthors(data, {team, debug});
+        await augmentAuthors(data, {team, mailtoFallback: contributors?.mailtoFallback === true, debug});
 
         // get stuff
         const {frontmatter, html, url} = data;
