@@ -29,6 +29,13 @@ const readCache = (cachePath, debug) => {
   if (!cachePath || !existsSync(cachePath)) return {};
   try {
     const data = JSON.parse(readFileSync(cachePath, 'utf8'));
+    // bail on anything that isn't a plain object — a corrupted cache (array,
+    // null, primitive) would otherwise silently produce a Map keyed by array
+    // indices or characters, defeating the cache and re-hitting the api
+    if (!data || typeof data !== 'object' || Array.isArray(data)) {
+      debug('cache file %o is not a plain object; ignoring', cachePath);
+      return {};
+    }
     debug('loaded %o cached email->login mappings from %o', Object.keys(data).length, cachePath);
     return data;
   } catch (error) {
