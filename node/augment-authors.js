@@ -7,10 +7,6 @@ const getContributor = (id, contributors = []) => contributors.find(contributor 
 
 export default async function(pageData, {
   team,
-  // when false (the default with github resolution enabled), unresolved
-  // authors get no link at all rather than exposing a mailto: in the
-  // rendered byline. caller resolves themeConfig.contributors.mailtoFallback
-  // to a boolean once and passes it through.
   mailtoFallback = false,
   debug = Debug('@lando/augment-authors'),  // eslint-disable-line
 } = {}) {

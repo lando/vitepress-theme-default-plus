@@ -104,11 +104,7 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
   // normalize contribs
   if (themeConfig.contributors === true) themeConfig.contributors = baseConfig.themeConfig.contributors;
 
-  // resolve mailtoFallback 'auto' once so downstream consumers (the team
-  // template, blog augmentAuthors) can just check a boolean. 'auto' means
-  // "off when github resolution is on, on when it isn't" — we don't expose
-  // raw emails as mailto links unless the user explicitly opted out of
-  // github resolution.
+  // resolve mailtoFallback 'auto' to a boolean: off when GitHub resolution is on
   if (themeConfig.contributors && typeof themeConfig.contributors === 'object') {
     if (themeConfig.contributors.mailtoFallback === 'auto' || themeConfig.contributors.mailtoFallback === undefined) {
       themeConfig.contributors.mailtoFallback = themeConfig.contributors.resolveGitHub === false;
@@ -195,13 +191,8 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
     debug('added hubspot tracking with %o', hubspot);
   }
 
-  // get full team info
-  //
-  // we thread a single `contributorCtx` through this build-time call AND
-  // every per-page transformPageData call below. the first call (here)
-  // resolves the repo coordinate and walks GitHub commit history once;
-  // subsequent per-page calls reuse the populated ctx instead of spawning
-  // `git remote get-url origin` and re-reading the cache file every page.
+  // get full team info; shared ctx lets per-page calls below reuse the
+  // GitHub resolution + repo coordinate lookup done here
   const contributorCtx = {};
   const copts = {debug: debug.extend('get-contribs'), paths: [], ctx: contributorCtx};
   const team = contributors !== false ? await getContributors(config.gitRoot, contributors, copts) : [];
@@ -237,7 +228,7 @@ export async function defineConfig(userConfig = {}, defaults = {}) {
     await normalizeLegacyFrontmatter(pageData, {siteConfig, debug: debug.extend('page-data')});
     // normalize frontmatter
     await normalizeFrontmatter(pageData, {siteConfig, debug: debug.extend('page-data')});
-    // add contributor information (reusing build-global ctx populated above)
+    // add contributor information (reuses ctx populated above)
     await addContributors(pageData, {siteConfig, debug: debug.extend('page-data'), ctx: contributorCtx});
     // add metadata information
     await addMetadata(pageData, {siteConfig, debug: debug.extend('page-data')});

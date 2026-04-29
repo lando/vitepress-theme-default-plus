@@ -42,9 +42,7 @@ export default function createContentLoader(patterns = [], {
     async transform(raw) {
       const contributors = siteConfig?.userConfig?.themeConfig?.contributors ?? false;
       const root = siteConfig?.userConfig?.gitRoot;
-      // shared ctx so the team lookup below and the per-post addContributors
-      // calls all reuse a single GitHub-resolution pass (one repo coord
-      // lookup + one cache read for the entire content-loader transform).
+      // shared ctx so per-post addContributors calls reuse one GitHub-resolution pass
       const contributorCtx = {};
       const team = contributors !== false ? await getContributors(root, contributors, {debug: debug.extend('get-contribs'), paths: [], ctx: contributorCtx}) : [];
       debug('discovered full team info %o', team);
@@ -64,12 +62,7 @@ export default function createContentLoader(patterns = [], {
         await addMetadata(data, {siteConfig, debug});
         // parse collections
         await parseCollections(data, {siteConfig, debug});
-        // normalize authors. mirror the mailtoFallback resolution from
-        // config.js's transformPageData so blog-post bylines render the
-        // same mailto: behavior as team pages — without this, a user who
-        // opted into the legacy mailto fallback (mailtoFallback: true, or
-        // resolveGitHub: false which auto-resolves to true) would silently
-        // lose mailto links specifically on blog content.
+        // normalize authors (mailtoFallback mirrors transformPageData in config.js)
         await augmentAuthors(data, {team, mailtoFallback: contributors?.mailtoFallback === true, debug});
 
         // get stuff

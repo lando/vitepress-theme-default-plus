@@ -2,31 +2,22 @@ import {default as execSync} from './parse-stdout.js';
 
 import Debug from 'debug';
 
-// Parse a GitHub repo URL into {owner, name}. Handles:
-//  - git@github.com:owner/name.git       (ssh)
-//  - https://github.com/owner/name.git   (https)
-//  - https://github.com/owner/name       (no .git)
-//  - github:owner/name                   (npm shorthand)
+// parse {owner, name} from ssh/https github URLs or npm `github:owner/name` shorthand
 const parseUrl = url => {
   if (typeof url !== 'string' || url.length === 0) return null;
-  // npm shorthand: "github:owner/name"
   const npmMatch = url.match(/^github:([^/]+)\/([^/.]+?)(?:\.git)?$/);
   if (npmMatch) return {owner: npmMatch[1], name: npmMatch[2]};
-  // ssh or https URL pointing at github.com
   const urlMatch = url.match(/github\.com[:/]([^/]+)\/([^/.]+?)(?:\.git)?\/?$/);
   if (urlMatch) return {owner: urlMatch[1], name: urlMatch[2]};
   return null;
 };
 
-// Try `git remote get-url origin`, fall back to package.json's `repository`
-// field, fall back to nothing. Always non-throwing — callers degrade
-// gracefully when no coordinate is available.
+// non-throwing: tries override → git remote → package.json → null
 export default function getRepoCoordinate(cwd, {
   override,
   packageJson,
   debug = Debug('@lando/get-repo-coordinate'), // eslint-disable-line
 } = {}) {
-  // explicit override always wins
   if (override) {
     if (typeof override === 'string') {
       const parts = override.split('/');
@@ -40,7 +31,6 @@ export default function getRepoCoordinate(cwd, {
     }
   }
 
-  // try git remote
   try {
     const url = execSync('git remote get-url origin', {cwd, trim: true, stdio: ['ignore', 'pipe', 'ignore']});
     const parsed = parseUrl(url);
@@ -53,7 +43,6 @@ export default function getRepoCoordinate(cwd, {
     debug('git remote lookup failed: %o', error.message);
   }
 
-  // try package.json `repository` field
   if (packageJson) {
     const repoField = packageJson.repository?.url ?? packageJson.repository;
     const parsed = parseUrl(repoField);

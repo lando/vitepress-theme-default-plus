@@ -83,10 +83,6 @@ export default function({base}) {
         resolveGitHub: 'auto',
         cachePath: 'docs/.vitepress/cache/team-github.json',
         repo: undefined,
-        // when github resolution is on, an unresolved contributor's avatar
-        // simply doesn't link anywhere — friendlier than exposing email
-        // addresses on public pages. set to true to keep the legacy mailto
-        // behavior even with github resolution enabled.
         mailtoFallback: 'auto',
       },
       internalDomain: [],

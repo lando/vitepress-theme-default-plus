@@ -237,30 +237,18 @@ Once you have you should be able to use all the things below.
 
   ### Resolving GitHub usernames
 
-  By default the theme will try to resolve each contributor's git commit email to a GitHub username so the team page links to GitHub profiles (instead of `mailto:` addresses) and uses GitHub avatars (instead of Gravatar).
+  By default contributors are resolved to GitHub profiles via paginated GraphQL queries against the repo's commit history, with results cached on disk. Avatars and tooltips are upgraded to use the resolved GitHub identity, and a GitHub link is added to each contributor's `links` array.
 
-  This is done via paginated GraphQL queries against GitHub's commit history API, with results cached on disk. Subsequent builds reuse the cache and make zero API calls unless a new contributor appears.
+  Options:
 
-  The relevant options are:
+  * `resolveGitHub` — `false` to disable, `'auto'` (default) to try when `GITHUB_TOKEN` is set, `true` to always try.
+  * `cachePath` — email→username map location, relative to git root. Defaults to `'docs/.vitepress/cache/team-github.json'`. Delete the file to force a re-resolve.
+  * `repo` — `'owner/name'` (or `{owner, name}`) override; defaults to sniffing `git remote get-url origin`.
+  * `maxPages` — commit-history page ceiling per run (default `100`, i.e. 10000 commits).
+  * `maxStalePages` — bail after this many consecutive pages with no new resolutions (default `10`).
+  * `mailtoFallback` — fall back to `mailto:` for unresolved contributors. `'auto'` (default) is off when GitHub resolution is on. Set `true` or `false` to force.
 
-  * `resolveGitHub` — set to `false` to disable entirely, `'auto'` (default) to try when a `GITHUB_TOKEN` env var is present and silently skip otherwise, or `true` to always try.
-  * `cachePath` — where to write the resolved email→username map. Relative paths are resolved against your repo's git root. Defaults to `'docs/.vitepress/cache/team-github.json'`, which is typically already gitignored. Set to `undefined` or `null` to disable caching entirely (not recommended).
-  * `repo` — an optional `'owner/name'` override (or `{owner, name}` object) for which repository's commit history to walk. By default this is sniffed from `git remote get-url origin`.
-  * `maxPages` — hard ceiling on commit-history pages fetched per resolution run (default `100`, i.e. 10000 commits). Bumping this only affects first-run cost; subsequent builds hit the cache.
-  * `maxStalePages` — give up after this many consecutive history pages that don't resolve any new emails (default `10`). Stops the walker from chasing emails that just don't map to GitHub users.
-  * `mailtoFallback` — controls whether unresolvable contributors fall back to a `mailto:` link on their avatar. `'auto'` (default) means "off when GitHub resolution is on, on when it's off" — by default we don't expose email addresses on public pages once GitHub resolution is in play. Set `true` to always show mailto links, `false` to never. When disabled, an unresolvable contributor's avatar simply isn't a link.
-
-  When the resolver finds a match for a contributor, it:
-
-  1. sets a `github` field on the contributor with the resolved username,
-  2. swaps Gravatar avatars (the default for unconfigured contributors) for GitHub avatars,
-  3. seeds the contributor's `links` array with a GitHub social link if one isn't already configured.
-
-  Contributors who already have a GitHub link in their `links` array (typically maintainers configured via `include`) are left alone — the resolver only fills in fields that are empty.
-
-  Emails that exhaust the search without resolving (i.e. they ran out of history or hit `maxStalePages`) are negative-cached so they aren't retried on every build. To force a re-resolve after a contributor connects their email to GitHub, delete the cache file. Emails that are merely cut off by `maxPages` are NOT negative-cached, so a subsequent build with a higher `maxPages` will pick them up.
-
-  In CI, set `GITHUB_TOKEN` (GitHub Actions sets this for you automatically) or `GH_TOKEN`. Without a token the resolver silently degrades and unresolved contributors keep their `mailto:` link if `mailtoFallback` allows it.
+  In CI, set `GITHUB_TOKEN` (provided automatically by GitHub Actions) or `GH_TOKEN`. Without a token the resolver silently degrades.
 
 ## Feeds
 

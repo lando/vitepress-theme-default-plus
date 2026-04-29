@@ -6,10 +6,7 @@ import {default as getContributors} from '../utils/get-contributors.js';
 export default async function(pageData, {
   debug = Debug('@lando/add-contributors'),  // eslint-disable-line
   siteConfig,
-  // Shared build-context object (see utils/get-contributors.js). config.js
-  // threads a single ctx through every per-page call so the GitHub repo
-  // coordinate and username mappings are resolved once per build, not once
-  // per page.
+  // shared build-context (see utils/get-contributors.js)
   ctx,
 } = {}) {
   debug = debug.extend(`${pageData.relativePath}`);

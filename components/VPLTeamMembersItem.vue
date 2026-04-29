@@ -110,9 +110,6 @@ const {member, size} = defineProps({
 });
 
 const {theme} = useData();
-// when github resolution is on, an unresolved contributor's avatar simply
-// doesn't link anywhere — friendlier than exposing email addresses on
-// public pages. configurable via themeConfig.contributors.mailtoFallback.
 const mailtoFallback = computed(() => theme.value?.contributors?.mailtoFallback === true);
 
 // compute avatar url with correct size
@@ -134,15 +131,10 @@ const avatar = computed(() => {
 
 const maintainerClass = computed(() => member.maintainer ? 'maintainer' : '');
 
-// link priority is shared with `node/augment-authors.js` so blog bylines
-// and team cards always resolve the same way; see utils/get-author-link.js
 const getLink = member => getAuthorLink(member, mailtoFallback.value);
 
 const getAvatarTitle = member => {
   let avatarTitle = `${member.name}`;
-  // prefer the github handle. only show the raw email if mailto fallback
-  // is on — otherwise we don't want to expose unresolved contributors'
-  // email addresses anywhere on the rendered page.
   if (member.github) avatarTitle += ` (@${member.github})`;
   else if (member.email && mailtoFallback.value) avatarTitle += ` <${member.email}>`;
   if (member.commits) avatarTitle += ` - ${Number.parseInt(member.commits, 10)} commits`;
