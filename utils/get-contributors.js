@@ -39,7 +39,7 @@ const applyGitHubLogins = (contributors, mappings) => {
     if (!login) continue;
     contributor.github = login;
     if (isGravatarAvatar(contributor.avatar)) {
-      contributor.avatar = `https://avatars.githubusercontent.com/${login}`;
+      contributor.avatar = `https://github.com/${login}.png`;
     }
     contributor.links = Array.isArray(contributor.links) ? contributor.links : [];
     if (!contributor.links.some(link => link?.icon === 'github')) {
@@ -222,6 +222,35 @@ export default async function(
       }
     } else {
       debug('reusing pre-resolved GitHub mappings (%o entries)', ctx.mappings?.size ?? 0);
+      // resolve any new emails not yet in mappings (e.g., from per-page includes)
+      if (ctx.repoCoord && ctx.mappings !== null) {
+        const newEmailsToResolve = data
+          .filter(c => !c.links?.some(link => link?.icon === 'github'))
+          .map(c => c.email)
+          .filter(Boolean)
+          .filter(email => !ctx.mappings.has(email));
+
+        if (newEmailsToResolve.length > 0) {
+          debug('found %o new emails to resolve', newEmailsToResolve.length);
+          const apiToken = token ?? process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN;
+          const resolvedCachePath = cachePath
+            ? (isAbsolute(cachePath) ? cachePath : resolve(cwd, cachePath))
+            : undefined;
+          const newMappings = await resolveGitHubUsernames(newEmailsToResolve, {
+            repo: ctx.repoCoord,
+            token: apiToken,
+            cachePath: resolvedCachePath,
+            maxPages,
+            maxStalePages,
+            debug: debug.extend('resolve-github'),
+          });
+          if (newMappings) {
+            for (const [email, login] of newMappings.entries()) {
+              ctx.mappings.set(email, login);
+            }
+          }
+        }
+      }
     }
 
     // applies mappings AND scrapes hand-configured github links
