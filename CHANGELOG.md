@@ -1,5 +1,6 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+* Fixed empty row data on search results
 * Added Aaron Feledy as a default maintainer in `landov3` and `landov4` presets.
 * Updated `twitter` icon to `x` for default Lando maintainer entries.
 * Fixed team-card affiliation overflowing container on narrow widths; title and `@org` now wrap together at the `@` boundary.
