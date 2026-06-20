@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Install node 20
         uses: actions/setup-node@v6
         with:
@@ -60,7 +60,7 @@ jobs:
       # Install deps and cache
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Install node ${{ matrix.node-version }}
         uses: actions/setup-node@v6
         with:
@@ -204,7 +204,7 @@ jobs:
       # Install deps and cache
       # NOTE that we use ref: main because we need to get the code that was updated from the prepare-release-action
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: main
       - name: Install Bun
