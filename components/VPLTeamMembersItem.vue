@@ -92,9 +92,11 @@
 
 <script setup>
 import {computed} from 'vue';
+import {useData} from 'vitepress';
 import VPIconHeart from 'vitepress/dist/client/theme-default/components/icons/VPIconHeart.vue';
 import VPSocialLinks from 'vitepress/dist/client/theme-default/components/VPSocialLinks.vue';
 import Link from './VPLLink.vue';
+import getAuthorLink from '../utils/get-author-link.js';
 
 const {member, size} = defineProps({
   size: {
@@ -106,6 +108,9 @@ const {member, size} = defineProps({
     default: () => ({}),
   },
 });
+
+const {theme} = useData();
+const mailtoFallback = computed(() => theme.value?.contributors?.mailtoFallback === true);
 
 // compute avatar url with correct size
 const avatar = computed(() => {
@@ -126,15 +131,12 @@ const avatar = computed(() => {
 
 const maintainerClass = computed(() => member.maintainer ? 'maintainer' : '');
 
-const getLink = member => {
-  if (member.link) return member.link;
-  else if (Array.isArray(member?.links) && member.links[0]) return member.links[0].link;
-  else if (member.email) return `mailto:${member.email}`;
-};
+const getLink = member => getAuthorLink(member, mailtoFallback.value);
 
 const getAvatarTitle = member => {
   let avatarTitle = `${member.name}`;
-  if (member.email) avatarTitle += ` <${member.email}>`;
+  if (member.github) avatarTitle += ` (@${member.github})`;
+  else if (member.email && mailtoFallback.value) avatarTitle += ` <${member.email}>`;
   if (member.commits) avatarTitle += ` - ${Number.parseInt(member.commits, 10)} commits`;
   return avatarTitle;
 };
