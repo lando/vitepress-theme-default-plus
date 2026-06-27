@@ -193,31 +193,28 @@ export default async function(
       });
       ctx.repoCoord = repoCoord;
 
-      if (repoCoord) {
-        // skip emails that already have a configured github link
-        const emailsToResolve = data
-          .filter(c => !c.links?.some(link => link?.icon === 'github'))
-          .map(c => c.email)
-          .filter(Boolean);
+      // skip emails that already have a configured github link
+      const emailsToResolve = data
+        .filter(c => !c.links?.some(link => link?.icon === 'github'))
+        .map(c => c.email)
+        .filter(Boolean);
 
-        if (emailsToResolve.length > 0) {
-          const resolvedCachePath = cachePath
-            ? (isAbsolute(cachePath) ? cachePath : resolve(cwd, cachePath))
-            : undefined;
-          ctx.mappings = await resolveGitHubUsernames(emailsToResolve, {
-            repo: repoCoord,
-            token: apiToken,
-            cachePath: resolvedCachePath,
-            maxPages,
-            maxStalePages,
-            debug: debug.extend('resolve-github'),
-          });
-        } else {
-          debug('all contributors already have github links configured; skipping API resolution');
-          ctx.mappings = null;
-        }
+      if (emailsToResolve.length > 0) {
+        const resolvedCachePath = cachePath
+          ? (isAbsolute(cachePath) ? cachePath : resolve(cwd, cachePath))
+          : undefined;
+        // call resolveGitHubUsernames even without repo to load cache;
+        // it handles missing repo/token gracefully and returns cache-only results
+        ctx.mappings = await resolveGitHubUsernames(emailsToResolve, {
+          repo: repoCoord,
+          token: apiToken,
+          cachePath: resolvedCachePath,
+          maxPages,
+          maxStalePages,
+          debug: debug.extend('resolve-github'),
+        });
       } else {
-        debug('no repo coordinate determined; skipping GitHub username resolution');
+        debug('all contributors already have github links configured; skipping resolution');
         ctx.mappings = null;
       }
     } else {
