@@ -19,7 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
       - name: Install node 20
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '20'
           registry-url: https://registry.npmjs.org
@@ -62,7 +62,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
       - name: Install node ${{ matrix.node-version }}
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
@@ -212,7 +212,7 @@ jobs:
         with:
           bun-version-file: .bun-version
       - name: Install node ${{ matrix.node-version }}
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
