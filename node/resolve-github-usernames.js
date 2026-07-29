@@ -121,8 +121,9 @@ export default async function resolveGitHubUsernames(emails, {
   let pages = 0;
   let stalePages = 0;
   let dirty = false;
-  // only negative-cache when the search exhausts (ran out of history or
-  // hit maxStalePages); cutting off at maxPages leaves emails retryable
+  // Only negative-cache after walking the complete history. Heuristic
+  // cutoffs can leave matches deeper in history, so those emails must remain
+  // retryable on a later build.
   let exhaustedSearch = false;
 
   try {
@@ -145,7 +146,6 @@ export default async function resolveGitHubUsernames(emails, {
       stalePages = progress ? 0 : stalePages + 1;
       if (stalePages >= maxStalePages) {
         debug('giving up after %o stale page(s); %o emails still unresolved', stalePages, unresolved.size);
-        exhaustedSearch = true;
         break;
       }
 
