@@ -203,13 +203,13 @@ Once you have you should be able to use all the things below.
         mergeOnly: true,
         mergeWith: 'alec+git@lando.dev',
         org: 'Lando',
-        orgLink: 'https://lando.dev',
+        orgLink: 'https://www.lando.dev',
         desc: 'A chill dude',
         links: [
           {icon: 'github', link: 'https://github.com/reynoldsalec'},
           {icon: 'twitter', link: 'https://twitter.com/reynoldsalec'},
         ],
-        sponsor: 'https://lando.dev/sponsor',
+        sponsor: 'https://www.lando.dev/sponsor',
       },
     ]
   },
@@ -572,7 +572,7 @@ You can specify `host` and `sitemap` directly. If you omit them the theme will a
   ```js
   sponsors: {
     text: 'your logo?',
-    link: 'https://lando.dev/sponsor',
+    link: 'https://www.lando.dev/sponsor',
     data: [
       {
         name: 'Pantheon',
