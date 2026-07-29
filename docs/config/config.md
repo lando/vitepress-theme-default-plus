@@ -176,6 +176,8 @@ Once you have you should be able to use all the things below.
   contributors: {
     merge: 'name',
     debotify: true,
+    resolveGitHub: 'auto',
+    cachePath: 'docs/.vitepress/cache/team-github.json',
     exclude: [
       'Mike Pirog <mike@kalamuna.com>',
       {
@@ -201,13 +203,13 @@ Once you have you should be able to use all the things below.
         mergeOnly: true,
         mergeWith: 'alec+git@lando.dev',
         org: 'Lando',
-        orgLink: 'https://lando.dev',
+        orgLink: 'https://www.lando.dev',
         desc: 'A chill dude',
         links: [
           {icon: 'github', link: 'https://github.com/reynoldsalec'},
           {icon: 'twitter', link: 'https://twitter.com/reynoldsalec'},
         ],
-        sponsor: 'https://lando.dev/sponsor',
+        sponsor: 'https://www.lando.dev/sponsor',
       },
     ]
   },
@@ -232,6 +234,21 @@ Once you have you should be able to use all the things below.
   Finally, `mergeOnly` can be set if you only want to provide augmented data for a contributor that already exists in the `git log`, if you want to be explicit about the `git log` contributor you want to augment you can use `mergeWith` and specify their `git.email`.
 
   You can also configure this on a page to page basis with [frontmatter](./frontmatter.md#contributors).
+
+  ### Resolving GitHub usernames
+
+  By default contributors are resolved to GitHub profiles via paginated GraphQL queries against the repo's commit history, with results cached on disk. Avatars and tooltips are upgraded to use the resolved GitHub identity, and a GitHub link is added to each contributor's `links` array.
+
+  Options:
+
+  * `resolveGitHub` — `false` to disable, `'auto'` (default) to try when `GITHUB_TOKEN` is set, `true` to always try.
+  * `cachePath` — email→username map location, relative to git root. Defaults to `'docs/.vitepress/cache/team-github.json'`. Delete the file to force a re-resolve.
+  * `repo` — `'owner/name'` (or `{owner, name}`) override; defaults to sniffing `git remote get-url origin`.
+  * `maxPages` — commit-history page ceiling per run (default `100`, i.e. 10000 commits).
+  * `maxStalePages` — bail after this many consecutive pages with no new resolutions (default `10`).
+  * `mailtoFallback` — fall back to `mailto:` for unresolved contributors. `'auto'` (default) is off when GitHub resolution is on. Set `true` or `false` to force.
+
+  In CI, set `GITHUB_TOKEN` (provided automatically by GitHub Actions) or `GH_TOKEN`. Without a token the resolver silently degrades.
 
 ## Feeds
 
@@ -555,7 +572,7 @@ You can specify `host` and `sitemap` directly. If you omit them the theme will a
   ```js
   sponsors: {
     text: 'your logo?',
-    link: 'https://lando.dev/sponsor',
+    link: 'https://www.lando.dev/sponsor',
     data: [
       {
         name: 'Pantheon',

@@ -1,9 +1,14 @@
+import {isAbsolute, resolve} from 'node:path';
+
 import {default as execSync} from './parse-stdout.js';
 import findIndex from 'lodash-es/findIndex.js';
 import gravatarUrl from 'gravatar-url';
 import groupBy from 'lodash-es/groupBy.js';
 
 import Debug from 'debug';
+
+import {default as getRepoCoordinate} from './get-repo-coordinate.js';
+import {default as resolveGitHubUsernames} from '../node/resolve-github-usernames.js';
 
 const parseStringInclude = data => {
   const parts = data.trim().split(' ');
@@ -15,17 +20,55 @@ const parseStringInclude = data => {
   return parts.join(' ');
 };
 
-export default function async(
+const isGravatarAvatar = url => typeof url === 'string' && /^https?:\/\/(www\.)?gravatar\.com\//.test(url);
+
+// extract github username from a configured github link (lets hand-configured
+// maintainers benefit from avatar/tooltip upgrades without an API call)
+const githubLoginFromLinks = links => {
+  if (!Array.isArray(links)) return null;
+  const githubLink = links.find(link => link?.icon === 'github')?.link;
+  if (!githubLink) return null;
+  const match = githubLink.match(/github\.com\/([^/?#]+)/);
+  return match ? match[1] : null;
+};
+
+// set `github` field, swap gravatar->github avatars, seed github social link
+const applyGitHubLogins = (contributors, mappings) => {
+  for (const contributor of contributors) {
+    const login = mappings?.get(contributor.email) ?? githubLoginFromLinks(contributor.links);
+    if (!login) continue;
+    contributor.github = login;
+    if (isGravatarAvatar(contributor.avatar)) {
+      contributor.avatar = `https://github.com/${login}.png`;
+    }
+    contributor.links = Array.isArray(contributor.links) ? contributor.links : [];
+    if (!contributor.links.some(link => link?.icon === 'github')) {
+      contributor.links.unshift({icon: 'github', link: `https://github.com/${login}`});
+    }
+  }
+  return contributors;
+};
+
+export default async function(
   cwd,
   {
     merge = 'name',
     debotify = true,
     include = [],
     exclude = [],
+    resolveGitHub = 'auto',
+    cachePath,
+    repo,
+    token,
+    maxPages,
+    maxStalePages,
   } = {},
   {
     debug = Debug('@lando/get-contributors'), // eslint-disable-line
     paths = [],
+    packageJson,
+    // shared across calls so repo coord + GitHub mappings are resolved once per build
+    ctx = {},
   } = {},
   ) {
   // start with a command that will get ALL THE AUTHORS
@@ -128,6 +171,88 @@ export default function async(
 
   // sort by commits
   data = data.sort((a, b) => b.commits - a.commits);
+
+  // resolve GitHub usernames (cached, build-global via ctx, graceful fallback)
+  if (resolveGitHub !== false && data.length > 0) {
+    if (ctx.mappings === undefined) {
+      const apiToken = token ?? process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN;
+      // warn (not debug) on explicit opt-in without a token — silent skip would mask misconfig
+      if (resolveGitHub === true && !apiToken) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          '[@lando/vitepress-theme-default-plus] `themeConfig.contributors.resolveGitHub` is `true` '
+          + 'but no `GITHUB_TOKEN` or `GH_TOKEN` environment variable is set; GitHub username resolution '
+          + 'will fall back to cached results only',
+        );
+      }
+
+      const repoCoord = repo && typeof repo === 'object' && repo.owner ? repo : getRepoCoordinate(cwd, {
+        override: typeof repo === 'string' ? repo : undefined,
+        packageJson,
+        debug: debug.extend('repo-coord'),
+      });
+      ctx.repoCoord = repoCoord;
+
+      // skip emails that already have a configured github link
+      const emailsToResolve = data
+        .filter(c => !c.links?.some(link => link?.icon === 'github'))
+        .map(c => c.email)
+        .filter(Boolean);
+
+      if (emailsToResolve.length > 0) {
+        const resolvedCachePath = cachePath
+          ? (isAbsolute(cachePath) ? cachePath : resolve(cwd, cachePath))
+          : undefined;
+        // call resolveGitHubUsernames even without repo to load cache;
+        // it handles missing repo/token gracefully and returns cache-only results
+        ctx.mappings = await resolveGitHubUsernames(emailsToResolve, {
+          repo: repoCoord,
+          token: apiToken,
+          cachePath: resolvedCachePath,
+          maxPages,
+          maxStalePages,
+          debug: debug.extend('resolve-github'),
+        });
+      } else {
+        debug('all contributors already have github links configured; skipping resolution');
+        ctx.mappings = null;
+      }
+    } else {
+      debug('reusing pre-resolved GitHub mappings (%o entries)', ctx.mappings?.size ?? 0);
+      // resolve any new emails not yet in mappings (e.g., from per-page includes)
+      if (ctx.repoCoord && ctx.mappings !== null) {
+        const newEmailsToResolve = data
+          .filter(c => !c.links?.some(link => link?.icon === 'github'))
+          .map(c => c.email)
+          .filter(Boolean)
+          .filter(email => !ctx.mappings.has(email));
+
+        if (newEmailsToResolve.length > 0) {
+          debug('found %o new emails to resolve', newEmailsToResolve.length);
+          const apiToken = token ?? process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN;
+          const resolvedCachePath = cachePath
+            ? (isAbsolute(cachePath) ? cachePath : resolve(cwd, cachePath))
+            : undefined;
+          const newMappings = await resolveGitHubUsernames(newEmailsToResolve, {
+            repo: ctx.repoCoord,
+            token: apiToken,
+            cachePath: resolvedCachePath,
+            maxPages,
+            maxStalePages,
+            debug: debug.extend('resolve-github'),
+          });
+          if (newMappings) {
+            for (const [email, login] of newMappings.entries()) {
+              ctx.mappings.set(email, login);
+            }
+          }
+        }
+      }
+    }
+
+    // applies mappings AND scrapes hand-configured github links
+    applyGitHubLogins(data, ctx.mappings);
+  }
 
   // separate maintainers from contribs
   const maintainers = data.filter(contrib => contrib.maintainer);

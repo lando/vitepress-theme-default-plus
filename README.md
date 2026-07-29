@@ -22,7 +22,7 @@ Or just go to the [docs](https://vitepress-theme-default-plus.lando.dev) for the
 
 ## Issues, Questions and Support
 
-If you have a question or would like some community support we recommend you [join us on Slack](https://launchpass.com/devwithlando). Note that this is the Slack community for [Lando](https://lando.dev) but we are more than happy to help with this module as well!
+If you have a question or would like some community support we recommend you [join us on Slack](https://launchpass.com/devwithlando). Note that this is the Slack community for [Lando](https://www.lando.dev) but we are more than happy to help with this module as well!
 
 If you'd like to report a bug or submit a feature request then please [use the issue queue](https://github.com/lando/vitepress-theme-default-plus/issues/new/choose) in this repo.
 
@@ -55,4 +55,3 @@ Made with [contributors-img](https://contrib.rocks).
 * [TERMS OF USE](https://docs.lando.dev/terms)
 * [PRIVACY POLICY](https://docs.lando.dev/privacy)
 * [CODE OF CONDUCT](https://docs.lando.dev/coc)
-
