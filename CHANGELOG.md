@@ -1,8 +1,9 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
-* Added Aaron Feledy as a default maintainer in `landov3` and `landov4` presets
-* Updated `twitter` icon to `x` for default Lando maintainer entries
-* Fixed team-card affiliation overflowing container on narrow widths; title and `@org` now wrap together at the `@` boundary
+* Fixed empty row data on search results.
+* Added Aaron Feledy as a default maintainer in `landov3` and `landov4` presets.
+* Updated `twitter` icon to `x` for default Lando maintainer entries.
+* Fixed team-card affiliation overflowing container on narrow widths; title and `@org` now wrap together at the `@` boundary.
 * Changed team-card avatars and blog post bylines to link to GitHub profiles instead of `mailto:`, configurable via new `themeConfig.contributors` options [#78](https://github.com/lando/vitepress-theme-default-plus/issues/78)
 * Fixed `themeConfig.contributors.resolveGitHub: true` silently behaving like `'auto'`; it now warns when no `GITHUB_TOKEN`/`GH_TOKEN` is set
 * Fixed blog post bylines ignoring `themeConfig.contributors.mailtoFallback`; they now honor the same setting as team pages
