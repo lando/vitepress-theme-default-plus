@@ -43,20 +43,24 @@
             {{ member.title }}
           </span>
           <span
-            v-if="member.title && member.org"
-            class="at"
-          >
-            @
-          </span>
-          <Link
             v-if="member.org"
-            class="org"
-            :class="{ link: member.orgLink }"
-            :href="member.orgLink"
-            no-icon
+            class="at-org"
           >
-            {{ member.org }}
-          </Link>
+            <span
+              v-if="member.title"
+              class="at"
+            >
+              @
+            </span>
+            <Link
+              class="org"
+              :class="{ link: member.orgLink }"
+              :href="member.orgLink"
+              no-icon
+            >
+              {{ member.org }}
+            </Link>
+          </span>
         </p>
         <p
           v-if="member.desc"
@@ -88,9 +92,11 @@
 
 <script setup>
 import {computed} from 'vue';
+import {useData} from 'vitepress';
 import VPIconHeart from 'vitepress/dist/client/theme-default/components/icons/VPIconHeart.vue';
 import VPSocialLinks from 'vitepress/dist/client/theme-default/components/VPSocialLinks.vue';
 import Link from './VPLLink.vue';
+import getAuthorLink from '../utils/get-author-link.js';
 
 const {member, size} = defineProps({
   size: {
@@ -102,6 +108,9 @@ const {member, size} = defineProps({
     default: () => ({}),
   },
 });
+
+const {theme} = useData();
+const mailtoFallback = computed(() => theme.value?.contributors?.mailtoFallback === true);
 
 // compute avatar url with correct size
 const avatar = computed(() => {
@@ -122,15 +131,12 @@ const avatar = computed(() => {
 
 const maintainerClass = computed(() => member.maintainer ? 'maintainer' : '');
 
-const getLink = member => {
-  if (member.link) return member.link;
-  else if (Array.isArray(member?.links) && member.links[0]) return member.links[0].link;
-  else if (member.email) return `mailto:${member.email}`;
-};
+const getLink = member => getAuthorLink(member, mailtoFallback.value);
 
 const getAvatarTitle = member => {
   let avatarTitle = `${member.name}`;
-  if (member.email) avatarTitle += ` <${member.email}>`;
+  if (member.github) avatarTitle += ` (@${member.github})`;
+  else if (member.email && mailtoFallback.value) avatarTitle += ` <${member.email}>`;
   if (member.commits) avatarTitle += ` - ${Number.parseInt(member.commits, 10)} commits`;
   return avatarTitle;
 };
@@ -221,7 +227,10 @@ const getAvatarTitle = member => {
 }
 
 .VPTeamMembersItem.small .links {
-  margin: 0 -16px -20px;
+  /* longhand: don't reset margin-top (used by .links to bottom-align) */
+  margin-right: -16px;
+  margin-bottom: -20px;
+  margin-left: -16px;
   padding: 10px 0 0;
 }
 
@@ -257,11 +266,18 @@ const getAvatarTitle = member => {
 }
 
 .VPTeamMembersItem.medium .links {
-  margin: 0 -16px -12px;
+  /* longhand: don't reset margin-top (used by .links to bottom-align) */
+  margin-right: -16px;
+  margin-bottom: -12px;
+  margin-left: -16px;
   padding: 16px 12px 0;
 }
 
 .profile {
+  /* flex column + .data flex-grow + .links margin-top: auto pins links
+     to card bottom, aligning them across cards in a grid row. */
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   background-color: var(--vpl-c-bg-contributor);
 }
@@ -275,6 +291,9 @@ const getAvatarTitle = member => {
 
 
 .data {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   text-align: center;
 }
 
@@ -306,6 +325,16 @@ const getAvatarTitle = member => {
   text-transform: uppercase;
   font-weight: 700;
   color: var(--vp-c-text-3);
+  /* wrap between .title and .at-org as a unit, never inside either */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 0.3em;
+}
+
+.title,
+.at-org {
+  white-space: nowrap;
 }
 
 .at {
@@ -361,6 +390,7 @@ const getAvatarTitle = member => {
   display: flex;
   justify-content: center;
   height: 56px;
+  margin-top: auto;
 }
 
 .sp-link {

@@ -4,9 +4,49 @@ on:
   release:
     types:
       - published
+      - released
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
+  # When a prerelease is promoted to a full release, update the npm latest tag
+  promote:
+    if: github.event.action == 'released'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+      - name: Install node 20
+        uses: actions/setup-node@v7
+        with:
+          node-version: '20'
+          registry-url: https://registry.npmjs.org
+      - name: Promote edge to latest
+        run: |
+          VERSION=$(echo "$TAG_NAME" | sed 's/^v//')
+          PACKAGE=$(node -p "require('./package.json').name")
+
+          # Wait for version to be available on npm (handles race with deploy job)
+          for i in $(seq 1 30); do
+            if npm view "$PACKAGE@$VERSION" version &>/dev/null; then
+              npm dist-tag add "$PACKAGE@$VERSION" latest
+              echo "::notice title=Promoted $VERSION to latest::The latest tag now points to $VERSION"
+              exit 0
+            fi
+            echo "Waiting for $PACKAGE@$VERSION on npm... (attempt $i/30)"
+            sleep 10
+          done
+
+          echo "::error title=Promotion failed::$PACKAGE@$VERSION not found on npm after 5 minutes"
+          exit 1
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_DEPLOY_TOKEN}}
+
   deploy:
+    if: github.event.action == 'published'
     runs-on: ${{ matrix.os }}
     env:
       TERM: xterm
@@ -20,9 +60,9 @@ jobs:
       # Install deps and cache
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Install node ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
@@ -53,6 +93,8 @@ jobs:
             UNRELEASED_LINK=${{ github.event.release.html_url }}
             UNRELEASED_VERSION=${{ github.event.release.tag_name }}
 
+      - name: Upgrade npm for trusted publishing
+        run: npm install -g "npm@^11.5.1"
       - name: Deploy release to npm
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_DEPLOY_TOKEN}}
@@ -86,11 +128,11 @@ jobs:
             dirs: ./
           - name: lando/backdrop
             dirs: ./
-          - name: lando/compose
-            dirs: ./
           - name: lando/core
             dirs: ./
           - name: lando/core-next
+            dirs: ./
+          - name: lando/devtool
             dirs: ./
           - name: lando/dotnet
             dirs: ./
@@ -162,11 +204,15 @@ jobs:
       # Install deps and cache
       # NOTE that we use ref: main because we need to get the code that was updated from the prepare-release-action
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: main
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: .bun-version
       - name: Install node ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org

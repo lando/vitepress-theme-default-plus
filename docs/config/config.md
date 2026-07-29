@@ -176,6 +176,8 @@ Once you have you should be able to use all the things below.
   contributors: {
     merge: 'name',
     debotify: true,
+    resolveGitHub: 'auto',
+    cachePath: 'docs/.vitepress/cache/team-github.json',
     exclude: [
       'Mike Pirog <mike@kalamuna.com>',
       {
@@ -201,13 +203,13 @@ Once you have you should be able to use all the things below.
         mergeOnly: true,
         mergeWith: 'alec+git@lando.dev',
         org: 'Lando',
-        orgLink: 'https://lando.dev',
+        orgLink: 'https://www.lando.dev',
         desc: 'A chill dude',
         links: [
           {icon: 'github', link: 'https://github.com/reynoldsalec'},
           {icon: 'twitter', link: 'https://twitter.com/reynoldsalec'},
         ],
-        sponsor: 'https://lando.dev/sponsor',
+        sponsor: 'https://www.lando.dev/sponsor',
       },
     ]
   },
@@ -233,6 +235,21 @@ Once you have you should be able to use all the things below.
 
   You can also configure this on a page to page basis with [frontmatter](./frontmatter.md#contributors).
 
+  ### Resolving GitHub usernames
+
+  By default contributors are resolved to GitHub profiles via paginated GraphQL queries against the repo's commit history, with results cached on disk. Avatars and tooltips are upgraded to use the resolved GitHub identity, and a GitHub link is added to each contributor's `links` array.
+
+  Options:
+
+  * `resolveGitHub` — `false` to disable, `'auto'` (default) to try when `GITHUB_TOKEN` is set, `true` to always try.
+  * `cachePath` — email→username map location, relative to git root. Defaults to `'docs/.vitepress/cache/team-github.json'`. Delete the file to force a re-resolve.
+  * `repo` — `'owner/name'` (or `{owner, name}`) override; defaults to sniffing `git remote get-url origin`.
+  * `maxPages` — commit-history page ceiling per run (default `100`, i.e. 10000 commits).
+  * `maxStalePages` — bail after this many consecutive pages with no new resolutions (default `10`).
+  * `mailtoFallback` — fall back to `mailto:` for unresolved contributors. `'auto'` (default) is off when GitHub resolution is on. Set `true` or `false` to force.
+
+  In CI, set `GITHUB_TOKEN` (provided automatically by GitHub Actions) or `GH_TOKEN`. Without a token the resolver silently degrades.
+
 ## Feeds
 
 * Type: `Object || Boolean`
@@ -256,7 +273,7 @@ Once you have you should be able to use all the things below.
     },
     blog: {
       baseUrl: 'https://vitepress-theme-default-plus.lando.dev/',
-      copyright: '© 2024 Lando'
+      copyright: '©2025 Lando Alliance'
       description: 'Do you have a need to feed?',
       file: 'bloggy.rss',
       image: 'https://sm.ign.com/ign_za/photo/3/31-best-lo/31-best-lord-of-the-rings-quotes_z4n9.jpg',
@@ -321,7 +338,7 @@ Once you have you should be able to use all the things below.
       title: 'Lando Developer',
       logo: 'https://docs.lando.dev/images/icon.svg',
       link: 'https://docs.google.com/forms/d/e/1FAIpQLSc2vkesq59BblKo8ZX-R1hKTrHphh1kmsg4FgWV1WH5BKEjHQ/viewform',
-      company: 'Lando System Inc',
+      company: 'Lando Alliance',
       aux: 'DC, Remote',
     },
   ],
@@ -555,7 +572,7 @@ You can specify `host` and `sitemap` directly. If you omit them the theme will a
   ```js
   sponsors: {
     text: 'your logo?',
-    link: 'https://lando.dev/sponsor',
+    link: 'https://www.lando.dev/sponsor',
     data: [
       {
         name: 'Pantheon',

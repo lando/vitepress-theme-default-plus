@@ -10,8 +10,9 @@ import {bold, dim, green, magenta, red} from 'colorette';
 import {nanoid} from 'nanoid';
 import {resolveConfig} from 'vitepress';
 
-import {default as getStdOut} from '../utils/parse-stdout.js';
 import {default as createExec} from '../utils/create-exec.js';
+import {default as detectRuntime} from '../utils/detect-runtime.js';
+import {default as getStdOut} from '../utils/parse-stdout.js';
 import {default as getBranch} from '../utils/get-branch.js';
 import {default as getTags} from '../utils/get-tags.js';
 import {default as traverseUp} from '../utils/traverse-up.js';
@@ -55,6 +56,7 @@ const defaults = {
   cache: site?.themeConfig?.multiVersionBuild?.cache ?? true,
   match: site?.themeConfig?.multiVersionBuild?.match ?? 'v[0-9].*',
   outDir: path.relative(process.cwd(), siteConfig.outDir) ?? './.vitepress/dist',
+  runtime: detectRuntime() === 'bun' ? 'bun' : 'npm',
   satisfies: site?.themeConfig?.multiVersionBuild?.satisfies ?? '*',
   versionBase: site?.themeConfig?.multiVersionBuild?.base ?? '/v/',
 };
@@ -70,6 +72,7 @@ ${green('Options')}:
   --match            filters versions from git tags ${dim(`[default: "${defaults.match}"`)}]
   --no-cache         builds versioned docs every build ${dim(`[default: "${!defaults.cache}"`)}]
   --out-dir          builds into this location ${dim(`[default: ${defaults.outDir}`)}]
+  --runtime          builds versioned docs using npx or bunx ${dim(`[default: "${defaults.runtime}"`)}]
   --satisfies        builds versioned docs in this semantic range ${dim(`[default: "${defaults.satisfies}"`)}]
   --version-base     builds versioned docs in this location ${dim(`[default: ${defaults.versionBase}`)}]
   --debug            shows debug messages
@@ -95,6 +98,11 @@ const options = {
   tmpDir: path.resolve(os.tmpdir(), nanoid()),
 };
 debug('multiversion build from %o using resolved build options: %O', srcDir, options);
+
+// executor
+const runtimeX = options.runtime === 'bun' ? 'bunx' : 'npx';
+const pkgInstaller = options.runtime === 'bun' ? ['bun', ['install', '--frozen-localfile']] : ['npm', ['clean-install']];
+debug('multiversion build runtime %o with %O', options.runtime, {runtimeX, pkgInstaller});
 
 // determine gitdir
 const gitDir = path.resolve(traverseUp(['.git'], osource).find(dir => fs.existsSync(dir)), '..');
@@ -196,7 +204,7 @@ for (const build of builds) {
   // checkout new ref
   await exec('git', ['checkout', ref]);
   // reinstall
-  await exec('npm', ['clean-install']);
+  await exec(...pkgInstaller);
 
   // update package.json if needed
   const pjsonPath = path.join(options.tmpDir, 'package.json');
@@ -213,7 +221,7 @@ for (const build of builds) {
   // build the version
   try {
     await exec(
-      'npx',
+      runtimeX,
       ['vitepress', 'build', srcDir, '--outDir', config.outDir, '--base', config.base],
       {env: {
         VPL_MVB_BASE: site.base,

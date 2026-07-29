@@ -1,5 +1,30 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+* Fixed empty row data on search results.
+* Added Aaron Feledy as a default maintainer in `landov3` and `landov4` presets.
+* Updated `twitter` icon to `x` for default Lando maintainer entries.
+* Fixed team-card affiliation overflowing container on narrow widths; title and `@org` now wrap together at the `@` boundary.
+* Changed team-card avatars and blog post bylines to link to GitHub profiles instead of `mailto:`, configurable via new `themeConfig.contributors` options [#78](https://github.com/lando/vitepress-theme-default-plus/issues/78)
+* Fixed `themeConfig.contributors.resolveGitHub: true` silently behaving like `'auto'`; it now warns when no `GITHUB_TOKEN`/`GH_TOKEN` is set
+* Fixed blog post bylines ignoring `themeConfig.contributors.mailtoFallback`; they now honor the same setting as team pages
+
+## v1.1.5 - [March 5, 2026](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.5)
+
+* Introduced `mvb` option `runtime` to allow explicit runtime targeting and to avoid not-the-best autodetection
+
+## v1.1.4 - [March 5, 2026](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.4)
+
+* Updated to use `npm` Trusted Publishing part 3
+
+## v1.1.3 - [March 5, 2026](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.3)
+
+* Updated to use `npm` Trusted Publishing part 2
+
+## v1.1.2 - [March 5, 2026](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.2)
+
+* Added `bun` support to `mvb`
+* Updated to use `npm` Trusted Publishing
+
 ## v1.1.1 - [February 14, 2025](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.1.1)
 
 * Fixed bug causing `mvb` and `vitepress build` to fail when `landoPlugin` is set and `VPL_BASE_URL` or `NETLIFY ` are not
