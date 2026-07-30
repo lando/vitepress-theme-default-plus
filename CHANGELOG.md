@@ -1,6 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
 * Fixed user-defined `markdown.config` hooks being silently ignored [#74](https://github.com/lando/vitepress-theme-default-plus/pull/74)
+* Fixed `mvb` builds failing in GitHub Actions for pull requests from forks.
 * Fixed empty row data on search results.
 * Added Aaron Feledy as a default maintainer in `landov3` and `landov4` presets.
 * Updated `twitter` icon to `x` for default Lando maintainer entries.

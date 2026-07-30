@@ -128,12 +128,19 @@ await oexec('git', updateArgs);
 
 // and then copy the repo in tmpdir so we can operate on it
 fs.copySync(gitDir, options.tmpDir);
+// GitHub Actions checks out a synthetic merge commit for pull requests. The
+// head branch may belong to a fork and therefore not exist on origin, so use
+// the commit Actions actually checked out instead of GITHUB_HEAD_REF.
+const sourceRef = process.env.GITHUB_ACTIONS === 'true' ?
+  getStdOut('git rev-parse HEAD', {cwd: gitDir, trim: true}) :
+  getBranch();
 // checkout
-await exec('git', ['checkout', getBranch(), '--force']);
+await exec('git', ['checkout', sourceRef, '--force']);
 // reset
 await exec('git', ['reset', 'HEAD', '--hard']);
-// pull
-await exec('git', ['pull', 'origin', getBranch()]);
+// The Actions checkout is already authoritative; pulling a fork branch from
+// the base repository would fail because that branch does not exist there.
+if (process.env.GITHUB_ACTIONS !== 'true') await exec('git', ['pull', 'origin', sourceRef]);
 // also get
 if (options.ag !== false) await exec('git', ['merge', options.ag, '-X', 'theirs']);
 
