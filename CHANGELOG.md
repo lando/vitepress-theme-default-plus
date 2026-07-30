@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+## v1.2.0 - [July 30, 2026](https://github.com/lando/vitepress-theme-default-plus/releases/tag/v1.2.0)
+
 * Fixed user-defined `markdown.config` hooks being silently ignored [#74](https://github.com/lando/vitepress-theme-default-plus/pull/74)
 * Fixed `mvb` builds failing in GitHub Actions for pull requests from forks.
 * Fixed empty row data on search results.
