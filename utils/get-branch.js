@@ -11,6 +11,9 @@ export default function async(cwd = process.cwd()) {
   else if (process.env?.LANDO_MVB_SOURCE) return getStdOut('git rev-parse --abbrev-ref HEAD', {cwd: process.env?.LANDO_MVB_SOURCE, trim: true});
   // or if we are on netlify
   else if (process.env?.NETLIFY) return process.env.HEAD;
+  // Actions may check out a synthetic merge commit whose head branch lives in
+  // a fork and is therefore unavailable from the base repository.
+  else if (process.env?.GITHUB_ACTIONS === 'true' && process.env?.GITHUB_SHA) return process.env.GITHUB_SHA;
   // or GHA PR
   else if (process.env?.GITHUB_HEAD_REF) return process.env.GITHUB_HEAD_REF;
   // or GHA branch
